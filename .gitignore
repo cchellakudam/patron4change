@@ -28,3 +28,7 @@ node_modules
 
 # Build Directory
 build
+
+# intellij IDE specific files
+/.idea/
+/ws16_ase_qse_02.iml
