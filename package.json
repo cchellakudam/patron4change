@@ -23,13 +23,11 @@
     "flux-constants": "^0.2.2",
     "history": "^2.1.0",
     "immutable": "^3.8.1",
-    "pg": "^6.1.0",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
     "react-redux": "^4.4.5",
     "react-router": "^2.3.0",
-    "redux": "^3.5.2",
-    "sequelize": "^3.25.0"
+    "redux": "^3.5.2"
   },
   "devDependencies": {
     "babel-core": "^6.7.7",

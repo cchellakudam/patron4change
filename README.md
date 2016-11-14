@@ -30,21 +30,3 @@ $ npm run checkstyle
 ### Upgrade Notes
 
 - It is highly recommended to always __remove__ `node_modules` and reinstall everything to avoid any possible issues
-
-#### Backend installation
-
-To install postgres on your machine
-
-```
-$ sudo apt-get update
-$ sudo apt-get install postgresql postgresql-contrib
-```
-
-Run the baseline db script to initialise database schema
-
-```
-sudo -u postgres psql -f ./db/baseline.sql
-```
-
-
-
