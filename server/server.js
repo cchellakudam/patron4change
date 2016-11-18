@@ -32,6 +32,8 @@ const compiler = webpack(config)
 app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }))
 app.use(webpackHotMiddleware(compiler))
 
+const apiRoutes = require('./api/routes/api.routes.js');
+
 function renderFullPage(html, initialState) {
   return `
 	<!doctype html>
@@ -47,6 +49,9 @@ function renderFullPage(html, initialState) {
 	</html>
 	`
 }
+
+app.use('/api', apiRoutes);
+
 
 // server rendering
 app.use( ( req, res ) => {
@@ -103,6 +108,8 @@ app.use( ( req, res ) => {
 		.catch(endWithError);
 	})
 })
+
+
 
 // example of handling 404 pages
 app.get('*', function(req, res) {
