@@ -9,7 +9,7 @@
     "all": "npm run build & npm run server",
     "build": "webpack -d --progress --watch",
     "server": "node server.js",
-    "checkstyle": "eslint .",
+    "checkstyle": "./node_modules/.bin/eslint .",
     "test": "./node_modules/.bin/mocha --require ./test/helper/registerBabel.js '+(test)/**/*spec.js'"
   },
   "dependencies": {

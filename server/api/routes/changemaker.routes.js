@@ -1,5 +1,5 @@
 import express from 'express';
-var router = express.Router();
+const router = express.Router();
 
 
 router.get('/', (req,res) => {
@@ -7,7 +7,6 @@ router.get('/', (req,res) => {
 });
 
 router.get('/:username', (req,res) => {
-	var username = req.params.username;
 	res.send(JSON.stringify({}));
 });
 

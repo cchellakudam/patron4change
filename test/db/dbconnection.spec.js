@@ -1,10 +1,10 @@
-var assert = require('chai').assert;
-var pgp = require('pg-promise')();
+const assert = require('chai').assert;
+const pgp = require('pg-promise')();
 
 
 
 function getConfig(){
-	var config = {
+	const config = {
 		user: 'pgadmin',
 		database: 'patron4change',
 		password: 'asdfasdf',
@@ -19,7 +19,7 @@ function getConfig(){
 describe('database', () => {
 	describe('basicSetup', () => {
 		it('database should exist', () => {
-			var db = pgp(getConfig());
+			const db = pgp(getConfig());
 			return db.any({
 				text: 'SELECT * from pg_database WHERE datname=$1',
 				values: 'patron4change'

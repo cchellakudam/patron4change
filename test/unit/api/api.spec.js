@@ -1,7 +1,7 @@
-var assert = require('chai').assert;
-var http = require('request-promise');
+const assert = require('chai').assert;
+const http = require('request-promise');
 
-var urlbase = 'http://localhost:3000/api';
+const urlbase = 'http://localhost:3000/api';
 
 describe('api', () => {
 	describe('base', () => {
