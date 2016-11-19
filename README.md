@@ -30,3 +30,13 @@ $ npm run checkstyle
 ### Upgrade Notes
 
 - It is highly recommended to always __remove__ `node_modules` and reinstall everything to avoid any possible issues
+
+### Configuration
+
+Configuration files for each environment can be found in the `config` directory.
+The `default.yml` file contains all parameters. All other configuration files can override these parameters.
+The `$NODE_ENV` environment variable is considered when selecting the configuration file for the current environment.
+
+Create a `local.yml` file for any local configuration you might need.
+
+Further information can be found here: https://www.npmjs.com/package/config

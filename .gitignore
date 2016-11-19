@@ -36,3 +36,6 @@ build
 
 ## project specific
 db/data/
+
+## Local configuration files
+config/local*
