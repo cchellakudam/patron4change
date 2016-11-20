@@ -4,3 +4,5 @@ database:
   database: patron4change
   user: pgadmin
   password: asdfasdf
+search:
+  port: 3001
