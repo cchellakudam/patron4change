@@ -114,19 +114,19 @@ function remove_elastic_containers() {
 
 function create_webapp_container() {
 	echo "creating webapp container"
-	docker-compose -f docker-compose.yml -f docker-compose.p4c.yml -p ${projecttag} up -d
+	docker-compose -f docker-compose.yml -f docker-compose.webapp.yml -p ${projecttag} up -d
 
 }
 
 function shutdown_webapp_containers() {
 	echo "shutting down containers..."
-	docker-compose -f docker-compose.yml -f docker-compose.p4c.yml -p ${projecttag} stop
+	docker-compose -f docker-compose.yml -f docker-compose.webapp.yml -p ${projecttag} stop
 
 }
 
 function remove_webapp_containers() {
 	echo "removing containers..."
-	docker-compose -f docker-compose.yml -f docker-compose.p4c.yml -p ${projecttag} down
+	docker-compose -f docker-compose.yml -f docker-compose.webapp.yml -p ${projecttag} down
 
 }
 
