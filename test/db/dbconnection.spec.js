@@ -18,7 +18,18 @@ describe('database', () => {
 				})
 		})
 
-
+		it('should mocked contain users', () => {
+			const db = pgp(config.get('database'));
+			return db.any({
+				text: 'SELECT * FROM users'
+			})
+				.then((data) => {
+					assert.equal(data.length, 100);
+				})
+				.catch((err) => {
+					assert.isNotOk(err, 'not table users')
+				})
+		})
 
 	})
 
