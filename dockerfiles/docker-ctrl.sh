@@ -29,6 +29,11 @@ case $key in
     echo "purge volumes true"
     shift # past argument
     ;;
+		-b|--force-build)
+    FORCEBUILD=true
+    echo "force building dockerfiles true"
+    shift # past argument
+    ;;
     -h|--help)
     print_usage
     exit 0
@@ -48,6 +53,7 @@ PARAM=$2
 ### setting up useful variables
 projecttag=p4c
 allfilesopt="-f docker-compose.yml -f docker-compose.postgres.yml -f docker-compose.elastic.yml -f docker-compose.webapp.yml"
+cmd_opts=""
 
 function remove_postgres_volume {
 	docker volume rm ${projecttag}_postgres-data
@@ -62,71 +68,71 @@ function purge_all_volumes() {
 
 function create_all_containers() {
 	echo "creating containers postgres, elastic"
-	docker-compose ${allfilesopt} -p ${projecttag} up -d
+	docker-compose ${allfilesopt} -p ${projecttag} up -d ${cmd_opts}
 
 }
 
 function shutdown_all_containers() {
 	echo "shutting down containers..."
-	docker-compose ${allfilesopt} -p ${projecttag} stop
+	docker-compose ${allfilesopt} -p ${projecttag} stop ${cmd_opts}
 
 }
 
 function remove_all_containers() {
 	echo "removing containers..."
-	docker-compose ${allfilesopt} -p ${projecttag} down
+	docker-compose ${allfilesopt} -p ${projecttag} down ${cmd_opts}
 
 }
 
 function create_postgres_cotainer() {
 	echo "creating postgres container"
-	docker-compose -f docker-compose.yml -f docker-compose.postgres.yml -p ${projecttag} up -d
+	docker-compose -f docker-compose.yml -f docker-compose.postgres.yml -p ${projecttag} up -d ${cmd_opts}
 }
 
 function shutdown_postgres_container() {
 	echo "shutting down containers..."
-	docker-compose -f docker-compose.yml -f docker-compose.postgres.yml -p ${projecttag} stop
+	docker-compose -f docker-compose.yml -f docker-compose.postgres.yml -p ${projecttag} stop ${cmd_opts}
 
 }
 
 function remove_postgres_container() {
 	echo "removing containers..."
-	docker-compose -f docker-compose.yml -f docker-compose.postgres.yml -p ${projecttag} down
+	docker-compose -f docker-compose.yml -f docker-compose.postgres.yml -p ${projecttag} down ${cmd_opts}
 
 }
 function create_elastic_container() {
 	echo "creating elastic container"
-	docker-compose -f docker-compose.yml -f docker-compose.elastic.yml -p ${projecttag} up -d
+	docker-compose -f docker-compose.yml -f docker-compose.elastic.yml -p ${projecttag} up -d ${cmd_opts}
 
 }
 
 function shutdown_elastic_containers() {
 	echo "shutting down containers..."
-	docker-compose -f docker-compose.yml -f docker-compose.elastic.yml -p ${projecttag} stop
+	docker-compose -f docker-compose.yml -f docker-compose.elastic.yml -p ${projecttag} stop ${cmd_opts}
 
 }
 
 function remove_elastic_containers() {
 	echo "removing containers..."
-	docker-compose -f docker-compose.yml -f docker-compose.elastic.yml -p ${projecttag} down
+	docker-compose -f docker-compose.yml -f docker-compose.elastic.yml -p ${projecttag} down ${cmd_opts}
 
 }
 
 function create_webapp_container() {
 	echo "creating webapp container"
-	docker-compose -f docker-compose.yml -f docker-compose.webapp.yml -p ${projecttag} up -d
+	docker-compose -f docker-compose.yml -f docker-compose.webapp.yml -p ${projecttag} up -d ${cmd_opts}
 
 }
 
 function shutdown_webapp_containers() {
 	echo "shutting down containers..."
-	docker-compose -f docker-compose.yml -f docker-compose.webapp.yml -p ${projecttag} stop
+	docker-compose -f docker-compose.yml -f docker-compose.webapp.yml -p ${projecttag} stop ${cmd_opts}
 
 }
 
 function remove_webapp_containers() {
 	echo "removing containers..."
-	docker-compose -f docker-compose.yml -f docker-compose.webapp.yml -p ${projecttag} down
+	docker-compose -f docker-compose.yml -f docker-compose.webapp.yml -p ${projecttag} down ${cmd_opts}
 
 }
 
@@ -142,6 +148,13 @@ if [ "$PURGE" ]; then
 		remove_elastic_volume
 	fi
 fi
+
+## sets opts to --build
+if [ "$FORCEBUILD" ]; then
+	cmd_opts="$cmd_opts --build"
+fi
+
+
 
 if [ "$ACTION" = "create" ]; then
   if [ "$PARAM" = "all" ]; then

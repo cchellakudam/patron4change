@@ -16,7 +16,7 @@ describe('database', () => {
 				.catch((error) => {
 					assert.isNotOk(error, 'db connection error');
 				})
-		})
+		});
 
 		it('should mocked contain users', () => {
 			const db = pgp(config.get('database'));
