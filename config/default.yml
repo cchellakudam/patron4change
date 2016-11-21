@@ -6,7 +6,7 @@ database:
   password: asdfasdf
 
 sequelize:
-	host: 'localhost:5432'
+	host: 'localhost'
 	dialect: 'postgres'
 	pool:
 		max: 5

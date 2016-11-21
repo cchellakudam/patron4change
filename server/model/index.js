@@ -10,6 +10,7 @@ const sequelize = new Sequelize(
 	config.get('database').password,
 	{
 		host: config.get('database').host,
+		port: 'test' === process.env.NODE_ENV ? 5433 : config.get('database').port,
 		dialect: 'postgres',
 		pool: {
 			max: 5,
@@ -23,10 +24,10 @@ const db        = {};
 fs
 	.readdirSync(__dirname)
 	.filter(function(file) {
-		return (0 !== file.indexOf('.')) && ('index.js' !== file);
+		return 0 !== file.indexOf('.') && 'index.js' !== file;
 	})
 	.forEach(function(file) {
-		var model = sequelize.import(path.join(__dirname, file));
+		const model = sequelize.import(path.join(__dirname, file));
 		db[model.name] = model;
 	});
 

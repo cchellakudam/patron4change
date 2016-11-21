@@ -32,6 +32,9 @@ const compiler = webpack(config)
 app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }))
 app.use(webpackHotMiddleware(compiler))
 
+// init database
+require('../../../server/model').sequelize.sync();
+
 const apiRoutes = require('./api/routes/api.routes.js');
 
 function renderFullPage(html, initialState) {
@@ -107,14 +110,14 @@ app.use( ( req, res ) => {
 		.then(okPage)
 		.catch(endWithError);
 	})
-})
+});
 
 
 
 // example of handling 404 pages
 app.get('*', function(req, res) {
 	res.status(404).send('Server.js > 404 - Page Not Found');
-})
+});
 
 // global error catcher
 app.use((err, req, res) => {
@@ -125,7 +128,7 @@ app.use((err, req, res) => {
 
 process.on('uncaughtException', evt => {
   console.log( 'uncaughtException: ', evt );
-})
+});
 
 app.listen(3000, function(){
 	console.log('Listening on port 3000');

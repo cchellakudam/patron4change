@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
 
-// changemaker specific stuff
+// patron specific stuff
 
 router.get('/', (req,res) => {
 	res.send(JSON.stringify([]));

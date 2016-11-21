@@ -52,7 +52,7 @@ PARAM=$2
 
 ### setting up useful variables
 projecttag=p4c
-allfilesopt="-f docker-compose.yml -f docker-compose.postgres.yml -f docker-compose.elastic.yml -f docker-compose.webapp.yml"
+allfilesopt="-f docker-compose.yml -f docker-compose.postgres.yml -f docker-compose.elastic.yml -f docker-compose.webapp.yml -f docker-compose.testdb.yml "
 cmd_opts=""
 
 function remove_postgres_volume {
@@ -136,6 +136,22 @@ function remove_webapp_containers() {
 
 }
 
+function create_test_postgres_cotainer() {
+	echo "creating postgres container"
+	docker-compose -f docker-compose.yml -f docker-compose.testdb.yml -p ${projecttag} up -d ${cmd_opts}
+}
+
+function shutdown_test_postgres_container() {
+	echo "shutting down containers..."
+	docker-compose -f docker-compose.yml -f docker-compose.testdb.yml -p ${projecttag} stop ${cmd_opts}
+
+}
+
+function remove_test_postgres_container() {
+	echo "removing containers..."
+	docker-compose -f docker-compose.yml -f docker-compose.testdb.yml -p ${projecttag} down ${cmd_opts}
+
+}
 
 ## REMOVE VOLUMES IF FLAG IS RAISED
 if [ "$PURGE" ]; then
@@ -170,6 +186,9 @@ if [ "$ACTION" = "create" ]; then
 	if [ "$PARAM" = "webapp" ]; then
 		create_webapp_container
 	fi
+	if [ "$PARAM" = "testdb" ]; then
+		create_test_postgres_cotainer
+	fi
 	exit 0
 elif [ "$ACTION" = "stop" ]; then
 	if [ "$PARAM" = "all" ]; then
@@ -183,6 +202,9 @@ elif [ "$ACTION" = "stop" ]; then
 	fi
 	if [ "$PARAM" = "webapp" ]; then
 		shutdown_webapp_containers
+	fi
+	if [ "$PARAM" = "testdb" ]; then
+		shutdown_test_postgres_container
 	fi
 	exit 0
 elif [ "$ACTION" = "rm" ]; then
@@ -201,6 +223,10 @@ elif [ "$ACTION" = "rm" ]; then
 	if [ "$PARAM" = "webapp" ]; then
 		shutdown_webapp_containers
 		remove_webapp_containers
+	fi
+	if [ "$PARAM" = "testdb" ]; then
+		shutdown_test_postgres_container
+		remove_test_postgres_container
 	fi
 	exit 0
 fi

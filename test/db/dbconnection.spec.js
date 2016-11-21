@@ -5,7 +5,9 @@ const config = require('config');
 describe('database', () => {
 	describe('basicSetup', () => {
 		it('database should exist', () => {
-			const db = pgp(config.get('database'));
+			const conf = config.util.cloneDeep(config.get('database'));
+			conf.port = 5433;
+			const db = pgp(conf);
 			return db.any({
 				text: 'SELECT * from pg_database WHERE datname=$1',
 				values: 'patron4change'
