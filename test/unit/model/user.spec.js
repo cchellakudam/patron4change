@@ -1,5 +1,5 @@
-import {beforeEach} from "mocha";
-import {before} from "mocha";
+import {beforeEach} from 'mocha';
+import {before} from 'mocha';
 const assert = require('chai').assert;
 
 

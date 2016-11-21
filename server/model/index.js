@@ -1,13 +1,10 @@
-"use strict";
-
-var fs        = require("fs");
-var path      = require("path");
-var Sequelize = require("sequelize");
-var env       = process.env.NODE_ENV || "development";
-var config    = require('config');
+const fs        = require('fs');
+const path      = require('path');
+const Sequelize = require('sequelize');
+const config    = require('config');
 
 
-var sequelize = new Sequelize(
+const sequelize = new Sequelize(
 	config.get('database').database,
 	config.get('database').user,
 	config.get('database').password,
@@ -21,12 +18,12 @@ var sequelize = new Sequelize(
 		},
 });
 
-var db        = {};
+const db        = {};
 
 fs
 	.readdirSync(__dirname)
 	.filter(function(file) {
-		return (file.indexOf(".") !== 0) && (file !== "index.js");
+		return (0 !== file.indexOf('.')) && ('index.js' !== file);
 	})
 	.forEach(function(file) {
 		var model = sequelize.import(path.join(__dirname, file));
@@ -34,7 +31,7 @@ fs
 	});
 
 Object.keys(db).forEach(function(modelName) {
-	if ("associate" in db[modelName]) {
+	if ('associate' in db[modelName]) {
 		db[modelName].associate(db);
 	}
 });
