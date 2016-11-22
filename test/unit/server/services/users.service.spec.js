@@ -7,10 +7,10 @@ describe('userservice', () => {
 			const User = require('../../../../server/model').user;
 			User.findAll()
 				.then((result) => {
-					result.forEach((user) => {
-						user.destroy();
-					})
-					User.bulkCreate([
+					return Promise.all(result.map((user) => user.destroy()));
+				})
+				.then(() => {
+					return User.bulkCreate([
 						{firstName: 'Tom', lastName: 'Maddox',
 							username: 'tomason', email: 'tom@example.com',
 							pwhash: 'sagsdgsdgsdg', role:'patron'},
@@ -18,9 +18,9 @@ describe('userservice', () => {
 							username: 'madMax', email: 'max@example.com',
 							pwhash: 'dfndndne4363', role:'patron'}
 					])
-						.then(() => {
-							done()
-						})
+				})
+				.then(() => {
+					done();
 				})
 				.catch((err) => {
 					done(err)
