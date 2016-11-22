@@ -20,6 +20,9 @@ const finalCreateStore = applyMiddleware(promiseMiddleware)( createStore );
 
 console.log( 'env: ', process.env.NODE_ENV )
 
+// make sure styles are only loaded for client resources
+delete process.env.BROWSER;
+
 const app = express();
 
 app.use('/assets', express.static(path.join(__dirname, '../client/assets')))
@@ -43,6 +46,7 @@ function renderFullPage(html, initialState) {
 	<html lang="utf-8">
 	  <head>
 		<title>patron4change</title>
+    <link rel="stylesheet" href="/css/base/normalize.min.css">
 	  </head>
 	  <body>
 	  <div class="container">${html}</div>
