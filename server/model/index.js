@@ -10,7 +10,7 @@ const sequelize = new Sequelize(
 	config.get('database').password,
 	{
 		host: config.get('database').host,
-		port: 'test' === process.env.NODE_ENV ? 5433 : config.get('database').port,
+		port: config.get('database').port,
 		dialect: 'postgres',
 		pool: {
 			max: 5,

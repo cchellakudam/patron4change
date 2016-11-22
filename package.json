@@ -10,7 +10,7 @@
     "build": "webpack -d --progress --watch",
     "server": "node server.js",
     "checkstyle": "./node_modules/.bin/eslint .",
-    "test": "./node_modules/.bin/mocha --require ./test/helper/registerBabel.js '+(test)/**/*spec.js'"
+    "test": "NODE_ENV=test ./node_modules/.bin/mocha --require ./test/helper/registerBabel.js '+(test)/**/*spec.js'"
   },
   "dependencies": {
     "babel-plugin-transform-decorators": "^6.6.5",
