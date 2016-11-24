@@ -11,7 +11,7 @@ export default () => {
     tags: ['spectacular', 'amazing', 'fantastic', 'magnificent']
   };
 
-  beforeEach('insert a profile', (done) => {
+  before('insert a profile', (done) => {
     http({
       uri: baseUrl + '/profile/genericPerson/' + testId,
       method: 'PUT',
