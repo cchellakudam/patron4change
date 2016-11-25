@@ -7,11 +7,11 @@ const assert = require('chai').assert;
 describe('model', () => {
 	describe('user', () => {
 		before(function () {
-			return require('../../../../server/model').sequelize.sync();
+			return require('../../server/model/index').sequelize.sync();
 		});
 
 		beforeEach(function () {
-			this.User = require('../../../../server/model').user;
+			this.User = require('../../server/model/index').user;
 		});
 
 		it('should contain user model', function() {
@@ -42,6 +42,21 @@ describe('model', () => {
 				.then((result) => {
 					assert.isOk(result);
 					done()
+				})
+				.catch((err) => {
+					done(err)
+				})
+		});
+
+		it('should delete the user', function(done) {
+			this.User.findOne({ where: { username: 'tomMiller1'}})
+				.then((user) => {
+
+						user.destroy()
+							.then(() => {
+								done()
+							})
+
 				})
 				.catch((err) => {
 					done(err)

@@ -1,14 +1,12 @@
 
 
-
-const User = require('../model').user;
+const dataAccessLayer = require('../data');
 
 module.exports = {
 
 
-
 	getAllUsers: () => {
-		return User.findAll();
+		return dataAccessLayer.getAllUsers();
 	},
 
 	getUserByUsername: () => {

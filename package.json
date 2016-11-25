@@ -10,7 +10,9 @@
     "build": "webpack -d --progress --watch",
     "server": "node server.js",
     "checkstyle": "./node_modules/.bin/eslint .",
-    "test": "NODE_ENV=test ./node_modules/.bin/mocha --require ./test/helper/registerBabel.js '+(test)/**/*spec.js'"
+    "unit-test": "NODE_ENV=unit ./node_modules/.bin/mocha --require ./test/helper/registerBabel.js '+(test)/unit/**/*spec.js'",
+    "api-test": "NODE_ENV=integration ./node_modules/.bin/mocha --require ./test/helper/registerBabel.js '+(test)/api/**/*spec.js'",
+    "db-test": "NODE_ENV=integration ./node_modules/.bin/mocha --require ./test/helper/registerBabel.js '+(test)/db/**/*spec.js'"
   },
   "dependencies": {
     "babel-plugin-transform-decorators": "^6.6.5",
