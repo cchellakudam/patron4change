@@ -18,15 +18,31 @@ module.exports = (sequelize, DataTypes) => {
 		email: {
 			type: DataTypes.STRING
 		},
+		emailConfirmed: {
+			type: DataTypes.BOOLEAN
+		},
+		
+		isAnonymous: {
+			type: DataTypes.BOOLEAN
+		},
+		
+		isBlocked: {
+			type: DataTypes.BOOLEAN
+		},
+
 		pwhash: {
 			type: DataTypes.STRING(60)
 		},
-		role: {
-			type: DataTypes.STRING
-		}
 	}, {
+		classMethods: {
+			associate: function(models){
+				User.hasMany(models.backing, {as: 'backings'});
+				User.hasMany(models.user, { as: 'reportsAgainstUser'});
+				User.hasMany(models.user, { as: 'reportsByUser'});
+			}
+		},
 		freezeTableName: false // Model tableName will be the same as the model name
 	});
 
 	return User;
-};
+}

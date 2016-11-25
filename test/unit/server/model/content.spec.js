@@ -5,29 +5,22 @@ const assert = require('chai').assert;
 
 
 describe('model', () => {
-	describe('user', () => {
+	describe('content', () => {
 		before(function () {
 			return require('../../../../server/model').sequelize.sync({force: true});
 		});
 
 		beforeEach(function () {
-			this.User = require('../../../../server/model').user;
+			this.Content = require('../../../../server/model').content;
 		});
 
-		it('should contain user model', function() {
-			assert.isOk(this.User);
+		it('should contain content model', function() {
+			assert.isOk(this.Content);
 		});
 
-		it('should add a user model', function(done) {
-			this.User.create({
-			firstName: 'tom',
-				lastName: 'Miller',
-				username: 'tomMiller1',
-				email: 'tom@example.com',
-				emailConfirmed: false,
-				isAnonymous: false,
-				isBlocked: false,
-				pwhash: '1234556'
+		it('should add a content model', function(done) {
+			this.Content.create({
+				text: 'this is some weird test content'
 			})
 				.bind(this)
 				.then((result) => {
@@ -40,7 +33,7 @@ describe('model', () => {
 		})
 
 		it('should find the created user', function(done) {
-			this.User.findAll({ where: { username: 'tomMiller1'}})
+			this.Content.findAll({ where: { text: 'this is some weird test content'}})
 				.then((result) => {
 					assert.isOk(result);
 					done()
