@@ -11,12 +11,17 @@ export default class App extends Component {
 	};
 
 	static propTypes = {
+		nav: PropTypes.element.isRequired,
 		main: PropTypes.element.isRequired,
 		sub: PropTypes.element
 	}
 
 	render() {
 		let nodes = <div>
+			<nav>
+				<span>Search</span>
+				{this.props.nav}
+			</nav>
 			{this.props.main}
 			{this.props.sub}
 		</div>;

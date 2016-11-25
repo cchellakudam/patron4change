@@ -11,6 +11,11 @@ export const ChangemakerRecord = Immutable.Record({
 	isBackedByMe: false
 })
 
+export const SearchState = Immutable.Record({
+	term: '',
+	results: Immutable.List()
+})
+
 export function convertToRecordMap( arr, Def ){
 	return arr.reduce( (acc, item) => acc.set( item.id, new Def(item) ), Immutable.Map() );
 }
