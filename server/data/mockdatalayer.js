@@ -1,31 +1,20 @@
-/**
- * Created by Lukas Stanek
- *         on 11/25/16.
- */
 import fs from 'fs'
-
 
 const users = JSON.parse(fs.readFileSync('mock/users.json', 'utf-8'));
 const changemakers = JSON.parse(fs.readFileSync('mock/changemakers.json', 'utf-8'));
 
 module.exports = {
 
-
-
 	getAllUsers(){
-		return users;
+		return Promise.resolve(users);
 	},
 
 	getUserForEmail(email){
-		return users.filter(function (user) {
-			return user.email === email;
-		})
+		return Promise.resolve(users.filter(user.email === email));
 	},
 
 	getUserForId(id){
-		return users.filter(function (user) {
-			return user.id === id;
-		})
+		return Promise.resolve(users.filter(user.id === id));
 	},
 
 	getAllChangemakers(){
@@ -36,10 +25,7 @@ module.exports = {
 			});
 			changemakerlist.push(usr);
 		});
-		return changemakerlist;
+		return Promise.resolve(changemakerlist);
 	}
-
-
-
 
 }

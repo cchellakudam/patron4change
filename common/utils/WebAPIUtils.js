@@ -1,15 +1,15 @@
-import p4cApi from '../api';
 import {
 	// List,
 	ChangemakerRecord,
 	convertToRecordList
 } from '../constants/Types';
+import axios from 'axios';
 
 export default {
 
 	getAllChangemakers: function() {
-		return p4cApi.getChangemakers().then(result => {
-			return convertToRecordList(result, ChangemakerRecord)
+		return axios('/api/changemaker').then(res => {
+			return convertToRecordList(res.data, ChangemakerRecord);
 		});
 	}
 };

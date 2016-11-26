@@ -1,10 +1,13 @@
 import express from 'express';
+import dataAccessLayer from '../../data';
 const router = express.Router();
 
 // changemaker specific stuff
 
 router.get('/', (req,res) => {
-	res.send(JSON.stringify([]));
+	dataAccessLayer.getAllUsers().then(users => {
+		res.send(users);
+	});
 });
 
 router.get('/:username', (req,res) => {
