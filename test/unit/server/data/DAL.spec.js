@@ -53,31 +53,44 @@ describe('Mocked dataaccesslayer', () => {
 
 
 	describe('getAllUsers', () => {
-		it('should return all users', () => {
-			assert.equal(datalayer.getAllUsers().length, 11);
+		it('should return all users', done => {
+			function check(result) {
+				assert.equal(result.length, 11);
+				done();
+			}
+			datalayer.getAllUsers().then(check);
 		});
 	});
 
 	describe('getUserForEmail', () => {
-		it('should return a user for an email', () => {
-			const result = datalayer.getUserForEmail('matthias.holzer@example.com');
-			assert.equal(result.length, 1);
-			assert.equal(result[0].email, 'matthias.holzer@example.com')
+		it('should return a user for an email', done => {
+			function check(result) {
+				assert.equal(result.length, 1);
+				assert.equal(result[0].email, 'matthias.holzer@example.com')
+				done();
+			}
+			datalayer.getUserForEmail('matthias.holzer@example.com').then(check);
 		});
 	});
 
 	describe('getUserForId', () => {
-		it('should return a user for an id', () => {
-			const result = datalayer.getUserForId(5);
-			assert.equal(result.length, 1);
-			assert.equal(result[0].id, '5')
-		})
+		it('should return a user for an id', done => {
+			function check(result) {
+				assert.equal(result.length, 1);
+				assert.equal(result[0].id, '5')
+				done();
+			}
+			datalayer.getUserForId(5).then(check);
+		});
 	});
 
 	describe('getAllChangemakers', () => {
-		it('should return all changemakers', () => {
-			const result = datalayer.getAllChangemakers();
-			assert.equal(result.length, 10);
+		it('should return all changemakers', done => {
+			function check(result) {
+				assert.equal(result.length, 10);
+				done();
+			}
+			datalayer.getAllChangemakers().then(check);
 		})
 	})
 });

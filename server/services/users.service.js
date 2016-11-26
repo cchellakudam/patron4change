@@ -1,9 +1,6 @@
-
-
-const dataAccessLayer = require('../data');
+import dataAccessLayer from '../data';
 
 module.exports = {
-
 
 	getAllUsers: () => {
 		return dataAccessLayer.getAllUsers();

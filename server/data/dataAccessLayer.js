@@ -2,9 +2,8 @@
 
 module.exports = {
 
-
-
 	getAllUsers(){
+		return Promise.resolve([{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]);
 	},
 
 	getUserForEmail(){
@@ -15,6 +14,5 @@ module.exports = {
 
 	getAllChangemakers(){
 	}
-
 
 }
