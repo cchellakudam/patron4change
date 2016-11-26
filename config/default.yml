@@ -6,11 +6,11 @@ database:
   password: asdfasdf
 
 sequelize:
-	host: localhost
-	dialect: 'postgres'
-	pool:
-		max: 5
-		min: 0
-		idle: 10000
+  host: localhost
+  dialect: 'postgres'
+  pool:
+    max: 5
+    min: 0
+    idle: 10000
 
 dataLayer: dataAccessLayer

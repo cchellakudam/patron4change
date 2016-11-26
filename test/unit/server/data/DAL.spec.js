@@ -6,7 +6,7 @@ const assert = require('chai').assert;
 describe('Datalayer interface check', () => {
 
 	describe('Mock Layer should have the functions: ', () => {
-		const datalayer = require('../../../../server/data/mockdatalayer');
+		const datalayer = require('../../../../server/data/mockDataLayer');
 
 		it('getAllUsers()', () => {
 			assert.isOk('function' === typeof datalayer.getAllUsers);
@@ -49,7 +49,7 @@ describe('Datalayer interface check', () => {
 });
 
 describe('Mocked dataaccesslayer', () => {
-	const datalayer = require('../../../../server/data/mockdatalayer');
+	const datalayer = require('../../../../server/data/mockDataLayer');
 
 
 	describe('getAllUsers', () => {
