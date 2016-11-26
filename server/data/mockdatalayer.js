@@ -1,7 +1,5 @@
-import fs from 'fs'
-
-const users = JSON.parse(fs.readFileSync('mock/users.json', 'utf-8'));
-const changemakers = JSON.parse(fs.readFileSync('mock/changemakers.json', 'utf-8'));
+import users from '../../mock/users.json';
+import changemakers from '../../mock/changemakers.json';
 
 module.exports = {
 
@@ -10,11 +8,11 @@ module.exports = {
 	},
 
 	getUserForEmail(email){
-		return Promise.resolve(users.filter(user.email === email));
+		return Promise.resolve(users.filter(user => user.email === email));
 	},
 
 	getUserForId(id){
-		return Promise.resolve(users.filter(user.id === id));
+		return Promise.resolve(users.filter(user => user.id === id));
 	},
 
 	getAllChangemakers(){

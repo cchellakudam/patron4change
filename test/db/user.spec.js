@@ -1,5 +1,6 @@
 import {beforeEach} from 'mocha';
 import {before} from 'mocha';
+import _ from 'lodash';
 const assert = require('chai').assert;
 
 
@@ -51,18 +52,14 @@ describe('model', () => {
 		});
 
 		it('should delete the user', function(done) {
+
+			function success(user) {
+				user.destroy().then(_.partial(done, null));
+			}
+
 			this.User.findOne({ where: { username: 'tomMiller1'}})
-				.then((user) => {
-
-						user.destroy()
-							.then(() => {
-								done()
-							})
-
-				})
-				.catch((err) => {
-					done(err)
-				})
+				.then(success)
+				.catch(done);
 		})
 	});
 

@@ -1,7 +1,7 @@
 import {before} from 'mocha';
 const assert = require('chai').assert;
 
-var models =  require('../../server/model/index');
+const models = require('../../server/model/index');
 describe('model', () => {
 	describe('roleUser', () => {
 		before(function () {
