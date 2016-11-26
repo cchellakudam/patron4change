@@ -7,11 +7,11 @@ const assert = require('chai').assert;
 describe('model', () => {
 	describe('user', () => {
 		before(function () {
-			return require('../../server/model/index').sequelize.sync();
+			return require('../../../../server/model').sequelize.sync({force: true});
 		});
 
 		beforeEach(function () {
-			this.User = require('../../server/model/index').user;
+			this.User = require('../../../../server/model').user;
 		});
 
 		it('should contain user model', function() {
@@ -20,12 +20,14 @@ describe('model', () => {
 
 		it('should add a user model', function(done) {
 			this.User.create({
-				firstName: 'tom',
+			firstName: 'tom',
 				lastName: 'Miller',
 				username: 'tomMiller1',
 				email: 'tom@example.com',
-				pwhash: 'ASGSG$#H#%H$#Hdh3h3h',
-				role: 'patron'
+				emailConfirmed: false,
+				isAnonymous: false,
+				isBlocked: false,
+				pwhash: '1234556'
 			})
 				.bind(this)
 				.then((result) => {
