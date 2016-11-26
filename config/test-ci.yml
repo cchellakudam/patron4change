@@ -1,6 +1,0 @@
-database:
-  host: docker
-  port: 5433
-
-sequelize:
-  host: docker
