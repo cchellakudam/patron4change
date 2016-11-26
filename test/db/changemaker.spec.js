@@ -2,15 +2,15 @@ import {beforeEach} from 'mocha';
 import {before} from 'mocha';
 const assert = require('chai').assert;
 
-var models =  require('../../../../server/model');
+const models =  require('../../server/model/index');
 describe('model', () => {
 	describe('changemaker', () => {
 		before(function () {
-			return require('../../../../server/model').sequelize.sync({force: true});
+			return require('../../server/model/index').sequelize.sync({force: true});
 		});
 
 		beforeEach(function () {
-			this.Changemaker = require('../../../../server/model').changemaker;
+			this.Changemaker = require('../../server/model/index').changemaker;
 		});
 
 		it('should contain user model', function() {

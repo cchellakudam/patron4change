@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize) => {
 
 	const RoleUser = sequelize.define('roleUser', {
 	}, {

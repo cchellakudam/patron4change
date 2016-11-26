@@ -1,12 +1,11 @@
-import {beforeEach} from 'mocha';
 import {before} from 'mocha';
 const assert = require('chai').assert;
 
-var models =  require('../../../../server/model');
+var models =  require('../../server/model/index');
 describe('model', () => {
 	describe('roleUser', () => {
 		before(function () {
-			return require('../../../../server/model').sequelize.sync({force: true});
+			return require('../../server/model/index').sequelize.sync({force: true});
 		});
 
 
@@ -17,7 +16,7 @@ describe('model', () => {
 		it('should add a roleUser model', function(done) {
 			models.roleUser.create({
 				role: {
-					roleName: 'God'	
+					roleName: 'God'
 				},
 				user: {
 					firstName: 'tom',
@@ -27,8 +26,8 @@ describe('model', () => {
 					emailConfirmed: false,
 					isAnonymous: false,
 					isBlocked: false,
-					pwhash: '1234556'	
-				}	
+					pwhash: '1234556'
+				}
 			}, {
 				include: [{model: models.role, as: 'role'}, {model: models.user, as: 'user'}]
 			})
@@ -45,9 +44,9 @@ describe('model', () => {
 		it('should find the roleUser', function(done) {
 			models.roleUser.findAll({
 				include: [{
-					model: models.role, 
+					model: models.role,
 					as: 'role',
-					where: {roleName: 'God'} 
+					where: {roleName: 'God'}
 				}]
 			})
 				.then((result) => {

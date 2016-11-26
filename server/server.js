@@ -36,7 +36,9 @@ app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output
 app.use(webpackHotMiddleware(compiler))
 
 // init database
-require('../server/model').sequelize.sync();
+if('unit' !== process.env.NODE_ENV){
+	require('../server/model').sequelize.sync();
+}
 
 const apiRoutes = require('./api/routes/api.routes.js');
 

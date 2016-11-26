@@ -1,12 +1,11 @@
-import {beforeEach} from 'mocha';
 import {before} from 'mocha';
 const assert = require('chai').assert;
 
-var models =  require('../../../../server/model');
+var models =  require('../../server/model/index');
 describe('model', () => {
 	describe('statusUpdate', () => {
 		before(function () {
-			return require('../../../../server/model').sequelize.sync({force: true});
+			return require('../../server/model/index').sequelize.sync({force: true});
 		});
 
 
@@ -37,12 +36,12 @@ describe('model', () => {
 						content: {text: 'content yolo'}
 					}]
 				},{
-					include: [ 
-						{model: models.user, as: 'user'}, 
-						{model: models.content, as: 'mission'}, 
-						{model: models.statusUpdate, as: 'statusUpdates', include: [{model: models.content, as: 'content'}]} 
+					include: [
+						{model: models.user, as: 'user'},
+						{model: models.content, as: 'mission'},
+						{model: models.statusUpdate, as: 'statusUpdates', include: [{model: models.content, as: 'content'}]}
 					]
-				})		
+				})
 				.bind(this)
 				.then((result) => {
 					assert.isOk(result);
@@ -56,9 +55,9 @@ describe('model', () => {
 /*		it('should find the statsUpdate', function(done) {
 			models.roleUser.findAll({
 				include: [{
-					model: models.role, 
+					model: models.role,
 					as: 'role',
-					where: {roleName: 'God'} 
+					where: {roleName: 'God'}
 				}]
 			})
 				.then((result) => {
