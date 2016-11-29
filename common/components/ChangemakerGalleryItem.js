@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import {Button} from 'react-toolbox/lib/button';
 import {Link} from 'react-router';
 
 let styles = {};
@@ -26,11 +27,11 @@ class ChangemakerGalleryItem extends React.Component {
   		<div className={styles.container}>
   			<img alt="user thumbnail" src={cm.image} />
   			<h4>{cm.name}</h4>
-  			<button
+  			<Button
           onClick={this.props.onSupport}
-          disabled={cm.isBackedByMe ? 'disabled' : ''}>
+          disabled={cm.isBackedByMe}>
           {cm.isBackedByMe ? 'is supported' : 'support'}
-  			</button>
+  			</Button>
   			<Link to={`/${cm.id}`}>details</Link>
   		</div>
   	);

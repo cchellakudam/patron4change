@@ -25,7 +25,7 @@ delete process.env.BROWSER;
 
 const app = express();
 
-app.use('/assets', express.static(path.join(__dirname, '../client/assets')))
+app.use('/css', express.static(path.join(__dirname, '../client/css')))
 
 const webpack = require('webpack')
 const webpackDevMiddleware = require('webpack-dev-middleware')
@@ -60,7 +60,6 @@ function renderFullPage(html, initialState) {
 }
 
 app.use('/api', apiRoutes);
-
 
 // server rendering
 app.use( ( req, res ) => {

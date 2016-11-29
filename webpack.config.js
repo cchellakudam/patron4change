@@ -3,6 +3,8 @@ let webpack = require('webpack');
 
 module.exports = {
 
+  context: __dirname,
+
   devtool: '#inline-source-map',
 
   entry: [
@@ -30,7 +32,11 @@ module.exports = {
   resolve: {
   	alias: {
   	},
-  	extensions: ['', '.js']
+  	extensions: ['', '.scss', '.js', '.json'],
+    modulesDirectories: [
+      'node_modules',
+      path.resolve(__dirname, './node_modules')
+    ]
   },
 
   module: {
@@ -46,25 +52,7 @@ module.exports = {
   		  }
   		}, {
         test: /\.scss$/,
-        include: [
-          path.resolve(__dirname, 'client/css/modules')
-        ],
-        loaders: [
-          'style-loader',
-          'css-loader?module&sourceMap&importLoaders=2&localIdentName=[name]__[local]--[hash:base64:5]',
-          'sass-loader?sourceMap'
-        ]
-      }, {
-        test: /\.scss$/,
-        include: [
-          path.resolve(__dirname, 'client/css/layout'),
-          path.resolve(__dirname, 'client/css/theme')
-        ],
-        loaders: [
-          'style-loader',
-          'css-loader?sourceMap',
-          'sass-loader?sourceMap'
-        ]
+        loader:  'style!css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass'
       }
   	]
   }
