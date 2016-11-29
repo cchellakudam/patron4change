@@ -20,9 +20,12 @@ const finalCreateStore = applyMiddleware(promiseMiddleware)( createStore );
 
 console.log( 'env: ', process.env.NODE_ENV )
 
+// make sure styles are only loaded for client resources
+delete process.env.BROWSER;
+
 const app = express();
 
-app.use('/assets', express.static(path.join(__dirname, '../client/assets')))
+app.use('/css', express.static(path.join(__dirname, '../client/css')))
 
 const webpack = require('webpack')
 const webpackDevMiddleware = require('webpack-dev-middleware')
@@ -32,6 +35,11 @@ const compiler = webpack(config)
 app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }))
 app.use(webpackHotMiddleware(compiler))
 
+// init database
+if('unit' !== process.env.NODE_ENV){
+	require('../server/model').sequelize.sync();
+}
+
 const apiRoutes = require('./api/routes/api.routes.js');
 
 function renderFullPage(html, initialState) {
@@ -40,6 +48,7 @@ function renderFullPage(html, initialState) {
 	<html lang="utf-8">
 	  <head>
 		<title>patron4change</title>
+    <link rel="stylesheet" href="/css/base/normalize.min.css">
 	  </head>
 	  <body>
 	  <div class="container">${html}</div>
@@ -51,7 +60,6 @@ function renderFullPage(html, initialState) {
 }
 
 app.use('/api', apiRoutes);
-
 
 // server rendering
 app.use( ( req, res ) => {
@@ -107,14 +115,14 @@ app.use( ( req, res ) => {
 		.then(okPage)
 		.catch(endWithError);
 	})
-})
+});
 
 
 
 // example of handling 404 pages
 app.get('*', function(req, res) {
 	res.status(404).send('Server.js > 404 - Page Not Found');
-})
+});
 
 // global error catcher
 app.use((err, req, res) => {
@@ -125,7 +133,7 @@ app.use((err, req, res) => {
 
 process.on('uncaughtException', evt => {
   console.log( 'uncaughtException: ', evt );
-})
+});
 
 app.listen(3000, function(){
 	console.log('Listening on port 3000');

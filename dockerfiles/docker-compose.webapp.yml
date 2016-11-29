@@ -1,6 +1,6 @@
 version: '2'
 services:
-  p4c:
+  webapp:
     build: ../
     ports:
       - "3000:3000"

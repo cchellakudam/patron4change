@@ -1,0 +1,72 @@
+[
+	{
+		"userId": 1,
+		"isValidated": true,
+		"story": 1,
+		"tags": "local, neighborhood, social",
+		"videoId": 1
+	},
+	{
+		"userId": 2,
+		"isValidated": true,
+		"story": 2,
+		"tags": "local, neighborhood, social",
+		"videoId": 2
+	},
+	{
+		"userId": 3,
+		"isValidated": true,
+		"story": 3,
+		"tags": "local, neighborhood, social",
+		"videoId": 3
+	},
+	{
+		"userId": 4,
+		"isValidated": true,
+		"story": 4,
+		"tags": "local, neighborhood, social",
+		"videoId": 4
+	},
+	{
+		"userId": 5,
+		"isValidated": true,
+		"story": 5,
+		"tags": "local, neighborhood, social",
+		"videoId": 5
+	},
+	{
+		"userId": 6,
+		"isValidated": true,
+		"story": 6,
+		"tags": "local, neighborhood, social",
+		"videoId": 6
+	},
+	{
+		"userId": 7,
+		"isValidated": true,
+		"story": 7,
+		"tags": "local, neighborhood, social",
+		"videoId": 7
+	},
+	{
+		"userId": 8,
+		"isValidated": true,
+		"story": 8,
+		"tags": "local, neighborhood, social",
+		"videoId": 8
+	},
+	{
+		"userId": 9,
+		"isValidated": true,
+		"story": 9,
+		"tags": "local, neighborhood, social",
+		"videoId": 9
+	},
+	{
+		"userId": 10,
+		"isValidated": true,
+		"story": 10,
+		"tags": "local, neighborhood, social",
+		"videoId": 10
+	}
+]

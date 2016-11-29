@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-
-if ( 'undefined' !== typeof window ) {
-	require( '../../client/assets/css/main.css' );
-}
+import {AppBar} from 'react-toolbox/lib/app_bar';
+import {Navigation} from 'react-toolbox/lib/navigation';
+import theme from '../../client/css/theme/App.scss';
 
 export default class App extends Component {
 
@@ -18,10 +17,13 @@ export default class App extends Component {
 
 	render() {
 		let nodes = <div>
-			<nav>
-				<span>Search</span>
-				{this.props.nav}
-			</nav>
+			<AppBar title='patron4change' theme={theme}>
+				<Navigation type='horizontal'>
+					<span>Changemaker</span>
+					<span>Search</span>
+					{this.props.nav}
+				</Navigation>
+			</AppBar>
 			{this.props.main}
 			{this.props.sub}
 		</div>;

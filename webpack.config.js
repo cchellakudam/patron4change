@@ -3,6 +3,8 @@ let webpack = require('webpack');
 
 module.exports = {
 
+  context: __dirname,
+
   devtool: '#inline-source-map',
 
   entry: [
@@ -10,25 +12,31 @@ module.exports = {
   	'./client/index.js' // entry point for the client app
   ],
 
-  //
   output: {
   	path: path.join(__dirname, 'build'),
   	filename: 'bundle.js',
   	publicPath: '/static/'
   },
 
-  //
   plugins: [
-	new webpack.optimize.OccurenceOrderPlugin(),
-	new webpack.HotModuleReplacementPlugin(),
-	new webpack.NoErrorsPlugin()
+  	new webpack.optimize.OccurenceOrderPlugin(),
+  	new webpack.HotModuleReplacementPlugin(),
+  	new webpack.NoErrorsPlugin(),
+    new webpack.DefinePlugin({
+        'process.env': {
+            BROWSER: JSON.stringify(true)
+        }
+    })
   ],
 
-  //
   resolve: {
-	alias: {
-	},
-	extensions: ['', '.js']
+  	alias: {
+  	},
+  	extensions: ['', '.scss', '.js', '.json'],
+    modulesDirectories: [
+      'node_modules',
+      path.resolve(__dirname, './node_modules')
+    ]
   },
 
   module: {
@@ -42,11 +50,10 @@ module.exports = {
   		    presets: [ 'react-hmre', 'es2015', 'stage-0', 'react' ],
   		    plugins: [ 'transform-decorators-legacy' ],
   		  }
-  		},
-  		{
-  		  test: /\.css$/,
-  		  loader: 'style!css',
-  		},
+  		}, {
+        test: /\.scss$/,
+        loader:  'style!css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass'
+      }
   	]
   }
 };

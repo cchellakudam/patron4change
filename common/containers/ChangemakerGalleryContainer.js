@@ -37,7 +37,7 @@ class ChangemakerGalleryContainer extends Component {
 			  onSupport={() => this.actions.supportChangemaker(cm.id)} />
 	  });
 
-	  return <ChangemakerGallery title="patron4change">
+	  return <ChangemakerGallery>
 		  {nodes}
 		</ChangemakerGallery>;
 	}

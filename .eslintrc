@@ -93,7 +93,7 @@
     "eol-last": 1,                  // enforce newline at the end of file, with no multiple empty lines
     "func-style": 0,                // enforces use of function declarations or expressions (off by default)
     "key-spacing": 0,               // enforces spacing between keys and values in object literal properties
-    "max-nested-callbacks": [1, 2], // specify the maximum depth callbacks can be nested (off by default)
+    "max-nested-callbacks": [1, 4], // specify the maximum depth callbacks can be nested (off by default)
     "new-cap": 0,                   // require a capital letter for constructors
     "new-parens": 1,                // disallow the omission of parentheses when invoking a constructor with no arguments
     "no-array-constructor": 1,      // disallow use of the Array constructor
