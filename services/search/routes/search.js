@@ -6,7 +6,7 @@ export default router;
 
 router.get('/:type', (req, res) => {
   elastic.search({
-    index: '',
+    index: '_all',
     type: req.params.type,
     q: req.query.q
   })

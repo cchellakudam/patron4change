@@ -34,3 +34,22 @@ router.delete('/:type/:id', (req, res) => {
     res.status(500).send(err);
   });
 });
+
+// Bulk update/insert
+router.post('/:type', (req, res) => {
+  const body = [];
+  req.body.forEach(profile => {
+    // Bulk API requires metadata before each document
+    body.push({ index: { _index: index, _type: req.params.type, _id: profile.id} });
+    delete profile.id;
+    // TODO prepare document
+    body.push(profile);
+  });
+
+  elastic.bulk({
+    body: body
+  });
+  // TODO logging
+
+  res.sendStatus(202);
+});

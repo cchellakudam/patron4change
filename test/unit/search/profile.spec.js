@@ -35,4 +35,28 @@ export default () => {
     })
     .catch(done);
   });
+
+  it('should accept a bulk request', (done) => {
+    http({
+      uri: baseUrl + '/profile/bulkTest/',
+      method: 'POST',
+      body: [
+        {
+          id: 1,
+          name: 'foo'
+        },
+        {
+          id: 2,
+          name: 'bar'
+        }
+      ],
+      json: true,
+      resolveWithFullResponse: true
+    })
+    .then(result => {
+      assert.equal(result.statusCode, 202);
+      done();
+    })
+    .catch(done);
+  })
 };

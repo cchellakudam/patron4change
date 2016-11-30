@@ -27,7 +27,7 @@ export default () => {
 
   it('should find an inserted profile by first name', (done) => {
     http({
-      uri: baseUrl + '/search/profile',
+      uri: baseUrl + '/search/genericPerson',
       qs: {
         q: profile.firstName
       },
@@ -41,7 +41,7 @@ export default () => {
 
   it('should find an inserted profile by last name', (done) => {
     http({
-      uri: baseUrl + '/search/profile',
+      uri: baseUrl + '/search/genericPerson',
       qs: {
         q: profile.lastName
       },
@@ -56,7 +56,7 @@ export default () => {
   profile.tags.forEach((tag) => {
     it('should find an inserted profile by tag: ' + tag, (done) => {
       http({
-        uri: baseUrl + '/search/profile',
+        uri: baseUrl + '/search/genericPerson',
         qs: {
           q: tag
         },
@@ -78,7 +78,7 @@ export default () => {
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           http({
-            uri: baseUrl + '/search/profile',
+            uri: baseUrl + '/search/genericPerson',
             qs: {
               q: profile.firstName
             },
