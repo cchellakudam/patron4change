@@ -1,3 +1,5 @@
+import queue from '../utils/queue';
+
 module.exports = (sequelize, DataTypes) => {
 
 	const Changemaker = sequelize.define('changemaker', {
@@ -12,11 +14,11 @@ module.exports = (sequelize, DataTypes) => {
 		videoId: {
 			type: DataTypes.STRING(200)
 		},
-		
+
 		isValidated: {
 			type: DataTypes.BOOLEAN
 		},
-		
+
 	}, {
 		classMethods: {
 			associate: function(models){
@@ -25,9 +27,16 @@ module.exports = (sequelize, DataTypes) => {
 				Changemaker.hasMany(models.statusUpdate, {as: 'statusUpdates'});
 			}
 		},
-		
+
 		freezeTableName: false // Model tableName will be the same as the model name
 	});
+
+	const pushUpdate = function (instance) {
+		queue('updateSearchIndex').push(instance.dataValues);
+	};
+
+	Changemaker.hook('afterCreate', pushUpdate);
+	Changemaker.hook('afterUpdate', pushUpdate);
 
 	return Changemaker;
 }
