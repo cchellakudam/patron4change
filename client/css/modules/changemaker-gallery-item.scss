@@ -1,7 +1,7 @@
-@import "../theme/main.scss";
+@import "../theme/_theme.scss";
 
 .container {
   padding: 3em;
   margin: 3em;
-  background-color: $bg-color;
+  background-color: $color-primary;
 }
