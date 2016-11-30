@@ -27,7 +27,7 @@ describe('Workers', () => {
       assert.equal(q.getStats().total, taskCount);
       q.resetStats();
       done();
-    }, 20);
+    }, 100);
   });
 
   it('should process duplicate tasks only once', done => {
@@ -40,7 +40,7 @@ describe('Workers', () => {
       assert.equal(q.getStats().total, taskCount);
       q.resetStats();
       done();
-    }, 20);
+    }, 100);
   });
 
 });
