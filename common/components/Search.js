@@ -1,4 +1,11 @@
 import React, { PropTypes } from 'react';
+import { List } from 'react-toolbox/lib/list';
+import { Input } from 'react-toolbox/lib/input';
+
+let styles = {};
+if ('browser' === process.env.APP_ENV) {
+  styles = require('../../client/css/modules/search.scss');
+}
 
 class Search extends React.Component {
 
@@ -9,14 +16,19 @@ class Search extends React.Component {
 
   constructor() {
     super();
+    this.onChange = this.onChange.bind(this);
+  }
+
+  onChange(newVal) {
+    let { onSearch } = this.props;
+    onSearch(newVal);
   }
 
   render() {
-    let { term, onSearch } = this.props;
-    return <div>
-      <input id="search-term" type="text" value={term} onChange={e => onSearch(e.target.value)} />
-      {this.props.children}
-    </div>;
+    let { term } = this.props;
+    return <Input id="search-term" className={styles.searchTerm} hint='Suche nach Changemakern'
+      type="text" value={term} icon="search"
+      onChange={this.onChange} />;
   }
 }
 

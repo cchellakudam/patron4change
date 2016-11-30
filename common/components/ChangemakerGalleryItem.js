@@ -2,6 +2,8 @@ import React, {PropTypes} from 'react';
 import {Button} from 'react-toolbox/lib/button';
 import {Link} from 'react-router';
 
+import * as shapes from './shapes';
+
 let styles = {};
 if (process.env.BROWSER) {
   styles = require('../../client/css/modules/changemaker-gallery-item.scss');
@@ -10,14 +12,7 @@ if (process.env.BROWSER) {
 class ChangemakerGalleryItem extends React.Component {
 
   static propTypes = {
-
-  	changemaker: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-  		name: PropTypes.string.isRequired,
-  		image: PropTypes.string.isRequired,
-  		isBackedByMe: PropTypes.bool.isRequired
-  	}).isRequired,
-
+  	changemaker: shapes.changemaker,
   	onSupport: PropTypes.func.isRequired
   }
 

@@ -18,13 +18,7 @@ export default class App extends Component {
 
 	render() {
 		let nodes = <div>
-			<AppBar title='patron4change'>
-				<Navigation type='horizontal'>
-					<span>Changemaker</span>
-					<span>Search</span>
-					{this.props.nav}
-				</Navigation>
-			</AppBar>
+			{this.props.nav}
 			{this.props.main}
 			{this.props.sub}
 		</div>;

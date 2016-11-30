@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
+import {ListItem} from 'react-toolbox/lib/list';
 
 class SearchResultItem extends React.Component {
 
@@ -16,11 +17,15 @@ class SearchResultItem extends React.Component {
 
   render() {
     let cm = this.props.changemaker;
-    return <div className="search-result-item">
-      <img alt="user thumbnail" src={cm.image} />
-      <h4>{cm.name}</h4>
-      <Link to={`/${cm.id}`}>Profil ansehen</Link>
-    </div>;
+    return <ListItem
+      avatar={cm.image}
+      caption={cm.name}
+      legend="Last update 30.11.2016"
+      to={`/changemaker/${cm.id}`}
+      ripple
+      selectable
+      {...this.props}
+    />;
   }
 }
 

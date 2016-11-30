@@ -6,7 +6,6 @@ import * as SearchActions from '../actions/SearchActions';
 import { fetchNeeds } from '../utils/fetchComponentData';
 
 import Search from '../components/Search';
-import SearchResultItem from '../components/SearchResultItem';
 
 export class SearchContainer extends Component {
 
@@ -15,7 +14,6 @@ export class SearchContainer extends Component {
 
 	static propTypes = {
 		dispatch: PropTypes.func.isRequired,
-		results: PropTypes.object.isRequired,
 		term: PropTypes.string.isRequired
 	}
 
@@ -29,21 +27,11 @@ export class SearchContainer extends Component {
 	}
 
 	render() {
-	  const {results, term} = this.props;
-		
-	  const nodes = results.valueSeq().map( item => {
-			return <SearchResultItem
-			  key={`search-result-${item.id}`}
-			  changemaker={item} />;
-	  });
-
-	  return <Search title="patron4change" term={term} onSearch={this.actions.search}>
-		  {nodes}
-		</Search>;
+	  const {term} = this.props;
+	  return <Search title="patron4change" term={term} onSearch={this.actions.search} />;
 	}
 }
 
 export default connect( (state/* , ownProps */) => ({
-	term: state.search.term,
-	results: state.cm.changemakers.filter(c => state.search.results.includes(c.id))
+	term: state.search.term
 }) )(SearchContainer);
