@@ -48,7 +48,7 @@ function renderFullPage(html, initialState) {
 	<html lang="utf-8">
 	  <head>
 		<title>patron4change</title>
-    <link rel="stylesheet" href="/css/base/normalize.min.css">
+		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
 	  </head>
