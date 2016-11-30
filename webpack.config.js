@@ -29,6 +29,11 @@ module.exports = {
     })
   ],
 
+  sassLoader: {
+    data: '@import "theme/_theme.scss";',
+    includePaths: [path.resolve(__dirname, './client/css')]
+  },
+
   resolve: {
   	alias: {
   	},
@@ -52,7 +57,7 @@ module.exports = {
   		  }
   		}, {
         test: /\.scss$/,
-        loader:  'style!css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass'
+        loader: 'style!css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass'
       }
   	]
   }

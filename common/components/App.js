@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import {AppBar} from 'react-toolbox/lib/app_bar';
 import {Navigation} from 'react-toolbox/lib/navigation';
-import theme from '../../client/css/theme/App.scss';
+
+import 'react-toolbox/lib/commons.scss';
 
 export default class App extends Component {
 
@@ -17,7 +18,7 @@ export default class App extends Component {
 
 	render() {
 		let nodes = <div>
-			<AppBar title='patron4change' theme={theme}>
+			<AppBar title='patron4change'>
 				<Navigation type='horizontal'>
 					<span>Changemaker</span>
 					<span>Search</span>
