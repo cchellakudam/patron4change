@@ -37,7 +37,8 @@ function mergeLists(l1, l2, keySelector) {
 
 function GLOBAL_SEARCH_SUCCESS( state, action ) {
 	return state.update( 'changemakers', changemakers => {
-		return mergeLists(changemakers, action.result, _.property('id'))
+		let newList = mergeLists(changemakers, action.result, _.property('id'));
+		return newList;
 	});
 }
 

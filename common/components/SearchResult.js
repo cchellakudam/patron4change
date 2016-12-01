@@ -3,7 +3,7 @@ import { List } from 'react-toolbox/lib/list';
 
 let styles = {};
 if ('browser' === process.env.APP_ENV) {
-  styles = require('../../client/css/modules/search.scss');
+  styles = require('../../client/css/modules/search-result.scss');
 }
 
 class SearchResult extends React.Component {

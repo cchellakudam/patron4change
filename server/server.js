@@ -43,7 +43,7 @@ if('unit' !== process.env.NODE_ENV){
 // start workers
 require('./workers/');
 
-const apiRoutes = require('./api/routes/api.routes.js');
+const apiRoutes = require('./api/routes');
 
 function renderFullPage(html, initialState) {
   return `

@@ -1,12 +1,15 @@
-import p4cApi from '../api';
 import 'isomorphic-fetch';
-
 import {
-	// List,
 	ChangemakerRecord,
 	convertToRecordList
 } from '../constants/Types';
 import axios from 'axios';
+
+function emptyRecordList() {
+  return convertToRecordList([], ChangemakerRecord);
+}
+
+const searchBaseUrl = `http://localhost:3001`;
 
 export default class {
 
@@ -18,11 +21,23 @@ export default class {
 
 	static search(term) {
 		if (!term) {
-			return Promise.resolve(convertToRecordList([], ChangemakerRecord));
+			return Promise.resolve(emptyRecordList());
 		}
-
-		return p4cApi.search(term).then(result => {
-			return convertToRecordList(result, ChangemakerRecord);
+    return axios(`${searchBaseUrl}/search/changemaker?q=${term}`).then(res => {
+			let resultChangemakers = res.data.map(r => {
+				let clone = Object.assign({}, r._source);
+				// add random image
+				clone.id = r._id;
+				clone.image = [
+					'https://randomuser.me/api/portraits/thumb/women/88.jpg',
+					'https://randomuser.me/api/portraits/thumb/men/53.jpg',
+					'https://randomuser.me/api/portraits/thumb/women/6.jpg',
+					'https://randomuser.me/api/portraits/thumb/women/37.jpg',
+					'https://randomuser.me/api/portraits/thumb/men/14.jpg'
+				][Math.floor(Math.random() * 4.999999)];
+				return clone;
+			});
+			return convertToRecordList(resultChangemakers, ChangemakerRecord);
 		});
 	}
 }

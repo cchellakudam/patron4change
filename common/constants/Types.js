@@ -5,9 +5,12 @@ export const ChangemakerState = Immutable.Record({
 })
 
 export const ChangemakerRecord = Immutable.Record({
-	id: '',
+	id: undefined,
 	image: '',
-	name: '',
+	firstName: '',
+	lastName: '',
+	mission: '',
+	statusUpdates: [],
 	isBackedByMe: false
 })
 

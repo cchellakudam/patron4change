@@ -1,26 +1,21 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import {ListItem} from 'react-toolbox/lib/list';
+import * as shapes from './shapes';
 
 class SearchResultItem extends React.Component {
 
   static propTypes = {
-
-  	changemaker: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-  		name: PropTypes.string.isRequired,
-  		image: PropTypes.string.isRequired,
-  		isBackedByMe: PropTypes.bool.isRequired
-  	}).isRequired
-
+  	changemaker: shapes.changemaker.isRequired
   }
 
   render() {
     let cm = this.props.changemaker;
+    let name = `${cm.firstName} ${cm.lastName}`;
     return <ListItem
       avatar={cm.image}
-      caption={cm.name}
-      legend="Last update 30.11.2016"
+      caption={name}
+      legend={cm.mission}
       to={`/changemaker/${cm.id}`}
       ripple
       selectable
