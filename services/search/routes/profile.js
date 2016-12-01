@@ -15,7 +15,7 @@ function prepareDocument(changemaker) {
     statusUpdates: changemaker.statusUpdates ? changemaker.statusUpdates.map(update => {
       return {
         title: update.title,
-        content: update.content ? update.conent.text : ''
+        content: update.content ? update.content.text : ''
       };
     }) : [],
     suggest: changemaker.tags + ' ' + changemaker.firstName + ' ' + changemaker.lastName
