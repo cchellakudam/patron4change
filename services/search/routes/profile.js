@@ -6,6 +6,22 @@ export default router;
 
 const index = 'profile';
 
+function prepareDocument(changemaker) {
+  return {
+    firstName: changemaker.firstName,
+    lastName: changemaker.lastName,
+    tags: changemaker.tags,
+    mission: changemaker.mission ? changemaker.mission.text : '',
+    statusUpdates: changemaker.statusUpdates ? changemaker.statusUpdates.map(update => {
+      return {
+        title: update.title,
+        content: update.content ? update.conent.text : ''
+      };
+    }) : [],
+    suggest: changemaker.tags + ' ' + changemaker.firstName + ' ' + changemaker.lastName
+  };
+}
+
 router.put('/:type/:id', (req, res) => {
   elastic.index({
     index: index,
@@ -41,9 +57,7 @@ router.post('/:type', (req, res) => {
   req.body.forEach(profile => {
     // Bulk API requires metadata before each document
     body.push({ index: { _index: index, _type: req.params.type, _id: profile.id} });
-    delete profile.id;
-    // TODO prepare document
-    body.push(profile);
+    body.push(prepareDocument(profile));
   });
 
   elastic.bulk({

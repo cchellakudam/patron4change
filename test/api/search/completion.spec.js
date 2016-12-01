@@ -2,9 +2,6 @@ import http from 'request-promise';
 import { assert } from 'chai';
 import { baseUrl } from './service';
 
-// TODO Remove as soon as the index is defined globally
-import elastic from '../../../services/search/elastic';
-
 export default () => {
 
   const words = [
@@ -17,28 +14,9 @@ export default () => {
   ];
 
   const index = 'profile';
-  const type = 'completionTest';
+  const type = 'changemaker';
   const urlPath = '/' + index + '/' + type + '/';
   const ids = [];
-
-  before((done) => {
-    // TODO Remove as soon as the index is defined globally
-    elastic.indices.putMapping({
-      index: index,
-      type: type,
-      body: {
-        [type]: {
-          properties: {
-            suggest: {
-              type: 'completion'
-            }
-          }
-        }
-      }
-    })
-    .then(() => done())
-    .catch(done);
-  });
 
   before((done) => {
     let id = 1;
