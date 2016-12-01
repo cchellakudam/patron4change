@@ -13,9 +13,8 @@ export default () => {
     'barricading'
   ];
 
-  const index = 'profile';
   const type = 'changemaker';
-  const urlPath = '/' + index + '/' + type + '/';
+  const urlPath = '/profile/' + type + '/';
   const ids = [];
 
   before((done) => {
@@ -26,6 +25,8 @@ export default () => {
         uri: baseUrl + urlPath + id++,
         method: 'PUT',
         body: {
+          firstName: 'foo',
+          lastName: 'bar',
           suggest: word
         },
         json: true,
@@ -64,7 +65,7 @@ export default () => {
   prefixes.forEach((words, prefix) => {
     it('should return completions for: ' + prefix, (done) => {
       http({
-        uri: baseUrl + '/suggest/completionTest',
+        uri: baseUrl + '/suggest/' + type,
         qs: {
           q: prefix
         },
