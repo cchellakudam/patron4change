@@ -8,7 +8,31 @@ router.get('/:type', (req, res) => {
   elastic.search({
     index: '_all',
     type: req.params.type,
-    q: req.query.q
+    body: {
+      query: {
+        bool: {
+          should: [
+            {
+              match_phrase: {
+                mission: req.query.q
+              }
+            },
+            {
+              multi_match: {
+                type: 'most_fields',
+                query: req.query.q,
+                fields: [ 'lastName^2', 'firstName' ]
+              }
+            }
+          ]
+        }
+      },
+      highlight: {
+        fields: {
+          mission: {}
+        }
+      }
+    }
   })
   .then((result) => {
     res.status(200).send(result.hits.hits);

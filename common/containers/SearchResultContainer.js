@@ -18,7 +18,8 @@ export class SearchResultContainer extends React.Component {
 			return <SearchResultItem
 			  key={`search-result-${item.changemakerId}`}
         className="search-result-item"
-			  changemaker={item.changemaker} />;
+			  changemaker={item.changemaker}
+        match={item} />;
 	  });
 
     return <SearchResult>

@@ -5,7 +5,7 @@ const router = express.Router();
 // changemaker specific stuff
 
 router.get('/', (req,res) => {
-	dataAccessLayer.getAllUsers().then(users => {
+	dataAccessLayer.getAllChangemakers().then(users => {
 		res.send(users);
 	});
 });

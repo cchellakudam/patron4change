@@ -14,14 +14,27 @@ function mapData(r) {
   return clone;
 }
 
+function getHighlightSection(hit) {
+  let { highlight } = hit;
+  if (!highlight) {
+    return null;
+  }
+  if (highlight.mission && 0 < highlight.mission.length) {
+    return {
+      type: 'mission',
+      value: highlight.mission[0]
+    }
+  }
+  return null;
+}
+
 router.get('/', (req, res) => {
   axios(`${searchApiUrl}search/changemaker?q=${req.query.q}`).then(searchRes => {
     let result = searchRes.data.map(hit => {
       return {
         match: {
           relevance: hit._score,
-          // TODO based on explain api or elastic highlight
-          section: ''
+          section: getHighlightSection(hit)
         },
         // TODO get changemaker data from db by id to ensure same model as other apis
         changemaker: mapData(hit)
