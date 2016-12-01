@@ -14,6 +14,11 @@ export const ChangemakerRecord = Immutable.Record({
 	isBackedByMe: false
 })
 
+export const ChangemakerUpdateRecord = Immutable.Record({
+	id: '',
+	title: ''
+})
+
 export const SearchState = Immutable.Record({
 	term: '',
 	results: Immutable.List()

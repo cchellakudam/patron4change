@@ -19,7 +19,7 @@ const sequelize = new Sequelize(
 		},
 });
 
-const db        = {};
+const db = {};
 
 fs
 	.readdirSync(__dirname)
