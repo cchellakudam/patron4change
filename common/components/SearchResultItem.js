@@ -1,3 +1,4 @@
+/* eslint react/no-danger: 0 */
 import React, { PropTypes } from 'react';
 import {ListItem} from 'react-toolbox/lib/list';
 import * as shapes from './shapes';

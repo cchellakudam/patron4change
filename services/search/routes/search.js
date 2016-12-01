@@ -1,3 +1,6 @@
+/* eslint camelcase: 0 */
+// camelcase ignored for elastic queries
+
 import express from 'express';
 import elastic from '../elastic';
 
