@@ -32,7 +32,10 @@ module.exports = (sequelize, DataTypes) => {
 	});
 
 	const pushUpdate = function (instance) {
-		queue('updateSearchIndex').push(instance.get({ plain: true }));
+		const updateQueue = queue('updateSearchIndex');
+		if (updateQueue) {
+			updateQueue.push(instance.get({ plain: true }));
+		}
 	};
 
 	Changemaker.hook('afterCreate', pushUpdate);
