@@ -8,7 +8,9 @@ function GLOBAL_SEARCH_REQUEST( state, action ) {
 }
 
 function GLOBAL_SEARCH_SUCCESS( state, action ) {
-  return state.set('results', action.result.map(r => r.id) );
+  return state.set('results', action.result.map(r => {
+		return Object.assign({}, r.match, { changemakerId: r.changemaker.id });
+	}));
 }
 
 const GLOBAL_SEARCH_ERROR = _.identity;

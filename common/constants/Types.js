@@ -19,6 +19,11 @@ export const SearchState = Immutable.Record({
 	results: Immutable.List()
 })
 
+export const SearchResultRecord = Immutable.Record({
+	match: undefined,
+	changemaker: undefined
+})
+
 export function convertToRecordMap( arr, Def ){
 	return arr.reduce( (acc, item) => acc.set( item.id, new Def(item) ), Immutable.Map() );
 }

@@ -12,12 +12,14 @@ describe('<SearchResultContainer />', () => {
 	it('should list all search results', () => {
 		const changemaker = {
 			id: 'lstanek',
-			name: 'Lukas Stanek',
+			firstName: 'Lukas',
+			lastName: 'Stanek',
+			mission: 'Lukas Stanek\'s travels',
 			image: '//img.png',
 			isBackedByMe: false
-		}
+		};
 		const props = {
-			results: Immutable.List([changemaker]),
+			results: Immutable.List([{ changemaker, relevance: 1, section: 'travel' }]),
 			dispatch: _.noop
 		};
 		const wrapper = render(<SearchResultContainer {...props} />)
