@@ -3,15 +3,15 @@ import {before} from 'mocha';
 const assert = require('chai').assert;
 
 
-const models =  require('../../server/model/index');
+const models =  require('../../../server/model/index');
 describe('model', () => {
 	describe('backing', () => {
 		before(function () {
-			return require('../../server/model/index').sequelize.sync({force: true});
+			return require('../../../server/model/index').sequelize.sync({force: true});
 		});
 
 		beforeEach(function () {
-			models.backing = require('../../server/model/index').backing;
+			models.backing = require('../../../server/model/index').backing;
 		});
 
 		it('should contain user model', function() {

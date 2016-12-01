@@ -7,11 +7,11 @@ const assert = require('chai').assert;
 describe('model', () => {
 	describe('content', () => {
 		before(function () {
-			return require('../../server/model/index').sequelize.sync({force: true});
+			return require('../../../server/model/index').sequelize.sync({force: true});
 		});
 
 		beforeEach(function () {
-			this.Content = require('../../server/model/index').content;
+			this.Content = require('../../../server/model/index').content;
 		});
 
 		it('should contain content model', function() {

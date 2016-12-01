@@ -70,6 +70,23 @@ describe('Mocked dataaccesslayer', () => {
 				done();
 			}
 			datalayer.getUserForEmail('matthias.holzer@example.com').then(check);
+		}),
+
+		it('should not return same user everytime', done => {
+			function check(result) {
+				assert.equal(result.length, 1);
+				assert.equal(result[0].email, 'alex.voggen@example.com')
+				done();
+			}
+			datalayer.getUserForEmail('alex.voggen@example.com').then(check);
+		}),
+
+		it('should return empty if email does not exist', done => {
+			function check(result) {
+				assert.equal(result.length, 0);
+				done();
+			}
+			datalayer.getUserForEmail('sdgsdhsd@example.com').then(check);
 		});
 	});
 
@@ -81,6 +98,13 @@ describe('Mocked dataaccesslayer', () => {
 				done();
 			}
 			datalayer.getUserForId(5).then(check);
+		}),
+		it('should return empty for invalid id', done => {
+			function check(result) {
+				assert.equal(result.length, 0);
+				done();
+			}
+			datalayer.getUserForId(-5).then(check);
 		});
 	});
 

@@ -6,13 +6,8 @@ module.exports = {
 		return dataAccessLayer.getAllUsers();
 	},
 
-	getUserByUsername: () => {
-	},
-
-	resetPassword: () => {
-	},
-
-	changePassword: () => {
+	getUserByUsername: (username) => {
+		return Promise.resolve({username: username})
 	}
 
 };

@@ -7,11 +7,11 @@ const assert = require('chai').assert;
 describe('model', () => {
 	describe('role', () => {
 		before(function () {
-			return require('../../server/model/index').sequelize.sync({force: true});
+			return require('../../../server/model/index').sequelize.sync({force: true});
 		});
 
 		beforeEach(function () {
-			this.Role = require('../../server/model/index').role;
+			this.Role = require('../../../server/model/index').role;
 		});
 
 		it('should contain user model', function() {
