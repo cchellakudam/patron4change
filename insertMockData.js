@@ -1,3 +1,5 @@
+/* eslint no-console: 0 */
+
 require('babel-register');
 const models = require('./server/model');
 
