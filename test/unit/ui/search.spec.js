@@ -1,7 +1,6 @@
 const {assert} = require('chai');
 
 import React from 'react';
-import Immutable from 'immutable';
 import _ from 'lodash';
 import { render } from 'enzyme';
 import { SearchContainer } from '../../../common/containers/SearchContainer'

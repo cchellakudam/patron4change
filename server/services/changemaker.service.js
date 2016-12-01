@@ -4,11 +4,11 @@
 module.exports = {
 
 	getAllChangemakers: () => {
-		return [];
+		return Promise.resolve([]);
 	},
 
 	getChangemakerByUsername: (username) => {
-		return username;
+		return Promise.resolve({username: username});
 	},
 
 

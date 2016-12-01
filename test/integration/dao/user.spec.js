@@ -8,11 +8,11 @@ const assert = require('chai').assert;
 describe('model', () => {
 	describe('user', () => {
 		before(function () {
-			return require('../../server/model').sequelize.sync({force: true});
+			return require('../../../server/model').sequelize.sync({force: true});
 		});
 
 		beforeEach(function () {
-			this.User = require('../../server/model').user;
+			this.User = require('../../../server/model').user;
 		});
 
 		it('should contain user model', function() {

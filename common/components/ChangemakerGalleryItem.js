@@ -12,7 +12,7 @@ if (process.env.BROWSER) {
 class ChangemakerGalleryItem extends React.Component {
 
   static propTypes = {
-  	changemaker: shapes.changemaker,
+  	changemaker: shapes.changemaker.isRequired,
   	onSupport: PropTypes.func.isRequired
   }
 

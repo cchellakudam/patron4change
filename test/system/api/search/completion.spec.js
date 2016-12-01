@@ -2,9 +2,6 @@ import http from 'request-promise';
 import { assert } from 'chai';
 import { baseUrl } from './service';
 
-// TODO Remove as soon as the index is defined globally
-import elastic from '../../../services/search/elastic';
-
 export default () => {
 
   const words = [
@@ -16,29 +13,9 @@ export default () => {
     'barricading'
   ];
 
-  const index = 'profile';
-  const type = 'completionTest';
-  const urlPath = '/' + index + '/' + type + '/';
+  const type = 'changemaker';
+  const urlPath = '/profile/' + type + '/';
   const ids = [];
-
-  before((done) => {
-    // TODO Remove as soon as the index is defined globally
-    elastic.indices.putMapping({
-      index: index,
-      type: type,
-      body: {
-        [type]: {
-          properties: {
-            suggest: {
-              type: 'completion'
-            }
-          }
-        }
-      }
-    })
-    .then(() => done())
-    .catch(done);
-  });
 
   before((done) => {
     let id = 1;
@@ -48,6 +25,8 @@ export default () => {
         uri: baseUrl + urlPath + id++,
         method: 'PUT',
         body: {
+          firstName: 'foo',
+          lastName: 'bar',
           suggest: word
         },
         json: true,
@@ -86,7 +65,7 @@ export default () => {
   prefixes.forEach((words, prefix) => {
     it('should return completions for: ' + prefix, (done) => {
       http({
-        uri: baseUrl + '/suggest/completionTest',
+        uri: baseUrl + '/suggest/' + type,
         qs: {
           q: prefix
         },

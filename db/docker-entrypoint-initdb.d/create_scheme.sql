@@ -13,14 +13,3 @@ CREATE TABLE IF NOT EXISTS schema_changes(
 
 -- new baseline version inserts should be added here with each new merge of the baseline script
 INSERT INTO schema_changes VALUES (DEFAULT, '01', '0000', 'init script', CURRENT_TIMESTAMP);
-
-
-CREATE TABLE IF NOT EXISTS users(
-	id SERIAL PRIMARY KEY NOT NULL,
-	username VARCHAR(255) UNIQUE NOT NULL,
-	firstname VARCHAR(255) NOT NULL,
-	lastname VARCHAR(255) NOT NULL,
-	email VARCHAR(254) NOT NULL,
-	pwhash VARCHAR(60) NOT NULL,
-	role NUMERIC NOT NULL
-)

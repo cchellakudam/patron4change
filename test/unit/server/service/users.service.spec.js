@@ -15,4 +15,22 @@ describe('users service', () => {
 		});
 	});
 
+	describe('getUserByUsername', () => {
+		it('should return object', done => {
+			function check(result) {
+				assert.equal(typeof result, typeof {});
+				done();
+			}
+			usersService.getUserByUsername('max').then(check);
+		});
+
+		it('should contain attribute with username', done => {
+			function check(result) {
+				assert.equal(result.username, 'max');
+				done();
+			}
+			usersService.getUserByUsername('max').then(check);
+		});
+	});
+
 });

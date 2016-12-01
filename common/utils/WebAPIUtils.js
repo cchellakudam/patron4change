@@ -1,12 +1,14 @@
-import p4cApi from '../api';
 import 'isomorphic-fetch';
-
 import {
-	// List,
 	ChangemakerRecord,
+	SearchResultRecord,
 	convertToRecordList
 } from '../constants/Types';
 import axios from 'axios';
+
+function emptyRecordList() {
+  return convertToRecordList([], ChangemakerRecord);
+}
 
 export default class {
 
@@ -18,11 +20,20 @@ export default class {
 
 	static search(term) {
 		if (!term) {
-			return Promise.resolve(convertToRecordList([], ChangemakerRecord));
+			return Promise.resolve(emptyRecordList());
 		}
-
-		return p4cApi.search(term).then(result => {
-			return convertToRecordList(result, ChangemakerRecord);
+    return axios(`/api/search?q=${term}`).then(res => {
+			let results = res.data.map(result => {
+				result.changemaker.image = [
+					'https://randomuser.me/api/portraits/thumb/women/88.jpg',
+					'https://randomuser.me/api/portraits/thumb/men/53.jpg',
+					'https://randomuser.me/api/portraits/thumb/women/6.jpg',
+					'https://randomuser.me/api/portraits/thumb/women/37.jpg',
+					'https://randomuser.me/api/portraits/thumb/men/14.jpg'
+				][Math.floor(Math.random() * 4.999999)];
+				return result;
+			});
+			return convertToRecordList(results, SearchResultRecord);
 		});
 	}
 }

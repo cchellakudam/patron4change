@@ -3,11 +3,6 @@
 module.exports = {
 
 	getAllPatrons: () => {
-		return [];
-	},
-
-	getPatronByUsername: (username) => {
-		return username;
-	},
-
+		return Promise.resolve([]);
+	}
 };
