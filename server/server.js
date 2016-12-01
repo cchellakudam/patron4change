@@ -43,6 +43,8 @@ if('unit' !== process.env.NODE_ENV){
 // start workers
 require('./workers/');
 
+require('./utils/rebuildSearchIndex');
+
 const apiRoutes = require('./api/routes');
 
 function renderFullPage(html, initialState) {

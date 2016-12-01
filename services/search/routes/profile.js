@@ -7,19 +7,21 @@ export default router;
 const index = 'profile';
 
 function prepareDocument(changemaker) {
-  return {
-    firstName: changemaker.firstName,
-    lastName: changemaker.lastName,
-    tags: changemaker.tags,
+  const doc = {
+    firstName: changemaker.user ? changemaker.user.firstName : '',
+    lastName: changemaker.user ? changemaker.user.lastName : '',
+    tags: changemaker.tags || [],
     mission: changemaker.mission ? changemaker.mission.text : '',
     statusUpdates: changemaker.statusUpdates ? changemaker.statusUpdates.map(update => {
       return {
         title: update.title,
         content: update.content ? update.content.text : ''
       };
-    }) : [],
-    suggest: changemaker.tags + ' ' + changemaker.firstName + ' ' + changemaker.lastName
+    }) : []
   };
+  doc.suggest = [doc.tags, doc.firstName, doc.lastName];
+  doc.suggest = doc.suggest.join(' ');
+  return doc;
 }
 
 router.put('/:type/:id', (req, res) => {
