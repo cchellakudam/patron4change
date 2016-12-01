@@ -7,9 +7,9 @@ module.exports = (sequelize, DataTypes) => {
 			primaryKey: true
 		},
 		text: {
-			type: DataTypes.STRING
+			type: DataTypes.TEXT
 		},
-		
+
 	}, {
 		freezeTableName: false // Model tableName will be the same as the model name
 	});

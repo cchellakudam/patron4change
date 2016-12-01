@@ -40,7 +40,12 @@ if('unit' !== process.env.NODE_ENV){
 	require('../server/model').sequelize.sync();
 }
 
-const apiRoutes = require('./api/routes/api.routes.js');
+// start workers
+require('./workers/');
+
+require('./utils/rebuildSearchIndex');
+
+const apiRoutes = require('./api/routes');
 
 function renderFullPage(html, initialState) {
   return `

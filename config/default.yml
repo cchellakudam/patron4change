@@ -14,3 +14,17 @@ sequelize:
     idle: 10000
 
 dataLayer: dataAccessLayer
+
+search:
+  host: localhost
+  port: 3001
+
+elasticsearch:
+  host: localhost:9200
+
+queues:
+  -
+    name: updateSearchIndex
+    config:
+      batchSize: 1000
+      batchDelay: 60000

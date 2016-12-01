@@ -1,1 +1,8 @@
 dataLayer: mockDataLayer
+
+queues:
+  -
+    name: updateSearchIndex
+    config:
+      batchSize: 10
+      batchDelay: 1

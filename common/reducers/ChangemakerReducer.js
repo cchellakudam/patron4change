@@ -1,6 +1,7 @@
 /* eslint brace-style: 0 */
 
 import Immutable from 'immutable';
+import _ from 'lodash';
 import {ChangemakerState } from '../constants/Types';
 import createReducer from '../utils/createReducer';
 import types from '../constants/ActionTypes';
@@ -26,12 +27,31 @@ function SUPPORT_CHANGEMAKER( state, action ) {
 	})
 }
 
+function mergeLists(l1, l2, keySelector) {
+	let newList = l1.valueSeq();
+	let newKeys = l2.map(keySelector);
+	newList = newList.filter(item => !newKeys.includes(keySelector(item)));
+	newList = newList.concat(l2);
+	return Immutable.List(newList);
+}
+
+function GLOBAL_SEARCH_SUCCESS( state, action ) {
+	let resultChangemaker = action.result.map(r => r.changemaker);
+	return state.update( 'changemakers', changemakers => {
+		let newList = mergeLists(changemakers, resultChangemaker, _.property('id'));
+		return newList;
+	});
+}
+
 const handlers =
 {
 	[types.READ_ALL_CHANGEMAKERS_REQUEST]: READ_ALL_CHANGEMAKERS_REQUEST,
 	[types.READ_ALL_CHANGEMAKERS_SUCCESS]: READ_ALL_CHANGEMAKERS_SUCCESS,
 	[types.READ_ALL_CHANGEMAKERS_ERROR]: READ_ALL_CHANGEMAKERS_ERROR,
-	[types.SUPPORT_CHANGEMAKER]: SUPPORT_CHANGEMAKER
+
+	[types.SUPPORT_CHANGEMAKER]: SUPPORT_CHANGEMAKER,
+
+	[types.GLOBAL_SEARCH_SUCCESS]: GLOBAL_SEARCH_SUCCESS
 }
 
 export default createReducer( new ChangemakerState(), handlers );

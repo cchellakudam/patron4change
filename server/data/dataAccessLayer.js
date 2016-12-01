@@ -1,3 +1,4 @@
+import models from '../model/index';
 
 function getMockUsers() {
 	let arr = [];
@@ -21,6 +22,7 @@ module.exports = {
 	},
 
 	getAllChangemakers(){
+		return models.changemaker.findAll({ where: { tags: 'I,is,super,awesome'}});
 	}
 
 }

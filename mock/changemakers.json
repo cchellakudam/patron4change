@@ -1,71 +1,71 @@
 [
 	{
-		"userId": 1,
+		"changemaker_user": 1,
 		"isValidated": true,
-		"story": 1,
+		"changemaker_content": 1,
 		"tags": "local, neighborhood, social",
 		"videoId": 1
 	},
 	{
-		"userId": 2,
+		"changemaker_user": 2,
 		"isValidated": true,
-		"story": 2,
+		"changemaker_content": 2,
 		"tags": "local, neighborhood, social",
 		"videoId": 2
 	},
 	{
-		"userId": 3,
+		"changemaker_user": 3,
 		"isValidated": true,
-		"story": 3,
+		"changemaker_content": 3,
 		"tags": "local, neighborhood, social",
 		"videoId": 3
 	},
 	{
-		"userId": 4,
+		"changemaker_user": 4,
 		"isValidated": true,
-		"story": 4,
+		"changemaker_content": 4,
 		"tags": "local, neighborhood, social",
 		"videoId": 4
 	},
 	{
-		"userId": 5,
+		"changemaker_user": 5,
 		"isValidated": true,
-		"story": 5,
+		"changemaker_content": 5,
 		"tags": "local, neighborhood, social",
 		"videoId": 5
 	},
 	{
-		"userId": 6,
+		"changemaker_user": 6,
 		"isValidated": true,
-		"story": 6,
+		"changemaker_content": 6,
 		"tags": "local, neighborhood, social",
 		"videoId": 6
 	},
 	{
-		"userId": 7,
+		"changemaker_user": 7,
 		"isValidated": true,
-		"story": 7,
+		"changemaker_content": 7,
 		"tags": "local, neighborhood, social",
 		"videoId": 7
 	},
 	{
-		"userId": 8,
+		"changemaker_user": 8,
 		"isValidated": true,
-		"story": 8,
+		"changemaker_content": 8,
 		"tags": "local, neighborhood, social",
 		"videoId": 8
 	},
 	{
-		"userId": 9,
+		"changemaker_user": 9,
 		"isValidated": true,
-		"story": 9,
+		"changemaker_content": 9,
 		"tags": "local, neighborhood, social",
 		"videoId": 9
 	},
 	{
-		"userId": 10,
+		"changemaker_user": 10,
 		"isValidated": true,
-		"story": 10,
+		"changemaker_content": 10,
 		"tags": "local, neighborhood, social",
 		"videoId": 10
 	}
