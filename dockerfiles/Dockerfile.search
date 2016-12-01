@@ -16,4 +16,4 @@ USER node
 
 RUN npm i
 
-CMD ["node", "services/search"]
+CMD ["node", "services/search/index.js"]
