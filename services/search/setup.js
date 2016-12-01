@@ -75,7 +75,7 @@ export default () => {
   })
   .then(() => {
     // Remove old index if a new index was installed
-    if (oldIndexVersion !== newIndexVersion) {
+    if (!!oldIndexVersion && oldIndexVersion !== newIndexVersion) {
       return elastic.indices.delete({
         index: oldIndexVersion
       });
