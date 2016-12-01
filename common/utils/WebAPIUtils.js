@@ -9,7 +9,7 @@ function emptyRecordList() {
   return convertToRecordList([], ChangemakerRecord);
 }
 
-const searchBaseUrl = `http://localhost:3001`;
+const searchBaseUrl = 'http://localhost:3001';
 
 export default class {
 

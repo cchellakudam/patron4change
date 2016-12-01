@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { List } from 'react-toolbox/lib/list';
 
 let styles = {};
@@ -8,8 +8,11 @@ if ('browser' === process.env.APP_ENV) {
 
 class SearchResult extends React.Component {
 
+  static propTypes = {
+    children: PropTypes.object
+  }
+
   render() {
-    let cm = this.props.changemaker;
     return <List className={styles.resultList} ripple>
       {this.props.children}
     </List>;

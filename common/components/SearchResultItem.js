@@ -1,5 +1,4 @@
-import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import React from 'react';
 import {ListItem} from 'react-toolbox/lib/list';
 import * as shapes from './shapes';
 

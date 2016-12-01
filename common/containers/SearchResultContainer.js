@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 import SearchResult from '../components/SearchResult';
 import SearchResultItem from '../components/SearchResultItem';
@@ -10,10 +9,6 @@ export class SearchResultContainer extends React.Component {
   static propTypes = {
 		dispatch: PropTypes.func.isRequired,
     results: PropTypes.object.isRequired
-  }
-
-  constructor() {
-    super();
   }
 
   render() {
