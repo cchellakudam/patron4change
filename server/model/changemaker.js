@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
 		classMethods: {
 			associate: function(models){
 				Changemaker.belongsTo(models.user, {foreignKey: 'changemaker_user', as: 'user'});
-				Changemaker.belongsTo(models.content, {foreignKey: 'changemaker_content', as: 'mission'});
+				Changemaker.hasOne(models.content, {foreignKey: 'changemaker_content', as: 'mission'});
 				Changemaker.hasMany(models.statusUpdate, {as: 'statusUpdates'});
 			}
 		},

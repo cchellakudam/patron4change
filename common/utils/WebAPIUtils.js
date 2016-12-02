@@ -1,6 +1,7 @@
 import 'isomorphic-fetch';
 import {
 	ChangemakerRecord,
+	ChangemakerUpdateRecord,
 	SearchResultRecord,
 	convertToRecordList
 } from '../constants/Types';
@@ -15,6 +16,12 @@ export default class {
 	static getAllChangemakers() {
 		return axios('/api/changemaker').then(res => {
 			return convertToRecordList(res.data, ChangemakerRecord);
+		});
+	}
+
+	static getAllUpdatesByUserId(id) {
+		return axios('/api/changemaker/' + id + '/updates').then(res => {
+			return convertToRecordList(res.data, ChangemakerUpdateRecord);
 		});
 	}
 

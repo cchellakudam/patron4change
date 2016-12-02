@@ -19,3 +19,10 @@ export function supportChangemaker(changemakerId) {
 		changemakerId
 	};
 }
+
+export function readAllUpdatesByUserId(id) {
+	let promise = WebAPIUtils.getAllUpdatesByUserId(id);
+	return {
+		promise
+	}
+}

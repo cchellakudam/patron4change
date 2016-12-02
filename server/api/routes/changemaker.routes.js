@@ -10,8 +10,14 @@ router.get('/', (req,res) => {
 	});
 });
 
-router.get('/:username', (req,res) => {
+router.get('/:id', (req,res) => {
 	res.send(JSON.stringify({}));
 });
+
+router.get('/:id/updates', (req, res) => {
+	dataAccessLayer.getUpdatesByUserId(req.params.id).then(updates => {
+		res.send(updates);
+	});
+})
 
 module.exports = router;
