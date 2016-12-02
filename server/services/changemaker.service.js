@@ -1,3 +1,4 @@
+import dataAccessLayer from '../data';
 
 
 
@@ -10,6 +11,10 @@ module.exports = {
 	getChangemakerByUsername: (username) => {
 		return Promise.resolve({username: username});
 	},
+
+	getFeaturedChangemakers: () => {
+		return Promise.resolve(dataAccessLayer.getFeaturedChangemakers());
+	}
 
 
 };

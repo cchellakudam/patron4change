@@ -6,12 +6,9 @@ export const ChangemakerState = Immutable.Record({
 
 export const ChangemakerRecord = Immutable.Record({
 	id: undefined,
-	image: '',
 	firstName: '',
-	lastName: '',
-	mission: '',
-	statusUpdates: [],
-	isBackedByMe: false
+	surname: '',
+	mission: ''
 })
 
 export const SearchState = Immutable.Record({

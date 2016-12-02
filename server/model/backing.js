@@ -8,11 +8,6 @@ module.exports = (sequelize, DataTypes) => {
 		},
 
 	}, {
-		classMethods:{
-			associate: function(models){
-				Backing.belongsTo(models.changemaker, {foreignKey: 'backing_changemaker', as: 'changemaker'});
-			}
-		},
 	
 		freezeTableName: false // Model tableName will be the same as the model name
 	});

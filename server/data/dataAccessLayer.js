@@ -23,6 +23,10 @@ module.exports = {
 
 	getAllChangemakers(){
 		return models.changemaker.findAll({ where: { tags: 'I,is,super,awesome'}});
-	}
+	},
+
+	getFeaturedChangemakers(){
+
+	},
 
 }

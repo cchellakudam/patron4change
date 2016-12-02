@@ -1,0 +1,19 @@
+.changemakerGallery{
+	text-align: center
+}
+
+.changemakerCarousel{
+	position:relative;
+	text-align: center;
+}
+
+.becomeChangemakerButton{
+	background-color: red;
+}
+
+.changemakerCarousel .becomeChangemakerButton{
+	position: absolute;
+	bottom:50%;
+	right: 42%;
+	z-index: 10;
+}
