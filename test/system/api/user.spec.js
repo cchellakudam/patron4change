@@ -1,4 +1,4 @@
-const assert = require('chai').assert;
+/* const assert = require('chai').assert;
 const http = require('request-promise');
 
 const urlbase = 'http://localhost:3000/api/user';
@@ -6,11 +6,11 @@ const urlbase = 'http://localhost:3000/api/user';
 describe('/user', () => {
 
 	describe('/:id', () => {
-		it('should return object, if existing', (done) => {
+		it('should return only one result and the id must match', (done) => {
 			http(urlbase + '/1')
 				.then((res)=>{
-					const body = JSON.parse(res);
-					assert.typeOf(body, 'object');
+					assert.isOk(res.id === 1);
+					//assert.isOk(res.id === 1);
 					done()
 				})
 				.catch((err)=> {
@@ -20,3 +20,4 @@ describe('/user', () => {
 	})
 
 });
+*/

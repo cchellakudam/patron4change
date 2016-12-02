@@ -9,7 +9,7 @@ router.get('/', (req,res) => {
 });
 
 router.get('/:id', (req,res) => {
-	dataAccessLayer.getUserById(req.params.id).then(user => {
+	dataAccessLayer.getUserForId(req.params.id).then(user => {
 		res.send(JSON.stringify(user));
 	});
 });
