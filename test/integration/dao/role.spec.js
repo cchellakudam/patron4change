@@ -2,8 +2,6 @@ import {beforeEach} from 'mocha';
 import {before} from 'mocha';
 const assert = require('chai').assert;
 
-
-
 describe('model', () => {
 	describe('role', () => {
 		before(function () {
@@ -43,7 +41,5 @@ describe('model', () => {
 				})
 		})
 	});
-
-
 
 });

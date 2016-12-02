@@ -21,18 +21,18 @@ module.exports = (sequelize, DataTypes) => {
 		emailConfirmed: {
 			type: DataTypes.BOOLEAN
 		},
-		
+
 		isAnonymous: {
 			type: DataTypes.BOOLEAN
 		},
-		
+
 		isBlocked: {
 			type: DataTypes.BOOLEAN
 		},
 
 		pwhash: {
 			type: DataTypes.STRING(60)
-		},
+		}
 	}, {
 		classMethods: {
 			associate: function(models){

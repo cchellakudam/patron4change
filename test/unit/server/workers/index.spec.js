@@ -11,7 +11,7 @@ describe('Workers', () => {
     const queues = [];
     queueDefs.forEach(queueDef => {
       const q = queue(queueDef.name);
-      if (undefined !== q) {
+      if ('undefined' !== typeof q) {
         queues.push(q);
       }
     });

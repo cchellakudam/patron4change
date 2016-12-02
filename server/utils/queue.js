@@ -4,7 +4,7 @@ const queues = new Map();
 
 export default (name, config, fn) => {
   let queue = queues.get(name);
-  if (undefined === queue && 'function' === typeof fn) {
+  if ('undefined' === typeof queue && 'function' === typeof fn) {
     queue = new Queue(fn, config);
     queues.set(name, queue);
   }

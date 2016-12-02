@@ -124,8 +124,6 @@ app.use( ( req, res ) => {
 	})
 });
 
-
-
 // example of handling 404 pages
 app.get('*', function(req, res) {
 	res.status(404).send('Server.js > 404 - Page Not Found');

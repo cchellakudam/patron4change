@@ -17,7 +17,7 @@ export default () => {
       uri: baseUrl + '/profile/genericPerson/' + testId,
       method: 'PUT',
       body: profile,
-      json: true,
+      json: true
     })
     .then(() => {
       // There is a latency until the profile becomes searchable

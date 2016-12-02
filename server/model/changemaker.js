@@ -17,8 +17,7 @@ module.exports = (sequelize, DataTypes) => {
 
 		isValidated: {
 			type: DataTypes.BOOLEAN
-		},
-
+		}
 	}, {
 		classMethods: {
 			associate: function(models){

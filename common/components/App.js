@@ -4,7 +4,7 @@ import 'react-toolbox/lib/commons.scss';
 export default class App extends Component {
 
 	static contextTypes = {
-		store: PropTypes.object.isRequired,
+		store: PropTypes.object.isRequired
 	};
 
 	static propTypes = {

@@ -8,7 +8,6 @@ describe('model', () => {
 			return require('../../../server/model/index').sequelize.sync({force: true});
 		});
 
-
 		it('should contain statusUpdate model', function() {
 			assert.isOk(models.statusUpdate);
 		});
@@ -69,7 +68,5 @@ describe('model', () => {
 				})
 		})*/
 	});
-
-
 
 });

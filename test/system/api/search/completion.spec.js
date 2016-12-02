@@ -29,7 +29,7 @@ export default () => {
           lastName: 'bar',
           suggest: word
         },
-        json: true,
+        json: true
       });
     }))
     .then(() => {
@@ -62,7 +62,7 @@ export default () => {
     done();
   });
 
-  prefixes.forEach((words, prefix) => {
+  prefixes.forEach((wordsKey, prefix) => {
     it('should return completions for: ' + prefix, (done) => {
       http({
         uri: baseUrl + '/suggest/' + type,
@@ -73,7 +73,7 @@ export default () => {
         json: true
       })
       .then((result) => {
-        assert.deepEqual(result, words);
+        assert.deepEqual(result, wordsKey);
         done();
       })
       .catch(done);

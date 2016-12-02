@@ -1,3 +1,4 @@
+/* eslint no-undefined: 0 */
 import Immutable from 'immutable';
 
 export const ChangemakerState = Immutable.Record({

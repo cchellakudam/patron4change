@@ -3,8 +3,6 @@ import {before} from 'mocha';
 import _ from 'lodash';
 const assert = require('chai').assert;
 
-
-
 describe('model', () => {
 	describe('user', () => {
 		before(function () {
@@ -62,7 +60,5 @@ describe('model', () => {
 				.catch(done);
 		})
 	});
-
-
 
 });

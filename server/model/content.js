@@ -8,8 +8,7 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		text: {
 			type: DataTypes.TEXT
-		},
-
+		}
 	}, {
 		freezeTableName: false // Model tableName will be the same as the model name
 	});

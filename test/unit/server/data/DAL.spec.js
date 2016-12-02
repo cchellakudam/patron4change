@@ -1,8 +1,6 @@
 
 const assert = require('chai').assert;
 
-
-
 describe('Datalayer interface check', () => {
 
 	describe('Mock Layer should have the functions: ', () => {
@@ -44,7 +42,6 @@ describe('Datalayer interface check', () => {
 			assert.isOk('function' === typeof datalayer.getAllChangemakers);
 		})
 	})
-
 
 });
 

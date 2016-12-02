@@ -1,7 +1,4 @@
-
-
-
-module.exports = {
+export default {
 
 	getAllChangemakers: () => {
 		return Promise.resolve([]);
@@ -9,7 +6,6 @@ module.exports = {
 
 	getChangemakerByUsername: (username) => {
 		return Promise.resolve({username: username});
-	},
-
+	}
 
 };

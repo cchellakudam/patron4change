@@ -9,16 +9,15 @@ module.exports = (sequelize, DataTypes) => {
 
 		title: {
 			type: DataTypes.STRING
-		},
-	
+		}	
 
 	}, {
 		classMethods: {
 			associate: function(models){
-				StatusUpdate.belongsTo(models.content, {foreignKey: 'statusUpdate_content', as: 'content'});	
+				StatusUpdate.belongsTo(models.content, {foreignKey: 'statusUpdate_content', as: 'content'});
 			}
 		},
-		
+
 		freezeTableName: false // Model tableName will be the same as the model name
 	});
 
