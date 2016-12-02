@@ -10,7 +10,7 @@ import { fetchNeeds } from '../utils/fetchComponentData';
 class ChangemakerGalleryContainer extends Component {
 
 	static needs = [
-		ChangemakerActions.readAll
+		ChangemakerActions.getFeaturedChangemakers
 	];
 
 	static propTypes = {
@@ -37,7 +37,7 @@ class ChangemakerGalleryContainer extends Component {
 			  onSupport={() => this.actions.supportChangemaker(cm.id)} />
 	  });
 
-	  return <ChangemakerGallery title="patron4change">
+	  return <ChangemakerGallery>
 		  {nodes}
 		</ChangemakerGallery>;
 	}

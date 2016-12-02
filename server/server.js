@@ -20,9 +20,13 @@ const finalCreateStore = applyMiddleware(promiseMiddleware)( createStore );
 
 console.log( 'env: ', process.env.NODE_ENV )
 
+// make sure styles are only loaded for client resources
+delete process.env.BROWSER;
+
 const app = express();
 
-app.use('/assets', express.static(path.join(__dirname, '../client/assets')))
+app.use('/css', express.static(path.join(__dirname, '../client/css')))
+app.use('/public', express.static(path.join(__dirname, '../public')))
 
 const webpack = require('webpack')
 const webpackDevMiddleware = require('webpack-dev-middleware')
@@ -32,12 +36,27 @@ const compiler = webpack(config)
 app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }))
 app.use(webpackHotMiddleware(compiler))
 
+// init database
+if('unit' !== process.env.NODE_ENV){
+	require('../server/model').sequelize.sync();
+}
+
+// start workers
+require('./workers/');
+
+require('./utils/rebuildSearchIndex');
+
+const apiRoutes = require('./api/routes');
+
 function renderFullPage(html, initialState) {
   return `
 	<!doctype html>
 	<html lang="utf-8">
 	  <head>
 		<title>patron4change</title>
+		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 	  </head>
 	  <body>
 	  <div class="container">${html}</div>
@@ -47,6 +66,8 @@ function renderFullPage(html, initialState) {
 	</html>
 	`
 }
+
+app.use('/api', apiRoutes);
 
 // server rendering
 app.use( ( req, res ) => {
@@ -102,12 +123,12 @@ app.use( ( req, res ) => {
 		.then(okPage)
 		.catch(endWithError);
 	})
-})
+});
 
 // example of handling 404 pages
 app.get('*', function(req, res) {
 	res.status(404).send('Server.js > 404 - Page Not Found');
-})
+});
 
 // global error catcher
 app.use((err, req, res) => {
@@ -118,7 +139,7 @@ app.use((err, req, res) => {
 
 process.on('uncaughtException', evt => {
   console.log( 'uncaughtException: ', evt );
-})
+});
 
 app.listen(3000, function(){
 	console.log('Listening on port 3000');

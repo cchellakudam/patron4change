@@ -1,33 +1,40 @@
 import React, {PropTypes} from 'react';
-import {Link} from 'react-router';
+import {Button} from 'react-toolbox/lib/button';
+import { Card, CardMedia, CardTitle, CardText, CardActions } from 'react-toolbox/lib/card';
 
-export default class ChangemakerGalleryItem extends React.Component {
+import * as shapes from './shapes';
+
+import styles from '../../client/css/modules/changemaker-gallery-item.scss';
+
+class ChangemakerGalleryItem extends React.Component {
 
   static propTypes = {
-
-  	changemaker: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-  		name: PropTypes.string.isRequired,
-  		image: PropTypes.string.isRequired,
-  		isBackedByMe: PropTypes.bool.isRequired
-  	}).isRequired,
-
+  	changemaker: shapes.changemaker.isRequired,
   	onSupport: PropTypes.func.isRequired
   }
 
   render() {
   	const cm = this.props.changemaker;
+
   	return (
-  		<div>
-  			<img alt="user thumbnail" src={cm.image} />
-  			<h4>{cm.name}</h4>
-  			<button
-          onClick={this.props.onSupport}
-          disabled={cm.isBackedByMe ? 'disabled' : ''}>
-          {cm.isBackedByMe ? 'is supported' : 'support'}
-  			</button>
-  			<Link to={`/${cm.id}`}>details</Link>
-  		</div>
+		<Card style={{width: '350px'}} className={styles.changemakerGalleryItem}> 
+		    <CardMedia
+		      aspectRatio="wide"
+		      image="https://placeimg.com/800/450/nature"
+		    />
+		    <CardTitle
+		      title={cm.firstName +' '+ cm.surname}
+
+		    />
+		    <CardText style={{height: '7rem', 'text-align':'left'}}>{cm.mission}</CardText>
+		    <CardActions>
+		      <Button label="details" />
+		      <Button label="support" />
+		    </CardActions>
+		  </Card>
+  		
   	);
   }
 }
+
+export default ChangemakerGalleryItem;

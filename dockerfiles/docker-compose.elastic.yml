@@ -1,0 +1,8 @@
+version: '2'
+services:
+  elastic:
+    image: elasticsearch:2.4
+    volumes:
+      - "elastic-data:/usr/share/elasticsearch/data"
+    ports:
+      - "9200:9200"

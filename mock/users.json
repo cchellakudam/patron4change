@@ -1,0 +1,112 @@
+[
+	{
+		"id": 1,
+		"surname": "Holzer",
+		"firstName": "Matthias",
+		"email": "matthias.holzer@example.com",
+		"emailIsConfirmed": true,
+		"isAnonymus": false,
+		"passwordHash": "fsa79gsags9g5sg95s896gsyfol23orh2o",
+		"isBlocked": false
+	},
+	{
+		"id": 2,
+		"surname": "Mayer",
+		"firstName": "Roland",
+		"email": "roland.mayer@example.com",
+		"emailIsConfirmed": true,
+		"isAnonymus": false,
+		"passwordHash": "fsa7sdhdh54h6gsyfol23orh2o",
+		"isBlocked": false
+	},
+	{
+		"id": 3,
+		"surname": "Molner",
+		"firstName": "Maria",
+		"email": "maria.molner@example.com",
+		"emailIsConfirmed": true,
+		"isAnonymus": false,
+		"passwordHash": "fsa79gsags9g5sg95s896gsyfol23orh2o",
+		"isBlocked": false
+	},
+	{
+		"id": 4,
+		"surname": "Polnitz",
+		"firstName": "Julia",
+		"email": "Julia.polnitz@example.com",
+		"emailIsConfirmed": true,
+		"isAnonymus": false,
+		"passwordHash": "fsa79gsags9g5sg95s896gsyfol23orh2o",
+		"isBlocked": false
+	},
+	{
+		"id": 5,
+		"surname": "Voggen",
+		"firstName": "Alex",
+		"email": "alex.voggen@example.com",
+		"emailIsConfirmed": true,
+		"isAnonymus": false,
+		"passwordHash": "fsa79gsags9g5sg95s896gsyfol23orh2o",
+		"isBlocked": false
+	},
+	{
+		"id": 6,
+		"surname": "Franzens",
+		"firstName": "Hermann",
+		"email": "franzens.hermann@example.com",
+		"emailIsConfirmed": true,
+		"isAnonymus": false,
+		"passwordHash": "fsa79gsags9g5sg95s896gsyfol23orh2o",
+		"isBlocked": false
+	},
+	{
+		"id": 7,
+		"surname": "goldfaden",
+		"firstName": "Klara",
+		"email": "klara.goldfaden@example.com",
+		"emailIsConfirmed": true,
+		"isAnonymus": false,
+		"passwordHash": "fsa79gsags9g5sg95s896gsyfol23orh2o",
+		"isBlocked": false
+	},
+	{
+		"id": 8,
+		"surname": "Ondar",
+		"firstName": "Enzo",
+		"email": "enzo.ondar@example.com",
+		"emailIsConfirmed": true,
+		"isAnonymus": false,
+		"passwordHash": "fsa79gsags9g5sg95s896gsyfol23orh2o",
+		"isBlocked": false
+	},
+	{
+		"id": 9,
+		"surname": "Singfeld",
+		"firstName": "Paul",
+		"email": "paul.singfeld@example.com",
+		"emailIsConfirmed": true,
+		"isAnonymus": false,
+		"passwordHash": "fsa79gsags9g5sg95s896gsyfol23orh2o",
+		"isBlocked": false
+	},
+	{
+		"id": 10,
+		"surname": "Noname",
+		"firstName": "Freigeist",
+		"email": "freigeist@example.com",
+		"emailIsConfirmed": true,
+		"isAnonymus": false,
+		"passwordHash": "fsa79gsags9g5sg95s896gsyfol23orh2o",
+		"isBlocked": false
+	},
+	{
+		"id": 11,
+		"surname": "Muster",
+		"firstName": "Max",
+		"email": "max@muster.com",
+		"emailIsConfirmed": true,
+		"isAnonymus": false,
+		"passwordHash": "fsa79gsags9g5sg95s896gsyfol23orh2o",
+		"isBlocked": false
+	}
+]

@@ -1,0 +1,40 @@
+{
+  "profile_v1": {
+    "mappings": {
+      "changemaker": {
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "string",
+            "index": "not_analyzed"
+          },
+          "mission": {
+            "type": "string",
+            "analyzer": "german"
+          },
+          "statusUpdates": {
+            "type": "nested",
+            "properties": {
+              "title": {
+                "type": "string",
+                "analyzer": "german"
+              },
+              "content": {
+                "type": "string",
+                "analyzer": "german"
+              }
+            }
+          },
+          "suggest" : {
+            "type" : "completion"
+          }
+        }
+      }
+    }
+  }
+}

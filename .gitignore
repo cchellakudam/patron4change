@@ -32,3 +32,10 @@ build
 # intellij IDE specific files
 /.idea/
 /ws16_ase_qse_02.iml
+
+
+## project specific
+db/data/
+
+## Local configuration files
+config/local*

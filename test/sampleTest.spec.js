@@ -1,4 +1,4 @@
-var assert = require('chai').assert;
+const assert = require('chai').assert;
 
 import React from 'react';
 import { shallow } from 'enzyme';
@@ -11,7 +11,7 @@ import App from '../common/components/App'
 describe('Array', () => {
 	// every test is a it method
 	it('should initialize empty', () => {
-		var arr = [];
+		const arr = [];
 
 		// chai assertion class imported above
 		assert.equal(arr.length, 0);

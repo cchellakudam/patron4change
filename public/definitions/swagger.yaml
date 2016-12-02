@@ -1,0 +1,221 @@
+# TODO: tags
+swagger: '2.0'
+info:
+  title: Changemaker API
+  description: A statelest REsTful API for the core backend-communication of patron4change
+  version: "1.0.0"
+# the domain of the service
+host: to.be.done
+# array of all schemes that your API supports
+schemes:
+  - https
+# will be prefixed to all paths
+basePath: /
+produces:
+  - application/json
+paths:
+  /changemakers:
+    get:
+      summary: Changemakers
+      description: |
+        A list of Changemakers that can optionally be filtered.
+      parameters:
+        - name: first
+          in: query
+          type: integer
+          description: First item to be displayed
+        - name: last
+          in: query
+          type: integer
+          description: Last item to be displayed
+      responses:
+        200:
+          description: An array of Changemakers
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Changemaker'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /changemakers/{changemakerId}:
+    get:
+      summary: A single Changemaker
+      description: |
+        Returns a single Changemaker specified by id
+      parameters:
+        - name: changemakerId
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: A single Changemaker
+          schema:
+            $ref: '#/definitions/Changemaker'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /patrons:
+    get:
+      summary: Patrons
+      description: |
+        A list of Patrons that can optionally be filtered.
+      parameters:
+        - name: first
+          in: query
+          type: integer
+          description: First item to be displayed
+        - name: last
+          in: query
+          type: integer
+          description: Last item to be displayed
+      responses:
+        200:
+          description: An array of Patrons
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Patron'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /patrons/{patronId}:
+    get:
+      summary: A single Patron
+      description: |
+        Returns a single Patron specified by id
+      parameters:
+        - name: patronId
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: A single Patron
+          schema:
+            $ref: '#/definitions/Patron'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /backings:
+    get:
+      summary: Backings
+      description: |
+        A list of Backings that can optionally be filtered.
+      parameters:
+        - name: first
+          in: query
+          type: integer
+          description: First item to be displayed
+        - name: last
+          in: query
+          type: integer
+          description: Last item to be displayed
+        - name: changemaker_id
+          in: query
+          type: integer
+          description: Backings to a specific Changemaker
+        - name: patron_id
+          in: query
+          type: integer
+          description: Backings by a specific Patron
+      responses:
+        200:
+          description: An array of Backings
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Backing'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /backings/{backingId}:
+    get:
+      summary: Backings
+      description: |
+        One specific Backing
+      parameters:
+        - name: backingId
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: A single Backing
+          schema:
+            $ref: '#/definitions/Backing'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  Changemaker:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: Unique identifier.
+      first_name:
+        type: string
+        description: First name of the Changemaker
+      last_name:
+        type: string
+        description: Last name of the Changemaker
+      email:
+        type: string
+        description: Email address of the Changemaker
+      picture:
+        type: string
+        description: Image URL of the Changemaker
+  Patron:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: Unique identifier.
+      first_name:
+        type: string
+        description: First name of the Patron
+      last_name:
+        type: string
+        description: Last name of the Patron
+      email:
+        type: string
+        description: Email address of the Patron
+      picture:
+        type: string
+        description: Image URL of the Patron
+  Backing:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: Unique identifier.
+      changemaker_id:
+        type: string
+        description: ID of the Changemaker who is backed
+      patron_id:
+        type: string
+        description: ID of the Patron who is backing
+      type:
+        type: string
+        description: (enum) regular or single
+      amount:
+        type: integer
+        description: Amount in cents
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string

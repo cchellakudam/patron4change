@@ -1,3 +1,4 @@
+/* eslint no-undefined: 0 */
 import Immutable from 'immutable';
 
 export const ChangemakerState = Immutable.Record({
@@ -5,10 +6,25 @@ export const ChangemakerState = Immutable.Record({
 })
 
 export const ChangemakerRecord = Immutable.Record({
+	id: undefined,
+	firstName: '',
+	surname: '',
+	mission: ''
+})
+
+export const ChangemakerUpdateRecord = Immutable.Record({
 	id: '',
-	image: '',
-	name: '',
-	isBackedByMe: false
+	title: ''
+})
+
+export const SearchState = Immutable.Record({
+	term: '',
+	results: Immutable.List()
+})
+
+export const SearchResultRecord = Immutable.Record({
+	match: undefined,
+	changemaker: undefined
 })
 
 export function convertToRecordMap( arr, Def ){

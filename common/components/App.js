@@ -1,25 +1,25 @@
 import React, { Component, PropTypes } from 'react';
-
-if ( 'undefined' !== typeof window ) {
-	require( '../../client/assets/css/main.css' );
-}
+import 'react-toolbox/lib/commons.scss';
+import styles from '../../client/css/modules/app.scss';
 
 export default class App extends Component {
 
 	static contextTypes = {
-		store: PropTypes.object.isRequired,
+		store: PropTypes.object.isRequired
 	};
 
 	static propTypes = {
+		nav: PropTypes.element.isRequired,
 		main: PropTypes.element.isRequired,
 		sub: PropTypes.element
 	}
 
 	render() {
 		let nodes = <div>
+			{this.props.nav}
 			{this.props.main}
 			{this.props.sub}
 		</div>;
-		return nodes;
+		return <div className={styles.app}>{nodes}</div>;
 	}
 }
