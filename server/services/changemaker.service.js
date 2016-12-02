@@ -1,11 +1,10 @@
-export default {
+export default class {
 
-	getAllChangemakers: () => {
+	static getAllChangemakers() {
 		return Promise.resolve([]);
-	},
-
-	getChangemakerByUsername: (username) => {
-		return Promise.resolve({username: username});
 	}
 
-};
+	static getChangemakerByUsername(username) {
+		return Promise.resolve({username: username});
+	}
+}

@@ -1,9 +1,8 @@
 const assert = require('chai').assert;
 
+import ChangemakerService from '../../../../server/services/changemaker.service';
 
 describe('changemaker service', () => {
-
-	const changemakerService = require('../../../../server/services/changemaker.service');
 
 	describe('getAllChangemakers()', () => {
 		it('should return array', done => {
@@ -11,7 +10,7 @@ describe('changemaker service', () => {
 				assert.equal(typeof result, typeof []);
 				done();
 			}
-			changemakerService.getAllChangemakers().then(check);
+			ChangemakerService.getAllChangemakers().then(check);
 		});
 	});
 
@@ -21,7 +20,7 @@ describe('changemaker service', () => {
 				assert.equal(typeof result, typeof {});
 				done();
 			}
-			changemakerService.getChangemakerByUsername('max').then(check);
+			ChangemakerService.getChangemakerByUsername('max').then(check);
 		});
 	});
 });
