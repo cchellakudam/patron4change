@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/featured', (req,res) => {
 	changemakerService.getFeaturedChangemakers().then(changemakers => {
-		res.send(changemakers)
+		res.send(JSON.stringify(changemakers))
 	});	
 }),
 
