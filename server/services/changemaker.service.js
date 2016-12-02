@@ -10,6 +10,6 @@ export default class {
 	}
 
 	static getFeaturedChangemakers(){
-		return Promise.resolve(dataAccessLayer.getFeaturedChangemakers())
+		return dataAccessLayer.getFeaturedChangemakers();
 	}
 }

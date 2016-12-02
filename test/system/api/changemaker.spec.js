@@ -33,12 +33,12 @@ describe('/changemaker', () => {
 	})
 	
 	describe('/featured', () => {
-		it('should return a list of featured changemakers', (done) => {
+		it('should return an array of featured changemakers', (done) => {
 			http(urlbase + '/featured')
 				.then((res)=>{
 					const body = JSON.parse(res);
 					assert.equal(typeof[], typeof body);
-					done()
+                    done();
 				})
 				.catch((err)=> {
 					done(err);
