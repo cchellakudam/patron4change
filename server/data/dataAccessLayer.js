@@ -30,8 +30,10 @@ module.exports =  {
 		return models.statusUpdate.findAll({ where: { changemakerId: id } });
 	},
 
+	// due to problems with our model layer, we will leave the logic to the
+	// test with mock data, this test only checks that the call itself is functional
 	getFeaturedChangemakers(){
-
+		return models.changemaker.findAll({ limit: 9});
     }
 
 }
