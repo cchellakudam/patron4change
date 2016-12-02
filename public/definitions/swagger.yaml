@@ -2,7 +2,7 @@
 swagger: '2.0'
 info:
   title: Changemaker API
-  description: A statelest REsTful API for the core backend-communication of patron4change
+  description: A statelest RESTful API for the core backend-communication of patron4change
   version: "1.0.0"
 # the domain of the service
 host: to.be.done
@@ -10,7 +10,7 @@ host: to.be.done
 schemes:
   - https
 # will be prefixed to all paths
-basePath: /
+basePath: /api
 produces:
   - application/json
 paths:
@@ -20,14 +20,8 @@ paths:
       description: |
         A list of Changemakers that can optionally be filtered.
       parameters:
-        - name: first
-          in: query
-          type: integer
-          description: First item to be displayed
-        - name: last
-          in: query
-          type: integer
-          description: Last item to be displayed
+        - $ref: '#parameters/limitParam'
+        - $ref: '#parameters/offsetParam'
       responses:
         200:
           description: An array of Changemakers
@@ -64,14 +58,8 @@ paths:
       description: |
         A list of Patrons that can optionally be filtered.
       parameters:
-        - name: first
-          in: query
-          type: integer
-          description: First item to be displayed
-        - name: last
-          in: query
-          type: integer
-          description: Last item to be displayed
+        - $ref: '#parameters/limitParam'
+        - $ref: '#parameters/offsetParam'
       responses:
         200:
           description: An array of Patrons
@@ -108,14 +96,8 @@ paths:
       description: |
         A list of Backings that can optionally be filtered.
       parameters:
-        - name: first
-          in: query
-          type: integer
-          description: First item to be displayed
-        - name: last
-          in: query
-          type: integer
-          description: Last item to be displayed
+        - $ref: '#parameters/limitParam'
+        - $ref: '#parameters/offsetParam'
         - name: changemaker_id
           in: query
           type: integer
@@ -137,9 +119,9 @@ paths:
             $ref: '#/definitions/Error'
   /backings/{backingId}:
     get:
-      summary: Backings
+      summary: A single Backing
       description: |
-        One specific Backing
+        One specific Backing referenced via the backingId
       parameters:
         - name: backingId
           in: path
@@ -155,42 +137,35 @@ paths:
           schema:
             $ref: '#/definitions/Error'
 definitions:
+  UserProperties:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: Unique identifier.
+      first_name:
+        type: string
+        description: First name of the User
+      last_name:
+        type: string
+        description: Last name of the User
+      email:
+        type: string
+        description: Email address of the User
   Changemaker:
-    type: object
-    properties:
-      id:
-        type: integer
-        description: Unique identifier.
-      first_name:
-        type: string
-        description: First name of the Changemaker
-      last_name:
-        type: string
-        description: Last name of the Changemaker
-      email:
-        type: string
-        description: Email address of the Changemaker
-      picture:
-        type: string
-        description: Image URL of the Changemaker
+    allOf:
+      - $ref: '#/definitions/UserProperties'
+      - type: object
+        properties:
+          picture_location:
+            type: string
+            description: Image URL of the Changemaker
+          video_location:
+            type: string
+            description: Video location of the Changemaker introduction
   Patron:
-    type: object
-    properties:
-      id:
-        type: integer
-        description: Unique identifier.
-      first_name:
-        type: string
-        description: First name of the Patron
-      last_name:
-        type: string
-        description: Last name of the Patron
-      email:
-        type: string
-        description: Email address of the Patron
-      picture:
-        type: string
-        description: Image URL of the Patron
+    allOf:
+      - $ref: '#/definitions/UserProperties'
   Backing:
     type: object
     properties:
@@ -219,3 +194,16 @@ definitions:
         type: string
       fields:
         type: string
+parameters:
+  limitParam:
+    name: page
+    in: query
+    type: integer
+    description: 'The number of items returned'
+    default: 10
+  offsetParam:
+    name: rows
+    in: query
+    type: integer
+    description: The number of items skipped
+    default: 0

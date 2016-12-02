@@ -14,6 +14,8 @@ import { Provider } from 'react-redux';
 import promiseMiddleware from '../common/middleware/PromiseMiddleware';
 import combinedReducers from '../common/reducers';
 
+import swaggerUi from 'swaggerize-ui';
+
 import fetchComponentData from '../common/utils/fetchComponentData';
 
 const finalCreateStore = applyMiddleware(promiseMiddleware)( createStore );
@@ -27,6 +29,8 @@ const app = express();
 
 app.use('/css', express.static(path.join(__dirname, '../client/css')))
 app.use('/public', express.static(path.join(__dirname, '../public')))
+
+app.use('/api-doc', swaggerUi({docs: '/public/definitions/swagger.yaml'}));
 
 const webpack = require('webpack')
 const webpackDevMiddleware = require('webpack-dev-middleware')
