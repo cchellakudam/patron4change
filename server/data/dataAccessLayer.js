@@ -28,6 +28,10 @@ module.exports =  {
 
 	getUpdatesByUserId(id) {
 		return models.statusUpdate.findAll({ where: { changemakerId: id } });
-	}
+	},
+
+	getFeaturedChangemakers(){
+
+    }
 
 }
