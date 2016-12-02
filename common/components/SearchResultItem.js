@@ -21,8 +21,8 @@ class SearchResultItem extends React.Component {
     let name = `${cm.firstName} ${cm.lastName}`;
 
     const content = <div>
-      <span className={styles.mainText + " main-text"}>{name}</span>
-      <span className={styles.subText + " sub-text"}
+      <span className={styles.mainText + ' main-text'}>{name}</span>
+      <span className={styles.subText + ' sub-text'}
         dangerouslySetInnerHTML={{ __html: section ? section.value : cm.mission }} />
     </div>;
 
