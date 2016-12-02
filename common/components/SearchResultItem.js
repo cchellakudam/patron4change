@@ -3,10 +3,7 @@ import React, { PropTypes } from 'react';
 import {ListItem} from 'react-toolbox/lib/list';
 import * as shapes from './shapes';
 
-let styles = {};
-if (process.env.BROWSER) {
-  styles = require('../../client/css/modules/search-result-item.scss');
-}
+import styles from '../../client/css/modules/search-result-item.scss';
 
 class SearchResultItem extends React.Component {
 

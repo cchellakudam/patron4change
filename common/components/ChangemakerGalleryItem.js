@@ -4,10 +4,7 @@ import {Link} from 'react-router';
 
 import * as shapes from './shapes';
 
-let styles = {};
-if (process.env.BROWSER) {
-  styles = require('../../client/css/modules/changemaker-gallery-item.scss');
-}
+import styles from '../../client/css/modules/changemaker-gallery-item.scss';
 
 class ChangemakerGalleryItem extends React.Component {
 

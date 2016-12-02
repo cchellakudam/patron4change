@@ -1,10 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Input } from 'react-toolbox/lib/input';
 
-let styles = {};
-if ('browser' === process.env.APP_ENV) {
-  styles = require('../../client/css/modules/search.scss');
-}
+import styles from '../../client/css/modules/search.scss';
 
 class Search extends React.Component {
 
@@ -27,6 +24,7 @@ class Search extends React.Component {
     let { term } = this.props;
     return <Input id="search-term" className={styles.searchTerm} hint='Suche nach Changemakern'
       type="text" value={term} icon="search"
+      maxLength={256}
       onChange={this.onChange} />;
   }
 }
