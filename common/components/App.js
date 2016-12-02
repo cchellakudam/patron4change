@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import 'react-toolbox/lib/commons.scss';
+import styles from '../../client/css/modules/app.scss';
 
 export default class App extends Component {
 
@@ -19,6 +20,6 @@ export default class App extends Component {
 			{this.props.main}
 			{this.props.sub}
 		</div>;
-		return nodes;
+		return <div className={styles.app}>{nodes}</div>;
 	}
 }
