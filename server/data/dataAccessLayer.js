@@ -9,7 +9,7 @@ function getMockUsers() {
 	return arr;
 }
 
-export default {
+module.exports =  {
 
 	getAllUsers(){
 		return Promise.resolve(getMockUsers());
@@ -18,7 +18,7 @@ export default {
 	getUserForEmail(){
 	},
 
-	getUserById(id){
+	getUserForId(id){
 		return models.user.findById(id);
 	},
 
