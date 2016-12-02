@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
 				Changemaker.belongsTo(models.user, {foreignKey: 'changemaker_user', as: 'user'});
 				Changemaker.hasOne(models.content, {foreignKey: 'changemaker_content', as: 'mission'});
 				Changemaker.hasMany(models.statusUpdate, {as: 'statusUpdates'});
+				Changemaker.hasMany(models.backing, {as: 'backings'})
 			}
 		},
 

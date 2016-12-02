@@ -31,5 +31,19 @@ describe('/changemaker', () => {
 				})
 		})
 	})
+	
+	describe('/featured', () => {
+		it('should return a list of featured changemakers', (done) => {
+			http(urlbase + '/featured')
+				.then((res)=>{
+					const body = JSON.parse(res);
+					assert.typeOf(body, 'object');
+					done()
+				})
+				.catch((err)=> {
+					done(err);
+				})
+		})
+	})
 
 });

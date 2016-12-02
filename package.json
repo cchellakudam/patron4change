@@ -44,6 +44,7 @@
     "js-yaml": "^3.7.0",
     "lodash": "^4.17.2",
     "node-gyp": "^3.4.0",
+    "nuka-carousel": "^2.0.3",
     "pg": "^6.1.0",
     "pg-hstore": "^2.3.2",
     "pg-promise": "^5.3.5",

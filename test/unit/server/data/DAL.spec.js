@@ -21,6 +21,10 @@ describe('Datalayer interface check', () => {
 		it('getAllChangemakers()', () => {
 			assert.isOk('function' === typeof datalayer.getAllChangemakers);
 		})
+
+		it('getFeaturedChangemakers()', () => {
+			assert.isOk('function' === typeof datalayer.getFeaturedChangemakers);
+		})
 	});
 
 	describe('Real Layer should have the functions:', () => {
@@ -41,6 +45,11 @@ describe('Datalayer interface check', () => {
 		it('getAllChangemakers()', () => {
 			assert.isOk('function' === typeof datalayer.getAllChangemakers);
 		})
+		
+		it('getFeaturedChangemakers()', () => {
+			assert.isOk('function' === typeof datalayer.getFeaturedChangemakers);
+		})
+
 	})
 
 });
@@ -113,5 +122,15 @@ describe('Mocked dataaccesslayer', () => {
 			}
 			datalayer.getAllChangemakers().then(check);
 		})
-	})
+	});
+
+	describe('getFeaturedChangemakers', () => {
+		it('should return the 9 changemakers with the most number of backings', done => {
+			function check(result){
+				assert.equal(result.length, 9);
+				done();
+			}
+			datalayer.getFeaturedChangemakers().then(check);
+		});
+	});
 });
