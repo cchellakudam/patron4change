@@ -27,6 +27,12 @@ function SUPPORT_CHANGEMAKER( state, action ) {
 	})
 }
 
+function GET_FEATURED_CHANGEMAKERS_REQUEST (state){return state;}
+function GET_FEATURED_CHANGEMAKERS_ERROR (state){return state;}
+function GET_FEATURED_CHANGEMAKERS_SUCCESS(state, action){
+	return state.update('changemakers', () => Immutable.fromJS(action.result) )
+}
+
 function mergeLists(l1, l2, keySelector) {
 	let newList = l1.valueSeq();
 	let newKeys = l2.map(keySelector);
@@ -51,7 +57,11 @@ const handlers =
 
 	[types.SUPPORT_CHANGEMAKER]: SUPPORT_CHANGEMAKER,
 
-	[types.GLOBAL_SEARCH_SUCCESS]: GLOBAL_SEARCH_SUCCESS
+	[types.GLOBAL_SEARCH_SUCCESS]: GLOBAL_SEARCH_SUCCESS,
+
+	[types.GET_FEATURED_CHANGEMAKERS_REQUEST]: GET_FEATURED_CHANGEMAKERS_REQUEST,
+	[types.GET_FEATURED_CHANGEMAKERS_SUCCESS]: GET_FEATURED_CHANGEMAKERS_SUCCESS,
+	[types.GET_FEATURED_CHANGEMAKERS_ERROR]:GET_FEATURED_CHANGEMAKERS_ERROR
 }
 
 export default createReducer( new ChangemakerState(), handlers );

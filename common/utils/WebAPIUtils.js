@@ -18,6 +18,12 @@ export default class {
 		});
 	}
 
+	static getFeaturedChangemakers(){
+		return axios('/api/changemaker/featured').then(res => {
+			return convertToRecordList(res.data,ChangemakerRecord);
+		});
+	}
+
 	static search(term) {
 		if (!term) {
 			return Promise.resolve(emptyRecordList());

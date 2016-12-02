@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import {Button} from 'react-toolbox/lib/button';
-import {Link} from 'react-router';
+import { Card, CardMedia, CardTitle, CardText, CardActions } from 'react-toolbox/lib/card';
 
 import * as shapes from './shapes';
 
@@ -18,17 +18,24 @@ class ChangemakerGalleryItem extends React.Component {
 
   render() {
   	const cm = this.props.changemaker;
+
   	return (
-  		<div className={styles.container}>
-  			<img alt="user thumbnail" src={cm.image} />
-  			<h4>{cm.name}</h4>
-  			<Button
-          onClick={this.props.onSupport}
-          disabled={cm.isBackedByMe}>
-          {cm.isBackedByMe ? 'is supported' : 'support'}
-  			</Button>
-  			<Link to={`/${cm.id}`}>details</Link>
-  		</div>
+		<Card style={{width: '350px'}} className={styles.changemakerGalleryItem}> 
+		    <CardMedia
+		      aspectRatio="wide"
+		      image="https://placeimg.com/800/450/nature"
+		    />
+		    <CardTitle
+		      title={cm.firstName +' '+ cm.surname}
+
+		    />
+		    <CardText style={{height: '7rem', 'text-align':'left'}}>{cm.mission}</CardText>
+		    <CardActions>
+		      <Button label="details" />
+		      <Button label="support" />
+		    </CardActions>
+		  </Card>
+  		
   	);
   }
 }
