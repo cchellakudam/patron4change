@@ -37,7 +37,7 @@ describe('/changemaker', () => {
 			http(urlbase + '/featured')
 				.then((res)=>{
 					const body = JSON.parse(res);
-					assert.typeOf(body, 'array');
+					assert.equal(typeof[], typeof body);
 					done()
 				})
 				.catch((err)=> {
