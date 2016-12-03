@@ -3,7 +3,7 @@
 require('babel-register');
 const models = require('./server/model');
 
-models.sequelize.sync().then(() => {
+models.sequelize.sync({'force': true}).then(() => {
   return models.content.bulkCreate(require('./mock/content.json'));
 })
 .then(() => {
