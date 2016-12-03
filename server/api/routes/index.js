@@ -11,6 +11,10 @@ import dao from '../../data';
 import ChangemakerService from '../../services/changemaker.service.js';
 import PatronService from '../../services/patron.service.js';
 import UsersService from '../../services/users.service.js';
+import SearchService from '../../services/search.service.js';
+
+import config from 'config';
+const searchConfig = config.get('search');
 
 const router = express.Router();
 
@@ -22,6 +26,6 @@ router.use('/changemaker', changemakerRoutes(new ChangemakerService(dao)));
 router.use('/user', userRoutes(new UsersService(dao)));
 router.use('/patron', patronRoutes(new PatronService(dao)));
 router.use('/admin', adminRoutes(new UsersService(dao)));
-router.use('/search', searchRoutes());
+router.use('/search', searchRoutes(new SearchService(searchConfig)));
 
 export default router;

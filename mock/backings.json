@@ -1,57 +1,66 @@
 [
 	{
 		"id":1,
-		"userId": "1",
-		"changemakerId": "2"
+		"fk_sender_id": 1,
+		"fk_recipient_id": 2,
+		"amount": 25
 	},
 
 	{
-		"id":1,
-		"userId": "2",
-		"changemakerId": "3"
+		"id":2,
+		"fk_sender_id": 2,
+		"fk_changemaker_id": 3,
+		"amount": 25
 	},
 
 	{
-		"id":1,
-		"userId": "3",
-		"changemakerId": "4"
+		"id":3,
+		"fk_sender_id": 3,
+		"fk_changemaker_id": 4,
+		"amount": 25
 	},
 
 	{
-		"id":1,
-		"userId": "4",
-		"changemakerId": "5"
+		"id":4,
+		"fk_sender_id": 4,
+		"fk_changemaker_id": 5,
+		"amount": 25
 	},
 
 	{
-		"id":1,
-		"userId": "5",
-		"changemakerId": "6"
+		"id":5,
+		"fk_sender_id": 5,
+		"fk_changemaker_id": 6,
+		"amount": 25
 	},
 
 	{
-		"id":1,
-		"userId": "6",
-		"changemakerId": "7"
+		"id":6,
+		"fk_sender_id": 6,
+		"fk_changemaker_id": 7,
+		"amount": 25
 	},
 
 	{
-		"id":1,
-		"userId": "7",
-		"changemakerId": "8"
+		"id":7,
+		"fk_sender_id": 7,
+		"fk_changemaker_id": 8,
+		"amount": 25
 	},
 
 	{
-		"id":1,
-		"userId": "8",
-		"changemakerId": "9"
+		"id":8,
+		"fk_sender_id": 8,
+		"fk_changemaker_id": 9,
+		"amount": 25
 	},
 
 	{
-		"id":1,
-		"userId": "9",
-		"changemakerId": "1"
+		"id":9,
+		"fk_sender_id": 9,
+		"fk_changemaker_id": 1,
+		"amount": 25
 	}
 
-	
+
 ]

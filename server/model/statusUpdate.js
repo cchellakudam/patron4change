@@ -1,20 +1,14 @@
 module.exports = (sequelize, DataTypes) => {
 
 	const StatusUpdate = sequelize.define('statusUpdate', {
-		id: {
-			type: DataTypes.INTEGER,
-			autoIncrement: true,
-			primaryKey: true
-		},
-
 		title: {
 			type: DataTypes.STRING
-		}	
-
+		}
 	}, {
 		classMethods: {
 			associate: function(models){
-				StatusUpdate.belongsTo(models.content, {foreignKey: 'statusUpdate_content', as: 'content'});
+				StatusUpdate.belongsTo(models.content, {foreignKey: 'fk_content_id', as: 'content'});
+				StatusUpdate.belongsTo(models.changemaker, {foreignKey: 'fk_changemaker_id', as: 'changemaker'});
 			}
 		},
 
