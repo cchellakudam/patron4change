@@ -9,31 +9,36 @@ function getMockUsers() {
 	return arr;
 }
 
-module.exports =  {
+export default class {
 
-	getAllUsers(){
+	static getAllUsers(){
 		return Promise.resolve(getMockUsers());
-	},
+	}
 
-	getUserForEmail(){
-	},
+	static getUserForEmail(){
+		throw new NotImplementedError();
+	}
 
-	getUserForId(id){
+	static getUserForId(id){
 		return models.user.findById(id);
-	},
+	}
 
-	getAllChangemakers(){
-		return models.changemaker.findAll({ where: { tags: 'I,is,super,awesome'}});
-	},
+	static getAllChangemakers(){
+		return models.changemaker.findAll({ where: { tags: 'I,is,super,awesome' } });
+	}
 
-	getUpdatesByUserId(id) {
+	static getUpdatesByUserId(id) {
 		return models.statusUpdate.findAll({ where: { changemakerId: id } });
-	},
+	}
 
 	// due to problems with our model layer, we will leave the logic to the
 	// test with mock data, this test only checks that the call itself is functional
-	getFeaturedChangemakers(){
-		return models.changemaker.findAll({ limit: 9});
-    }
+	static getFeaturedChangemakers(){
+		return models.changemaker.findAll({ limit: 9 });
+  }
+
+	static getAllPatrons() {
+		return Promise.resolve([]);
+	}
 
 }

@@ -1,8 +1,11 @@
 
+export default class {
 
-module.exports = {
+	constructor(dao) {
+		this.dao = dao;
+	}
 
-	getAllPatrons: () => {
-		return Promise.resolve([]);
+	getAllPatrons() {
+		return this.dao.getAllPatrons();
 	}
 };

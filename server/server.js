@@ -46,7 +46,7 @@ require('./workers/');
 
 require('./utils/rebuildSearchIndex');
 
-const apiRoutes = require('./api/routes');
+import apiRoutes from './api/routes';
 
 function renderFullPage(html, initialState) {
   return `

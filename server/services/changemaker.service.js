@@ -1,15 +1,22 @@
-import dataAccessLayer from '../data';
 export default class {
 
-	static getAllChangemakers() {
+	constructor(dao) {
+		this.dao = dao;
+	}
+
+	getAllChangemakers() {
+		return this.dao.getAllChangemakers();
+	}
+
+	getChangemakerByUsername(username) {
+		return this.dao.getChangemakerByUsername(username);
+	}
+
+	getFeaturedChangemakers(){
+		return this.dao.getFeaturedChangemakers();
+	}
+
+	getUpdatesByUserId(){
 		return Promise.resolve([]);
-	}
-
-	static getChangemakerByUsername(username) {
-		return Promise.resolve({username: username});
-	}
-
-	static getFeaturedChangemakers(){
-		return dataAccessLayer.getFeaturedChangemakers();
 	}
 }
