@@ -1,6 +1,4 @@
 import express from 'express';
-import dataAccessLayer from '../../data';
-import changemakerService from '../../services/changemaker.service.js';
 
 // changemaker specific stuff
 

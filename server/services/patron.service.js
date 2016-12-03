@@ -8,4 +8,4 @@ export default class {
 	getAllPatrons() {
 		return this.dao.getAllPatrons();
 	}
-};
+}

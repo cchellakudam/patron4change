@@ -1,5 +1,4 @@
 import express from 'express';
-import dataAccessLayer from '../../data';
 
 // routers for every user, doesnt matter if admin, patron, changemaker
 
