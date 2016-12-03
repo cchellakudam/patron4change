@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		amount: {
 			type: DataTypes.INTEGER
-		},
+		}
 	}, {
 		classMethods:{
 			associate: function(models){

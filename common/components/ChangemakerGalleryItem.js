@@ -17,13 +17,13 @@ class ChangemakerGalleryItem extends React.Component {
   	const cm = this.props.changemaker;
 
   	return (
-		<Card style={{width: '350px'}} className={styles.changemakerGalleryItem}> 
+		<Card style={{width: '350px'}} className={styles.changemakerGalleryItem}>
 		    <CardMedia
 		      aspectRatio="wide"
 		      image="https://placeimg.com/800/450/nature"
 		    />
 		    <CardTitle
-		      title={cm.firstName +' '+ cm.surname}
+		      title={cm.firstName +' '+ cm.lastName}
 
 		    />
 		    <CardText style={{height: '7rem', 'text-align':'left'}}>{cm.mission}</CardText>
@@ -32,7 +32,7 @@ class ChangemakerGalleryItem extends React.Component {
 		      <Button label="support" />
 		    </CardActions>
 		  </Card>
-  		
+
   	);
   }
 }

@@ -3,8 +3,7 @@ module.exports = (sequelize, DataTypes) => {
 	const StatusUpdate = sequelize.define('statusUpdate', {
 		title: {
 			type: DataTypes.STRING
-		},
-
+		}
 	}, {
 		classMethods: {
 			associate: function(models){

@@ -1,81 +1,82 @@
 [
 	{
-		"changemaker_user": 1,
+		"fk_user_id": 1,
 		"isValidated": true,
-		"changemaker_content": 1,
-		"tags": "local, neighborhood, social",
-		"videoId": 1,
-		"mission": "Meine Name ist Matthias und engagiere mich für meinen Heimatbezirk."
+		"fk_content_id": 1,
+		"tags": ["local", "neighborhood", "social"],
+		"videoUrl": "www.youtube.com"
 	},
+
 	{
-		"changemaker_user": 2,
+		"fk_user_id": 2,
 		"isValidated": true,
-		"changemaker_content": 2,
-		"tags": "local, neighborhood, social",
-		"videoId": 2,
-		"mission": "Hallo, ich bin Roland und interessiere mich für das Leben in der Stadt."
+		"fk_content_id": 2,
+		"tags": ["local", "neighborhood", "social"],
+		"videoUrl": "www.youtube.com"
 	},
+
 	{
-		"changemaker_user": 3,
+		"fk_user_id": 3,
 		"isValidated": true,
-		"changemaker_content": 3,
-		"tags": "local, neighborhood, social",
-		"videoId": 3,
-		"mission": "Maria, aus Innsbruck, um den Klimawandel Einhalt zu gebieten."
+		"fk_content_id": 3,
+		"tags": ["local", "neighborhood", "social"],
+		"videoUrl": "www.youtube.com"
 	},
+
 	{
-		"changemaker_user": 4,
+		"fk_user_id": 4,
 		"isValidated": true,
-		"changemaker_content": 4,
-		"tags": "local, neighborhood, social",
-		"videoId": 4,
-		"mission": "Wir sind Julia und Jonas und arbeiten in 2 NGOs um die Welt ein Stückweit besser zu machen."
+		"fk_content_id": 4,
+		"tags": ["local", "neighborhood", "social"],
+		"videoUrl": "www.youtube.com"
 	},
+
 	{
-		"changemaker_user": 5,
+		"fk_user_id": 5,
 		"isValidated": true,
-		"changemaker_content": 5,
-		"tags": "local, neighborhood, social",
-		"videoId": 5,
-		"mission": "Ich bin Alex, und setze mich für LGBTI++ ein."
+		"fk_content_id": 5,
+		"tags": ["local", "neighborhood", "social"],
+		"videoUrl": "www.youtube.com"
 	},
+
 	{
-		"changemaker_user": 6,
+		"fk_user_id": 6,
 		"isValidated": true,
-		"changemaker_content": 6,
-		"tags": "local, neighborhood, social",
-		"videoId": 6,
-		"mission": "Mein Name ist Hermann Franzens. Ich habe mir es als Aufgabe gesetzt, das Geldsystem komplett zu reformieren."
+		"fk_content_id": 6,
+		"tags": ["local", "neighborhood", "social"],
+		"videoUrl": "www.youtube.com"
 	},
+
 	{
-		"changemaker_user": 7,
+		"fk_user_id": 7,
 		"isValidated": true,
-		"changemaker_content": 7,
-		"tags": "local, neighborhood, social",
-		"videoId": 7,
-		"mission": "Mein Name Klara Goldfaden, ehemalige Schülerin an der Modeschule Hetzendorf."
+		"fk_content_id": 7,
+		"tags": ["local", "neighborhood", "social"],
+		"videoUrl": "www.youtube.com"
 	},
+
 	{
-		"changemaker_user": 8,
+		"fk_user_id": 8,
 		"isValidated": true,
-		"changemaker_content": 8,
-		"tags": "local, neighborhood, social",
-		"videoId": 8,
-		"mission": "Hi!\n    Ich bin der Enzo, ich bin 38 Jahre alt und nutze meine Kreativität und Geschicklichkeit."
+		"fk_content_id": 8,
+		"tags": ["local", "neighborhood", "social"],
+		"videoUrl": "www.youtube.com"
 	},
+
 	{
-		"changemaker_user": 9,
+		"fk_user_id": 9,
 		"isValidated": true,
-		"changemaker_content": 9,
-		"tags": "local, neighborhood, social",
-		"videoId": 9,
-		"mission": "Liebe Mitstudenten, in jedem Seminar, in jeder Vorlesung in der ich sitze, trinkt ihr aus Plastikflaschen."
+		"fk_content_id": 9,
+		"tags": ["local", "neighborhood", "social"],
+		"videoUrl": "www.youtube.com"
 	},
+
 	{
-		"changemaker_user": 10,
+		"fk_user_id": 10,
 		"isValidated": true,
-		"changemaker_content": 10,
-		"tags": "local, neighborhood, social",
-		"videoId": 10
+		"fk_content_id": 10,
+		"tags": ["local", "neighborhood", "social"],
+		"videoUrl": "www.youtube.com"
 	}
+
 ]
