@@ -8,7 +8,6 @@ export default (searchSvc) => {
   const router = express.Router();
 
   router.get('/', controller(({ q }) => {
-    console.log('qlen', q.length);
     if (q && maxQueryLen < q.length) {
       return { status: 400, message: `parameter q too long - maximum ${maxQueryLen} characters allowed` };
     }
