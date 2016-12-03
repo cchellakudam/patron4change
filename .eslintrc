@@ -47,12 +47,6 @@
     "no-regex-spaces": 2,         // disallow multiple spaces in a regular expression literal
 
 
-    ////////// React /////////////
-
-    // TODO enable post-IR1
-    // "react/prefer-stateless-function": 1,
-
-
     ////////// Best Practices //////////
 
     "complexity": 2,            // specify the maximum cyclomatic complexity allowed in a program (off by default)
