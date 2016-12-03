@@ -3,6 +3,7 @@ import React from 'react';
 import {AppBar} from 'react-toolbox/lib/app_bar';
 import {Link} from 'react-toolbox/lib/link';
 import {FontIcon} from 'react-toolbox/lib/font_icon';
+const {Col} = require('react-flexbox-grid');
 
 export default props => <AppBar>
 	<Link href="/">

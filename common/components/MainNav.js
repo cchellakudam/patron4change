@@ -2,6 +2,7 @@ import React from 'react';
 import {AppBar} from 'react-toolbox/lib/app_bar';
 import {Navigation} from 'react-toolbox/lib/navigation';
 import {Link} from 'react-toolbox/lib/link';
+const {Col} = require('react-flexbox-grid');
 
 export default class MainNav extends React.Component {
   render() {

@@ -37,7 +37,7 @@ module.exports = {
   resolve: {
   	alias: {
   	},
-  	extensions: ['', '.scss', '.js', '.json'],
+  	extensions: ['', '.scss', '.css', '.js', '.json'],
     modulesDirectories: [
       'node_modules',
       path.resolve(__dirname, './node_modules')
@@ -57,8 +57,13 @@ module.exports = {
   		  }
   		}, {
         test: /\.scss$/,
-        loader: 'style!css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass'
-      }
+        loader: 'style!css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass',
+				exclude: /flexboxgrid/
+      }, {
+				test: /\.css$/,
+				loader: 'style!css?modules',
+				include: /flexboxgrid/,
+			}
   	]
   }
 };

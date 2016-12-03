@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import {Button} from 'react-toolbox/lib/button';
 import { Card, CardMedia, CardTitle, CardText, CardActions } from 'react-toolbox/lib/card';
+const {Col} = require('react-flexbox-grid');
 
 import * as shapes from './shapes';
 
@@ -17,7 +18,7 @@ class ChangemakerGalleryItem extends React.Component {
   	const cm = this.props.changemaker;
 
   	return (
-		<Card style={{width: '350px'}} className={styles.changemakerGalleryItem}> 
+		<Col lg={3} md={4} sm={6} xs={12}><Card className={styles.changemakerGalleryItem}>
 		    <CardMedia
 		      aspectRatio="wide"
 		      image="https://placeimg.com/800/450/nature"
@@ -31,8 +32,8 @@ class ChangemakerGalleryItem extends React.Component {
 		      <Button label="details" />
 		      <Button label="support" />
 		    </CardActions>
-		  </Card>
-  		
+		  </Card></Col>
+
   	);
   }
 }
