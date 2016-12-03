@@ -4,7 +4,6 @@ import config from 'config';
 
 const searchConfig = config.get('search');
 const searchApiUrl = `http://${searchConfig.host}:${searchConfig.port}/`;
-const router = express.Router();
 
 function mapData(r) {
   let clone = Object.assign({}, r._source);
@@ -28,26 +27,29 @@ function getHighlightSection(hit) {
   return null;
 }
 
-router.get('/', (req, res) => {
-  axios(`${searchApiUrl}search/changemaker?q=${req.query.q}`).then(searchRes => {
-    let result = searchRes.data.map(hit => {
-      return {
-        match: {
-          relevance: hit._score,
-          section: getHighlightSection(hit)
-        },
-        // TODO get changemaker data from db by id to ensure same model as other apis
-        changemaker: mapData(hit)
-      };
+export default () => {
+
+  const router = express.Router();
+
+  router.get('/', (req, res) => {
+    axios(`${searchApiUrl}search/changemaker?q=${req.query.q}`).then(searchRes => {
+      let result = searchRes.data.map(hit => {
+        return {
+          match: {
+            relevance: hit._score,
+            section: getHighlightSection(hit)
+          },
+          // TODO get changemaker data from db by id to ensure same model as other apis
+          changemaker: mapData(hit)
+        };
+      });
+      res.status(200).send(result);
     });
-    res.status(200).send(result);
-  }, () => {
-    res.sendStatus(500);
   });
-});
 
-router.get('/suggestions', (req, res) => {
-	res.status(501).send('Not Implemented');
-});
+  router.get('/suggestions', (req, res) => {
+  	res.status(501).send('Not Implemented');
+  });
 
-export default router;
+  return router;
+}

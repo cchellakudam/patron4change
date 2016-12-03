@@ -1,3 +1,2 @@
 import config from 'config';
-
-module.exports = require('./' + config.get('dataLayer'));
+export default require('./' + config.get('dataLayer')).default;

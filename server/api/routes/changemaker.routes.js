@@ -1,30 +1,38 @@
 import express from 'express';
 import dataAccessLayer from '../../data';
-import changemakerService from '../../services/changemaker.service.js'
-const router = express.Router();
+import changemakerService from '../../services/changemaker.service.js';
 
 // changemaker specific stuff
 
-router.get('/featured', (req,res) => {
-	changemakerService.getFeaturedChangemakers().then(changemakers => {
-		res.send(JSON.stringify(changemakers))
-	});	
-}),
+export default (changemakerService) => {
 
-router.get('/', (req,res) => {
-	dataAccessLayer.getAllChangemakers().then(users => {
-		res.send(users);
+	const router = express.Router();
+
+	router.get('/', (req,res) => {
+		changemakerService.getAllChangemakers().then(users => {
+			res.send(users);
+		});
 	});
-});
 
-router.get('/:id', (req,res) => {
-	res.send(JSON.stringify({}));
-});
-
-router.get('/:id/updates', (req, res) => {
-	dataAccessLayer.getUpdatesByUserId(req.params.id).then(updates => {
-		res.send(updates);
+	router.get('/featured', (req,res) => {
+		changemakerService.getFeaturedChangemakers().then(changemakers => {
+			res.send(changemakers);
+		});
 	});
-})
 
-module.exports = router;
+	router.get('/:id', (req,res) => {
+		res.send({});
+	});
+
+	router.get('/:id/updates', (req, res) => {
+		changemakerService.getUpdatesByUserId(req.params.id).then(updates => {
+			res.send(updates);
+		});
+	})
+
+	router.get('/:username', (req,res) => {
+		res.send({});
+	});
+
+	return router;
+}

@@ -1,21 +1,21 @@
 import express from 'express';
 import dataAccessLayer from '../../data';
-const router = express.Router();
 
 // routers for every user, doesnt matter if admin, patron, changemaker
 
-router.get('/', (req,res) => {
-	res.send(JSON.stringify([]));
-});
+export default (userSvc) => {
 
-router.get('/:id', (req,res) => {
-	dataAccessLayer.getUserForId(req.params.id).then(user => {
-		res.send(JSON.stringify(user));
+	const router = express.Router();
+
+	router.get('/:id', (req,res) => {
+		userSvc.getUserForId(req.params.id).then(user => {
+			res.send(user);
+		});
 	});
-});
 
-router.post('/:id/resetpassword', (req, res) => {
-	res.sendStatus(500)
-});
+	router.post('/:id/resetpassword', (req, res) => {
+		res.sendStatus(500)
+	});
 
-export default router;
+	return router;
+}

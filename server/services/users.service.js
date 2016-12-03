@@ -1,13 +1,19 @@
-import dataAccessLayer from '../data';
+export default class {
 
-module.exports = {
+	constructor(dao) {
+		this.dao = dao;
+	}
 
-	getAllUsers: () => {
-		return dataAccessLayer.getAllUsers();
-	},
+	getAllUsers() {
+		return this.dao.getAllUsers();
+	}
 
-	getUserByUsername: (username) => {
-		return Promise.resolve({username: username})
+	getUserByUsername(username) {
+		return this.dao.getUserByUsername(username);
+	}
+
+	getUserForId(id) {
+		return this.dao.getUserForId(username);
 	}
 
 };
