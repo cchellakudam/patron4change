@@ -16,7 +16,7 @@ export default class {
 	}
 
 	static getUserForEmail(){
-		throw new NotImplementedError();
+		throw new Error('not implemented');
 	}
 
 	static getUserForId(id){

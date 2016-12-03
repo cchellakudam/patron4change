@@ -13,7 +13,7 @@ export default class {
 	}
 
 	getUserForId(id) {
-		return this.dao.getUserForId(username);
+		return this.dao.getUserForId(id);
 	}
 
-};
+}
