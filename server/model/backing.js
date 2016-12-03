@@ -5,11 +5,16 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.INTEGER,
 			autoIncrement: true,
 			primaryKey: true
-		}
+		},
+		amount: {
+			type: DataTypes.INTEGER
+		},
 	}, {
 		classMethods:{
 			associate: function(models){
-				Backing.belongsTo(models.changemaker, {foreignKey: 'backing_changemaker', as: 'changemaker'});
+				Backing.belongsTo(models.user, {foreignKey: 'fk_sender_id', as: 'user'});
+				Backing.belongsTo(models.changemaker, {foreignKey: 'fk_recipient_id', as: 'changemaker'});
+				Backing.hasMany(models.payment, {as: 'payments'})
 			}
 		},
 

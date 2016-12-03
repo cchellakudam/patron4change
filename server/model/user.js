@@ -12,33 +12,28 @@ module.exports = (sequelize, DataTypes) => {
 		lastName: {
 			type: DataTypes.STRING
 		},
-		username: {
-			type: DataTypes.STRING
-		},
 		email: {
-			type: DataTypes.STRING
+			type: DataTypes.STRING(254)
 		},
 		emailConfirmed: {
 			type: DataTypes.BOOLEAN
 		},
-
 		isAnonymous: {
 			type: DataTypes.BOOLEAN
 		},
-
 		isBlocked: {
 			type: DataTypes.BOOLEAN
 		},
-
 		pwhash: {
 			type: DataTypes.STRING(60)
+		},
+		avatarUrl: {
+			type: DataTypes.STRING
 		}
 	}, {
 		classMethods: {
 			associate: function(models){
 				User.hasMany(models.backing, {as: 'backings'});
-				User.hasMany(models.user, { as: 'reportsAgainstUser'});
-				User.hasMany(models.user, { as: 'reportsByUser'});
 			}
 		},
 		freezeTableName: false // Model tableName will be the same as the model name

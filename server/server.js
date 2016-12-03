@@ -38,7 +38,7 @@ app.use(webpackHotMiddleware(compiler))
 
 // init database
 if('unit' !== process.env.NODE_ENV){
-	require('../server/model').sequelize.sync();
+	require('../server/model').sequelize.sync({force: true, logging: console.log});
 }
 
 // start workers
