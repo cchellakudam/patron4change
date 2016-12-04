@@ -1,6 +1,7 @@
 const assert = require('chai').assert;
 import mockDataLayer from '../../../../server/data/mockDataLayer';
-import dataLayer from '../../../../server/data/dataAccessLayer';
+import changemakerDao from '../../../../server/data/changemakerDAO';
+import userDAO from '../../../../server/data/userDAO';
 
 describe('Datalayer interface check', () => {
 
@@ -30,23 +31,23 @@ describe('Datalayer interface check', () => {
 	describe('Real Layer should have the functions:', () => {
 
 		it('getAllUsers()', () => {
-			assert.isOk('function' === typeof dataLayer.getAllUsers);
+			assert.isOk('function' === typeof userDAO.getAllUsers);
 		});
 
 		it('getUserForEmail()', () => {
-			assert.isOk('function' === typeof dataLayer.getUserForEmail);
+			assert.isOk('function' === typeof userDAO.getUserForEmail);
 		});
 
 		it('getUserForId()', () => {
-			assert.isOk('function' === typeof dataLayer.getUserForId);
+			assert.isOk('function' === typeof userDAO.getUserForId);
 		});
 
 		it('getAllChangemakers()', () => {
-			assert.isOk('function' === typeof dataLayer.getAllChangemakers);
+			assert.isOk('function' === typeof changemakerDao.getAllChangemakers);
 		})
 
 		it('getFeaturedChangemakers()', () => {
-			assert.isOk('function' === typeof dataLayer.getFeaturedChangemakers);
+			assert.isOk('function' === typeof changemakerDao.getFeaturedChangemakers);
 		})
 
 	})

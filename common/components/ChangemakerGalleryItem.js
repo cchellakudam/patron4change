@@ -23,7 +23,7 @@ class ChangemakerGalleryItem extends React.Component {
 		      image="https://placeimg.com/800/450/nature"
 		    />
 		    <CardTitle
-		      title={cm.firstName +' '+ cm.lastName}
+		      title={cm.name}
 
 		    />
 		    <CardText style={{height: '7rem', 'text-align':'left'}}>{cm.mission}</CardText>

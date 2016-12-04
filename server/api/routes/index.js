@@ -6,7 +6,8 @@ import patronRoutes from'./patron.routes';
 import userRoutes from'./user.routes';
 import searchRoutes from'./search.routes';
 
-import dao from '../../data';
+import changemakerDao from '../../data/changemakerDAO';
+import userDAO from '../../data/userDAO';
 
 import ChangemakerService from '../../services/changemaker.service.js';
 import PatronService from '../../services/patron.service.js';
@@ -22,10 +23,10 @@ router.get('/', (req, res) => {
 	res.sendStatus(204);
 });
 
-router.use('/changemaker', changemakerRoutes(new ChangemakerService(dao)));
-router.use('/user', userRoutes(new UsersService(dao)));
-router.use('/patron', patronRoutes(new PatronService(dao)));
-router.use('/admin', adminRoutes(new UsersService(dao)));
+router.use('/changemaker', changemakerRoutes(new ChangemakerService(changemakerDao)));
+router.use('/user', userRoutes(new UsersService(userDAO)));
+router.use('/patron', patronRoutes(new PatronService(userDAO)));
+router.use('/admin', adminRoutes(new UsersService(userDAO)));
 router.use('/search', searchRoutes(new SearchService(searchConfig)));
 
 export default router;

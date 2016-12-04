@@ -7,8 +7,7 @@ export const ChangemakerState = Immutable.Record({
 
 export const ChangemakerRecord = Immutable.Record({
 	id: undefined,
-	firstName: '',
-	lastName: '',
+	name: '',
 	avatarUrl: '',
 	mission: ''
 })
