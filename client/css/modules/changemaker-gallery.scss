@@ -1,17 +1,10 @@
-.changemakerGallery{
-	text-align: center
-}
-
-.changemakerCarousel{
-	position:relative;
+.changemakerCarousel {
+	backgournd: #F5F5F5;
+	position: relative;
 	text-align: center;
 }
 
-.becomeChangemakerButton{
-	background-color: red;
-}
-
-.changemakerCarousel .becomeChangemakerButton{
+.changemakerCarousel .becomeChangemakerButton {
 	position: absolute;
 	bottom:50%;
 	right: 42%;
