@@ -21,7 +21,8 @@ export default class ChangemakerGallery extends React.Component {
 				<div className={styles.changemakerCarousel}>
 					<Row>
 						<Col xs={12}>
-							<Button label='Changemaker finden, Patron werden' accent raised primary className={styles.becomeChangemakerButton} />
+							<Button label='Changemaker finden, Patron werden' accent raised
+									primary className={styles.becomeChangemakerButton} />
 							<Carousel slideWidth={0.75} cellAlign="center">
 								<img src="http://loremflickr.com/1000/300/environment"/>
 								<img src="http://loremflickr.com/1000/300/girl,sport"/>
