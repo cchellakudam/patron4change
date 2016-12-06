@@ -5,11 +5,11 @@ import models from '../model/index';
 
 export default class{
 	static getAllUsers(){
-		return Promise.resolve(models.users.findAll());
+		return Promise.resolve(models.user.findAll());
 	}
 
 	static getUserForEmail(email){
-		return Promise.resolve(models.users.findAll({where: { email: email }}));
+		return Promise.resolve(models.user.findAll({where: { email: email }}));
 	}
 
 	static getUserForId(id){
@@ -19,4 +19,5 @@ export default class{
 	static getUpdatesByUserId() {
 		return models.statusUpdate.findAll();
 	}
+
 }

@@ -6,8 +6,8 @@ export default (sequelize) => {
 		{
 		classMethods: {
 			associate: function(models){
-				ContentFlag.belongsTo(models.user, {foreignKey: 'fk_reporter', as: 'user'});
-				ContentFlag.belongsTo(models.content, {foreignKey: 'fk_reported_content', as: 'content'});
+				ContentFlag.belongsTo(models.user, {foreignKey: 'fkReporterId', as: 'user'});
+				ContentFlag.belongsTo(models.content, {foreignKey: 'fkReportedContentId', as: 'content'});
 			}
 		}
 	}, {

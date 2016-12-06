@@ -7,8 +7,8 @@ module.exports = (sequelize, DataTypes) => {
 	}, {
 		classMethods: {
 			associate: function(models){
-				StatusUpdate.belongsTo(models.content, {foreignKey: 'fk_content_id', as: 'content'});
-				StatusUpdate.belongsTo(models.changemaker, {foreignKey: 'fk_changemaker_id', as: 'changemaker'});
+				StatusUpdate.belongsTo(models.content, {foreignKey: 'fkCotnentId', as: 'content'});
+				StatusUpdate.belongsTo(models.changemaker, {foreignKey: 'fkChangemakerId', as: 'changemaker'});
 			}
 		},
 

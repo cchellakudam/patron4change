@@ -6,7 +6,7 @@ export default (sequelize) => {
 	}, {
 		classMethods: {
 			associate: function(models){
-				Admin.belongsTo(models.user, {foreignKey: 'fk_user_id', as: 'user'});
+				Admin.belongsTo(models.user, {foreignKey: 'fkUserId', as: 'user'});
 			}
 		},
 

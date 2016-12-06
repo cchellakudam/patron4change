@@ -4,7 +4,7 @@ module.exports = (sequelize) => {
 	}, {
 		classMethods:{
 			associate: function(models){
-				singleBacking.belongsTo(models.backing, {foreignKey: 'fk_backing_id', as: 'backing'});
+				singleBacking.belongsTo(models.backing, {foreignKey: 'fkBackingId', as: 'backing'});
 			}
 		},
 

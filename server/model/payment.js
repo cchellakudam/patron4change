@@ -18,7 +18,7 @@ export default (sequelize, DataTypes) => {
 	}, {
 		classMethods:{
 			associate: function(models){
-				payment.belongsTo(models.backing, {foreignKey: 'fk_backing_id', as: 'backing'});
+				payment.belongsTo(models.backing, {foreignKey: 'fkBackingId', as: 'backing'});
 			}
 		},
 

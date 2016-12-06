@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
 	}, {
 		classMethods:{
 			associate: function(models){
-				Backing.belongsTo(models.backing, {foreignKey: 'fk_backing_id', as: 'backing'});
+				Backing.belongsTo(models.backing, {foreignKey: 'fkBackingId', as: 'backing'});
 			}
 		},
 
