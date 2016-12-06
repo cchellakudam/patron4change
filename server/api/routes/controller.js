@@ -7,6 +7,8 @@ export default (controller, exceptionMapping) => {
     }
     Object.assign(params, req.query);
 
+    let { logger } = req;
+
     function handleException(ex) {
       let err = ex;
       if ('object' !== typeof err) {
@@ -20,6 +22,11 @@ export default (controller, exceptionMapping) => {
       let statusCode = exceptionMapping[name];
       if (!statusCode) {
         return false;
+      }
+      if (5 === statusCode % 100) {
+        logger.log('error', err.message);
+      } else {
+        logger.log('debug', err.message);
       }
       res.status(statusCode).send(err.message);
       return true;
