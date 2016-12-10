@@ -5,7 +5,7 @@ module.exports = {
 
   context: __dirname,
 
-  devtool: '#inline-source-map',
+  devtool: 'eval',
 
   entry: [
   	'webpack-hot-middleware/client', // for hot reload
@@ -19,7 +19,7 @@ module.exports = {
   },
 
   plugins: [
-  	new webpack.optimize.OccurenceOrderPlugin(),
+  	// new webpack.optimize.OccurenceOrderPlugin(),
   	new webpack.HotModuleReplacementPlugin(),
   	new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
@@ -58,7 +58,11 @@ module.exports = {
   		}, {
         test: /\.scss$/,
         loader: 'style!css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass',
-				exclude: /flexboxgrid/
+				include: [
+          path.resolve(__dirname, 'node_modules/react-toolbox'),
+          path.resolve(__dirname, 'common'),
+          path.resolve(__dirname, 'client')
+        ]
       }, {
 				test: /\.css$/,
 				loader: 'style!css?modules',
