@@ -5,6 +5,16 @@ import queue from '../../../../server/utils/queue';
 // start workers
 require('../../../../server/workers');
 
+function assertTasksProcessed(q, count, cb) {
+  const check = () => {
+    assert.equal(q.getStats().total, count);
+    q.resetStats();
+    q.removeListener('drain', check);
+    cb();
+  };
+  q.on('drain', check);
+}
+
 describe('Workers', () => {
   it('should have a queue for each entry in config', () => {
     const queueDefs = config.get('queues');
@@ -23,11 +33,7 @@ describe('Workers', () => {
     let taskCount = 0;
     q.push({id: ++taskCount});
     q.push({id: ++taskCount});
-    setTimeout(() => {
-      assert.equal(q.getStats().total, taskCount);
-      q.resetStats();
-      done();
-    }, 100);
+    assertTasksProcessed(q, taskCount, done);
   });
 
   it('should process duplicate tasks only once', done => {
@@ -36,11 +42,7 @@ describe('Workers', () => {
     q.push({id: ++taskCount});
     q.push({id: ++taskCount});
     q.push({id: taskCount});
-    setTimeout(() => {
-      assert.equal(q.getStats().total, taskCount);
-      q.resetStats();
-      done();
-    }, 100);
+    assertTasksProcessed(q, taskCount, done);
   });
 
 });
