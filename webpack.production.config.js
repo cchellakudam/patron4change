@@ -1,32 +1,41 @@
-let path = require('path');
-let webpack = require('webpack');
+var path = require('path');
+var webpack = require('webpack');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
 
   context: __dirname,
 
-  devtool: 'eval',
+  // devtool: 'eval',
 
   entry: [
-  	'webpack-hot-middleware/client', // for hot reload
+  	// 'webpack-hot-middleware/client', // for hot reload
   	'./client/index.js' // entry point for the client app
   ],
 
   output: {
   	path: path.join(__dirname, 'public'),
   	filename: 'bundle.js',
-  	publicPath: '/static/'
+  	publicPath: '/public/'
   },
 
   plugins: [
-  	new webpack.HotModuleReplacementPlugin(),
+  	new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    }),
+  	// new webpack.HotModuleReplacementPlugin(),
   	new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
         'process.env': {
-            BROWSER:   JSON.stringify(true),
-            NODE_ENV:  JSON.stringify('development'),
-            BABEL_ENV: JSON.stringify('development/client')
+            BROWSER: JSON.stringify(true),
+            NODE_ENV: JSON.stringify('production')
         }
+    }),
+    new ExtractTextPlugin('app.css', {
+      allChunks: true
     })
   ],
 
@@ -38,7 +47,7 @@ module.exports = {
   resolve: {
   	alias: {
   	},
-  	extensions: ['', '.scss', '.css', '.js', '.json'],
+  	extensions: ['', '.js', '.json'],
     modulesDirectories: [
       'node_modules',
       path.resolve(__dirname, './node_modules')
@@ -62,7 +71,7 @@ module.exports = {
         ]
       }, {
 				test: /\.css$/,
-				loader: 'style!css?modules',
+				loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules'),
 				include: /flexboxgrid/
 			}
   	]

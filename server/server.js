@@ -36,12 +36,17 @@ app.use(winstonRequestLogger.create(logger, {
   url: ':url[pathname]'             // outputs '/some/path'
 }));
 
-const compiler = webpack(config);
-app.use(webpackDevMiddleware(compiler, {
-	noInfo: true,
-	publicPath: config.output.publicPath
-}));
-app.use(webpackHotMiddleware(compiler));
+if ('production' !== process.env.NODE_ENV) {
+	const compiler = webpack(config);
+	app.use(webpackDevMiddleware(compiler, {
+		noInfo: true,
+		publicPath: config.output.publicPath,
+    stats: {
+      colors: true
+    }
+	}));
+	app.use(webpackHotMiddleware(compiler));
+}
 
 // init database
 if('unit' !== process.env.NODE_ENV){

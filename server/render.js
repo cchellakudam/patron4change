@@ -13,6 +13,12 @@ import fetchComponentData from '../common/utils/fetchComponentData';
 const finalCreateStore = applyMiddleware(promiseMiddleware)( createStore );
 
 function renderFullPage(html, initialState) {
+  const css = '<link href="/public/app.css" rel="stylesheet">';
+  const jsPaths = {
+    development: 'static',
+    production: 'public'
+  };
+  const pathKey = Object.keys(jsPaths).find(k => process.env.NODE_ENV === k) || 'development';
   return `
 	<!doctype html>
 	<html lang="utf-8">
@@ -21,11 +27,12 @@ function renderFullPage(html, initialState) {
 		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
+    ${'production' === process.env.NODE_ENV ? css : ''}
 	  </head>
 	  <body>
 	  <div class="container">${html}</div>
 		<script>window.$REDUX_STATE = ${initialState}</script>
-		<script src="/static/bundle.js"></script>
+		<script src="/${jsPaths[pathKey]}/bundle.js" async></script>
 	  </body>
 	</html>
 	`

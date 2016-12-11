@@ -39,3 +39,7 @@ db/data/
 
 ## Local configuration files
 config/local*
+
+## bundle build files
+public/*.css
+public/*.js
