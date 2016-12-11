@@ -4,7 +4,7 @@ import {AppBar} from 'react-toolbox/lib/app_bar';
 import {Link} from 'react-toolbox/lib/link';
 import {FontIcon} from 'react-toolbox/lib/font_icon';
 
-export default class extends React.Component {
+export default class SearchNav extends React.Component {
 
 	static propTypes = {
 		children: React.PropTypes.object

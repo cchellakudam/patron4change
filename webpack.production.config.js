@@ -1,6 +1,9 @@
+/* eslint no-var: 0 */
+// no-var: webpack configuration must be interpretable in non-es6 environments
+
 var path = require('path');
 var webpack = require('webpack');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
 

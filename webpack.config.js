@@ -1,5 +1,8 @@
-let path = require('path');
-let webpack = require('webpack');
+/* eslint no-var: 0 */
+// no-var: webpack configuration must be interpretable in non-es6 environments
+
+var path = require('path');
+var webpack = require('webpack');
 
 module.exports = {
 
