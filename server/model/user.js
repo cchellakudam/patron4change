@@ -29,6 +29,15 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		avatarUrl: {
 			type: DataTypes.STRING
+		},
+		birthay:{
+			type: DataTypes.DATE
+		},
+		nationality:{
+			type: DataTypes.STRING(150)
+		},
+		countryOfResidence:{
+			type: DataTypes.STRING(250)
 		}
 	}, {
 		classMethods: {
