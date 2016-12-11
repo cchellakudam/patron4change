@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { Input } from 'react-toolbox/lib/input';
 
 import styles from '../../client/css/modules/search.scss';
+import theme from '../../client/css/theme/search.scss';
 
 class Search extends React.Component {
 
@@ -22,9 +23,13 @@ class Search extends React.Component {
 
   render() {
     let { term } = this.props;
-    return <Input id="search-term" className={styles.searchTerm} hint='Suche nach Changemakern'
-      type="text" value={term} icon="search"
-      maxLength={256}
+    return <Input id="search-term" className={styles.searchTerm}
+      hint='Suche nach Namen, Projekten, Bereichen ...'
+      type="text"
+      value={term}
+      icon="search"
+      maxLength={128} // validate max length to avoid long searches due to pasted input
+      theme={theme}
       onChange={this.onChange} />;
   }
 }
