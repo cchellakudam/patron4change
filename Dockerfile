@@ -1,5 +1,5 @@
 FROM node:7.1.0-alpine
-MAINTAINER Lukas Stanek <stanek@gmx.at>
+MAINTAINER Peter Hoffmann <peter@p-h.im>
 
 EXPOSE 3000
 
@@ -15,5 +15,6 @@ WORKDIR /p4c
 USER node
 
 RUN npm i
+RUN npm run build
 
 CMD ["npm", "start"]
