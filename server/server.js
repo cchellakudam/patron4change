@@ -31,7 +31,7 @@ app.use((req, res, next) => {
 	next();
 });
 
-var bodyParser = require('body-parser');
+let bodyParser = require('body-parser');
 app.use(bodyParser.json())
 
 app.use(winstonRequestLogger.create(logger, {

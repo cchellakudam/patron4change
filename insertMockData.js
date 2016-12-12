@@ -17,6 +17,9 @@ models.sequelize.sync({'force': true})
   return models.statusUpdate.bulkCreate(require('./mock/status_update.json'));
 })
 .then(() => {
+	return models.paymentProvider.bulkCreate(require('./mock/paymentProviders.json'));
+})
+.then(() => {
   process.exit();
 })
 .catch(console.error);

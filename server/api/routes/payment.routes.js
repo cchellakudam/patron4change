@@ -1,15 +1,14 @@
 import express from 'express';
 
-const maxQueryLen = 256;
-
 export default (paymentSvcs) => {
 
   const router = express.Router();
 
   router.post('/mango/register', (req, res) => {
-		paymentSvcs.mango.registerUser(req.body).then((res) => {
-			console.log(res);
+		paymentSvcs.mango.registerUser(req.body).then((user) => {
+			res.send(user)
 		})
+
 	});
 
   return router;

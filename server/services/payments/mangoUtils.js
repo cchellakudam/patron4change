@@ -1,5 +1,4 @@
-/*This section provides tools specific to the mangopay API*/
-import request from 'request'
+/* This section provides tools specific to the mangopay API */
 import axios from 'axios'
 const clientId = 'p4case2016';
 const passwd = '9yvjwv183gUuvHmzmCOgoDOWOSNSGL0MKkGNovYuXFMB625aSJ';
@@ -16,7 +15,6 @@ export default class {
 			CountryOfResidence: userObject.countryOfResidence,
 			Email: userObject.email
 		};
-		console.log(url);
 		return axios({
 			method: 'post',
 			url: url,
@@ -24,14 +22,19 @@ export default class {
 			auth:{
 				username: clientId,
 				password: passwd
+			},
+			headers: {
+				'content-type': 'application/json'
 			}
 		}).then(res => {
-				console.log(res.data)
 				return res.data;
+			}).catch((err) =>{
+					throw err;
 			})
 	}
 
 	createWallet(naturalUserId){
+		return naturalUserId
 		// create wallet for natural user
 	}
 

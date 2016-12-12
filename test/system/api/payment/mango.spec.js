@@ -5,12 +5,12 @@ const urlbase = 'http://localhost:3000/api/payment'
 describe('/payment', () => {
 	describe('/mango/register', () => {
 		it('thie API call should return a mango user object',(done) => {
-				var options = {
+				let options = {
 					method: 'POST',
 					uri: urlbase + '/mango/register',
 					body:{
 						firstName: 'Tom',
-						lastname: 'Walker',
+						lastName: 'Walker',
 						birthday: 1320969600,
 						nationality: 'GB',
 						countryOfResidence: 'GB',
@@ -18,8 +18,7 @@ describe('/payment', () => {
 					},
 					json:true
 				};
-				http(options).then((res) => {
-					console.log(res);
+				http(options).then(() => {
 					assert(1===1);
 					done();
 				})
