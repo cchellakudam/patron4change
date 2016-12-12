@@ -1,9 +1,7 @@
 import config from 'config';
 import { assert } from 'chai';
 import queue from '../../../../server/utils/queue';
-
-// start workers
-require('../../../../server/workers');
+import runWorkers from '../../../../server/workers';
 
 function assertTasksProcessed(q, count, cb) {
   const check = () => {
@@ -16,6 +14,11 @@ function assertTasksProcessed(q, count, cb) {
 }
 
 describe('Workers', () => {
+
+  before(() => {
+    runWorkers(config.get('queues'), { log: () => {} });
+  });
+
   it('should have a queue for each entry in config', () => {
     const queueDefs = config.get('queues');
     const queues = [];
