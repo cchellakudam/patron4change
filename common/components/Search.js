@@ -24,7 +24,7 @@ class Search extends React.Component {
   render() {
     let { term } = this.props;
     return <Input id="search-term" className={styles.searchTerm}
-      hint='Suche nach Namen, Projekten, Bereichen ...'
+      hint="Suche nach Namen, Projekten, Bereichen ..."
       type="text"
       value={term}
       icon="search"

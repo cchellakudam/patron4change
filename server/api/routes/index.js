@@ -27,6 +27,6 @@ router.use('/changemaker', changemakerRoutes(new ChangemakerService(changemakerD
 router.use('/user', userRoutes(new UsersService(userDAO)));
 router.use('/patron', patronRoutes(new PatronService(userDAO)));
 router.use('/admin', adminRoutes(new UsersService(userDAO)));
-router.use('/search', searchRoutes(new SearchService(searchConfig)));
+router.use('/search', searchRoutes(new SearchService(searchConfig, userDAO)));
 
 export default router;

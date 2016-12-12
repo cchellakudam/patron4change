@@ -36,15 +36,18 @@ class ChangemakerCard extends React.Component {
   render() {
   	const cm = this.props.changemaker;
 
+    const topics = ['nature', 'sea'];
+    let topicIdx = Math.floor(Math.random() * topics.length - 0.01);
+
   	return <Col lg={3} md={4} sm={6} xs={12}>
       <Card className={styles.item}>
 		    <CardMedia
 		      aspectRatio="wide"
-		      image="https://placeimg.com/800/450/nature" />
+		      image={`https://placeimg.com/800/450/${topics[topicIdx]}`} />
 		    <CardTitle
           title={cm.name}
-          subtitle={'102 patrons'}
-          avatar="https://placeimg.com/80/80/animals" />
+          subtitle={`${Math.floor(Math.random() * 200 + 50).toFixed(0)} patrons`}
+          avatar={cm.avatarUrl} />
 		    <CardText className={styles.text}>
           <p className={styles.textContent}>{cm.mission}</p>
           <p className={styles.readMore}></p>

@@ -36,17 +36,7 @@ export default class {
 			return Promise.resolve(emptyRecordList());
 		}
     return axios(`/api/search?q=${term}`).then(res => {
-			let results = res.data.map(result => {
-				result.changemaker.image = [
-					'https://randomuser.me/api/portraits/thumb/women/88.jpg',
-					'https://randomuser.me/api/portraits/thumb/men/53.jpg',
-					'https://randomuser.me/api/portraits/thumb/women/6.jpg',
-					'https://randomuser.me/api/portraits/thumb/women/37.jpg',
-					'https://randomuser.me/api/portraits/thumb/men/14.jpg'
-				][Math.floor(Math.random() * 4.999999)];
-				return result;
-			});
-			return convertToRecordList(results, SearchResultRecord);
+			return convertToRecordList(res.data, SearchResultRecord);
 		});
 	}
 }
