@@ -31,7 +31,7 @@ export default class {
     return axios(`${this.searchApiUrl}search/changemaker?q=${term}`).then(searchRes => {
       const changemakers = searchRes.data.map(hit => this.dao.getUserForId(hit._id));
       return Promise.all(changemakers).then(cms => {
-        let idx = cms.reduce((ctx, next) => {
+        let idx = cms.filter(c => !!c).reduce((ctx, next) => {
           ctx[next.id] = next;
           return ctx;
         }, {});

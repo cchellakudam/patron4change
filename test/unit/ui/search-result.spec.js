@@ -46,7 +46,7 @@ describe('<SearchResultContainer />', () => {
 		const wrapper = render(<SearchResultContainer {...props} />);
 		const searchResults = wrapper.find('.search-result-item');
 		const subText = searchResults.find('.sub-text').html();
-		assert.equal(subText, 'Lukas Stanek <em>travels</em>');
+		assert.equal(subText, '... Lukas Stanek <em>travels</em> ...');
 	})
 
 	it('should show the mission statement itself if it wasn\'t mached with the term', () => {
