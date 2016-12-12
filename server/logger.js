@@ -9,18 +9,24 @@ import colors from 'colors/safe';
 */
 export default (requestId) => {
 
+  // RFC5424 log levels + silly
   const priority = {
-    debug: 1,
-    info: 2,
-    warn: 3,
-    error: 4
+    emerg: 0,
+    alert: 1,
+    crit: 2,
+    error: 3,
+    warning: 4,
+    notice: 5,
+    info: 6,
+    debug: 7,
+    silly: 8
   };
 
   function formatter(options) {
     let time = options.timestamp();
     let lvl = options.level.toUpperCase();
     let lvlLower = options.level.toLowerCase();
-    if (1 < priority[lvlLower]) {
+    if (7 > priority[lvlLower]) {
       lvl = colors.bold(lvl);
     }
 

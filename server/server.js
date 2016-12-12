@@ -6,10 +6,15 @@ import serverRender from './render';
 import apiRoutes from './api/routes';
 
 import createLogger from './logger';
+import runWorkers from './workers';
+import model from './model';
+import rebuildSearchIndex from './utils/rebuildSearchIndex';
+
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import config from '../webpack.config';
+import appConfig from 'config';
 
 import winstonRequestLogger from 'winston-request-logger';
 
@@ -48,18 +53,18 @@ if ('production' !== process.env.NODE_ENV) {
 	app.use(webpackHotMiddleware(compiler));
 }
 
+runWorkers(appConfig.get('queues'), logger);
+
 // init database
+let databaseInit;
 if('unit' !== process.env.NODE_ENV){
-	require('../server/model').sequelize.sync({
-		force: true,
-		logging: str => logger.log('debug', str)
+	databaseInit = model.sequelize.sync({
+		logging: str => logger.log('silly', str)
 	});
+} else {
+	databaseInit = Promise.resolve(true);
 }
-
-// start workers
-require('./workers/');
-
-require('./utils/rebuildSearchIndex');
+databaseInit.then(rebuildSearchIndex);
 
 app.use('/api', apiRoutes);
 

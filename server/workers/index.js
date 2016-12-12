@@ -1,7 +1,12 @@
-import config from 'config';
 import queue from '../utils/queue';
 
-config.get('queues').forEach(queueDef => {
-  const fn = require('./' + queueDef.name);
-  queue(queueDef.name, queueDef.config, fn);
-});
+export default function (queues, logger) {
+  queues.forEach(queueDef => {
+    const fn = require('./' + queueDef.name);
+    function handler() {
+      logger.log('debug', `worker ${queueDef.name} executing`);
+      fn();
+    }
+    queue(queueDef.name, queueDef.config, handler);
+  });
+}
