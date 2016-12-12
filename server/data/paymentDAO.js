@@ -6,8 +6,8 @@ import models from '../model/index';
 export default class{
 
 	static registerChangemakerToProvider(changemakerId, providerId, accountId) {
-		let changemakerPromise = models.changemaker.findById(changemakerId);
-		let providerPromise = models.paymentProvider.findById(providerId);
+		var changemakerPromise = models.changemaker.findById(changemakerId);
+		var providerPromise = models.paymentProvider.findById(providerId);
 
 		return Promise.all([changemakerPromise, providerPromise]).then(values => {
 				if(!values[0]){
@@ -16,7 +16,7 @@ export default class{
 				if(!values[1]){
 					throw new Error(`provider ${providerId} does not exist`);
 				}
-				let pp = models.paymentServiceData.create({
+				var pp = models.paymentServiceData.create({
 					accountId: accountId,
 					fkChangemakerId: changemakerId,
 					fkPaymentProviderId: providerId
@@ -30,8 +30,8 @@ export default class{
 	}
 
 	static createSingleBacking(userId, changemakerId, transactionId, amount, transactionDate){
-		let changemakerPromise = models.changemaker.findById(changemakerId);
-		let patronPromise = models.user.findById(userId)
+		var changemakerPromise = models.changemaker.findById(changemakerId);
+		var patronPromise = models.user.findById(userId)
 
 		return Promise.all([changemakerPromise, patronPromise]).then(values => {
 			if(!values[0]){
@@ -52,7 +52,7 @@ export default class{
 			if(isNaN(transactionDate)){
 				throw new Error('not a valid timestamp, UNIX timestamp only please')
 			}
-			let backing = models.singleBacking.create({
+			var backing = models.singleBacking.create({
 			backing: {
 				amount: amount,
 				fkSenderId: userId,
