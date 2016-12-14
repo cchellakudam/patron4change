@@ -7,6 +7,6 @@ export const changemaker = PropTypes.shape({
   tags: PropTypes.arrayOf(PropTypes.string.isRequired),
   statusUpdates: PropTypes.arrayOf(PropTypes.string.isRequired),
   mission: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
+  avatarUrl: PropTypes.string.isRequired,
   isBackedByMe: PropTypes.bool.isRequired
 });

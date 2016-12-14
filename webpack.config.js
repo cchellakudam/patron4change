@@ -1,11 +1,14 @@
-let path = require('path');
-let webpack = require('webpack');
+/* eslint no-var: 0 */
+// no-var: webpack configuration must be interpretable in non-es6 environments
+
+var path = require('path');
+var webpack = require('webpack');
 
 module.exports = {
 
   context: __dirname,
 
-  devtool: '#inline-source-map',
+  devtool: 'eval',
 
   entry: [
   	'webpack-hot-middleware/client', // for hot reload
@@ -13,18 +16,19 @@ module.exports = {
   ],
 
   output: {
-  	path: path.join(__dirname, 'build'),
+  	path: path.join(__dirname, 'public'),
   	filename: 'bundle.js',
   	publicPath: '/static/'
   },
 
   plugins: [
-  	new webpack.optimize.OccurenceOrderPlugin(),
   	new webpack.HotModuleReplacementPlugin(),
   	new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
         'process.env': {
-            BROWSER: JSON.stringify(true)
+            BROWSER:   JSON.stringify(true),
+            NODE_ENV:  JSON.stringify('development'),
+            BABEL_ENV: JSON.stringify('development/client')
         }
     })
   ],
@@ -37,7 +41,7 @@ module.exports = {
   resolve: {
   	alias: {
   	},
-  	extensions: ['', '.scss', '.js', '.json'],
+  	extensions: ['', '.scss', '.css', '.js', '.json'],
     modulesDirectories: [
       'node_modules',
       path.resolve(__dirname, './node_modules')
@@ -50,15 +54,20 @@ module.exports = {
   		  test: /\.js$/,
   		  loader: 'babel',
   		  exclude: /node_modules/,
-  		  include: __dirname,
-  		  query: {
-  		    presets: [ 'react-hmre', 'es2015', 'stage-0', 'react' ],
-  		    plugins: [ 'transform-decorators-legacy' ],
-  		  }
+  		  include: __dirname
   		}, {
         test: /\.scss$/,
-        loader: 'style!css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass'
-      }
+        loader: 'style!css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass',
+				include: [
+          path.resolve(__dirname, 'node_modules/react-toolbox'),
+          path.resolve(__dirname, 'common'),
+          path.resolve(__dirname, 'client')
+        ]
+      }, {
+				test: /\.css$/,
+				loader: 'style!css?modules',
+				include: /flexboxgrid/
+			}
   	]
   }
 };

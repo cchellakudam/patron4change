@@ -1,72 +1,82 @@
 [
 	{
-		"changemaker_user": 1,
+		"fkUserId": 1,
 		"isValidated": true,
-		"changemaker_content": 1,
-		"tags": "local, neighborhood, social",
-		"videoId": 1
+		"fkContentId": 1,
+		"tags": ["local", "neighborhood", "social"],
+		"videoUrl": "www.youtube.com"
 	},
+
 	{
-		"changemaker_user": 2,
+		"fkUserId": 2,
 		"isValidated": true,
-		"changemaker_content": 2,
-		"tags": "local, neighborhood, social",
-		"videoId": 2
+		"fkContentId": 2,
+		"tags": ["local", "neighborhood", "social"],
+		"videoUrl": "www.youtube.com"
 	},
+
 	{
-		"changemaker_user": 3,
+		"fkUserId": 3,
 		"isValidated": true,
-		"changemaker_content": 3,
-		"tags": "local, neighborhood, social",
-		"videoId": 3
+		"fkContentId": 3,
+		"tags": ["local", "neighborhood", "social"],
+		"videoUrl": "www.youtube.com"
 	},
+
 	{
-		"changemaker_user": 4,
+		"fkUserId": 4,
 		"isValidated": true,
-		"changemaker_content": 4,
-		"tags": "local, neighborhood, social",
-		"videoId": 4
+		"fkContentId": 4,
+		"tags": ["local", "neighborhood", "social"],
+		"videoUrl": "www.youtube.com"
 	},
+
 	{
-		"changemaker_user": 5,
+		"fkUserId": 5,
 		"isValidated": true,
-		"changemaker_content": 5,
-		"tags": "local, neighborhood, social",
-		"videoId": 5
+		"fkContentId": 5,
+		"tags": ["local", "neighborhood", "social"],
+		"videoUrl": "www.youtube.com"
 	},
+
 	{
-		"changemaker_user": 6,
+		"fkUserId": 6,
 		"isValidated": true,
-		"changemaker_content": 6,
-		"tags": "local, neighborhood, social",
-		"videoId": 6
+		"fkContentId": 6,
+		"tags": ["local", "neighborhood", "social"],
+		"videoUrl": "www.youtube.com"
 	},
+
 	{
-		"changemaker_user": 7,
+		"fkUserId": 7,
 		"isValidated": true,
-		"changemaker_content": 7,
-		"tags": "local, neighborhood, social",
-		"videoId": 7
+		"fkContentId": 7,
+		"tags": ["local", "neighborhood", "social"],
+		"videoUrl": "www.youtube.com"
 	},
+
 	{
-		"changemaker_user": 8,
+		"fkUserId": 8,
 		"isValidated": true,
-		"changemaker_content": 8,
-		"tags": "local, neighborhood, social",
-		"videoId": 8
+		"fkContentId": 8,
+		"tags": ["local", "neighborhood", "social"],
+		"videoUrl": "www.youtube.com"
 	},
+
 	{
-		"changemaker_user": 9,
+		"fkUserId": 9,
 		"isValidated": true,
-		"changemaker_content": 9,
-		"tags": "local, neighborhood, social",
-		"videoId": 9
+		"fkContentId": 9,
+		"tags": ["local", "neighborhood", "social"],
+		"videoUrl": "www.youtube.com"
 	},
+
 	{
-		"changemaker_user": 10,
+		"fkUserId": 10,
 		"isValidated": true,
-		"changemaker_content": 10,
-		"tags": "local, neighborhood, social",
-		"videoId": 10
+		"fkContentId": 10,
+		"tags": ["local", "neighborhood", "social"],
+		"videoUrl": "www.youtube.com"
 	}
+
 ]

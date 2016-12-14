@@ -35,6 +35,14 @@ $ npm run start-mocked
 $ npm run watch-mocked
 ```
 
+To create a production environment build and run it.
+
+```
+$ NODE_ENV=production
+$ npm run build
+$ node server/index.js
+```
+
 ### Upgrade Notes
 
 - It is highly recommended to always __remove__ `node_modules` and reinstall everything to avoid any possible issues

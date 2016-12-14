@@ -19,12 +19,12 @@ export default () => {
       return Promise.resolve(null);
     }
   })
-  .then(alias => {
+  .then(idxAlias => {
     // Check if the alias points to the current version
     // Create index if it is outdated or doesn't exist
     let createIndex = false;
-    if (alias) {
-      oldIndexVersion = Object.keys(alias)[0];
+    if (idxAlias) {
+      oldIndexVersion = Object.keys(idxAlias)[0];
       createIndex = oldIndexVersion !== newIndexVersion;
     } else {
       createIndex = true;
@@ -75,7 +75,7 @@ export default () => {
   })
   .then(() => {
     // Remove old index if a new index was installed
-    if (oldIndexVersion !== newIndexVersion) {
+    if (!!oldIndexVersion && oldIndexVersion !== newIndexVersion) {
       return elastic.indices.delete({
         index: oldIndexVersion
       });

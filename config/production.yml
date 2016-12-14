@@ -1,2 +1,5 @@
 database:
   host: db
+
+elasticsearch:
+  host: elastic

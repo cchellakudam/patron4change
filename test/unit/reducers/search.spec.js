@@ -7,7 +7,8 @@ import { SearchState } from '../../../common/constants/Types';
 describe('SearchReducer', () => {
 
   it('should return the initial state', () => {
-    const state = SearchReducer(undefined, {});
+    const stateObj = new SearchState();
+    const state = SearchReducer(stateObj, {});
     expect(state.term).to.equal('');
     expect(state.results.isEmpty()).to.be.true;
   })

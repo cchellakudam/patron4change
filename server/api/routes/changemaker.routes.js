@@ -1,17 +1,36 @@
 import express from 'express';
-import dataAccessLayer from '../../data';
-const router = express.Router();
 
 // changemaker specific stuff
 
-router.get('/', (req,res) => {
-	dataAccessLayer.getAllChangemakers().then(users => {
-		res.send(users);
+export default (changemakerService) => {
+
+	const router = express.Router();
+
+	router.get('/', (req,res) => {
+		changemakerService.getAllChangemakers().then(users => {
+			res.send(users);
+		});
 	});
-});
 
-router.get('/:username', (req,res) => {
-	res.send(JSON.stringify({}));
-});
+	router.get('/featured', (req,res) => {
+		changemakerService.getFeaturedChangemakers().then(changemakers => {
+			res.send(changemakers);
+		});
+	});
 
-module.exports = router;
+	router.get('/:id', (req,res) => {
+		res.send({});
+	});
+
+	router.get('/:id/updates', (req, res) => {
+		changemakerService.getUpdatesByUserId(req.params.id).then(updates => {
+			res.send(updates);
+		});
+	})
+
+	router.get('/:username', (req,res) => {
+		res.send({});
+	});
+
+	return router;
+}

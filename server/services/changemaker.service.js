@@ -1,15 +1,22 @@
+export default class {
 
+	constructor(dao) {
+		this.dao = dao;
+	}
 
+	getAllChangemakers() {
+		return this.dao.getAllChangemakers();
+	}
 
-module.exports = {
+	getChangemakerByUsername(username) {
+		return this.dao.getChangemakerByUsername(username);
+	}
 
-	getAllChangemakers: () => {
+	getFeaturedChangemakers(){
+		return this.dao.getFeaturedChangemakers();
+	}
+
+	getUpdatesByUserId(){
 		return Promise.resolve([]);
-	},
-
-	getChangemakerByUsername: (username) => {
-		return Promise.resolve({username: username});
-	},
-
-
-};
+	}
+}

@@ -1,13 +1,13 @@
 @import "~react-toolbox/lib/colors";
 
-$color-divider: $palette-grey-200;
-$color-background: $color-white;
+$color-divider: $palette-teal-300;
+$color-background: $palette-grey-400;
 $color-text: $palette-grey-900;
 $color-text-secondary: $palette-grey-700;
 
-$color-primary: $palette-grey-500;
-$color-primary-dark: $palette-grey-700;
-$color-accent: $palette-cyan-500;
-$color-accent-dark: $palette-cyan-700;
-$color-primary-contrast: $color-light-contrast;
-$color-accent-contrast: $color-light-contrast;
+$color-primary: $palette-teal-500;
+$color-primary-dark: $color-white;
+$color-accent: $color-white;
+$color-accent-dark: $color-white;
+$color-primary-contrast: $palette-teal-500;
+$color-accent-contrast: $palette-teal-a400;

@@ -16,7 +16,7 @@ const enhancer = compose(
 	applyMiddleware( promiseMiddleware, logger )
 )
 
-export default function configureStore( initialState = undefined  ) {
+export default function configureStore( initialState ) {
 
   const store = createStore( combinedReducers, initialState, enhancer);
 

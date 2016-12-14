@@ -3,10 +3,7 @@ import React, { PropTypes } from 'react';
 import {ListItem} from 'react-toolbox/lib/list';
 import * as shapes from './shapes';
 
-let styles = {};
-if (process.env.BROWSER) {
-  styles = require('../../client/css/modules/search-result-item.scss');
-}
+import styles from '../../client/css/modules/search-result-item.scss';
 
 class SearchResultItem extends React.Component {
 
@@ -23,14 +20,16 @@ class SearchResultItem extends React.Component {
     let { section } = this.props.match;
     let name = `${cm.firstName} ${cm.lastName}`;
 
+    const matchContent = section ? `... ${section.value} ...` : cm.mission;
+
     const content = <div>
-      <span className={styles.mainText}>{name}</span>
-      <span className={styles.subText}
-        dangerouslySetInnerHTML={{ __html: section ? section.value : cm.mission }} />
+      <span className={styles.mainText + ' main-text'}>{name}</span>
+      <span className={styles.subText + ' sub-text'}
+        dangerouslySetInnerHTML={{ __html: matchContent }} />
     </div>;
 
     return <ListItem
-      avatar={cm.image}
+      avatar={cm.avatarUrl}
       to={`/changemaker/${cm.id}`}
       itemContent={content}
       ripple

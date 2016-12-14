@@ -1,18 +1,20 @@
 import express from 'express';
-const router = express.Router();
 
 // routers for every user, doesnt matter if admin, patron, changemaker
 
-router.get('/', (req,res) => {
-	res.send(JSON.stringify([]));
-});
+export default (userSvc) => {
 
-router.get('/:username', (req,res) => {
-	res.send(JSON.stringify({}));
-});
+	const router = express.Router();
 
-router.post('/:username/resetpassword', (req, res) => {
-	res.sendStatus(500)
-});
+	router.get('/:id', (req,res) => {
+		userSvc.getUserForId(req.params.id).then(user => {
+			res.send(user);
+		});
+	});
 
-module.exports = router;
+	router.post('/:id/resetpassword', (req, res) => {
+		res.sendStatus(500)
+	});
+
+	return router;
+}

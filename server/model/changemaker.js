@@ -3,28 +3,22 @@ import queue from '../utils/queue';
 module.exports = (sequelize, DataTypes) => {
 
 	const Changemaker = sequelize.define('changemaker', {
-		id: {
-			type: DataTypes.INTEGER,
-			autoIncrement: true,
-			primaryKey: true
-		},
 		tags: {
-			type: DataTypes.STRING
+			type: DataTypes.ARRAY(DataTypes.STRING)
 		},
-		videoId: {
-			type: DataTypes.STRING(200)
-		},
-
 		isValidated: {
 			type: DataTypes.BOOLEAN
 		},
-
+		videoUrl: {
+			type: DataTypes.STRING
+		}
 	}, {
 		classMethods: {
 			associate: function(models){
-				Changemaker.belongsTo(models.user, {foreignKey: 'changemaker_user', as: 'user'});
-				Changemaker.belongsTo(models.content, {foreignKey: 'changemaker_content', as: 'mission'});
+				Changemaker.belongsTo(models.user, {foreignKey: 'fkUserId', as: 'user'});
+				Changemaker.belongsTo(models.content, {foreignKey: 'fkContentId', as: 'mission'});
 				Changemaker.hasMany(models.statusUpdate, {as: 'statusUpdates'});
+				Changemaker.hasMany(models.backing, {as: 'backings'})
 			}
 		},
 

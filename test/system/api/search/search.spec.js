@@ -5,10 +5,11 @@ import { baseUrl } from './service';
 export default () => {
 
   const testId = '1';
+  const words = ['spectacular', 'amazing', 'fantastic', 'magnificent'];
   const profile = {
     firstName: 'foo',
     lastName: 'bar',
-    tags: ['spectacular', 'amazing', 'fantastic', 'magnificent']
+    mission: words.join(' ')
   };
 
   before('insert a profile', (done) => {
@@ -16,7 +17,7 @@ export default () => {
       uri: baseUrl + '/profile/genericPerson/' + testId,
       method: 'PUT',
       body: profile,
-      json: true,
+      json: true
     })
     .then(() => {
       // There is a latency until the profile becomes searchable
@@ -53,12 +54,12 @@ export default () => {
     }).catch(done);
   });
 
-  profile.tags.forEach((tag) => {
-    it('should find an inserted profile by tag: ' + tag, (done) => {
+  words.forEach((word) => {
+    it('should find an inserted profile by a word contained in a field: ' + word, (done) => {
       http({
         uri: baseUrl + '/search/genericPerson',
         qs: {
-          q: tag
+          q: word
         },
         method: 'GET',
         json: true

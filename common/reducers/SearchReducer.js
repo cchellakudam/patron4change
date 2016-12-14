@@ -19,7 +19,7 @@ const handlers =
 {
 	[types.GLOBAL_SEARCH_REQUEST]: GLOBAL_SEARCH_REQUEST,
 	[types.GLOBAL_SEARCH_SUCCESS]: GLOBAL_SEARCH_SUCCESS,
-	[types.GLOBAL_SEARCH_ERROR]: GLOBAL_SEARCH_ERROR,
+	[types.GLOBAL_SEARCH_ERROR]: GLOBAL_SEARCH_ERROR
 }
 
 export default createReducer( new SearchState(), handlers );

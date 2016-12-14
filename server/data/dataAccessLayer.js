@@ -1,28 +1,7 @@
-import models from '../model/index';
+export default class {
 
-function getMockUsers() {
-	let arr = [];
-	let i;
-	for (i = 0; 10 > i; i++) {
-		arr.push({ id: String(i) });
-	}
-	return arr;
-}
-
-module.exports = {
-
-	getAllUsers(){
-		return Promise.resolve(getMockUsers());
-	},
-
-	getUserForEmail(){
-	},
-
-	getUserForId(){
-	},
-
-	getAllChangemakers(){
-		return models.changemaker.findAll({ where: { tags: 'I,is,super,awesome'}});
+	static getAllPatrons() {
+		return Promise.resolve([]);
 	}
 
 }
