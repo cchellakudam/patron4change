@@ -2,10 +2,8 @@
 swagger: '2.0'
 info:
   title: Changemaker API
-  description: A statelest RESTful API for the core backend-communication of patron4change
+  description: A stateless RESTful API for the core backend-communication of patron4change
   version: "1.0.0"
-# the domain of the service
-host: to.be.done
 # array of all schemes that your API supports
 schemes:
   - https
@@ -16,7 +14,9 @@ produces:
 paths:
   /changemakers:
     get:
-      summary: Changemakers
+      summary: Get all Changemakers
+      tags:
+        - "Changemaker"
       description: |
         A list of Changemakers that can optionally be filtered.
       parameters:
@@ -35,7 +35,9 @@ paths:
             $ref: '#/definitions/Error'
   /changemakers/{changemakerId}:
     get:
-      summary: A single Changemaker
+      summary: Get a single Changemaker
+      tags:
+        - "Changemaker"
       description: |
         Returns a single Changemaker specified by id
       parameters:
@@ -54,7 +56,9 @@ paths:
             $ref: '#/definitions/Error'
   /patrons:
     get:
-      summary: Patrons
+      summary: Get all Patrons
+      tags:
+        - "Patron"
       description: |
         A list of Patrons that can optionally be filtered.
       parameters:
@@ -73,7 +77,9 @@ paths:
             $ref: '#/definitions/Error'
   /patrons/{patronId}:
     get:
-      summary: A single Patron
+      summary: Get a single Patron
+      tags:
+        - "Patron"
       description: |
         Returns a single Patron specified by id
       parameters:
@@ -92,7 +98,9 @@ paths:
             $ref: '#/definitions/Error'
   /backings:
     get:
-      summary: Backings
+      summary: Get all Backings
+      tags:
+        - "Backing"
       description: |
         A list of Backings that can optionally be filtered.
       parameters:
@@ -119,7 +127,9 @@ paths:
             $ref: '#/definitions/Error'
   /backings/{backingId}:
     get:
-      summary: A single Backing
+      summary: Get a single Backing
+      tags:
+        - "Backing"
       description: |
         One specific Backing referenced via the backingId
       parameters:
@@ -138,7 +148,9 @@ paths:
             $ref: '#/definitions/Error'
   /missionupdates:
     get:
-      summary: Mission Updates
+      summary: Get all Mission Updates
+      tags:
+        - "Update"
       description: |
         A list of Mission Updates that can optionally be filtered
       parameters:
@@ -161,7 +173,9 @@ paths:
             $ref: '#/definitions/Error'
   /missionupdates/{updateId}:
     get:
-      summary: A single Mission Update
+      summary: Get a single Mission Update
+      tags:
+        - "Update"
       description: |
         One specific Mission Update referenced via the updateId
       parameters:
@@ -180,7 +194,9 @@ paths:
             $ref: '#/definitions/Error'
   /contentflags:
     get:
-      summary: Flags
+      summary: Get all Flags
+      tags:
+        - "Flag"
       description: |
         A list of Flags on a Changemaker or Status Update that can optionally be filtered
       parameters:
@@ -203,7 +219,9 @@ paths:
             $ref: '#/definitions/Error'
   /contentflags/{flagId}:
     get:
-      summary: A single Flag
+      summary: Get a single Flag
+      tags:
+        - "Flag"
       description: |
         One specific Report referenced via the flagId
       parameters:
