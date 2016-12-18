@@ -33,9 +33,31 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+    post:
+      summary: Create a Changemaker
+      tags:
+        - "Changemaker"
+      description: |
+        Create a new user including a Changemaker profile
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Changemaker'
+      responses:
+        201:
+          description: Changemaker created
+          headers:
+            Location:
+              description: The location of the created Changemaker
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
   /changemakers/{changemakerId}:
     get:
-      summary: Get a single Changemaker
+      summary: Get a single Changemaker profile
       tags:
         - "Changemaker"
       description: |
@@ -47,7 +69,32 @@ paths:
           type: integer
       responses:
         200:
-          description: A single Changemaker
+          description: A single Changemaker profile
+          schema:
+            $ref: '#/definitions/Changemaker'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      summary: Update a Changemaker
+      tags:
+        - "Changemaker"
+      description: |
+        Overwrite an existing Changemaker profile (specified by id) with the given document
+      parameters:
+        - name: changemakerId
+          in: path
+          required: true
+          type: integer
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Changemaker'
+      responses:
+        200:
+          description: The updated Changemaker
           schema:
             $ref: '#/definitions/Changemaker'
         default:
@@ -71,6 +118,28 @@ paths:
             type: array
             items:
               $ref: '#/definitions/Patron'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Create a Patron
+      tags:
+        - "Patron"
+      description: |
+        Create a new user including a Patron profile
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Patron'
+      responses:
+        201:
+          description: Patron created
+          headers:
+            Location:
+              description: The location of the created Patron
         default:
           description: Unexpected error
           schema:
@@ -125,6 +194,29 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+    post:
+      summary: Create a Backing
+      tags:
+        - "Backing"
+      description: |
+        Create a Backing based on the given document.
+        Patron must be restricted to the current user.
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Backing'
+      responses:
+        201:
+          description: Backing created
+          headers:
+            Location:
+              description: The location of the created Backing
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
   /backings/{backingId}:
     get:
       summary: Get a single Backing
@@ -142,6 +234,25 @@ paths:
           description: A single Backing
           schema:
             $ref: '#/definitions/Backing'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      summary: Remove a Backing
+      tags:
+        - "Backing"
+      description: |
+        Should only be available for regular (recurring) backings.
+        Backing must belong to the current user.
+      parameters:
+        - name: backingId
+          in: path
+          required: true
+          type: integer
+      responses:
+        204:
+          description: Backing removed
         default:
           description: Unexpected error
           schema:
@@ -167,6 +278,29 @@ paths:
             type: array
             items:
               $ref: '#/definitions/MissionUpdate'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Create a Mission Update.
+      tags:
+        - "Update"
+      description: |
+        Create a new update for the given Changemaker profile.
+        Changemaker ID must be validated based on current user's permissions.
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/MissionUpdate'
+      responses:
+        201:
+          description: Mission Update created
+          headers:
+            Location:
+              description: The location of the created Mission Update
         default:
           description: Unexpected error
           schema:
@@ -213,6 +347,29 @@ paths:
             type: array
             items:
               $ref: '#/definitions/Report'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Create a Flag
+      tags:
+        - "Flag"
+      description: |
+        Create a Flag based on the given document.
+        Reporter must be restricted to the current user.
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Report'
+      responses:
+        201:
+          description: Report created
+          headers:
+            Location:
+              description: The location of the created Report
         default:
           description: Unexpected error
           schema:
