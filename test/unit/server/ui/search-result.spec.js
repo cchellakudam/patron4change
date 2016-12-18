@@ -4,7 +4,7 @@ import React from 'react';
 import Immutable from 'immutable';
 import _ from 'lodash';
 import { render } from 'enzyme';
-import { SearchResultContainer } from '../../../common/containers/SearchResultContainer'
+import { SearchResultContainer } from '../../../../common/containers/SearchResultContainer'
 
 // testing react compontent with shallow rendering
 describe('<SearchResultContainer />', () => {
