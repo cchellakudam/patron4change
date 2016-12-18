@@ -2,32 +2,26 @@
 swagger: '2.0'
 info:
   title: Changemaker API
-  description: A statelest REsTful API for the core backend-communication of patron4change
+  description: A stateless RESTful API for the core backend-communication of patron4change
   version: "1.0.0"
-# the domain of the service
-host: to.be.done
 # array of all schemes that your API supports
 schemes:
   - https
 # will be prefixed to all paths
-basePath: /
+basePath: /api
 produces:
   - application/json
 paths:
   /changemakers:
     get:
-      summary: Changemakers
+      summary: Get all Changemakers
+      tags:
+        - "Changemaker"
       description: |
         A list of Changemakers that can optionally be filtered.
       parameters:
-        - name: first
-          in: query
-          type: integer
-          description: First item to be displayed
-        - name: last
-          in: query
-          type: integer
-          description: Last item to be displayed
+        - $ref: '#/parameters/limitParam'
+        - $ref: '#/parameters/offsetParam'
       responses:
         200:
           description: An array of Changemakers
@@ -39,9 +33,33 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+    post:
+      summary: Create a Changemaker
+      tags:
+        - "Changemaker"
+      description: |
+        Create a new user including a Changemaker profile
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Changemaker'
+      responses:
+        201:
+          description: Changemaker created
+          headers:
+            Location:
+              description: The location of the created Changemaker
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
   /changemakers/{changemakerId}:
     get:
-      summary: A single Changemaker
+      summary: Get a single Changemaker profile
+      tags:
+        - "Changemaker"
       description: |
         Returns a single Changemaker specified by id
       parameters:
@@ -51,7 +69,32 @@ paths:
           type: integer
       responses:
         200:
-          description: A single Changemaker
+          description: A single Changemaker profile
+          schema:
+            $ref: '#/definitions/Changemaker'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      summary: Update a Changemaker
+      tags:
+        - "Changemaker"
+      description: |
+        Overwrite an existing Changemaker profile (specified by id) with the given document
+      parameters:
+        - name: changemakerId
+          in: path
+          required: true
+          type: integer
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Changemaker'
+      responses:
+        200:
+          description: The updated Changemaker
           schema:
             $ref: '#/definitions/Changemaker'
         default:
@@ -60,18 +103,14 @@ paths:
             $ref: '#/definitions/Error'
   /patrons:
     get:
-      summary: Patrons
+      summary: Get all Patrons
+      tags:
+        - "Patron"
       description: |
         A list of Patrons that can optionally be filtered.
       parameters:
-        - name: first
-          in: query
-          type: integer
-          description: First item to be displayed
-        - name: last
-          in: query
-          type: integer
-          description: Last item to be displayed
+        - $ref: '#/parameters/limitParam'
+        - $ref: '#/parameters/offsetParam'
       responses:
         200:
           description: An array of Patrons
@@ -83,9 +122,33 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+    post:
+      summary: Create a Patron
+      tags:
+        - "Patron"
+      description: |
+        Create a new user including a Patron profile
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Patron'
+      responses:
+        201:
+          description: Patron created
+          headers:
+            Location:
+              description: The location of the created Patron
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
   /patrons/{patronId}:
     get:
-      summary: A single Patron
+      summary: Get a single Patron
+      tags:
+        - "Patron"
       description: |
         Returns a single Patron specified by id
       parameters:
@@ -104,18 +167,14 @@ paths:
             $ref: '#/definitions/Error'
   /backings:
     get:
-      summary: Backings
+      summary: Get all Backings
+      tags:
+        - "Backing"
       description: |
         A list of Backings that can optionally be filtered.
       parameters:
-        - name: first
-          in: query
-          type: integer
-          description: First item to be displayed
-        - name: last
-          in: query
-          type: integer
-          description: Last item to be displayed
+        - $ref: '#/parameters/limitParam'
+        - $ref: '#/parameters/offsetParam'
         - name: changemaker_id
           in: query
           type: integer
@@ -135,11 +194,36 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+    post:
+      summary: Create a Backing
+      tags:
+        - "Backing"
+      description: |
+        Create a Backing based on the given document.
+        Patron must be restricted to the current user.
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Backing'
+      responses:
+        201:
+          description: Backing created
+          headers:
+            Location:
+              description: The location of the created Backing
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
   /backings/{backingId}:
     get:
-      summary: Backings
+      summary: Get a single Backing
+      tags:
+        - "Backing"
       description: |
-        One specific Backing
+        One specific Backing referenced via the backingId
       parameters:
         - name: backingId
           in: path
@@ -154,8 +238,165 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+    delete:
+      summary: Remove a Backing
+      tags:
+        - "Backing"
+      description: |
+        Should only be available for regular (recurring) backings.
+        Backing must belong to the current user.
+      parameters:
+        - name: backingId
+          in: path
+          required: true
+          type: integer
+      responses:
+        204:
+          description: Backing removed
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /missionupdates:
+    get:
+      summary: Get all Mission Updates
+      tags:
+        - "Update"
+      description: |
+        A list of Mission Updates that can optionally be filtered
+      parameters:
+        - $ref: '#/parameters/limitParam'
+        - $ref: '#/parameters/offsetParam'
+        - name: changemaker_id
+          in: query
+          type: integer
+          description: Mission Updates by a specific Changemaker
+      responses:
+        200:
+          description: An array of Mission Updates
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/MissionUpdate'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Create a Mission Update.
+      tags:
+        - "Update"
+      description: |
+        Create a new update for the given Changemaker profile.
+        Changemaker ID must be validated based on current user's permissions.
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/MissionUpdate'
+      responses:
+        201:
+          description: Mission Update created
+          headers:
+            Location:
+              description: The location of the created Mission Update
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /missionupdates/{updateId}:
+    get:
+      summary: Get a single Mission Update
+      tags:
+        - "Update"
+      description: |
+        One specific Mission Update referenced via the updateId
+      parameters:
+        - name: updateId
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: A single Mission Update
+          schema:
+            $ref: '#/definitions/MissionUpdate'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /contentflags:
+    get:
+      summary: Get all Flags
+      tags:
+        - "Flag"
+      description: |
+        A list of Flags on a Changemaker or Status Update that can optionally be filtered
+      parameters:
+        - $ref: '#/parameters/limitParam'
+        - $ref: '#/parameters/offsetParam'
+        - name: user_id
+          in: query
+          type: integer
+          description: Flags by a specific User
+      responses:
+        200:
+          description: An array of Flags
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Report'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Create a Flag
+      tags:
+        - "Flag"
+      description: |
+        Create a Flag based on the given document.
+        Reporter must be restricted to the current user.
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Report'
+      responses:
+        201:
+          description: Report created
+          headers:
+            Location:
+              description: The location of the created Report
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /contentflags/{flagId}:
+    get:
+      summary: Get a single Flag
+      tags:
+        - "Flag"
+      description: |
+        One specific Report referenced via the flagId
+      parameters:
+        - name: flagId
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: A single Flag
+          schema:
+            $ref: '#/definitions/Report'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
 definitions:
-  Changemaker:
+  UserProperties:
     type: object
     properties:
       id:
@@ -163,34 +404,50 @@ definitions:
         description: Unique identifier.
       first_name:
         type: string
-        description: First name of the Changemaker
+        description: First name of the User
       last_name:
         type: string
-        description: Last name of the Changemaker
+        description: Last name of the User
       email:
         type: string
-        description: Email address of the Changemaker
-      picture:
+        description: Email address of the User
+      isEmailValidated:
+        type: boolean
+        description: Email is validated
+      isAnonymous:
+        type: boolean
+        description: Is Anonymous
+      isBlocked:
+        type: boolean
+        description: Is blocked
+      picture_location:
         type: string
         description: Image URL of the Changemaker
+  Changemaker:
+    allOf:
+      - $ref: '#/definitions/UserProperties'
+      - type: object
+        properties:
+          isValidated:
+            type: boolean
+            description: Whether the Changemaker profile has been approved by an admin
+          mission:
+            type: string
+            description: Mission description
+          tags:
+            type: array
+            description: Tags
+            items:
+              type: string
+          video_location:
+            type: string
+            description: Video location of the Changemaker introduction
   Patron:
-    type: object
-    properties:
-      id:
-        type: integer
-        description: Unique identifier.
-      first_name:
-        type: string
-        description: First name of the Patron
-      last_name:
-        type: string
-        description: Last name of the Patron
-      email:
-        type: string
-        description: Email address of the Patron
-      picture:
-        type: string
-        description: Image URL of the Patron
+    allOf:
+      - $ref: '#/definitions/UserProperties'
+  Admin:
+    allOf:
+      - $ref: '#/definitions/UserProperties'
   Backing:
     type: object
     properties:
@@ -198,10 +455,10 @@ definitions:
         type: integer
         description: Unique identifier.
       changemaker_id:
-        type: string
+        type: integer
         description: ID of the Changemaker who is backed
       patron_id:
-        type: string
+        type: integer
         description: ID of the Patron who is backing
       type:
         type: string
@@ -209,6 +466,36 @@ definitions:
       amount:
         type: integer
         description: Amount in cents
+  MissionUpdate:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: Unique identifier
+      changemaker_id:
+        type: integer
+        description: ID of the Changemaker who posted this update
+      title:
+        type: string
+        description: The title of this update
+      text:
+        type: string
+        description: The text content of this update
+  Report:
+    type: object
+    properties:
+      reporter_id:
+        type: integer
+        description: User ID of then User who reported the incident
+      flag_type:
+        type: string
+        description: "(enum) update|changemaker"
+      changemaker_id:
+        type: integer
+        description: The changemaker who has been reported
+      statusupdate_id:
+        type: integer
+        description: The statusupdate which has been flagged
   Error:
     type: object
     properties:
@@ -219,3 +506,16 @@ definitions:
         type: string
       fields:
         type: string
+parameters:
+  limitParam:
+    name: limit
+    in: query
+    type: integer
+    description: 'The number of items returned'
+    default: 10
+  offsetParam:
+    name: offset
+    in: query
+    type: integer
+    description: The number of items skipped
+    default: 0

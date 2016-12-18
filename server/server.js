@@ -18,6 +18,8 @@ import appConfig from 'config';
 
 import winstonRequestLogger from 'winston-request-logger';
 
+import swaggerUi from 'swaggerize-ui';
+
 let logger = createLogger();
 logger.log('debug', 'env: %s', process.env.NODE_ENV);
 
@@ -28,6 +30,8 @@ const app = express();
 
 app.use('/css', express.static(path.join(__dirname, '../client/css')));
 app.use('/public', express.static(path.join(__dirname, '../public')));
+
+app.use('/api-doc', swaggerUi({docs: '/public/definitions/swagger.yaml'}));
 
 app.use((req, res, next) => {
 	// request id for log correlation
