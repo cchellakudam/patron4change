@@ -19,6 +19,12 @@ export default class {
 		});
 	}
 
+	static getChangemakerById(id) {
+		return axios(`/api/changemaker/${id}`).then(res => {
+			return new ChangemakerRecord(res.data);
+		});
+	}
+
 	static getAllUpdatesByUserId(id) {
 		return axios('/api/changemaker/' + id + '/updates').then(res => {
 			return convertToRecordList(res.data, ChangemakerUpdateRecord);

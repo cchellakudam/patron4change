@@ -25,6 +25,18 @@ export function getFeaturedChangemakers() {
 	};
 }
 
+export function getChangemakerById({changemakerId}) {
+	return {
+		types: [
+			types.GET_CHANGEMAKER_BY_ID_REQUEST,
+			types.GET_CHANGEMAKER_BY_ID_SUCCESS,
+			types.GET_CHANGEMAKER_BY_ID_ERROR
+		],
+		changemakerId,
+		promise: WebAPIUtils.getChangemakerById(changemakerId)
+	};
+}
+
 export function supportChangemaker(changemakerId) {
 	return {
 		type: types.SUPPORT_CHANGEMAKER,

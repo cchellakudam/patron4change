@@ -6,7 +6,10 @@ export const changemaker = PropTypes.shape({
   lastName: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf(PropTypes.string.isRequired),
   statusUpdates: PropTypes.arrayOf(PropTypes.string.isRequired),
-  mission: PropTypes.string.isRequired,
+  mission: PropTypes.shape({
+    id: PropTypes.any.isRequired,
+    text: PropTypes.string.isRequired
+  }),
   avatarUrl: PropTypes.string.isRequired,
   isBackedByMe: PropTypes.bool.isRequired
 });

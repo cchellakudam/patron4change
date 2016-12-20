@@ -8,6 +8,10 @@ export default class {
 		return this.dao.getAllChangemakers();
 	}
 
+	getChangemakerById(id) {
+		return this.dao.getChangemakerById(id);
+	}
+
 	getChangemakerByUsername(username) {
 		return this.dao.getChangemakerByUsername(username);
 	}

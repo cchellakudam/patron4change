@@ -29,8 +29,8 @@ export default (
 		   components={{main: Empty, nav: MainNav, sub: Empty}} />
 
   // changemaker detail page
-	<Route path="/changemaker/:id"
-		   components={{main: Empty, nav: MainNav, sub: Empty}} />
+	<Route path="/changemaker/:changemakerId"
+		   components={{main: UserProfileContainer, nav: MainNav, sub: Empty}} />
 
   // changemaker support payment page
 	<Route path="/changemaker/:id/support"
