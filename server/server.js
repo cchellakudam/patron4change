@@ -1,147 +1,92 @@
-/* eslint no-console: 0 */
 import express from 'express';
 import path from 'path';
+import uuid from 'uuid';
 
-import React from 'react'
-import { renderToString } from 'react-dom/server'
+import serverRender from './render';
+import apiRoutes from './api/routes';
 
-import { RouterContext, match } from 'react-router';
-import routes from '../common/routes/routing';
+import createLogger from './logger';
+import runWorkers from './workers';
+import model from './model';
+import rebuildSearchIndex from './utils/rebuildSearchIndex';
 
-import { applyMiddleware, createStore } from 'redux';
-import { Provider } from 'react-redux';
+import webpack from 'webpack';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+import config from '../webpack.config';
+import appConfig from 'config';
 
-import promiseMiddleware from '../common/middleware/PromiseMiddleware';
-import combinedReducers from '../common/reducers';
+import winstonRequestLogger from 'winston-request-logger';
 
-import fetchComponentData from '../common/utils/fetchComponentData';
+import swaggerUi from 'swaggerize-ui';
 
-const finalCreateStore = applyMiddleware(promiseMiddleware)( createStore );
-
-console.log( 'env: ', process.env.NODE_ENV )
+let logger = createLogger();
+logger.log('debug', 'env: %s', process.env.NODE_ENV);
 
 // make sure styles are only loaded for client resources
 delete process.env.BROWSER;
 
 const app = express();
 
-app.use('/css', express.static(path.join(__dirname, '../client/css')))
+app.use('/css', express.static(path.join(__dirname, '../client/css')));
+app.use('/public', express.static(path.join(__dirname, '../public')));
 
-const webpack = require('webpack')
-const webpackDevMiddleware = require('webpack-dev-middleware')
-const webpackHotMiddleware = require('webpack-hot-middleware')
-const config = require('../webpack.config')
-const compiler = webpack(config)
-app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }))
-app.use(webpackHotMiddleware(compiler))
+app.use('/api-doc', swaggerUi({docs: '/public/definitions/swagger.yaml'}));
+
+app.use((req, res, next) => {
+	// request id for log correlation
+	req.reqId = uuid.v4();
+	req.logger = createLogger(req.reqId);
+	next();
+});
+
+app.use(winstonRequestLogger.create(logger, {
+	responseTime: ':responseTime ms', // outputs '5 ms'
+  url: ':url[pathname]'             // outputs '/some/path'
+}));
+
+if ('production' !== process.env.NODE_ENV) {
+	const compiler = webpack(config);
+	app.use(webpackDevMiddleware(compiler, {
+		noInfo: true,
+		publicPath: config.output.publicPath,
+    stats: {
+      colors: true
+    }
+	}));
+	app.use(webpackHotMiddleware(compiler));
+}
+
+runWorkers(appConfig.get('queues'), logger);
 
 // init database
+let databaseInit;
 if('unit' !== process.env.NODE_ENV){
-	require('../server/model').sequelize.sync();
+	databaseInit = model.sequelize.sync({
+		logging: str => logger.log('silly', str)
+	});
+} else {
+	databaseInit = Promise.resolve(true);
 }
-
-// start workers
-require('./workers/');
-
-require('./utils/rebuildSearchIndex');
-
-const apiRoutes = require('./api/routes');
-
-function renderFullPage(html, initialState) {
-  return `
-	<!doctype html>
-	<html lang="utf-8">
-	  <head>
-		<title>patron4change</title>
-		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
-	  </head>
-	  <body>
-	  <div class="container">${html}</div>
-		<script>window.$REDUX_STATE = ${initialState}</script>
-		<script src="/static/bundle.js"></script>
-	  </body>
-	</html>
-	`
-}
+databaseInit.then(rebuildSearchIndex);
 
 app.use('/api', apiRoutes);
 
 // server rendering
-app.use( ( req, res ) => {
-
-	const store = finalCreateStore(combinedReducers);
-
-	// match react-router routes
-	match( {routes, location: req.url}, ( error, redirectLocation, renderProps ) => {
-
-    function render() {
-  		const initView = renderToString(
-  			<Provider store={store}>
-  			  <RouterContext {...renderProps} />
-  			</Provider>
-  		)
-
-  		let state = JSON.stringify( store.getState() );
-  		return renderFullPage( initView, state );
-    }
-
-    function okPage(page) {
-      return res.status(200).send(page);
-    }
-
-    function endWithError(err) {
-      return res.end(err.message);
-    }
-
-		if ( error ) {
-      console.error(error);
-			res.status(500).send( error.message );
-			return;
-		}
-
-		if ( redirectLocation ) {
-			res.redirect( 302, redirectLocation.pathname + redirectLocation.search );
-			return;
-		}
-
-		if ( null === renderProps ) {
-			res.status(404).send( 'Not found' );
-			return;
-		}
-
-		// this is where universal rendering happens,
-		// fetchComponentData() will trigger actions listed in static "needs" props in each container component
-		// and wait for all of them to complete before continuing rendering the page,
-		// hence ensuring all data needed was fetched before proceeding
-		//
-		// renderProps: contains all necessary data, e.g: routes, router, history, components...
-		fetchComponentData( store.dispatch, renderProps.components, renderProps.params)
-		.then(render)
-		.then(okPage)
-		.catch(endWithError);
-	})
-});
-
-
+app.use(serverRender(logger));
 
 // example of handling 404 pages
-app.get('*', function(req, res) {
+app.get('*', (req, res) => {
 	res.status(404).send('Server.js > 404 - Page Not Found');
 });
 
 // global error catcher
 app.use((err, req, res) => {
-  console.error('Error on request %s %s', req.method, req.url);
-  console.error(err.stack);
+  logger.log('error', 'Error on request %s %s', req.method, req.url);
+  logger.log('debug', err.stack);
   res.status(500).send('Server error');
 });
 
-process.on('uncaughtException', evt => {
-  console.log( 'uncaughtException: ', evt );
-});
-
 app.listen(3000, function(){
-	console.log('Listening on port 3000');
+	logger.info('Listening on port 3000');
 });

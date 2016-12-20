@@ -5,7 +5,7 @@ const hook = require('css-modules-require-hook');
 
 if ('browser' !== process.env.APP_ENV) {
   hook({
-    extensions: ['.scss'],
+    extensions: ['.scss', '.css'],
     preprocessCss: data => {
       return data;
     }

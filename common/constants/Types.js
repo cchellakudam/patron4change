@@ -1,3 +1,4 @@
+/* eslint no-undefined: 0 */
 import Immutable from 'immutable';
 
 export const ChangemakerState = Immutable.Record({
@@ -6,12 +7,9 @@ export const ChangemakerState = Immutable.Record({
 
 export const ChangemakerRecord = Immutable.Record({
 	id: undefined,
-	image: '',
-	firstName: '',
-	lastName: '',
-	mission: '',
-	statusUpdates: [],
-	isBackedByMe: false
+	name: '',
+	avatarUrl: '',
+	mission: ''
 })
 
 export const ChangemakerUpdateRecord = Immutable.Record({

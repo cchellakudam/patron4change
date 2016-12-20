@@ -2,15 +2,15 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import ChangemakerGallery from '../components/ChangemakerGallery';
-import ChangemakerGalleryItem from '../components/ChangemakerGalleryItem';
+import LandingPage from '../components/LandingPage';
+import ChangemakerCard from '../components/ChangemakerCard';
 import * as ChangemakerActions from '../actions/ChangemakerActions';
 import { fetchNeeds } from '../utils/fetchComponentData';
 
-class ChangemakerGalleryContainer extends Component {
+class LandingPageContainer extends Component {
 
 	static needs = [
-		ChangemakerActions.readAll
+		ChangemakerActions.getFeaturedChangemakers
 	];
 
 	static propTypes = {
@@ -24,25 +24,25 @@ class ChangemakerGalleryContainer extends Component {
 	}
 
 	componentDidMount() {
-		fetchNeeds( ChangemakerGalleryContainer.needs, this.props )
+		fetchNeeds( LandingPageContainer.needs, this.props )
 	}
 
 	render() {
 	  const {changemakers} = this.props;
 
 	  const nodes = changemakers.valueSeq().map( cm => {
-			return <ChangemakerGalleryItem
+			return <ChangemakerCard
 			  key={`cm-${cm.id}`}
 			  changemaker={cm}
 			  onSupport={() => this.actions.supportChangemaker(cm.id)} />
 	  });
 
-	  return <ChangemakerGallery>
+	  return <LandingPage>
 		  {nodes}
-		</ChangemakerGallery>;
+		</LandingPage>;
 	}
 }
 
 export default connect( (state/* , ownProps */) => ({
 	changemakers: state.cm.changemakers
-}) )(ChangemakerGalleryContainer);
+}) )(LandingPageContainer);

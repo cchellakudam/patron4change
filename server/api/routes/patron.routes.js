@@ -1,14 +1,18 @@
 import express from 'express';
-const router = express.Router();
 
 // patron specific stuff
 
-router.get('/', (req,res) => {
-	res.send(JSON.stringify([]));
-});
+export default function() {
 
-router.get('/:username', (req,res) => {
-	res.send(JSON.stringify({}));
-});
+	const router = express.Router();
 
-module.exports = router;
+	router.get('/', (req,res) => {
+		res.send([]);
+	});
+
+	router.get('/:username', (req,res) => {
+		res.send({});
+	});
+
+	return router;
+}

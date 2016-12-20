@@ -14,8 +14,8 @@ export default (params) => {
       }
     })
     .then((result) => {
-      resolve(result[params.type].reduce((results, result) => {
-        return results.concat(result.options.map(option => {
+      resolve(result[params.type].reduce((results, next) => {
+        return results.concat(next.options.map(option => {
           return option.text;
         }));
       }, []));

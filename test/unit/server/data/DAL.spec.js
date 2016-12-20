@@ -1,120 +1,55 @@
-
 const assert = require('chai').assert;
-
-
+import mockDataLayer from '../../../../server/data/mockDataLayer';
+import changemakerDao from '../../../../server/data/changemakerDAO';
+import userDAO from '../../../../server/data/userDAO';
 
 describe('Datalayer interface check', () => {
 
 	describe('Mock Layer should have the functions: ', () => {
-		const datalayer = require('../../../../server/data/mockDataLayer');
 
 		it('getAllUsers()', () => {
-			assert.isOk('function' === typeof datalayer.getAllUsers);
+			assert.isOk('function' === typeof mockDataLayer.getAllUsers);
 		});
 
 		it('getUserForEmail()', () => {
-			assert.isOk('function' === typeof datalayer.getUserForEmail);
+			assert.isOk('function' === typeof mockDataLayer.getUserForEmail);
 		});
 
 		it('getUserForId()', () => {
-			assert.isOk('function' === typeof datalayer.getUserForId);
+			assert.isOk('function' === typeof mockDataLayer.getUserForId);
 		});
 
 		it('getAllChangemakers()', () => {
-			assert.isOk('function' === typeof datalayer.getAllChangemakers);
+			assert.isOk('function' === typeof mockDataLayer.getAllChangemakers);
+		})
+
+		it('getFeaturedChangemakers()', () => {
+			assert.isOk('function' === typeof mockDataLayer.getFeaturedChangemakers);
 		})
 	});
 
 	describe('Real Layer should have the functions:', () => {
-		const datalayer = require('../../../../server/data/dataAccessLayer');
 
 		it('getAllUsers()', () => {
-			assert.isOk('function' === typeof datalayer.getAllUsers);
+			assert.isOk('function' === typeof userDAO.getAllUsers);
 		});
 
 		it('getUserForEmail()', () => {
-			assert.isOk('function' === typeof datalayer.getUserForEmail);
+			assert.isOk('function' === typeof userDAO.getUserForEmail);
 		});
 
 		it('getUserForId()', () => {
-			assert.isOk('function' === typeof datalayer.getUserForId);
+			assert.isOk('function' === typeof userDAO.getUserForId);
 		});
 
 		it('getAllChangemakers()', () => {
-			assert.isOk('function' === typeof datalayer.getAllChangemakers);
+			assert.isOk('function' === typeof changemakerDao.getAllChangemakers);
 		})
+
+		it('getFeaturedChangemakers()', () => {
+			assert.isOk('function' === typeof changemakerDao.getFeaturedChangemakers);
+		})
+
 	})
 
-
-});
-
-describe('Mocked dataaccesslayer', () => {
-	const datalayer = require('../../../../server/data/mockDataLayer');
-
-
-	describe('getAllUsers', () => {
-		it('should return all users', done => {
-			function check(result) {
-				assert.equal(result.length, 11);
-				done();
-			}
-			datalayer.getAllUsers().then(check);
-		});
-	});
-
-	describe('getUserForEmail', () => {
-		it('should return a user for an email', done => {
-			function check(result) {
-				assert.equal(result.length, 1);
-				assert.equal(result[0].email, 'matthias.holzer@example.com')
-				done();
-			}
-			datalayer.getUserForEmail('matthias.holzer@example.com').then(check);
-		}),
-
-		it('should not return same user everytime', done => {
-			function check(result) {
-				assert.equal(result.length, 1);
-				assert.equal(result[0].email, 'alex.voggen@example.com')
-				done();
-			}
-			datalayer.getUserForEmail('alex.voggen@example.com').then(check);
-		}),
-
-		it('should return empty if email does not exist', done => {
-			function check(result) {
-				assert.equal(result.length, 0);
-				done();
-			}
-			datalayer.getUserForEmail('sdgsdhsd@example.com').then(check);
-		});
-	});
-
-	describe('getUserForId', () => {
-		it('should return a user for an id', done => {
-			function check(result) {
-				assert.equal(result.length, 1);
-				assert.equal(result[0].id, '5')
-				done();
-			}
-			datalayer.getUserForId(5).then(check);
-		}),
-		it('should return empty for invalid id', done => {
-			function check(result) {
-				assert.equal(result.length, 0);
-				done();
-			}
-			datalayer.getUserForId(-5).then(check);
-		});
-	});
-
-	describe('getAllChangemakers', () => {
-		it('should return all changemakers', done => {
-			function check(result) {
-				assert.equal(result.length, 10);
-				done();
-			}
-			datalayer.getAllChangemakers().then(check);
-		})
-	})
 });

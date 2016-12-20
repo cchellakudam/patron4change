@@ -6,14 +6,18 @@ module.exports = (sequelize, DataTypes) => {
 			autoIncrement: true,
 			primaryKey: true
 		},
-
+		amount: {
+			type: DataTypes.INTEGER
+		}
 	}, {
 		classMethods:{
 			associate: function(models){
-				Backing.belongsTo(models.changemaker, {foreignKey: 'backing_changemaker', as: 'changemaker'});
+				Backing.belongsTo(models.user, {foreignKey: 'fkSenderId', as: 'user'});
+				Backing.belongsTo(models.changemaker, {foreignKey: 'fkRecipientId', as: 'changemaker'});
+				Backing.hasMany(models.payment, {as: 'payments'})
 			}
 		},
-	
+
 		freezeTableName: false // Model tableName will be the same as the model name
 	});
 

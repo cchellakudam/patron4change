@@ -8,7 +8,7 @@ const sequelize = new Sequelize(
 	config.get('database').database,
 	config.get('database').user,
 	config.get('database').password,
-	{
+{
 		host: config.get('database').host,
 		port: config.get('database').port,
 		dialect: 'postgres',
@@ -16,7 +16,7 @@ const sequelize = new Sequelize(
 			max: 5,
 			min: 0,
 			idle: 10000
-		},
+		}
 });
 
 const db = {};

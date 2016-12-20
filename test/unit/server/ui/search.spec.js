@@ -3,7 +3,7 @@ const {assert} = require('chai');
 import React from 'react';
 import _ from 'lodash';
 import { render } from 'enzyme';
-import { SearchContainer } from '../../../common/containers/SearchContainer'
+import { SearchContainer } from '../../../../common/containers/SearchContainer'
 
 describe('<SearchContainer />', () => {
 
