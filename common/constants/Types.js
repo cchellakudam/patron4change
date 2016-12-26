@@ -8,6 +8,12 @@ export const ChangemakerRecord = Immutable.Record({
 	mission: Immutable.Record({
 		id: '',
 		text: ''
+	}),
+	user: Immutable.Record({
+		id: '',
+		firstName: '',
+		lastName: '',
+		avatarUrl: ''
 	})
 })
 

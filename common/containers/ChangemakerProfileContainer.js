@@ -2,10 +2,10 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import * as ChangemakerActions from '../actions/ChangemakerActions';
-import UserProfile from '../components/UserProfile';
+import ChangemakerProfile from '../components/ChangemakerProfile';
 import { fetchNeeds } from '../utils/fetchComponentData';
 
-class UserProfileContainer extends Component {
+class ChangemakerProfileContainer extends Component {
 
 	static needs = [
 		ChangemakerActions.getChangemakerById
@@ -18,15 +18,15 @@ class UserProfileContainer extends Component {
 	}
 
 	componentDidMount() {
-		fetchNeeds( UserProfileContainer.needs, this.props )
+		fetchNeeds( ChangemakerProfileContainer.needs, this.props )
 	}
 
 	render() {
 		const { changemaker } = this.props;
-		return <UserProfile changemaker={changemaker} />;
+		return <ChangemakerProfile changemaker={changemaker} />;
 	}
 }
 
 export default connect( state => ({
 	changemaker: state.cm.changemaker
-}) )(UserProfileContainer);
+}) )(ChangemakerProfileContainer);

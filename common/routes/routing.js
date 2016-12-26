@@ -4,7 +4,7 @@ import { Route } from 'react-router'
 import LandingPageContainer from '../containers/LandingPageContainer';
 import SearchContainer from '../containers/SearchContainer';
 import SearchResultContainer from '../containers/SearchResultContainer';
-import UserProfileContainer from '../containers/UserProfileContainer';
+import ChangemakerProfileContainer from '../containers/ChangemakerProfileContainer';
 
 import MainNav from '../components/MainNav';
 import SearchNav from '../components/SearchNav';
@@ -30,7 +30,7 @@ export default (
 
   // changemaker detail page
 	<Route path="/changemaker/:changemakerId"
-		   components={{main: UserProfileContainer, nav: MainNav, sub: Empty}} />
+		   components={{main: ChangemakerProfileContainer, nav: MainNav, sub: Empty}} />
 
   // changemaker support payment page
 	<Route path="/changemaker/:id/support"
@@ -38,10 +38,6 @@ export default (
 
 	<Route path="/search"
 		   components={{main: SearchResultContainer, nav: SearchNavContainer, sub: Empty}} />
-
-  // profile of any user
-	<Route path="/users/:id"
-			 components={{main: UserProfileContainer, nav: MainNav, sub: Empty}} />
 
 	<Route path="*"
 		   components={{main: NotFound, nav: MainNav, sub: Empty}} />
