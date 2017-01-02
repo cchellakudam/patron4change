@@ -14,8 +14,7 @@ describe('<SearchResultContainer />', () => {
 		firstName: 'Lukas',
 		lastName: 'Stanek',
 		mission: 'Lukas Stanek travels',
-		image: '//img.png',
-		isBackedByMe: false
+		image: '//img.png'
 	};
 
 	it('should list all search results', () => {

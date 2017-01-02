@@ -70,7 +70,9 @@ if('unit' !== process.env.NODE_ENV){
 }
 databaseInit.then(rebuildSearchIndex);
 
-app.use('/api', apiRoutes);
+app.use('/api', apiRoutes, (req, res) => {
+	res.status(404).send('Invalid api route');
+});
 
 // server rendering
 app.use(serverRender(logger));

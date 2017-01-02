@@ -5,12 +5,16 @@ export const ChangemakerState = Immutable.Record({
 	changemakers: Immutable.List()
 })
 
-export const ChangemakerRecord = Immutable.Record({
+export const _ChangemakerRecord = {
 	id: undefined,
-	name: '',
-	avatarUrl: '',
-	mission: ''
-})
+	firstName: '',
+	lastName: '',
+	statusUpdates: Immutable.List(),
+	mission: '',
+	avatarUrl: ''
+}
+
+export const ChangemakerRecord = Immutable.Record(_ChangemakerRecord)
 
 export const ChangemakerUpdateRecord = Immutable.Record({
 	id: '',
