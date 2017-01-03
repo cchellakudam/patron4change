@@ -9,7 +9,7 @@ const logger = createLogger({
   level: 'info',
   collapsed: true,
   // use for debugging to trace only the essential actions
-  predicate: (getState, action) => Boolean(action.no_log)
+  predicate: (getState, action) => !Boolean(action.no_log)
 });
 
 const enhancer = compose(
