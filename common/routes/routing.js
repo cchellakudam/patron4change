@@ -1,12 +1,13 @@
 import React from 'react'
 import { Route } from 'react-router'
 
+import LoginContainer from '../containers/LoginContainer';
 import LandingPageContainer from '../containers/LandingPageContainer';
 import SearchContainer from '../containers/SearchContainer';
 import SearchResultContainer from '../containers/SearchResultContainer';
 import UserProfileContainer from '../containers/UserProfileContainer';
+import MainNav from '../containers/MainNav';
 
-import MainNav from '../components/MainNav';
 import SearchNav from '../components/SearchNav';
 import App from '../components/App';
 
@@ -38,6 +39,9 @@ export default (
 
 	<Route path="/search"
 		   components={{main: SearchResultContainer, nav: SearchNavContainer, sub: Empty}} />
+
+ 	<Route path="/login"
+ 			 components={{main: LoginContainer, nav: MainNav, sub: Empty}} />
 
   // profile of any user
 	<Route path="/users/:id"

@@ -1,6 +1,11 @@
 /* eslint no-undefined: 0 */
 import Immutable from 'immutable';
 
+export const AppState = Immutable.Record({
+	// id of the user that is authenticated, or null if not authenticated
+	userId: null
+})
+
 export const ChangemakerState = Immutable.Record({
 	changemakers: Immutable.List()
 })

@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { Router, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import configureStore from '../common/utils/configureStore';
-import { ChangemakerState, SearchState, ChangemakerRecord, convertToRecordList } from '../common/constants/Types';
+import { ChangemakerState, SearchState, AppState, ChangemakerRecord, convertToRecordList } from '../common/constants/Types';
 import routes from '../common/routes/routing';
 
 let state = null;
@@ -18,8 +18,13 @@ if (window.$REDUX_STATE) {
 
 	state.search = new SearchState({
 		$fetched: '/' === document.location.pathname,
-		resuls: convertToRecordList(state.search.results, ChangemakerRecord)
+		results: convertToRecordList(state.search.results, ChangemakerRecord)
 	});
+
+	state.app = new AppState({
+		$$fetched: '/' === document.location.pathname,
+		userId: state.app.userId || localStorage.userId
+	})
 }
 
 const store = configureStore( state )
