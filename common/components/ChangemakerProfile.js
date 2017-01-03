@@ -17,7 +17,7 @@ class ChangemakerProfile extends Component {
 		const cm = this.props.changemaker;
 		return (
 			<Card className={styles.profileContainer}>
-				<Video autoPlay muted className={styles.video}>
+				<Video controls className={styles.video}>
 					<source src="https://videos.whatchado.com/ina-pervan-al_soqauer-mp4-medium-582b13b426bb8.mp4"
 						type="video/mp4" />
 				</Video>
