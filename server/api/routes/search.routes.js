@@ -14,9 +14,5 @@ export default (searchSvc) => {
     return searchSvc.search(q);
   }, { validation: 400 }));
 
-  router.get('/suggestions', (req, res) => {
-  	res.status(501).send('Not Implemented');
-  });
-
   return router;
 }

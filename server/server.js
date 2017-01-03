@@ -89,6 +89,7 @@ app.use((err, req, res) => {
   res.status(500).send('Server error');
 });
 
-app.listen(3000, function(){
-	logger.info('Listening on port 3000');
+const port = appConfig.get('port');
+app.listen(port, function(){
+	logger.info(`Listening on port ${port}`);
 });

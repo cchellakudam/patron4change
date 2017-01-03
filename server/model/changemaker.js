@@ -3,10 +3,7 @@ import queue from '../utils/queue';
 module.exports = (sequelize, DataTypes) => {
 
 	const Changemaker = sequelize.define('changemaker', {
-		tags: {
-			type: DataTypes.ARRAY(DataTypes.STRING)
-		},
-		isValidated: {
+		isApproved: {
 			type: DataTypes.BOOLEAN
 		},
 		videoUrl: {

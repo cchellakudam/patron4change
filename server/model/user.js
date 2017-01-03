@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
 		email: {
 			type: DataTypes.STRING(254)
 		},
-		emailConfirmed: {
+		isEmailConfirmed: {
 			type: DataTypes.BOOLEAN
 		},
 		isAnonymous: {

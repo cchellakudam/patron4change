@@ -5,6 +5,8 @@ database:
   user: pgadmin
   password: asdfasdf
 
+port: 3000
+
 sequelize:
   host: localhost
   dialect: 'postgres'
