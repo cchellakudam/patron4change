@@ -5,9 +5,14 @@
 }
 
 .profileContent {
-  position: absolute;
-  left: 0;
-  width: 40%;
+  @include breakpoint($breakpoint-large) {
+    position: absolute;
+    left: 0;
+    width: 40%;
+  }
+
+  position: relative;
+
   height: 100%;
   background: $color-white;
   opacity: 1;
@@ -23,10 +28,12 @@
   }
 }
 
-[class~=video--playing] + .profileContent,
-[class~=video--loading] + .profileContent {
-  left: -50%;
-  opacity: 0;
+@include breakpoint($breakpoint-large) {
+  [class~=video--playing] + .profileContent,
+  [class~=video--loading] + .profileContent {
+    left: -50%;
+    opacity: 0;
+  }
 }
 
 .video {
@@ -67,12 +74,18 @@
       width: 100%;
       height: 100%;
 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
       span {
-        position: absolute;
-        top: 40%;
-        left: 65%;
-        font-family: 'Material Icons';
+        @include breakpoint($breakpoint-large) {
+          margin-left: 40%;
+        }
         font-size: 500%;
+        height: auto;
+        text-align: center;
+        vertical-align: middle;
         color: $color-white;
 
         &:before {
