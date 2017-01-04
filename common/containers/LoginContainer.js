@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes}   from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -8,6 +8,11 @@ import Login from '../components/Login';
 
 class LoginContainer extends React.Component {
 
+
+	static propTypes = {
+		dispatch: PropTypes.func.isRequired,
+		userId: PropTypes.number.isRequired
+	}
   constructor(props) {
     super();
 		this.actions = bindActionCreators(UserActions, props.dispatch);
@@ -21,7 +26,7 @@ class LoginContainer extends React.Component {
   }
 
 	render() {
-    let success = this.state.tried ? Boolean(this.props.userId) : undefined;
+    let success = this.state.tried ? Boolean(this.props.userId) : null;
     if (success) {
       return <div>Yay logged in!</div>;
     }

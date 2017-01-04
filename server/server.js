@@ -40,6 +40,9 @@ app.use((req, res, next) => {
 	next();
 });
 
+let bodyParser = require('body-parser');
+app.use(bodyParser.json())
+
 app.use(winstonRequestLogger.create(logger, {
 	responseTime: ':responseTime ms', // outputs '5 ms'
   url: ':url[pathname]'             // outputs '/some/path'

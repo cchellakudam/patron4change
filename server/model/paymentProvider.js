@@ -1,32 +1,24 @@
 export default (sequelize, DataTypes) => {
 
-	const payment = sequelize.define('payment', {
+	const paymentProvider = sequelize.define('paymentProvider', {
 		id: {
 			type: DataTypes.INTEGER,
 			autoIncrement: true,
 			primaryKey: true
 		},
-		amount: {
-			type: DataTypes.INTEGER
-		},
-		currency: {
-			type: DataTypes.STRING(3)
-		},
-		transactionDate: {
-			type: DataTypes.DATE
-		},
-		transactionId: {
+		label: {
 			type: DataTypes.STRING
 		}
 	}, {
 		classMethods:{
 			associate: function(models){
-				payment.belongsTo(models.backing, {foreignKey: 'fkBackingId', as: 'backing'});
+				paymentProvider.belongsToMany(models.changemaker,
+						{as: 'paymentAccountId', through: models.paymentServiceData, foreignKey: 'fkChangemakerId'});
 			}
 		},
 
 		freezeTableName: false // Model tableName will be the same as the model name
 	});
 
-	return payment;
+	return paymentProvider;
 };
