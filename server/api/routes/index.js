@@ -14,7 +14,7 @@ import ChangemakerService from '../../services/changemaker.service.js';
 import PatronService from '../../services/patron.service.js';
 import UsersService from '../../services/users.service.js';
 import SearchService from '../../services/search.service.js';
-import mangoService from '../../services/payments/mango';
+import mangoService from '../../services/payments/mango.js';
 
 import config from 'config';
 const searchConfig = config.get('search');

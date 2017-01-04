@@ -1,4 +1,4 @@
-// import mangoUtils from './mangoUtils'
+import mangoUtils from './mangoUtils'
 
 /* All payment service classes consist
  * of a set of mandatory methods that provide
@@ -11,13 +11,19 @@ export default class{
 	}
 
 	registerUser(userObject){
-		return userObject
-		// TODO need to create a natural user and wallet
+		let naturalUserIdP = mangoUtils.createNaturalUser(userObject);
+		return Promise.all([naturalUserIdP]).then((naturalUserId) => {
+			mangoUtils.createWallet(naturalUserId, userObject.changemakerId);
+			return naturalUserId;
+		}).catch((err) => {
+			throw err;
+		});
 	}
 
-	payUserWithCard(userObject, amount){
-		return [userObject,amount];
-		// TODO need to send an API call to request payment
+	payUserWithCard(patronId, amount, changemakerId, accountId){
+		return mangoUtils.createCardPayment(accountId, amount, patronId, changemakerId).catch((err) => {
+				throw err;
+			})
 	}
 
 }

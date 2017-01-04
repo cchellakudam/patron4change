@@ -32,7 +32,7 @@ export default class {
 						paymentDAO.registerChangemakerToProvider(userObject.userId, 1, res.data.Id);
 						return res.data.Id;
 				}else{
-					throw new Error('An error occured during creation of mangu user')
+					throw new Error('An error occured during creation of mango user')
 				}
 			}).catch((err) => {
 				throw err;
@@ -58,7 +58,14 @@ export default class {
 			headers:{
 				'content-type' : 'application/json'
 			}
-		}).catch((err) => {
+		}).then(res => {
+				if(!res.data.errors){
+					return res.data.Id;
+				}else{
+					throw new Error('An error occured during creation of mango wallet')
+				}
+			})
+				.catch((err) => {
 			throw err;
 		})
 	}
@@ -76,15 +83,17 @@ export default class {
 			}).then((res) => {
 					if(!res.data.errors){
 						return res.data[0].Id;
+					}else{
+						throw new Error('parameter probem')
 					}
 				}).catch((err) => {
 					throw err;
 				})
 	}
 
-	static createCardPayment(naturalUserId, amount){
+	static createCardPayment(naturalUserId, amount, userId, changemakerId){
 		let url = `${apiRoot}/v2.01/${clientId}/payins/card/web`;
-		var formDataPromise = this.getUserWallet(naturalUserId).then((res)=>{
+		let formDataPromise = this.getUserWallet(naturalUserId).then((res)=>{
 			return {
           AuthorId: naturalUserId,
           DebitedFunds:{
@@ -98,18 +107,16 @@ export default class {
           ReturnUrl: 'http://localhost:3000',
           CreditedWalletId: res,
           CardType: 'CB_VISA_MASTERCARD',
-          Culture: 'DE',
+          Culture: 'DE'
         }
 		}).catch((err) => {
 			throw err;
 		});
-
 		return Promise.all([formDataPromise]).then((value) => {
-			console.log(url)
 			return axios({
 				method: 'post',
 				url: url,
-				data: value,
+				data: value[0],
 				auth:{
 					username: clientId,
 					password: passwd
@@ -118,13 +125,15 @@ export default class {
 					'content-type': 'application/json'
 				}
 			}).then((res) => {
-				console.log('xxxxxxxxx')
 				if(res.data.errors){
 					throw Error('mango transaction failed');
+				}else if(userId && changemakerId && amount){
+					paymentDAO.createSingleBacking(userId, changemakerId, res.data.Id, amount, res.data.CreationDate);
+					return res.data.RedirectURL;
 				}else{
-					console.log(res.data)
-					models.paymentDAO.createBacking(userId, changemakerId, res.data.Id, amount, res.data.CreationDate);
+					throw new Error('parameter problem, please check parameters given');
 				}
+
 			}).catch((err) => {
 				throw err;
 			})
