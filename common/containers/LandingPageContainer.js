@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import LandingPage from '../components/LandingPage';
+import Startpage from '../components/Startpage';
+
 import ChangemakerCard from '../components/ChangemakerCard';
 import * as ChangemakerActions from '../actions/ChangemakerActions';
 import { fetchNeeds } from '../utils/fetchComponentData';
@@ -15,7 +17,8 @@ class LandingPageContainer extends Component {
 
 	static propTypes = {
 		dispatch: PropTypes.func.isRequired,
-		changemakers: PropTypes.object.isRequired
+		changemakers: PropTypes.object.isRequired,
+		userId: PropTypes.number
 	}
 
 	constructor(props, context) {
@@ -28,7 +31,7 @@ class LandingPageContainer extends Component {
 	}
 
 	render() {
-	  const {changemakers} = this.props;
+	  const {changemakers, userId} = this.props;
 
 	  const nodes = changemakers.valueSeq().map( cm => {
 			return <ChangemakerCard
@@ -37,12 +40,15 @@ class LandingPageContainer extends Component {
 			  onSupport={() => this.actions.supportChangemaker(cm.id)} />
 	  });
 
-	  return <LandingPage>
+		const Wrapper = 'number' === typeof userId ? Startpage : LandingPage;
+
+	  return <Wrapper>
 		  {nodes}
-		</LandingPage>;
+		</Wrapper>;
 	}
 }
 
 export default connect( (state/* , ownProps */) => ({
-	changemakers: state.cm.changemakers
+	changemakers: state.cm.changemakers,
+	userId: state.app.userId
 }) )(LandingPageContainer);

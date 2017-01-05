@@ -28,7 +28,10 @@ export class SearchContainer extends Component {
 
 	render() {
 	  const {term} = this.props;
-	  return <Search title="patron4change" term={term} onSearch={this.actions.search} />;
+	  return <Search title="patron4change"
+			hint="Suche nach Namen, Projekten, Bereichen ..."
+			term={term}
+			onSearch={this.actions.search} />;
 	}
 }
 

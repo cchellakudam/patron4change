@@ -20,10 +20,12 @@ export default class App extends Component {
 	render() {
 		return <div>
 			{this.props.nav}
-			<Grid fluid className={styles.appGrid}>
+			<Grid className={styles.appGrid}>
 				<Row>
 					<Col xs={0} lg={2}></Col>
-					<Col xs={12} lg={8}>{this.props.main}</Col>
+					<Col xs={12} lg={8}>
+						<main>{this.props.main}</main>
+					</Col>
 					<Col xs={0} lg={2}></Col>
 				</Row>
 				<Row>

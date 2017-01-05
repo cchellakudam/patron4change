@@ -8,6 +8,7 @@ class Search extends React.Component {
 
   static propTypes = {
     title: PropTypes.string.isRequired,
+    hint: PropTypes.string.isRequired,
     children: PropTypes.object
   }
 
@@ -24,13 +25,13 @@ class Search extends React.Component {
   render() {
     let { term } = this.props;
     return <Input id="search-term" className={styles.searchTerm}
-      hint="Suche nach Namen, Projekten, Bereichen ..."
       type="text"
       value={term}
       icon="search"
       maxLength={128} // validate max length to avoid long searches due to pasted input
       theme={theme}
-      onChange={this.onChange} />;
+      onChange={this.onChange}
+      hint={this.props.hint} />;
   }
 }
 
