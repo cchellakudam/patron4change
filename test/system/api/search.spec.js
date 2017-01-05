@@ -9,7 +9,7 @@ const url = `http://localhost:${port}/api/search`;
 describe('/search', () => {
 
 	it('should return at least one match for a name search', () => {
-		return axios.get(url + '?q=Matthias Holzer')
+		return axios.get(url + '?q=Matthias%20Holzer')
 			.then((res) => {
 				const results = res.data;
 				expect(results).to.have.length(1);
@@ -20,7 +20,7 @@ describe('/search', () => {
 	});
 
 	it('should determine an above-5% relevance for exact name match', () => {
-		return axios.get(url + '?q=Matthias Holzer')
+		return axios.get(url + '?q=Matthias%20Holzer')
 			.then((res) => {
 				const results = res.data;
 				const result = results[0];
@@ -32,7 +32,7 @@ describe('/search', () => {
 	});
 
 	it('should annotate the result data with the name of the searched changemaker', () => {
-		return axios.get(url + '?q=Matthias Holzer')
+		return axios.get(url + '?q=Matthias%20Holzer')
 			.then((res) => {
 				const results = res.data;
 				const result = results[0];
