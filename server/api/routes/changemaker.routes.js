@@ -19,7 +19,9 @@ export default (changemakerService) => {
 	});
 
 	router.get('/:id', (req,res) => {
-		res.send({});
+		changemakerService.getChangemakerById(req.params.id).then(changemaker => {
+			res.send(changemaker);
+		});
 	});
 
 	router.get('/:id/updates', (req, res) => {

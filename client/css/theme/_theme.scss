@@ -1,4 +1,5 @@
 @import "~react-toolbox/lib/colors";
+@import "~react-toolbox/lib/globals";
 
 $color-divider: $palette-teal-300;
 $color-background: $palette-grey-400;
@@ -11,3 +12,18 @@ $color-accent: $color-white;
 $color-accent-dark: $color-white;
 $color-primary-contrast: $palette-teal-500;
 $color-accent-contrast: $palette-teal-a400;
+
+$breakpoint-small: (0 $layout-breakpoint-xs);
+$breakpoint-large: $layout-breakpoint-xs + 1;
+
+@mixin breakpoint($value) {
+  $type: type-of($value);
+
+  @if ($type == 'list') {
+    $min: nth($value, 1);
+    $max: nth($value, 2);
+    @media screen and (min-width: $min) and (max-width: $max) { @content; }
+  } @else {
+    @media screen and (min-width: $value) { @content; }
+  }
+}

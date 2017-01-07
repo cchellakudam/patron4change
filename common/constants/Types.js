@@ -6,20 +6,29 @@ export const AppState = Immutable.Record({
 	userId: null
 })
 
-export const ChangemakerState = Immutable.Record({
-	changemakers: Immutable.List()
-})
-
 export const _ChangemakerRecord = {
 	id: undefined,
-	firstName: '',
-	lastName: '',
+	name: '',
+	avatarUrl: '',
 	statusUpdates: Immutable.List(),
-	mission: '',
-	avatarUrl: ''
+	mission: Immutable.Record({
+		id: '',
+		text: ''
+	}),
+	user: Immutable.Record({
+		id: '',
+		firstName: '',
+		lastName: '',
+		avatarUrl: ''
+	})
 }
 
 export const ChangemakerRecord = Immutable.Record(_ChangemakerRecord)
+
+export const ChangemakerState = Immutable.Record({
+	changemakers: Immutable.List(),
+	changemaker: ChangemakerRecord()
+})
 
 export const ChangemakerUpdateRecord = Immutable.Record({
 	id: '',

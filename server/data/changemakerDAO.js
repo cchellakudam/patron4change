@@ -5,6 +5,16 @@ export default class {
 		return models.changemaker.findAll();
 	}
 
+	static getChangemakerById(id) {
+		return models.changemaker.find({
+			where: { id: id },
+			include: [
+				{model: models.user, as:'user'},
+				{model : models.content, as: 'mission'}
+			]
+		});
+	}
+
 	static getFeaturedChangemakers() {
 		return models.changemaker.findAll(
 			{
@@ -29,4 +39,3 @@ export default class {
 
 
 }
-
