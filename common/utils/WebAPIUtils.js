@@ -14,25 +14,25 @@ function emptyRecordList() {
 export default class {
 
 	static getAllChangemakers() {
-		return axios('/api/changemaker').then(res => {
+		return axios('/api/changemakers').then(res => {
 			return convertToRecordList(res.data, ChangemakerRecord);
 		});
 	}
 
 	static getChangemakerById(id) {
-		return axios(`/api/changemaker/${id}`).then(res => {
+		return axios(`/api/changemakers/${id}`).then(res => {
 			return new ChangemakerRecord(res.data);
 		});
 	}
 
 	static getAllUpdatesByUserId(id) {
-		return axios('/api/changemaker/' + id + '/updates').then(res => {
+		return axios('/api/changemakers/' + id + '/updates').then(res => {
 			return convertToRecordList(res.data, ChangemakerUpdateRecord);
 		});
 	}
 
 	static getFeaturedChangemakers(){
-		return axios('/api/changemaker/featured').then(res => {
+		return axios('/api/changemakers/featured').then(res => {
 			return convertToRecordList(res.data,ChangemakerRecord);
 		});
 	}

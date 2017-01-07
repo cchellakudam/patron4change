@@ -3,10 +3,7 @@ import queue from '../utils/queue';
 module.exports = (sequelize, DataTypes) => {
 
 	const Changemaker = sequelize.define('changemaker', {
-		tags: {
-			type: DataTypes.ARRAY(DataTypes.STRING)
-		},
-		isValidated: {
+		isApproved: {
 			type: DataTypes.BOOLEAN
 		},
 		videoUrl: {
@@ -19,6 +16,8 @@ module.exports = (sequelize, DataTypes) => {
 				Changemaker.belongsTo(models.content, {foreignKey: 'fkContentId', as: 'mission'});
 				Changemaker.hasMany(models.statusUpdate, {as: 'statusUpdates'});
 				Changemaker.hasMany(models.backing, {as: 'backings'})
+				Changemaker.belongsToMany(models.paymentProvider, {as: 'providers', through: models.paymentServiceData,
+						foreignKey: 'fkPaymentProviderId'})
 			}
 		},
 

@@ -3,7 +3,7 @@ import { Card, CardTitle, CardText } from 'react-toolbox/lib/card';
 import Video from 'react-html5video';
 
 // import Updates from '../components/Updates';
-import * as shapes from './shapes';
+import * as shapes from '../constants/Shapes';
 
 import styles from '../../client/css/modules/changemaker-profile.scss';
 

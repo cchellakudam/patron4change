@@ -1,5 +1,5 @@
 import http from 'request-promise';
-import { assert } from 'chai';
+import { expect } from 'chai';
 import { baseUrl } from './service';
 
 export default () => {
@@ -7,14 +7,13 @@ export default () => {
   const words = [
     'amalgamable',
     'amaxophobia',
-    'amazing',
     'ambiguous',
     'amplification',
     'barricading'
   ];
 
   const type = 'changemaker';
-  const urlPath = '/profile/' + type + '/';
+  const urlPath = `/profile/${type}/`;
   const ids = [];
 
   before((done) => {
@@ -58,7 +57,7 @@ export default () => {
   });
 
   it('should have terms for completion', (done) => {
-    assert.isAbove(prefixes.size, 0);
+    expect(prefixes.size).to.be.above(0);
     done();
   });
 
@@ -72,8 +71,8 @@ export default () => {
         method: 'GET',
         json: true
       })
-      .then((result) => {
-        assert.deepEqual(result, wordsKey);
+      .then( result => {
+        expect(result).to.include.members(wordsKey);
         done();
       })
       .catch(done);

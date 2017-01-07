@@ -21,6 +21,7 @@ export default (controller, exceptionMapping) => {
       name = name.replace(/error/i, '').toLowerCase();
       let statusCode = exceptionMapping[name];
       if (!statusCode) {
+        logger.log('error', err.message);
         return false;
       }
       if (5 === statusCode % 100) {

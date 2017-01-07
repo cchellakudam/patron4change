@@ -40,6 +40,9 @@ app.use((req, res, next) => {
 	next();
 });
 
+let bodyParser = require('body-parser');
+app.use(bodyParser.json())
+
 app.use(winstonRequestLogger.create(logger, {
 	responseTime: ':responseTime ms', // outputs '5 ms'
   url: ':url[pathname]'             // outputs '/some/path'
@@ -70,7 +73,9 @@ if('unit' !== process.env.NODE_ENV){
 }
 databaseInit.then(rebuildSearchIndex);
 
-app.use('/api', apiRoutes);
+app.use('/api', apiRoutes, (req, res) => {
+	res.status(404).send('Invalid api route');
+});
 
 // server rendering
 app.use(serverRender(logger));
@@ -87,6 +92,7 @@ app.use((err, req, res) => {
   res.status(500).send('Server error');
 });
 
-app.listen(3000, function(){
-	logger.info('Listening on port 3000');
+const port = appConfig.get('port');
+app.listen(port, function(){
+	logger.info(`Listening on port ${port}`);
 });

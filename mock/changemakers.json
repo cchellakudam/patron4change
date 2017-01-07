@@ -1,81 +1,71 @@
 [
 	{
 		"fkUserId": 1,
-		"isValidated": true,
+		"isApproved": true,
 		"fkContentId": 1,
-		"tags": ["local", "neighborhood", "social"],
 		"videoUrl": "www.youtube.com"
 	},
 
 	{
 		"fkUserId": 2,
-		"isValidated": true,
+		"isApproved": true,
 		"fkContentId": 2,
-		"tags": ["local", "neighborhood", "social"],
 		"videoUrl": "www.youtube.com"
 	},
 
 	{
 		"fkUserId": 3,
-		"isValidated": true,
+		"isApproved": true,
 		"fkContentId": 3,
-		"tags": ["local", "neighborhood", "social"],
 		"videoUrl": "www.youtube.com"
 	},
 
 	{
 		"fkUserId": 4,
-		"isValidated": true,
+		"isApproved": true,
 		"fkContentId": 4,
-		"tags": ["local", "neighborhood", "social"],
 		"videoUrl": "www.youtube.com"
 	},
 
 	{
 		"fkUserId": 5,
-		"isValidated": true,
+		"isApproved": true,
 		"fkContentId": 5,
-		"tags": ["local", "neighborhood", "social"],
 		"videoUrl": "www.youtube.com"
 	},
 
 	{
 		"fkUserId": 6,
-		"isValidated": true,
+		"isApproved": true,
 		"fkContentId": 6,
-		"tags": ["local", "neighborhood", "social"],
 		"videoUrl": "www.youtube.com"
 	},
 
 	{
 		"fkUserId": 7,
-		"isValidated": true,
+		"isApproved": true,
 		"fkContentId": 7,
-		"tags": ["local", "neighborhood", "social"],
 		"videoUrl": "www.youtube.com"
 	},
 
 	{
 		"fkUserId": 8,
-		"isValidated": true,
+		"isApproved": true,
 		"fkContentId": 8,
-		"tags": ["local", "neighborhood", "social"],
 		"videoUrl": "www.youtube.com"
 	},
 
 	{
 		"fkUserId": 9,
-		"isValidated": true,
+		"isApproved": true,
 		"fkContentId": 9,
-		"tags": ["local", "neighborhood", "social"],
 		"videoUrl": "www.youtube.com"
 	},
 
 	{
 		"fkUserId": 10,
-		"isValidated": true,
+		"isApproved": true,
 		"fkContentId": 10,
-		"tags": ["local", "neighborhood", "social"],
 		"videoUrl": "www.youtube.com"
 	}
 

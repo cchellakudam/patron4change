@@ -12,18 +12,10 @@ function READ_ALL_CHANGEMAKERS_SUCCESS( state, action ) {
 	return state.update( 'changemakers', () => Immutable.fromJS(action.result) )
 }
 
-function SUPPORT_CHANGEMAKER( state, action ) {
+function SUPPORT_CHANGEMAKER( state ) {
 	return state.update( 'changemakers', list => {
-
-		// NOTE this is not how we will update the state in general
-		// it is a showcase how to update state in general
-		return list.update(
-		  list.findIndex(function(item) {
-		    return action.changemakerId === item.id;
-		  }), function(item) {
-		    return item.set('isBackedByMe', true);
-		  }
-		);
+		// TODO implement with REST transaction
+		return list;
 	})
 }
 

@@ -1,10 +1,16 @@
 /* eslint no-undefined: 0 */
 import Immutable from 'immutable';
 
-export const ChangemakerRecord = Immutable.Record({
+export const AppState = Immutable.Record({
+	// id of the user that is authenticated, or null if not authenticated
+	userId: null
+})
+
+export const _ChangemakerRecord = {
 	id: undefined,
 	name: '',
 	avatarUrl: '',
+	statusUpdates: Immutable.List(),
 	mission: Immutable.Record({
 		id: '',
 		text: ''
@@ -15,16 +21,18 @@ export const ChangemakerRecord = Immutable.Record({
 		lastName: '',
 		avatarUrl: ''
 	})
+}
+
+export const ChangemakerRecord = Immutable.Record(_ChangemakerRecord)
+
+export const ChangemakerState = Immutable.Record({
+	changemakers: Immutable.List(),
+	changemaker: ChangemakerRecord()
 })
 
 export const ChangemakerUpdateRecord = Immutable.Record({
 	id: '',
 	title: ''
-})
-
-export const ChangemakerState = Immutable.Record({
-	changemakers: Immutable.List(),
-	changemaker: ChangemakerRecord()
 })
 
 export const SearchState = Immutable.Record({

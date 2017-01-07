@@ -4,14 +4,14 @@ import { Button } from 'react-toolbox/lib/button';
 import { Card, CardMedia, CardTitle, CardText, CardActions } from 'react-toolbox/lib/card';
 const {Col} = require('react-flexbox-grid');
 
-import * as shapes from './shapes';
+import * as Shapes from '../constants/Shapes';
 
 import styles from '../../client/css/modules/changemaker-card.scss';
 
 class ChangemakerCard extends React.Component {
 
   static propTypes = {
-  	changemaker: shapes.changemaker.isRequired,
+  	changemaker: Shapes.changemaker.isRequired,
   	onSupport: PropTypes.func.isRequired
   }
 
