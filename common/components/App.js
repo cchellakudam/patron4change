@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import 'react-toolbox/lib/commons.scss';
 import styles from '../../client/css/modules/app.scss';
-const {Grid, Row, Col} = require('react-flexbox-grid');
+import {Grid, Row, Col} from 'react-flexbox-grid';
 
 import '../../client/css/theme/app.scss';
 
@@ -20,20 +20,8 @@ export default class App extends Component {
 	render() {
 		return <div>
 			{this.props.nav}
-			<Grid className={styles.appGrid}>
-				<Row>
-					<Col xs={0} lg={2}></Col>
-					<Col xs={12} lg={8}>
-						<main>{this.props.main}</main>
-					</Col>
-					<Col xs={0} lg={2}></Col>
-				</Row>
-				<Row>
-					<Col xs={0} lg={2}></Col>
-					<Col xs={12} lg={8}>{this.props.sub}</Col>
-					<Col xs={0} lg={2}></Col>
-				</Row>
-			</Grid>
+			<main>{this.props.main}</main>
+			{this.props.sub}
 		</div>;
 	}
 }

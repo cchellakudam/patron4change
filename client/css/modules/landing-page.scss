@@ -1,3 +1,8 @@
+.container {
+	/* to override responsive-breakpoint of grid TODO should not be necessary */
+	width: 100%;
+}
+
 .callToAction {
 	display: flex;
 	flex-direction: row;
@@ -13,14 +18,21 @@ $featured-offset: 0.35em;
 }
 
 .sideScroller {
-	height: 22em;
 	overflow-x: visible;
 	overflow-y: hidden;
 	display: flex;
 	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .sideScrollerItem {
 	display: inline-block;
 	max-width: 90%;
+}
+
+@include breakpoint($breakpoint-small) {
+	.sideScrollerItem {
+		margin: 0 0.6rem;
+	}
 }

@@ -35,7 +35,7 @@ class MainNav extends React.Component {
     const currentUser = userId ? <span>Logged in as {userId}</span> : Empty;
     return <AppBar title="&nbsp;" leftIcon={img}>
 			<Navigation type='horizontal'>
-        <Link href="/changemaker" onClick={this.onNavigateToSearch} icon="person">
+        <Link href="/changemaker" className={styles.changemakerLink} onClick={this.onNavigateToSearch} icon="person">
           Meine Changemaker
         </Link>
 				<Link href="/search" onClick={this.onNavigateToSearch} icon="search">
