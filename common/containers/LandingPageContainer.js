@@ -17,7 +17,7 @@ class LandingPageContainer extends Component {
 
 	static propTypes = {
 		dispatch: PropTypes.func.isRequired,
-		changemakers: PropTypes.object.isRequired,
+		featuredChangemakers: PropTypes.any.isRequired,
 		userId: PropTypes.number
 	}
 
@@ -31,12 +31,14 @@ class LandingPageContainer extends Component {
 	}
 
 	render() {
-	  const {changemakers, userId} = this.props;
+	  const {featuredChangemakers, userId} = this.props;
 
-	  const nodes = changemakers.valueSeq().map( cm => {
+	  const nodes = featuredChangemakers.map( cm => {
 			return <ChangemakerCard
 			  key={`cm-${cm.id}`}
 			  changemaker={cm}
+				showSupport={false}
+				showAvatar={false}
 			  onSupport={() => this.actions.supportChangemaker(cm.id)} />
 	  });
 
@@ -49,6 +51,6 @@ class LandingPageContainer extends Component {
 }
 
 export default connect( (state/* , ownProps */) => ({
-	changemakers: state.cm.changemakers,
+	featuredChangemakers: state.cm.changemakers.filter(c => state.cm.featuredChangemakers.valueSeq().includes(c.id)),
 	userId: state.app.userId
 }) )(LandingPageContainer);

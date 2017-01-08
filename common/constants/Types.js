@@ -27,6 +27,8 @@ export const ChangemakerRecord = Immutable.Record(_ChangemakerRecord)
 
 export const ChangemakerState = Immutable.Record({
 	changemakers: Immutable.List(),
+	// list of ids of the changemakers featured on the start page
+	featuredChangemakers: Immutable.List(),
 	changemaker: ChangemakerRecord()
 })
 

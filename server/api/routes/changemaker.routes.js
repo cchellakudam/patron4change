@@ -8,6 +8,8 @@ function toResult(cm) {
 	delete clone.user.pwhash;
 	delete clone.user.isBlocked;
 	delete clone.isApproved;
+	delete clone.fkUserId;
+	delete clone.fkContentId;
 	return clone;
 }
 

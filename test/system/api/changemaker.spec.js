@@ -38,6 +38,8 @@ describe('/changemakers', () => {
 					expect(changemaker).to.have.deep.property('user.firstName', 'Matthias');
 					expect(changemaker).to.have.deep.property('user.lastName', 'Holzer');
 					expect(changemaker).to.have.deep.property('user.firstName', 'Matthias');
+					expect(changemaker).to.have.deep.property('mission.id');
+					expect(changemaker).to.have.deep.property('mission.text');
 				});
 		});
 
@@ -45,6 +47,8 @@ describe('/changemakers', () => {
 			return req()
 				.then((res) => {
 					const changemaker = res.data;
+					expect(changemaker).not.to.have.deep.property('fkUserId');
+					expect(changemaker).not.to.have.deep.property('fkContentId');
 					expect(changemaker).not.to.have.deep.property('user.pwhash');
 					expect(changemaker).not.to.have.deep.property('user.emailIsConfirmed');
 					expect(changemaker).not.to.have.deep.property('user.isBlocked');
@@ -56,7 +60,7 @@ describe('/changemakers', () => {
 
 	describe('/featured', () => {
 
-		const featuredUrl = url + `/featured`;
+		const featuredUrl = url + '/featured';
 
 		function req() {
 			return axios.get(featuredUrl)
