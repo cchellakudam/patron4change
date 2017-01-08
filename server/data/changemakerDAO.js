@@ -1,4 +1,4 @@
-import models from '../model/index'
+import models from '../model/'
 
 export default class {
 	static getAllChangemakers() {
@@ -10,7 +10,13 @@ export default class {
 			where: { id: id },
 			include: [
 				{model: models.user, as:'user'},
-				{model : models.content, as: 'mission'}
+				{model: models.content, as: 'mission'},
+				{model: models.statusUpdate, as: 'statusUpdates', include: [
+					{model: models.content, as: 'content'}
+				]}
+			],
+			order: [
+				[{model: models.statusUpdate, as: 'statusUpdates'}, 'createdAt', 'DESC']
 			]
 		});
 	}
