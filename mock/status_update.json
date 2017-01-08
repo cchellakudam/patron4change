@@ -2,61 +2,68 @@
 	{
 		"fkChangemakerId": 1,
 		"title": "2.2.2016 Projektidee eingereicht",
-		"fkContentId": 11
+		"fkContentId": 11,
+		"createdAt": "2016-02-02"
 	},
 	{
 		"fkChangemakerId": 1,
 		"title": "8.2.2016 Ort und Zeit stehen fest",
-		"fkContentId": 12
+		"fkContentId": 12,
+		"createdAt": "2016-02-08"
 	},
 	{
 		"fkChangemakerId": 1,
 		"title": "20.3.2016 Gewürze fertig eingekauft",
-		"fkContentId": 13
+		"fkContentId": 13,
+		"createdAt": "2016-03-20"
 	},
 	{
 		"fkChangemakerId": 1,
 		"title": "7.4.2016 Morgen Spicy Vienna",
-		"fkContentId": 14
+		"fkContentId": 14,
+		"createdAt": "2016-04-07"
 	},
 	{
 		"fkChangemakerId": 1,
 		"title": "9.4.2016 Super Aktion",
-		"fkContentId": 15
+		"fkContentId": 15,
+		"createdAt": "2016-04-09"
 	},
 	{
 		"fkChangemakerId": 1,
 		"title": "15.4.2016 Neue Idee",
-		"fkContentId": 16
+		"fkContentId": 16,
+		"createdAt": "2016-04-15"
 	},
 	{
 		"fkChangemakerId": 1,
-		"timestamp": "20.5.2016",
 		"title": "Food Safari morgen!!!",
-		"fkContentId": 17
+		"fkContentId": 17,
+		"createdAt": "2016-05-20"
 	},
 	{
 		"fkChangemakerId": 1,
-		"timestamp": "24.5.2016",
 		"title": "Food Safari",
-		"fkContentId": 18
+		"fkContentId": 18,
+		"createdAt": "2016-05-24"
 	},
 	{
 		"fkChangemakerId": 1,
-		"timestamp": "30.6.2016",
 		"title": "Wir sind in BZ Zeitung",
-		"fkContentId": 19
+		"fkContentId": 19,
+		"createdAt": "2016-06-30"
 	},
 	{
 		"fkChangemakerId": 2,
-		"timestamp": "20.5.2016",
 		"title": "Treffen mit der Mobilitätsagentur",
-		"fkContentId": 20
+		"fkContentId": 20,
+		"createdAt": "2016-05-20"
 	},
 	{
 		"fkChangemakerId": 2,
 		"title": "Slides und Bilder vom Talk",
-		"fkContentId": 21
+		"fkContentId": 21,
+		"createdAt": "2016-05-21"
 	}
 
 ]
