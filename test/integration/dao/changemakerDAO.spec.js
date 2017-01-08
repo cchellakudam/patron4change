@@ -15,7 +15,8 @@ describe('changemakerDAO', () => {
 		it('should annotate a changemaker with the date of the last status update', () => {
 
 			return changemakerDAO.getById(exampleChangemakerId).then((changemaker) => {
-        expect(changemaker.lastStatusUpdate.getDate()).to.equal(new Date('2017-01-07T13:58:43.359Z').getDate());
+				let lastUpdateDay = new Date('2016-06-30T12:58:00.000Z').getDate();
+        expect(changemaker.lastStatusUpdate.getDate()).to.equal(lastUpdateDay);
 			});
 		});
 

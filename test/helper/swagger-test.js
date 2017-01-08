@@ -19,7 +19,7 @@ function sampleParameters(params) {
     if ('body' === p.in) {
       return ctx;
     }
-    ctx[p.name] = 'integer' === p.type ? 100 : 'a';
+    ctx[p.name] = 'integer' === p.type ? 1 : 'a';
     return ctx;
   }, {});
 }

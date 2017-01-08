@@ -1,33 +1,6 @@
-import models, { sequelize } from '../model/index';
-
-// TODO use sequelize to compute the last date of a status update
-
-// const lastStatusUpdateRef = [
-// 	{ model: models.statusUpdate, as: 'statusUpdates' },
-// 	'lastStatusUpdate'
-// ];
-//
-// const statusUpdateAttributes = [[sequelize.fn('MAX', sequelize.col('statusUpdates.createdOn')), 'lastStatusUpdate']];
+import models, { sequelize } from '../model';
 
 const CHANGEMAKER_LIMIT_LANDING_PAGE = 5;
-
-const includeInList = [
-	{ model: models.user, as: 'user' }
-	// {
-	// 	model: models.statusUpdate,
-	// 	as: 'statusUpdates',
-	// 	attributes: statusUpdateAttributes,
-	// 	group: ['fkChangemakerId']
-	// },
-	// {
-	// 	model: models.statusUpdate,
-	// 	as: 'statusUpdates'
-	// }
-];
-
-const includeInDetails = includeInList.concat([
-	{ model: models.content, as: 'mission' }
-]);
 
 function mapToResultModel(changemaker) {
 	if (!changemaker) {
@@ -48,13 +21,6 @@ function extractProps(raw, prefix) {
 		}
 		return ctx;
 	}, {});
-}
-
-function prepareRaw(rawCm) {
-	return Object.assign({}, rawCm.dataValues, {
-		user: rawCm.user.dataValues,
-		mission: rawCm.mission.dataValues
-	});
 }
 
 function prepareDTO(rawCm) {
@@ -80,20 +46,33 @@ export default class {
 		}
 		const cm = models.changemaker.find({
 			where: { id: id },
-			include: includeInDetails
+			include: [
+				{model: models.user, as:'user'},
+				{model: models.content, as: 'mission'},
+				{model: models.statusUpdate, as: 'statusUpdates', include: [
+					{model: models.content, as: 'content'}
+				]}
+			],
+			order: [
+				[{model: models.statusUpdate, as: 'statusUpdates'}, 'createdAt', 'DESC']
+			],
+			raw: true
 		});
 		const lastUpdate = sequelize.query(`
-			SELECT max("statusUpdates"."createdOn") FROM "statusUpdates" WHERE "statusUpdates"."fkChangemakerId" = ?;`,
+			SELECT max("statusUpdates"."createdAt") FROM "statusUpdates" WHERE "statusUpdates"."fkChangemakerId" = ?;`,
 			{ replacements: [id], type: sequelize.QueryTypes.SELECT });
 		return Promise.all([cm, lastUpdate]).then(([c, l]) => {
 			const basis = Object.assign({
 				lastStatusUpdate: l[0].max
-			}, prepareRaw(c));
+			}, prepareDTO(c));
 			return mapToResultModel(basis);
 		});
 	}
 
 	static getFeatured() {
+
+		// TODO use sequelize to sort by computed property
+
 		return sequelize.query(`
 			SELECT "changemaker"."id", "changemaker"."isApproved", "changemaker"."videoUrl", "changemaker"."createdAt",
 				"changemaker"."updatedAt", "changemaker"."fkUserId", "changemaker"."fkContentId", "user"."id" AS "user.id",
@@ -103,26 +82,15 @@ export default class {
 				"user"."birthday" AS "user.birthday", "user"."nationality" AS "user.nationality", "user"."countryOfResidence"
 				AS "user.countryOfResidence", "user"."createdAt" AS "user.createdAt", "user"."updatedAt" AS "user.updatedAt",
 				"mission"."id" AS "mission.id", "mission"."text" AS "mission.text", "mission"."createdAt" AS "mission.createdAt",
-				"mission"."updatedAt" AS "mission.updatedAt", max(s."createdOn") as "lastStatusUpdate"
+				"mission"."updatedAt" AS "mission.updatedAt", max(s."createdAt") as "lastStatusUpdate"
 			FROM "changemakers" AS "changemaker"
 			JOIN "users" AS "user" ON "changemaker"."fkUserId" = "user"."id"
 			LEFT OUTER JOIN "contents" AS "mission" ON "changemaker"."fkContentId" = "mission"."id"
 			LEFT OUTER JOIN "statusUpdates" AS s on "changemaker"."id" = s."fkChangemakerId"
 			GROUP BY "changemaker"."id", "user"."id", "mission"."id"
-			ORDER BY MAX(s."createdOn") DESC
+			ORDER BY MAX(s."createdAt") DESC
 			LIMIT ${CHANGEMAKER_LIMIT_LANDING_PAGE};`, { type: sequelize.QueryTypes.SELECT })
 			.then(cms => cms.map(prepareDTO).map(mapToResultModel));
-
-		// TODO use sequelize to sort by computed property
-
-		// return models.changemaker.findAll({
-		// 	include: includeInList,
-		// 	order: [
-		// 		lastStatusUpdateRef.concat(['DESC'])
-		// 	],
-		// }).then(changemakers => {
-		// 	return changemakers.map(mapToResultModel);
-		// });
 	}
 
 }

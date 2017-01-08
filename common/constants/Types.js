@@ -32,10 +32,15 @@ export const ChangemakerState = Immutable.Record({
 	changemaker: ChangemakerRecord()
 })
 
-export const ChangemakerUpdateRecord = Immutable.Record({
-	id: '',
-	title: ''
-})
+export const _UpdateRecord = {
+	title: '',
+	createdAt: '',
+	content: Immutable.Record({
+		text: ''
+	})
+}
+
+export const UpdateRecord = Immutable.Record(_UpdateRecord)
 
 export const SearchState = Immutable.Record({
 	term: '',

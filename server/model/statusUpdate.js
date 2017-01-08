@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
 		},
 
 		// time when the user created the status update
-		createdOn: {
+		createdAt: {
 			type: DataTypes.DATE,
 			allowNull: false
 		}
