@@ -1,4 +1,8 @@
-export default (controller, exceptionMapping) => {
+export default (controller, exceptionMapping_) => {
+
+  const exceptionMapping = Object.assign({
+    validation: 400
+  }, exceptionMapping_ || {});
 
   return (req, res, next) => {
     let params = {};

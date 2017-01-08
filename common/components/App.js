@@ -1,7 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import 'react-toolbox/lib/commons.scss';
-import styles from '../../client/css/modules/app.scss';
-import {Grid, Row, Col} from 'react-flexbox-grid';
 
 import '../../client/css/theme/app.scss';
 

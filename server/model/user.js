@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
 		avatarUrl: {
 			type: DataTypes.STRING
 		},
-		birthay:{
+		birthday:{
 			type: DataTypes.DATE
 		},
 		nationality:{

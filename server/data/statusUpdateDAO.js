@@ -1,4 +1,5 @@
 import models from '../model/index';
+
 export default class {
 
 	static getUpdatesByUserId() {

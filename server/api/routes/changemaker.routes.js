@@ -1,4 +1,5 @@
 import express from 'express';
+import controller from './controller';
 
 // changemaker specific stuff
 
@@ -12,13 +13,11 @@ export default (changemakerService) => {
 		});
 	});
 
-	router.get('/featured', (req,res) => {
-		changemakerService.getFeaturedChangemakers().then(changemakers => {
-			res.send(changemakers);
-		});
-	});
+	router.get('/featured', controller(() => {
+		return changemakerService.getFeaturedChangemakers();
+	}));
 
-	router.get('/:id', (req,res) => {
+	router.get('/:id', (req, res) => {
 		changemakerService.getChangemakerById(req.params.id).then(changemaker => {
 			res.send(changemaker);
 		});

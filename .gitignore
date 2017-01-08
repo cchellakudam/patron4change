@@ -47,3 +47,4 @@ public/*.js
 ## local test scripts
 
 test.sh
+run.sh

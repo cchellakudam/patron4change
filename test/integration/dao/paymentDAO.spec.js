@@ -3,10 +3,8 @@ import paymentDAO from '../../../server/data/paymentDAO'
 import DBTestUtil from './DBTestUtil'
 
 describe('paymentDAO', () => {
-	before( (done) => {
-			DBTestUtil.refreshDB().then(() => {
-				done();
-			});
+	before(() => {
+		return DBTestUtil.refreshDB();
 	})
 	describe('register a changemaker to a payment provider', () =>{
 

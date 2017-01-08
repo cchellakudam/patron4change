@@ -5,19 +5,19 @@ export default class {
 	}
 
 	getAllChangemakers() {
-		return this.dao.getAllChangemakers();
+		return this.dao.getAll();
 	}
 
 	getChangemakerById(id) {
-		return this.dao.getChangemakerById(id);
+		return this.dao.getById(id);
 	}
 
 	getChangemakerByUsername(username) {
-		return this.dao.getChangemakerByUsername(username);
+		return this.dao.getByUsername(username);
 	}
 
-	getFeaturedChangemakers(){
-		return this.dao.getFeaturedChangemakers();
+	getFeaturedChangemakers() {
+		return this.dao.getFeatured();
 	}
 
 	getUpdatesByUserId(){
