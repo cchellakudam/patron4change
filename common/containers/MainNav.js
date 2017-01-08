@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
 
 import { AppBar } from 'react-toolbox/lib/app_bar';
 import { Navigation } from 'react-toolbox/lib/navigation';
@@ -28,14 +27,12 @@ class MainNav extends React.Component {
   }
 
   render() {
-    const img = <a href="/" onClick={this.onNavigateToHome} title="patron for change">
-      <img className={styles.logo} src="/public/images/logo.png" alt="patron4change logo" />
-    </a>;
-    
+    const img = <img className={styles.logo} src="/public/images/logo.png" alt="patron4change logo" />;
+
     const { userId } = this.props;
     const currentUser = userId ? <span>Logged in as {userId}</span> : Empty;
 
-    return <AppBar className={styles.appBar} title="&nbsp;" leftIcon={img}>
+    return <AppBar className={styles.appBar} title="&nbsp;" leftIcon={img} onLeftIconClick={this.onNavigateToHome}>
 			<Navigation type='horizontal'>
         <Link href="/changemaker" className={styles.changemakerLink} onClick={this.onNavigateToSearch} icon="person">
           Meine Changemaker
