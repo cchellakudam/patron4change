@@ -23,4 +23,8 @@ export default class {
 	getUpdatesByUserId(){
 		return Promise.resolve([]);
 	}
+
+	createChangemaker(changemaker) {
+		return this.dao.createChangemaker(changemaker);
+	}
 }

@@ -1,7 +1,5 @@
 import express from 'express';
 
-// changemaker specific stuff
-
 export default (changemakerService) => {
 
 	const router = express.Router();
@@ -9,6 +7,13 @@ export default (changemakerService) => {
 	router.get('/', (req,res) => {
 		changemakerService.getAllChangemakers().then(users => {
 			res.send(users);
+		});
+	});
+
+	router.post('/', (req, res) => {
+		changemakerService.createChangemaker(req.body).then( id => {
+			res.location(`${req.baseUrl}/${id}`);
+			res.status(201).end();
 		});
 	});
 

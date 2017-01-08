@@ -43,5 +43,14 @@ export default class {
 		});
 	}
 
-
+	static createChangemaker(data) {
+		return models.changemaker.create(
+			data,
+			{
+				include: [ models.changemaker.mission ]
+			}
+		).then( changemaker => {
+			return changemaker.id;
+		});
+	}
 }
