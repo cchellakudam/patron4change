@@ -33,9 +33,11 @@ $featured-offset: 0.35em;
 	display: inline-block;
 	max-width: 90%;
 	margin: 0 0.6rem;
+	flex-shrink: 0;
 }
 
-@include breakpoint($breakpoint-small) {
+@include breakpoint($breakpoint-large) {
 	.sideScrollerItem {
+		max-width: 30%;
 	}
 }

@@ -31,9 +31,11 @@ class MainNav extends React.Component {
     const img = <a href="/" onClick={this.onNavigateToHome} title="patron for change">
       <img className={styles.logo} src="/public/images/logo.png" alt="patron4change logo" />
     </a>;
+    
     const { userId } = this.props;
     const currentUser = userId ? <span>Logged in as {userId}</span> : Empty;
-    return <AppBar title="&nbsp;" leftIcon={img}>
+
+    return <AppBar className={styles.appBar} title="&nbsp;" leftIcon={img}>
 			<Navigation type='horizontal'>
         <Link href="/changemaker" className={styles.changemakerLink} onClick={this.onNavigateToSearch} icon="person">
           Meine Changemaker

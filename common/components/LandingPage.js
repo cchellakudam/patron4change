@@ -25,27 +25,22 @@ class SideScroller extends React.Component {
 class LandingPage extends React.Component {
 
   static propTypes = {
-    children: PropTypes.object
-  }
-
-  constructor() {
-    super();
-    this.updateTerm = this.updateTerm.bind(this);
-    this.state = { term: '' };
-  }
-
-  updateTerm(term) {
-    this.setState({ term });
+    children: PropTypes.object,
+    term: PropTypes.string.isRequired,
+    onSearch: PropTypes.func.isRequired
   }
 
   render() {
-    let { term } = this.state;
+    let { term } = this.props;
 
     return <Grid className={styles.container}>
       <Row className={styles.callToActionContainer}>
         <Col xs={0} md={1} lg={2} />
         <Col xs={12} md={10} lg={8} className={styles.callToAction}>
-          <Search hint="Inspirierende Changemaker finden" term={term} onSearch={this.updateTerm} />
+          <Search hint="Inspirierende Changemaker finden"
+            term={term}
+            onSearch={t => this.props.onSearch(t, false)}
+            onHardConfirm={t => this.props.onSearch(t, true)} />
         </Col>
         <Col xs={0} md={1} lg={2} />
       </Row>
