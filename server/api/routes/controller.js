@@ -9,7 +9,7 @@ export default (controller, exceptionMapping_) => {
     if ('GET' !== req.method) {
       params.model = req.body;
     }
-    Object.assign(params, req.query);
+    Object.assign(params, req.query, req.params);
 
     let { logger } = req;
 

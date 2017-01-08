@@ -13,8 +13,22 @@ describe('changemakerDAO', () => {
 	describe('.getById', () => {
 
 		it('should annotate a changemaker with the date of the last status update', () => {
+
 			return changemakerDAO.getById(exampleChangemakerId).then((changemaker) => {
         expect(changemaker.lastStatusUpdate.getDate()).to.equal(new Date('2017-01-07T13:58:43.359Z').getDate());
+			});
+		});
+
+		it('should return the specified result model', () => {
+
+			return changemakerDAO.getById(exampleChangemakerId).then(changemaker => {
+        expect(changemaker).to.have.property('id', 1);
+				expect(changemaker).to.have.deep.property('user.firstName', 'Matthias');
+				expect(changemaker).to.have.deep.property('user.lastName', 'Holzer');
+				expect(changemaker).to.have.deep.property('user.avatarUrl', 'https://randomuser.me/api/portraits/med/men/42.jpg');
+				expect(changemaker).to.have.property('videoUrl', 'www.youtube.com');
+
+				expect(changemaker).to.have.property('name', 'Matthias Holzer');
 			});
 		});
 	});

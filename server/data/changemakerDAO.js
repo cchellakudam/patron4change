@@ -33,11 +33,35 @@ function mapToResultModel(changemaker) {
 	if (!changemaker) {
 		return null;
 	}
+	return Object.assign(changemaker, {
+		name: `${changemaker.user.firstName} ${changemaker.user.lastName}`
+	});
+}
 
-	let clone = Object.assign({}, changemaker);
-	clone.id = changemaker['user.id'];
-	clone.name = `${changemaker['user.firstName']} ${changemaker['user.lastName']}`;
-	return clone;
+function extractProps(raw, prefix) {
+	return Object.keys(raw).reduce((ctx, next) => {
+		if (next.startsWith(prefix)) {
+			let prop = next.split('.')[1];
+			let keyInRaw = prefix + '.' + prop;
+			ctx[prop] = raw[keyInRaw];
+			delete raw[keyInRaw];
+		}
+		return ctx;
+	}, {});
+}
+
+function prepareRaw(rawCm) {
+	return Object.assign({}, rawCm.dataValues, {
+		user: rawCm.user.dataValues,
+		mission: rawCm.mission.dataValues
+	});
+}
+
+function prepareDTO(rawCm) {
+	return Object.assign({}, rawCm, {
+		user: extractProps(rawCm, 'user'),
+		mission: extractProps(rawCm, 'mission')
+	});
 }
 
 /**
@@ -62,7 +86,10 @@ export default class {
 			SELECT max("statusUpdates"."createdOn") FROM "statusUpdates" WHERE "statusUpdates"."fkChangemakerId" = ?;`,
 			{ replacements: [id], type: sequelize.QueryTypes.SELECT });
 		return Promise.all([cm, lastUpdate]).then(([c, l]) => {
-			return Object.assign({}, { lastStatusUpdate: l[0].max }, mapToResultModel(c));
+			const basis = Object.assign({
+				lastStatusUpdate: l[0].max
+			}, prepareRaw(c));
+			return mapToResultModel(basis);
 		});
 	}
 
@@ -84,7 +111,7 @@ export default class {
 			GROUP BY "changemaker"."id", "user"."id", "mission"."id"
 			ORDER BY MAX(s."createdOn") DESC
 			LIMIT ${CHANGEMAKER_LIMIT_LANDING_PAGE};`, { type: sequelize.QueryTypes.SELECT })
-			.then(cms => cms.map(mapToResultModel));
+			.then(cms => cms.map(prepareDTO).map(mapToResultModel));
 
 		// TODO use sequelize to sort by computed property
 

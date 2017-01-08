@@ -3,11 +3,14 @@
 	width: 100%;
 }
 
-.callToAction {
+.callToActionContainer {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	margin: 1em 0;
+}
+
+.callToAction {
 	background-color: white;
 }
 
@@ -29,10 +32,10 @@ $featured-offset: 0.35em;
 .sideScrollerItem {
 	display: inline-block;
 	max-width: 90%;
+	margin: 0 0.6rem;
 }
 
 @include breakpoint($breakpoint-small) {
 	.sideScrollerItem {
-		margin: 0 0.6rem;
 	}
 }

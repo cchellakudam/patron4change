@@ -3,6 +3,14 @@ import controller from './controller';
 
 // changemaker specific stuff
 
+function toResult(cm) {
+	let clone = Object.assign({}, cm);
+	delete clone.user.pwhash;
+	delete clone.user.isBlocked;
+	delete clone.isApproved;
+	return clone;
+}
+
 export default (changemakerService) => {
 
 	const router = express.Router();
@@ -14,14 +22,16 @@ export default (changemakerService) => {
 	});
 
 	router.get('/featured', controller(() => {
-		return changemakerService.getFeaturedChangemakers();
+		return changemakerService.getFeaturedChangemakers().then(cms => cms.map(toResult));
 	}));
 
-	router.get('/:id', (req, res) => {
-		changemakerService.getChangemakerById(req.params.id).then(changemaker => {
-			res.send(changemaker);
-		});
-	});
+	router.get('/:id', controller(({ id }) => {
+		let nId = parseInt(id);
+		if (isNaN(nId)) {
+			return { status: 400, message: 'id needs to be a number' };
+		}
+		return changemakerService.getChangemakerById(nId).then(toResult);
+	}));
 
 	router.get('/:id/updates', (req, res) => {
 		changemakerService.getUpdatesByUserId(req.params.id).then(updates => {

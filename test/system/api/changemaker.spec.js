@@ -19,15 +19,70 @@ function msg(err) {
 
 describe('/changemakers', () => {
 
-	it('should return at least 5 featured changemakers', () => {
-		return axios.get(url + '/featured')
-			.then((res) => {
-				const results = res.data;
-				expect(results).to.have.length.of.at.least(5);
-			})
-			.catch((err) => {
-				console.log('test failure caught:', msg(err));
-				expect.fail();
-			});
+	describe('/1', () => {
+
+		const idUrl = url + `/${1}`;
+
+		function req() {
+			return axios.get(idUrl)
+				.catch((err) => {
+					console.log('test failure caught:', msg(err));
+					expect.fail();
+				});
+		}
+
+		it('should return the specified result model', () => {
+			return req()
+				.then((res) => {
+					const changemaker = res.data;
+					expect(changemaker).to.have.deep.property('user.firstName', 'Matthias');
+					expect(changemaker).to.have.deep.property('user.lastName', 'Holzer');
+					expect(changemaker).to.have.deep.property('user.firstName', 'Matthias');
+				});
+		});
+
+		it('should not return infrastructure-relevant fields', () => {
+			return req()
+				.then((res) => {
+					const changemaker = res.data;
+					expect(changemaker).not.to.have.deep.property('user.pwhash');
+					expect(changemaker).not.to.have.deep.property('user.emailIsConfirmed');
+					expect(changemaker).not.to.have.deep.property('user.isBlocked');
+					expect(changemaker).not.to.have.deep.property('isApproved');
+				});
+		});
+
+	});
+
+	describe('/featured', () => {
+
+		const featuredUrl = url + `/featured`;
+
+		function req() {
+			return axios.get(featuredUrl)
+				.catch((err) => {
+					console.log('test failure caught:', msg(err));
+					expect.fail();
+				});
+		}
+
+		it('should return at least 5 featured changemakers', () => {
+			return req()
+				.then((res) => {
+					const results = res.data;
+					expect(results).to.have.length.of.at.least(5);
+				});
+		});
+
+		it('should return the specified result model', () => {
+			return req()
+				.then((res) => {
+					const results = res.data;
+					let changemaker = results[0];
+					expect(changemaker).to.have.deep.property('user.firstName', 'Klara');
+					expect(changemaker).to.have.deep.property('user.lastName', 'goldfaden');
+				});
+		});
+
 	});
 });

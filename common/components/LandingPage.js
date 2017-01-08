@@ -52,14 +52,15 @@ class LandingPage extends React.Component {
     };
     let { term } = this.state;
     return <Grid className={styles.container}>
-      <Row className={styles.callToAction}>
-        <Col xs={0} md={2} lg={2} />
-        <Col xs={12} md={10} lg={10}>
+      <Row className={styles.callToActionContainer}>
+        <Col xs={0} md={1} lg={2} />
+        <Col xs={12} md={10} lg={8} className={styles.callToAction}>
           <Search hint="Inspirierende Changemaker finden" term={term} onSearch={this.updateTerm} />
         </Col>
-        <Col xs={0} md={2} lg={2} />
+        <Col xs={0} md={1} lg={2} />
       </Row>
 			<Row>
+        <Col xs={0} md={1} lg={1} />
         <Col xs={12} md={10} lg={10}>
           <h2 className={styles.featuredTitle}>Empfohlene Changemaker</h2>
           <SideScroller>
@@ -68,6 +69,7 @@ class LandingPage extends React.Component {
   				    <ChangemakerCard changemaker={cm} onSupport={() => {}} />
           </SideScroller>
         </Col>
+        <Col xs={0} md={1} lg={1} />
 			</Row>
 		</Grid>;
   }
