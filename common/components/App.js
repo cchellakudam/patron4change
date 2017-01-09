@@ -13,7 +13,8 @@ export default class App extends Component {
 	static propTypes = {
 		nav: PropTypes.element.isRequired,
 		main: PropTypes.element.isRequired,
-		sub: PropTypes.element
+		sub: PropTypes.element,
+		location: PropTypes.any.isRequired
 	}
 
 	render() {

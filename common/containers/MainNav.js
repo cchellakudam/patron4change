@@ -13,7 +13,8 @@ const Empty = () => <span></span>;
 class MainNav extends React.Component {
 
   static propTypes = {
-    userId: PropTypes.number
+    userId: PropTypes.number,
+		location: PropTypes.any.isRequired
   }
 
   onNavigateToHome(e) {
