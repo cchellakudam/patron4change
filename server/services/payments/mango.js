@@ -26,4 +26,31 @@ export default class{
 			})
 	}
 
+/* This method only takes any kind of security token or registration
+* data as a parameter. All card details should be processed browser side
+* and NOT pass through the application server! */
+	registerCreditCardForRecurringPayment(RegistrationData){
+		// TODO receive registration data
+		return 0;
+	}
+
+	/* When card details need to be sent to an external provider
+	* and pre-treatment will be done here (i.e. user account details)
+	* Only information relevant to sending card details will be sent
+	*(i.e. provider URL or security token) The card details will be sent
+	* through the browser*/
+	prepareToReadCardDetails(preTreatmentData){
+		// TODO create cardRegistration with mango and preRegistrationData
+		return 0;
+	}
+
+
+	createRecurringPayment(){
+
+	}
+
+	monthlyPayment(){
+		// TODO get all cardIds from CardRegistrationData
+	}
+
 }

@@ -29,6 +29,16 @@ export default class{
 			})
 	}
 
+	static createPayment(amount, transactionDate, transactionId, backingId){
+		return models.payment.create({
+			amount: amount,
+			transactionDate: transactionDate,
+			transactionId: transactionId,
+			currency: 'EUR',
+			fkBackingId: backingId
+		});
+	}
+
 	static createSingleBacking(userId, changemakerId, transactionId, amount, transactionDate){
 		let changemakerPromise = models.changemaker.findById(changemakerId);
 		let patronPromise = models.user.findById(userId)
@@ -72,6 +82,38 @@ export default class{
 
 		return backing
 		})
+	}
+
+	static getAccountIdForUser(userId, paymentProviderId){
+		return models.paymentServiceData.findOne({where: {fkChangemakerId: userId, fkPaymentProviderId: 1}})
+			.then((res) =>{
+				return res.accountId;
+			})
+	}
+
+	static getCardIdForUser(userId, paymentProviderId){
+		return models.paymentServiceData.findOne({where: {fkChangemakerId: userId, fkPaymentProviderId: 1}})
+			.then((res) =>{
+				return res.cardRegistrationId;
+			})
+	}
+
+	static setCardRegistrationForAccount(accountId, paymentProviderId, cardRegistrationData){
+		return models.paymentServiceData.findOne({where: {accountId: accountId, fkPaymentProviderId: paymentProviderId}})
+			.then((res) => {
+				if(null === res){
+					throw new Error('no account has been found')
+				}
+				res.cardRegistrationId = cardRegistrationData;
+				return res.save().then(() => {return true})
+			})
+	}
+
+	static getCardRegistrationForAccount(accountId, paymentProviderId){
+		return models.paymentServiceData.findOne({where:{accountId: accountId, fkPaymentProviderId: paymentProviderId}})
+			.then((res) => {
+				return res.cardRegistrationId;
+			})
 	}
 
 }

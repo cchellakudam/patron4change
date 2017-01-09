@@ -16,10 +16,10 @@ describe('periodicBackingDAO', () => {
 
 		it('should return a singleBacking model on successful creation', (done) =>{
 			periodicBackingDAO.createPeriodicBacking(1, 2, 1000, 1463496101).then((res) =>{
-				assert(1000 === res.backing.amount, 'the backing amount does not match the input');
-				assert(1000 === res.backing.payments[0].amount, 'the payment amount does not match input');
-				// assert(res.backing.payments[0].transactionDate === 1463496101, 'the payment date does not match input');
-				assert('abc' === res.backing.payments[0].transactionId, 'the payment transactionId does not match input');
+				expect(res.backing.amount).to.equal(1000);
+				expect(res.backing.fkSenderId).to.equal(1);
+				expect(res.backing.fkRecipientId).to.equal(2);
+				expect(new Date(res.startDate).getTime()).to.equal(1463496101)
 				done();
 			}).catch((err) =>{
 				done(err);
@@ -31,7 +31,7 @@ describe('periodicBackingDAO', () => {
 				assert.isOk(false, 'no exception was thrown for wrong input');
 				done();
 			}).catch((err) => {
-				assert('a changemaker cannot back himself!' === err.message);
+				expect(err.message).to.equal('a changemaker cannot back himself!');
 				done();
 			})
 		})
@@ -41,7 +41,7 @@ describe('periodicBackingDAO', () => {
 				assert.isOk(false, 'no exception was thrown for wrong input');
 				done();
 			}).catch((err) => {
-				assert('user 9999 does not exist' === err.message);
+				expect(err.message).to.equal('user 9999 does not exist');
 				done();
 			})
 		})
@@ -51,7 +51,7 @@ describe('periodicBackingDAO', () => {
 				assert.isOk(false, 'no exception was thrown for wrong input');
 				done();
 			}).catch((err) => {
-				assert('changemaker 9999 does not exist' === err.message);
+				expect(err.message).to.equal('changemaker 9999 does not exist');
 				done();
 			})
 		})
@@ -61,7 +61,7 @@ describe('periodicBackingDAO', () => {
 				assert.isOk(false, 'no exception was thrown for wrong input');
 				done();
 			}).catch((err) => {
-				assert('not a valid amount' === err.message);
+				expect(err.message).to.equal('not a valid amount');
 				done();
 			})
 		})
@@ -71,7 +71,7 @@ describe('periodicBackingDAO', () => {
 				assert.isOk(false, 'no exception was thrown for wrong input');
 				done();
 			}).catch((err) => {
-				assert('not a valid timestamp, UNIX timestamp only please' === err.message);
+				expect(err.message).to.equal('not a valid timestamp, UNIX timestamp only please');
 				done();
 			})
 		})

@@ -1,12 +1,12 @@
 /* This section provides tools specific to the mangopay API */
 import axios from 'axios'
 import paymentDAO from '../../data/paymentDAO'
+import periodicBackingDAO from '../../data/periodicBackingDAO'
 const clientId = 'p4case2016';
 const passwd = '9yvjwv183gUuvHmzmCOgoDOWOSNSGL0MKkGNovYuXFMB625aSJ';
 const apiRoot = 'https://api.sandbox.mangopay.com';
 export default class {
-
-	static createNaturalUser(userObject){
+		static createNaturalUser(userObject){
 		let url =  `${apiRoot}/v2.01/${clientId}/users/natural/`
 		let formData = {
 			FirstName: userObject.firstName,
@@ -91,7 +91,7 @@ export default class {
 				})
 	}
 
-	static createCardPayment(naturalUserId, amount, userId, changemakerId){
+	static createCardPayment(naturalUserId, amount, userId, changemakerId) {
 		let url = `${apiRoot}/v2.01/${clientId}/payins/card/web`;
 		let formDataPromise = this.getUserWallet(naturalUserId).then((res)=>{
 			return {
@@ -138,6 +138,192 @@ export default class {
 				throw err;
 			})
 		})
+	}
+
+
+
+	static preRegisterCard(naturalUserId){
+     let url = `${apiRoot}/v2.01/${clientId}/cardregistrations`;
+     let formData = {
+       UserId: naturalUserId,
+       Currency: 'EUR',
+     }
+		return axios({
+       method: 'post',
+       url: url,
+       data: formData,
+       auth:{
+         username: clientId,
+         password: passwd
+       },
+       headers: {
+         'content-type': 'application/json'
+       }
+     }).then((res) => {
+         if(res.data.errors){
+           throw new Error('mango card preregistration transaction failed');
+         }else if(naturalUserId){
+         	paymentDAO.setCardRegistrationForAccount(naturalUserId, 1, res.data.Id);
+           return {
+             preRegistrationData: res.data.PreregistrationData,
+             accessKey: res.data.AccessKey,
+             registrationUrl: res.data.CardRegistraionURL,
+						 registrationId: res.data.Id
+           };
+         }else{
+           throw new Error('parameter problem, please check parameters again');
+         }
+       }).catch((err) => {
+           throw err;
+         })
 
 	}
+
+	static sendTestCardData(preRegistrationData){
+		let formData = {
+			cardNumber: '4706750000000009',
+			cardExpirationDate: '08/20',
+			cardCvx: '000',
+			data: preRegistrationData.preRegistrationData,
+			accessKeyRef: preRegistrationData.accessKey,
+			returnUrl: 'http://localhost:3000'
+		};
+		return axios({
+			method: 'post',
+			url: preRegistrationData.registrationUrl,
+			data: formData,
+			auth:{
+				username: clientId,
+				password: passwd
+			},
+			headers: {
+				'content-type': 'application/json'
+			}
+		}).then((res) => {
+			console.log('xxxxxxxxx')
+				return res.data
+			}).catch((err) => {throw err;})
+	}
+
+	static registerCard(registrationData, registrationId){
+		let url = `${apiRoot}/v2.01/${clientId}/${registrationId}`;
+		let formData = {
+			RegistrationData: registrationData
+		}
+		return axios({
+			method: 'put',
+			url: url,
+			data: formData,
+			auth:{
+				username: clientId,
+				password: passwd
+			},
+			headers: {
+				'content-type': 'application/json'
+			}
+		}).then((res) => {
+				if(res.data.errors){
+					throw new Error('mango card registration transaction failed')
+				}else if(registrationData && registrationId){
+					return res.data;
+				}else{
+					throw new Error('paramter problem, please check parameters again')
+				}
+			}).catch((err) => {
+				throw err;
+			})
+	}
+
+	static createPeriodicBacking(accountId, registrationData, userId, changemakerId, amount, startDate){
+		return periodicBackingDAO.createPeriodicBacking(userId, changemakerId, amount, startDate);
+
+	}
+
+	static getCardId(cardRegistrationId){
+		let url = `${apiRoot}/v2.01/${clientId}/${cardRegistrationId}`;
+		return axios({
+			method: 'get',
+			url: url,
+			auth:{
+				username: clientId,
+				password: passwd
+			},
+			headers: {
+				'content-type': 'application/json'
+			}
+		}).then((res) => {
+				return res.data.CardId;
+			}).catch((err) => {
+				throw err;
+			})
+	}
+
+	static getBulkCardIds(cardRegistrationIds){
+		allCardIdPrmises = [];
+		for(i=0;i<cardRegistrationIds.length;i++){
+			allCardIdPrmises.push(getCardId(cardRegistrationIds[i]));
+		}
+		return allCardIdPrmises;
+	}
+
+	static makeMonthlyPayments(){
+		let allUnpaidBackings = periodicBackingDAO.getAllUnpaidPeriodicBackings();
+		for(i=0;i<allUnpaidBackings.length;i++){
+			makeMonthlyPayment(allUnpaidBackings[i].fkSenderId, allUnpaidBackings[i].fkRecipientId,
+				allUnpaidBackings[i].amount, allUnpaidBackings[i].id	);
+		}
+
+	}
+
+	static makeMonthlyPayment(senderId, recipientId, amount, backingId){
+		let senderAccountId = paymentDAO.AccountIdForUser(senderId, 1);
+		let recipientWalletId = paymentDAO.AccountIdForUser(recipientId, 1)
+			.then((res) => {
+				return getUserWallet(res);
+			});
+		let senderCardId = paymentDAO.getCardRegistrationForUser(senderId, 1);
+
+		Promise.all([senderAccountId, recipientWalletId, senderCardId]).then((values) => {
+			return makePayment(values[2], values[0], values[1], amount);
+		}).then((res) => {
+				paymentDAO.createPayment(amount, transactionDate, transactionId, backingId)
+		})
+
+	}
+
+	static makePayment(cardId, senderId, walletId, amount){
+		url = `${apiRoot}/v2.01/${clientId}/card/direct`;
+		let formData = {
+			AuthorId: senderId,
+			CreditedWalletId: walletId,
+			DebitedFunds:{
+            'Currency': 'EUR',
+            'Amount': amount
+          },
+      Fees:{
+        'Currency': 'EUR',
+        'Amount': 0
+      },
+			CardId: cardId,
+			SecureModeReturnURL: 'http://localhost:3000'
+		}
+
+		axios({
+			method: 'post',
+			url: url,
+			data: formData,
+			auth: {
+				username: clientId,
+				password: passwd
+			},
+			headers:{
+				'content-type': 'application/json'
+			}
+		}).then((res) => {
+			return {transactionId: res.Id, transactionDate: res.CreationDate}
+		}).catch((err) => {throw err;})
+	}
 }
+
+
+
