@@ -34,20 +34,24 @@ class LandingPage extends React.Component {
     let { term } = this.props;
 
     return <Grid className={styles.container}>
+      <Row>
+        <img className={styles.startLogo} src="/public/images/logo.png" alt="patron4change logo" />
+      </Row>
       <Row className={styles.callToActionContainer}>
-        <Col xs={0} md={1} lg={2} />
-        <Col xs={12} md={10} lg={8} className={styles.callToAction}>
+        <Col xs={0} md={3} lg={3} />
+        <Col xs={12} md={6} lg={6} className={styles.callToAction}>
+          <h2 className={styles.callToActionText}>Was wolltest du schon immer an der Welt verändert sehen?</h2>
           <Search hint="Inspirierende Changemaker finden"
             term={term}
             onSearch={t => this.props.onSearch(t, false)}
             onHardConfirm={t => this.props.onSearch(t, true)} />
         </Col>
-        <Col xs={0} md={1} lg={2} />
+        <Col xs={0} md={3} lg={3} />
       </Row>
 			<Row>
         <Col xs={0} md={1} lg={1} />
         <Col xs={12} md={10} lg={10}>
-          <h2 className={styles.featuredTitle}>Empfohlene Changemaker</h2>
+          <h2 className={styles.featuredTitle}>Aktive Changemaker</h2>
           <SideScroller>
   				    {this.props.children}
           </SideScroller>

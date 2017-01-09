@@ -31,7 +31,7 @@ function renderFullPage(html, initialState) {
     ${'production' === process.env.NODE_ENV ? css : ''}
 	  </head>
 	  <body>
-	  <div class="container">${html}</div>
+	  <div class="container" style="min-height: 100%;">${html}</div>
 		<script>window.$REDUX_STATE = ${initialState}</script>
 		<script src="/${jsPaths[pathKey]}/bundle.js" async></script>
 	  </body>

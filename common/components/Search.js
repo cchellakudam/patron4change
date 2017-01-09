@@ -7,7 +7,7 @@ import theme from '../../client/css/theme/search.scss';
 class Search extends React.Component {
 
   static propTypes = {
-    hint: PropTypes.oneOf([PropTypes.node, PropTypes.string]).isRequired,
+    hint: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired,
     children: PropTypes.object,
     term: PropTypes.string.isRequired,
     onSearch: PropTypes.func.isRequired,

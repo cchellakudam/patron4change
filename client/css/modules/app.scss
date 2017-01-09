@@ -1,3 +1,17 @@
-.app {
-	background: #F5F5F5;
+.startPage {
+	background-image: url('../../../public/images/landing_altered_s.png');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	min-height: 100%;
+	display: block;
+}
+
+@include breakpoint($breakpoint-large) {
+
+	/* TODO remove and solve via class selectors */
+	/* hides logo in the app bar on the start page */
+	.startPage header button {
+		display: none;
+	}
 }

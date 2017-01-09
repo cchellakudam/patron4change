@@ -32,7 +32,10 @@ class MainNav extends React.Component {
     const { userId } = this.props;
     const currentUser = userId ? <span>Logged in as {userId}</span> : Empty;
 
-    return <AppBar className={styles.appBar} title="&nbsp;" leftIcon={img} onLeftIconClick={this.onNavigateToHome}>
+    let isStartPage = '/' === this.props.location.pathname;
+
+    return <AppBar className={`${styles.appBar} ${isStartPage ? styles.startAppBar : ''}`}
+      title="&nbsp;" leftIcon={img} onLeftIconClick={this.onNavigateToHome}>
 			<Navigation type='horizontal'>
         <Link href="/changemaker" className={styles.changemakerLink} onClick={this.onNavigateToSearch} icon="person">
           Meine Changemaker

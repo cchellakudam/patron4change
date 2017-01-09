@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import 'react-toolbox/lib/commons.scss';
 
 import '../../client/css/theme/app.scss';
+import styles from '../../client/css/modules/app.scss';
 
 export default class App extends Component {
 
@@ -16,7 +17,8 @@ export default class App extends Component {
 	}
 
 	render() {
-		return <div>
+		let isStartPage = '/' === this.props.location.pathname;
+		return <div className={isStartPage ? styles.startPage : ''}>
 			{this.props.nav}
 			<main>{this.props.main}</main>
 			{this.props.sub}
