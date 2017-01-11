@@ -102,12 +102,13 @@ export default class{
 	static setCardRegistrationForAccount(accountId, paymentProviderId, cardRegistrationData){
 		return models.paymentServiceData.findOne({where: {accountId: accountId, fkPaymentProviderId: paymentProviderId}})
 			.then((res) => {
-		if(null === res){
-					throw new Error('no account has been found for ' + accountId)
-				}
-				res.cardRegistrationId = cardRegistrationData;
-				return res.save().then(() => {return true;})
-			})
+			if(null === res){
+				console.log('xxxxxxxxxxxxxxxxxxxxxxx')
+						throw new Error('no account has been found for ' + accountId)
+					}
+					res.cardRegistrationId = cardRegistrationData;
+					return res.save().then(() => {return true;})
+				})
 	}
 
 	static getCardRegistrationForAccount(accountId, paymentProviderId){

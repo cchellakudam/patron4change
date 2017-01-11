@@ -2,6 +2,9 @@ const assert = require('chai').assert;
 import mangoUtils from '../../../../server/services/payments/mangoUtils'
 import DBTestUtil from '../../../integration/dao/DBTestUtil'
 import models from '../../../../server/model/index'
+import chai from 'chai';
+const{expect} = chai;
+const mango = new mangoUtils();
 
 describe('mangopay API specific logic', () => {
 	before( (done) => {
@@ -19,11 +22,11 @@ describe('mangopay API specific logic', () => {
 				nationality: 'GB',
 				countryOfResidence: 'GB',
 				email: 'tom@mail.test.com',
-				userId: 1
+				PersonType: 'NATURAL'
 			}
 
-			mangoUtils.createNaturalUser(userObject).then((res) => {
-			assert(res, 'the returned value was not valid');
+			mango.createNaturalUser(userObject, 1).then((res) => {
+			expect(res).to.exist;
 			done();
 			}).
 			catch((err) => {
@@ -32,8 +35,8 @@ describe('mangopay API specific logic', () => {
 		}).timeout(10000);
 
 		it.only('this service should create a wallet and return its Id', (done) =>{
-			mangoUtils.createWallet('18559606', 1).then((res) => {
-				assert(res, 'the returned value was not valid');
+			mango.createWallet('18559606', 1).then((res) => {
+				expect(res).to.exist;
 				done();
 			}).catch((err) => {
 				done(err);
@@ -41,7 +44,7 @@ describe('mangopay API specific logic', () => {
 		}).timeout(10000);
 
 		it.only('this service should retrieve the walletId of a user given the user Id', (done) => {
-			mangoUtils.getUserWallet('18559606').then((res) => {
+			mango.getUserWallet('18559606').then((res) => {
 				assert(res, 'the returned value was not valid');
 				done()
 			}).catch((err) => {
@@ -51,8 +54,9 @@ describe('mangopay API specific logic', () => {
 
 		it.only('this service should create a backing and payment for a changemaker ' +
 			'using mangopay, a redirect url should be given', (done) => {
-			mangoUtils.createCardPayment('18559606', 1000, 1, 2).then((res) => {
-				assert(res.startsWith('https'), 'the returned value was not valid');
+			mango.createCardPayment('18559606', 1000, 1, 2).then((res) => {
+				assert(res.startsWith('https://'),
+							'the returned value was not a valid address');
 				done();
 			}).catch((err) => {
 				done(err);
@@ -68,13 +72,14 @@ describe('mangopay API specific logic', () => {
 			fkChangemakerId: 2,
 			fkPaymentProviderId: 1
 		}).then((res) => {
-				mangoUtils.preRegisterCard('19767179').then((res) => {
-				assert(res, 'the returned value: ' + res + 'is not valid');
-				done();
-				}).catch((err) => {
-					done(err);
-				})
-			}).catch((err) => {console.log(err)})
+			return mango.preRegisterCard('19767179')
+		}).then((res) => {
+			expect(res.Id).to.exist;
+			expect(res.PreregistrationData).to.exist;
+			expect(res.AccessKey).to.exist;
+			expect(res.CardRegistrationURL).to.exist;
+			done();
+		}).catch((err) => {done(err)})
 
 		}).timeout(10000)
 	})
@@ -94,9 +99,10 @@ describe('mangopay API specific logic', () => {
 		}).then((res) => {return res})
 
 		Promise.all([patron, changemaker]).then(values => {
-			mangoUtils.preRegisterCard(patron.accountId).then((preRegistrationData) => {
-				console.log(preRegistrationData);
-				done();
+			mangoUtils.preRegisterCard(values[0].accountId).then((preRegistrationData) => {
+				
+			}).then(() => {
+				console.log(res)
 			})
 		})
 

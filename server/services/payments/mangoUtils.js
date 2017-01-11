@@ -2,88 +2,49 @@
 import axios from 'axios'
 import paymentDAO from '../../data/paymentDAO'
 import periodicBackingDAO from '../../data/periodicBackingDAO'
-const clientId = 'p4case2016';
-const passwd = '9yvjwv183gUuvHmzmCOgoDOWOSNSGL0MKkGNovYuXFMB625aSJ';
-const apiRoot = 'https://api.sandbox.mangopay.com';
+import singleBackingDAO from '../../data/singleBackingDAO'
+
+var mangopay = require('mangopay2-nodejs-sdk');
+const clientId = 'p4case2016'
+const passwd = '9yvjwv183gUuvHmzmCOgoDOWOSNSGL0MKkGNovYuXFMB625aSJ'
 export default class {
-		static createNaturalUser(userObject){
-		let url =  `${apiRoot}/v2.01/${clientId}/users/natural/`
-		let formData = {
-			FirstName: userObject.firstName,
-			LastName: userObject.lastName,
-			Birthday: userObject.birthday,
-			Nationality: userObject.nationality,
-			CountryOfResidence: userObject.countryOfResidence,
-			Email: userObject.email
-		};
-		return axios({
-			method: 'post',
-			url: url,
-			data: formData,
-			auth:{
-				username: clientId,
-				password: passwd
-			},
-			headers: {
-				'content-type': 'application/json'
-			}
-		}).then(res => {
-				if(!res.data.errors){
-						paymentDAO.registerChangemakerToProvider(userObject.userId, 1, res.data.Id);
-						return res.data.Id;
-				}else{
-					throw new Error('An error occured during creation of mango user')
-				}
-			}).catch((err) => {
-				throw err;
-			});
+	constructor(){
+		this.api = new mangopay({
+			clientId: 'p4case2016',
+			clientPassword: '9yvjwv183gUuvHmzmCOgoDOWOSNSGL0MKkGNovYuXFMB625aSJ',
+			baseUrl: 'https://api.sandbox.mangopay.com'
+		});
 	}
-
-	static createWallet(naturalUserId, changemakerId){
-		let url = `${apiRoot}/v2.01/${clientId}/wallets/`
-		let formData = {
-			Owners: [naturalUserId],
-			Description: `wallet for changemaker ${changemakerId}`,
-			Currency: 'EUR'
-		};
-
-		return axios({
-			method: 'post',
-			url: url,
-			data: formData,
-			auth:{
-				username: clientId,
-				password: passwd
-			},
-			headers:{
-				'content-type' : 'application/json'
-			}
-		}).then(res => {
-				if(!res.data.errors){
-					return res.data.Id;
-				}else{
-					throw new Error('An error occured during creation of mango wallet')
-				}
-			})
-				.catch((err) => {
-			throw err;
+	createNaturalUser(userObject, userId){
+		return this.api.Users.create(userObject).then((myUser) => {
+			return paymentDAO.registerChangemakerToProvider(userId, 1, myUser.Id)
+		}).then((paymentAccount) => {
+			return paymentAccount.accountId
 		})
 	}
 
-	static getUserWallet(naturalUserId){
-			let url = `${apiRoot}/v2.01/${clientId}/users/${naturalUserId}/wallets`;
+	createWallet(accountId, userId){
+		return this.api.Wallets.create({
+			Currency: 'EUR',
+			Description: `wallet for user ${userId}`,
+			Owners: [accountId]
+		}).then((res) => {return res.Id})
+	}
+
+	getUserWallet(accountId){
+			let url = `https://api.sandbox.mangopay.com/v2.01/${clientId}/users/${accountId}/wallets`;
 
 			return axios({
-				url: url,
-				method: 'get',
-				auth:{
-					username: clientId,
-					password: passwd
-				}
-			}).then((res) => {
+					url: url,
+					method: 'get',
+					auth:{
+						username: clientId,
+						password: passwd
+					}
+				}).then((res) => {
 					if(!res.data.errors){
-						return res.data[0].Id;
-					}else{
+				return res.data[0].Id;
+			}else{
 						throw new Error('parameter probem')
 					}
 				}).catch((err) => {
@@ -91,92 +52,47 @@ export default class {
 				})
 	}
 
-	static createCardPayment(naturalUserId, amount, userId, changemakerId) {
-		let url = `${apiRoot}/v2.01/${clientId}/payins/card/web`;
-		let formDataPromise = this.getUserWallet(naturalUserId).then((res)=>{
-			return {
-          AuthorId: naturalUserId,
-          DebitedFunds:{
-            'Currency': 'EUR',
-            'Amount': amount
-          },
-          Fees:{
-            'Currency': 'EUR',
-            'Amount': 0
-          },
-          ReturnUrl: 'http://localhost:3000',
-          CreditedWalletId: res,
-          CardType: 'CB_VISA_MASTERCARD',
-          Culture: 'DE'
-        }
-		}).catch((err) => {
-			throw err;
-		});
-		return Promise.all([formDataPromise]).then((value) => {
-			return axios({
-				method: 'post',
-				url: url,
-				data: value[0],
-				auth:{
-					username: clientId,
-					password: passwd
+	createCardPayment(accountId, amount, userId, changemakerId) {
+		return this.getUserWallet(accountId).then((walletId) =>{
+			return this.api.PayIns.create({
+				AuthorId: accountId,
+				DebitedFunds:{
+					'Currency': 'EUR',
+					'Amount': amount
 				},
-				headers:{
-					'content-type': 'application/json'
-				}
-			}).then((res) => {
-				if(res.data.errors){
-					throw Error('mango transaction failed');
-				}else if(userId && changemakerId && amount){
-					paymentDAO.createSingleBacking(userId, changemakerId, res.data.Id, amount, res.data.CreationDate);
-					return res.data.RedirectURL;
-				}else{
-					throw new Error('parameter problem, please check parameters given');
-				}
-
-			}).catch((err) => {
-				throw err;
+				Fees:{
+					'Currency': 'EUR',
+					'Amount': 0
+				},
+				ReturnUrl: 'http://localhost:3000',
+				CreditedWalletId: walletId,
+				CardType: 'CB_VISA_MASTERCARD',
+				Culture: 'DE',
+				PaymentType: 'CARD',
+				ExecutionType: 'WEB'
 			})
+		}).then((res) => {
+			let newBacking = singleBackingDAO.createSingleBacking(userId, changemakerId, res.Id, amount, res.CreationDate);
+			return [res.RedirectURL, newBacking];
+		}).then((values) => {
+			return values[0];
 		})
+
 	}
 
 
 
-	static preRegisterCard(naturalUserId){
-     let url = `${apiRoot}/v2.01/${clientId}/cardregistrations`;
-     let formData = {
-       UserId: naturalUserId,
-       Currency: 'EUR',
-     }
-		return axios({
-       method: 'post',
-       url: url,
-       data: formData,
-       auth:{
-         username: clientId,
-         password: passwd
-       },
-       headers: {
-         'content-type': 'application/json'
-       }
-     }).then((res) => {
-         if(res.data.errors){
-           throw new Error('mango card preregistration transaction failed');
-         }else if(naturalUserId){
-			paymentDAO.setCardRegistrationForAccount(naturalUserId, 1, res.data.Id).then((res) => {
-			})
-           return {
-             preRegistrationData: res.data.PreregistrationData,
-             accessKey: res.data.AccessKey,
-             registrationUrl: res.data.CardRegistraionURL,
-						 registrationId: res.data.Id
-           };
-         }else{
-           throw new Error('parameter problem, please check parameters again');
-         }
-       }).catch((err) => {
-           throw err;
-         })
+	preRegisterCard(accountId){
+		return this.api.CardRegistrations.create({
+			UserId: accountId,
+			Currency: 'EUR',
+		}).then((preRegistrationData) => {
+			let updateStatus = paymentDAO.setCardRegistrationForAccount(accountId, 1, preRegistrationData.Id);
+			return [updateStatus, preRegistrationData]
+		}).then((values) => {
+			return values[1]
+		})
+
 
 	}
 
@@ -189,8 +105,9 @@ export default class {
 			accessKeyRef: preRegistrationData.accessKey,
 			returnUrl: 'http://localhost:3000'
 		};
-		console.log('xxxxxxxxx')
 
+		console.log(formData)
+		console.log(preRegistrationData.registrationUrl)
 		return axios({
 			method: 'post',
 			url: preRegistrationData.registrationUrl,
