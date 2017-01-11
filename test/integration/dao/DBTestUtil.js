@@ -8,19 +8,19 @@ export default class {
 		Promise.resolve(
         models.sequelize.sync({force: true})
         .then(() => {
-          return models.content.bulkCreate(require('../../../mock/content.json'));
+          return models.content.bulkCreate(require('../../../mock/content.json'), {logging:false});
         })
         .then(() => {
-          return models.user.bulkCreate(require('../../../mock/users.json'));
+          return models.user.bulkCreate(require('../../../mock/users.json'), {logging:false});
         })
         .then(() => {
-          return models.changemaker.bulkCreate(require('../../../mock/changemakers.json'));
+          return models.changemaker.bulkCreate(require('../../../mock/changemakers.json'), {logging:false});
         })
         .then(() => {
-          return models.statusUpdate.bulkCreate(require('../../../mock/status_update.json'));
+          return models.statusUpdate.bulkCreate(require('../../../mock/status_update.json'), {logging:false});
         })
 				.then(() => {
-        	return models.paymentProvider.bulkCreate(require('../../../mock/paymentProviders.json'));
+        	return models.paymentProvider.bulkCreate(require('../../../mock/paymentProviders.json'), {logging:false});
 				})
 		))
 	}

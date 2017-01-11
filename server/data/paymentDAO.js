@@ -16,6 +16,7 @@ export default class{
 				if(!values[1]){
 					throw new Error(`provider ${providerId} does not exist`);
 				}
+				console.log(accountId)
 				let pp = models.paymentServiceData.create({
 					accountId: accountId,
 					fkChangemakerId: changemakerId,
@@ -101,11 +102,11 @@ export default class{
 	static setCardRegistrationForAccount(accountId, paymentProviderId, cardRegistrationData){
 		return models.paymentServiceData.findOne({where: {accountId: accountId, fkPaymentProviderId: paymentProviderId}})
 			.then((res) => {
-				if(null === res){
-					throw new Error('no account has been found')
+		if(null === res){
+					throw new Error('no account has been found for ' + accountId)
 				}
 				res.cardRegistrationId = cardRegistrationData;
-				return res.save().then(() => {return true})
+				return res.save().then(() => {return true;})
 			})
 	}
 

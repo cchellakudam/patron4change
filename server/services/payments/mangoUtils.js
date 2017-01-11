@@ -163,7 +163,8 @@ export default class {
          if(res.data.errors){
            throw new Error('mango card preregistration transaction failed');
          }else if(naturalUserId){
-         	paymentDAO.setCardRegistrationForAccount(naturalUserId, 1, res.data.Id);
+			paymentDAO.setCardRegistrationForAccount(naturalUserId, 1, res.data.Id).then((res) => {
+			})
            return {
              preRegistrationData: res.data.PreregistrationData,
              accessKey: res.data.AccessKey,
@@ -188,6 +189,8 @@ export default class {
 			accessKeyRef: preRegistrationData.accessKey,
 			returnUrl: 'http://localhost:3000'
 		};
+		console.log('xxxxxxxxx')
+
 		return axios({
 			method: 'post',
 			url: preRegistrationData.registrationUrl,
@@ -200,7 +203,6 @@ export default class {
 				'content-type': 'application/json'
 			}
 		}).then((res) => {
-			console.log('xxxxxxxxx')
 				return res.data
 			}).catch((err) => {throw err;})
 	}
