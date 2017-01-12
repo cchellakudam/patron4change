@@ -33,8 +33,10 @@ export default class{
 * data as a parameter. All card details should be processed browser side
 * and NOT pass through the application server! */
 	registerCreditCardForRecurringPayment(RegistrationData){
-		// TODO receive registration data
-		return 0;
+		return this.mango.registerCard(registrationData.registraionData, registrationData.registrationId)
+			.catch((err) => {
+				throw err;
+			})
 	}
 
 	/* When card details need to be sent to an external provider
@@ -43,17 +45,20 @@ export default class{
 	*(i.e. provider URL or security token) The card details will be sent
 	* through the browser*/
 	prepareToReadCardDetails(preTreatmentData){
-		// TODO create cardRegistration with mango and preRegistrationData
-		return 0;
+		return this.mango.preRegisterCard(preTreatmentData.accountId)
+			.catch((err) => {
+			throw err;
+		})
 	}
 
 
-	createRecurringPayment(){
-
+	createRecurringPayment(paymentData){
+		return this.mango.createPeriodicBacking(paymentData.accountId,
+			paymentData.userId, paymentData.amount, paymentData.startDate)
 	}
 
 	monthlyPayment(){
-		// TODO get all cardIds from CardRegistrationData
+		return makeMonthlyPayments();
 	}
 
 }

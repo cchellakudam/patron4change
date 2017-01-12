@@ -8,7 +8,6 @@ export default (paymentSvcs) => {
 		paymentSvcs.mango.registerUser(req.body).then((accountId) => {
 			res.send(accountId)
 		}).catch((err) => {
-			console.log(err)
 			res.status(400).send('a parameter error has occured');
 		})
 	});

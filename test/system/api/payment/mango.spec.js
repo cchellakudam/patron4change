@@ -1,8 +1,8 @@
 const assert = require('chai').assert;
 const http = require('request-promise');
 import DBTestUtil from '../../../integration/dao/DBTestUtil'
-
 const urlbase = 'http://localhost:3000/api/payment'
+
 describe('/payment', () => {
 	before( (done) => {
 		DBTestUtil.refreshDB().then(() => {
@@ -11,7 +11,7 @@ describe('/payment', () => {
 	})
 
 	describe('/mango/register', () => {
-		it.only('API call to register user should correctly return a mango naturalUserId',(done) => {
+		it('API call to register user should correctly return a mango naturalUserId',(done) => {
 				let options = {
 					method: 'POST',
 					uri: urlbase + '/mango/register',
@@ -64,7 +64,7 @@ describe('/payment', () => {
 	})
 
 	describe('/mango/pay', () => {
-			it.only('this API call to make a card payment should return the actual payment url',(done) => {
+			it('this API call to make a card payment should return the actual payment url',(done) => {
 			let body = {
 				patronId: 1,
 				changemakerId: 2,

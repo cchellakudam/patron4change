@@ -3,7 +3,7 @@ import models from '../model/index';
 export default class{
 
 	static getAllUnpaidPeriodicBackings(){
-		let allBackings = periodic_backings.findAll({
+		return  models.periodicBacking.findAll({
 			include: [
 			{
 				model: models.backing,
@@ -16,16 +16,14 @@ export default class{
 				]
 			}
 			],
-		});
-
-		return Promise.all([allBackings]).then((periodicBackings) => {
-			unpaidBackings = [];
+		}).then((periodicBackings) => {
+			let unpaidBackings = [];
 			let today = new Date();
-			for(i=0;i<values.length;i++){
+			for(let i=0;i<periodicBackings.length;i++){
 				let paid = false;
-				for(j=0;j<values.length;j++){
-					paymentDate = new Date(periodicBackings[i].backing.payments[j].transactionDate);
-					if(today.getMonth() == paymentDate.getMonth()){
+				for(let j=0;j<periodicBackings[i].backing.payments.length;j++){
+					let paymentDate = new Date(periodicBackings[i].backing.payments[j].transactionDate);
+					if(today.getMonth() === paymentDate.getMonth() && today.getYear() === paymentDate.getYear()){
 						paid = true;
 					}
 				}
@@ -33,6 +31,7 @@ export default class{
 					unpaidBackings.push(periodicBackings[i]);
 				}
 			}
+
 			return unpaidBackings;
 		});
 	}

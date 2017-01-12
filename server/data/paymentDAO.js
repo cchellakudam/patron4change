@@ -16,14 +16,14 @@ export default class{
 				if(!values[1]){
 					throw new Error(`provider ${providerId} does not exist`);
 				}
-				console.log(accountId)
+
 				let pp = models.paymentServiceData.create({
 					accountId: accountId,
-					fkChangemakerId: changemakerId,
+					fkUserId: changemakerId,
 					fkPaymentProviderId: providerId
 				}).then((paymentServiceData) => {
 					return paymentServiceData;
-				});
+				}).catch((err) => {throw err;});
 
 				return pp;
 
@@ -40,19 +40,19 @@ export default class{
 		});
 	}
 
-	static createSingleBacking(userId, changemakerId, transactionId, amount, transactionDate){
-		let changemakerPromise = models.changemaker.findById(changemakerId);
-		let patronPromise = models.user.findById(userId)
+	static createSingleBacking(patronId, changemakerId, transactionId, amount, transactionDate){
+		let changemakerPromise = models.user.findById(changemakerId);
+		let patronPromise = models.user.findById(patronId)
 
 		return Promise.all([changemakerPromise, patronPromise]).then(values => {
 			if(!values[0]){
-				throw new Error(`changemaker ${changemakerId} does not exist`);
+				throw new Error(`user ${changemakerId} does not exist`);
 			}
 			if(!values[1]){
-				throw new Error(`user ${userId} does not exist`)
+				throw new Error(`user ${patronId} does not exist`)
 			}
 
-			if(userId === changemakerId){
+			if(patronId === changemakerId){
 				throw new Error('a changemaker cannot back himself!')
 			}
 
@@ -66,7 +66,7 @@ export default class{
 			let backing = models.singleBacking.create({
 			backing: {
 				amount: amount,
-				fkSenderId: userId,
+				fkSenderId: patronId,
 				fkRecipientId: changemakerId,
 				payments: [{
 					amount: amount,
@@ -86,14 +86,14 @@ export default class{
 	}
 
 	static getAccountIdForUser(userId, paymentProviderId){
-		return models.paymentServiceData.findOne({where: {fkChangemakerId: userId, fkPaymentProviderId: 1}})
+		return models.paymentServiceData.findOne({where: {fkUserId: userId, fkPaymentProviderId: 1}})
 			.then((res) =>{
 				return res.accountId;
 			})
 	}
 
-	static getCardIdForUser(userId, paymentProviderId){
-		return models.paymentServiceData.findOne({where: {fkChangemakerId: userId, fkPaymentProviderId: 1}})
+	static getCardRegistrationForUser(userId, paymentProviderId){
+		return models.paymentServiceData.findOne({where: {fkUserId: userId, fkPaymentProviderId: 1}})
 			.then((res) =>{
 				return res.cardRegistrationId;
 			})
@@ -103,7 +103,6 @@ export default class{
 		return models.paymentServiceData.findOne({where: {accountId: accountId, fkPaymentProviderId: paymentProviderId}})
 			.then((res) => {
 			if(null === res){
-				console.log('xxxxxxxxxxxxxxxxxxxxxxx')
 						throw new Error('no account has been found for ' + accountId)
 					}
 					res.cardRegistrationId = cardRegistrationData;

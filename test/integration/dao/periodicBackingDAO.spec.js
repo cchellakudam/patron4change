@@ -14,7 +14,7 @@ describe('periodicBackingDAO', () => {
 
 	describe('create a periodic backing for a changemaker', () => {
 
-		it('should return a singleBacking model on successful creation', (done) =>{
+		it('should return a periodicBacking model on successful creation', (done) =>{
 			periodicBackingDAO.createPeriodicBacking(1, 2, 1000, 1463496101).then((res) =>{
 				expect(res.backing.amount).to.equal(1000);
 				expect(res.backing.fkSenderId).to.equal(1);
@@ -76,6 +76,16 @@ describe('periodicBackingDAO', () => {
 			})
 		})
 
+	})
+
+	describe('retrieve all unpaid periodic backings', () => {
+		it.only('should retrieve all unpaid periodic backings this month', () => {
+			return periodicBackingDAO.getAllUnpaidPeriodicBackings().then((res) => {
+				expect(res.length).to.equal(2);
+				expect(res[0].fkBackingId).to.equal(8);
+				expect(res[1].fkBackingId).to.equal(9);
+			})
+		}).timeout(10000)
 	})
 
 

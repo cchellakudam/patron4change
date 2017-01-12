@@ -43,9 +43,9 @@ export default class {
 					}
 				}).then((res) => {
 					if(!res.data.errors){
-				return res.data[0].Id;
-			}else{
-						throw new Error('parameter probem')
+						return res.data[0].Id;
+					}else{
+								throw new Error('parameter probem')
 					}
 				}).catch((err) => {
 					throw err;
@@ -132,31 +132,17 @@ export default class {
 		})
 	}
 
-	static createPeriodicBacking(accountId, registrationData, userId, changemakerId, amount, startDate){
+	 createPeriodicBacking(accountId, userId, changemakerId, amount, startDate){
 		return periodicBackingDAO.createPeriodicBacking(userId, changemakerId, amount, startDate);
-
 	}
 
-	static getCardId(cardRegistrationId){
-		let url = `${apiRoot}/v2.01/${clientId}/${cardRegistrationId}`;
-		return axios({
-			method: 'get',
-			url: url,
-			auth:{
-				username: clientId,
-				password: passwd
-			},
-			headers: {
-				'content-type': 'application/json'
-			}
-		}).then((res) => {
-				return res.data.CardId;
-			}).catch((err) => {
-				throw err;
-			})
+	getCardId(cardRegistrationId){
+		return this.api.CardRegistrations.get(cardRegistrationId).then((res) => {
+			return res.CardId;
+		}).catch((err) => {throw err;})
 	}
 
-	static getBulkCardIds(cardRegistrationIds){
+	getBulkCardIds(cardRegistrationIds){
 		allCardIdPrmises = [];
 		for(i=0;i<cardRegistrationIds.length;i++){
 			allCardIdPrmises.push(getCardId(cardRegistrationIds[i]));
@@ -164,59 +150,58 @@ export default class {
 		return allCardIdPrmises;
 	}
 
-	static makeMonthlyPayments(){
+	makeMonthlyPayments(){
 		let allUnpaidBackings = periodicBackingDAO.getAllUnpaidPeriodicBackings();
 		for(i=0;i<allUnpaidBackings.length;i++){
-			makeMonthlyPayment(allUnpaidBackings[i].fkSenderId, allUnpaidBackings[i].fkRecipientId,
+			this.makeMonthlyPayment(allUnpaidBackings[i].fkSenderId, allUnpaidBackings[i].fkRecipientId,
 				allUnpaidBackings[i].amount, allUnpaidBackings[i].id	);
 		}
 
 	}
 
-	static makeMonthlyPayment(senderId, recipientId, amount, backingId){
-		let senderAccountId = paymentDAO.AccountIdForUser(senderId, 1);
-		let recipientWalletId = paymentDAO.AccountIdForUser(recipientId, 1)
+	makeMonthlyPayment(senderId, recipientId, amount, backingId){
+		let senderAccountId = paymentDAO.getAccountIdForUser(senderId, 1);
+		let recipientWalletId = paymentDAO.getAccountIdForUser(recipientId, 1)
 			.then((res) => {
-				return getUserWallet(res);
+				return this.getUserWallet(res);
 			});
-		let senderCardId = paymentDAO.getCardRegistrationForUser(senderId, 1);
+		let senderCardId = paymentDAO.getCardRegistrationForUser(senderId, 1)
+			.then((cardRegistrationId) => {
+				return this.getCardId(cardRegistrationId)
+			});
 
-		Promise.all([senderAccountId, recipientWalletId, senderCardId]).then((values) => {
-			return makePayment(values[2], values[0], values[1], amount);
+		return Promise.all([senderAccountId, recipientWalletId, senderCardId]).then((values) => {
+			if(!senderAccountId || !recipientWalletId){
+				throw new Error('one or more users do not have a payment account');
+			}
+			return this.makePayment(values[2], values[0], values[1], amount);
 		}).then((res) => {
-				paymentDAO.createPayment(amount, transactionDate, transactionId, backingId)
+				return paymentDAO.createPayment(amount, res.transactionDate, res.transactionId, backingId)
+		}).then(() => {
+			return true;
 		})
 
 	}
 
-	static makePayment(cardId, senderId, walletId, amount){
-		url = `${apiRoot}/v2.01/${clientId}/card/direct`;
-		let formData = {
-			AuthorId: senderId,
-			CreditedWalletId: walletId,
+	makePayment(cardId, senderAccountId, walletId, amount){
+		return this.api.PayIns.create({
+			AuthorId: senderAccountId,
 			DebitedFunds:{
-            'Currency': 'EUR',
-            'Amount': amount
-          },
-      Fees:{
-        'Currency': 'EUR',
-        'Amount': 0
-      },
+				'Currency': 'EUR',
+				'Amount': amount
+			},
+			Fees:{
+				'Currency': 'EUR',
+				'Amount': 0
+			},
+			ReturnUrl: 'http://localhost:3000',
+			CreditedWalletId: walletId,
+			CardType: 'CB_VISA_MASTERCARD',
+			Culture: 'DE',
+			PaymentType: 'CARD',
+			ExecutionType: 'DIRECT',
 			CardId: cardId,
 			SecureModeReturnURL: 'http://localhost:3000'
-		}
-
-		axios({
-			method: 'post',
-			url: url,
-			data: formData,
-			auth: {
-				username: clientId,
-				password: passwd
-			},
-			headers:{
-				'content-type': 'application/json'
-			}
 		}).then((res) => {
 			return {transactionId: res.Id, transactionDate: res.CreationDate}
 		}).catch((err) => {throw err;})
