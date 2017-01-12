@@ -1,10 +1,17 @@
 const assert = require('chai').assert;
 const http = require('request-promise');
+import DBTestUtil from '../../../integration/dao/DBTestUtil'
 
 const urlbase = 'http://localhost:3000/api/payment'
 describe('/payment', () => {
+	before( (done) => {
+		DBTestUtil.refreshDB().then(() => {
+			done();
+		});
+	})
+
 	describe('/mango/register', () => {
-		it('API call to register user should correctly return a mango naturalUserId',(done) => {
+		it.only('API call to register user should correctly return a mango naturalUserId',(done) => {
 				let options = {
 					method: 'POST',
 					uri: urlbase + '/mango/register',
@@ -14,7 +21,9 @@ describe('/payment', () => {
 						birthday: 1320969600,
 						nationality: 'GB',
 						countryOfResidence: 'GB',
-						email: 'tom@mail.test.com'
+						email: 'tom@mail.test.com',
+						PersonType: 'NATURAL',
+						userId: 1
 					},
 					json:true
 				};
@@ -32,11 +41,13 @@ describe('/payment', () => {
 					method: 'POST',
 					uri: urlbase + '/mango/register',
 					body:{
+						firstName: 'Tom',
 						lastName: 'Walker',
 						birthday: 1320969600,
 						nationality: 'GB',
 						countryOfResidence: 'GB',
-						email: 'tom@mail.test.com'
+						email: 'tom@mail.test.com',
+						PersonType: 'NATURAL'
 					},
 					json:true
 				};
@@ -53,7 +64,7 @@ describe('/payment', () => {
 	})
 
 	describe('/mango/pay', () => {
-			it('this API call to make a card payment should return the actual payment url',(done) => {
+			it.only('this API call to make a card payment should return the actual payment url',(done) => {
 			let body = {
 				patronId: 1,
 				changemakerId: 2,

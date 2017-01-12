@@ -4,7 +4,7 @@ import paymentDAO from '../../data/paymentDAO'
 import periodicBackingDAO from '../../data/periodicBackingDAO'
 import singleBackingDAO from '../../data/singleBackingDAO'
 
-var mangopay = require('mangopay2-nodejs-sdk');
+const mangopay = require('mangopay2-nodejs-sdk');
 const clientId = 'p4case2016'
 const passwd = '9yvjwv183gUuvHmzmCOgoDOWOSNSGL0MKkGNovYuXFMB625aSJ'
 export default class {
@@ -96,61 +96,40 @@ export default class {
 
 	}
 
-	static sendTestCardData(preRegistrationData){
+	sendTestCardData(preRegistrationData){
+		// need to simulate urlencode, axios doesn't handle this!
+		let querystring = require('querystring');
 		let formData = {
 			cardNumber: '4706750000000009',
-			cardExpirationDate: '08/20',
+			cardExpirationDate: '0820',
 			cardCvx: '000',
-			data: preRegistrationData.preRegistrationData,
-			accessKeyRef: preRegistrationData.accessKey,
-			returnUrl: 'http://localhost:3000'
+			data: preRegistrationData.PreregistrationData,
+			accessKeyRef: preRegistrationData.AccessKey,
 		};
 
-		console.log(formData)
-		console.log(preRegistrationData.registrationUrl)
 		return axios({
 			method: 'post',
-			url: preRegistrationData.registrationUrl,
-			data: formData,
+			url: preRegistrationData.CardRegistrationURL,
+			data: querystring.stringify(formData),
 			auth:{
 				username: clientId,
 				password: passwd
 			},
 			headers: {
-				'content-type': 'application/json'
+				'Content-Type': 'application/x-www-form-urlencoded'
 			}
 		}).then((res) => {
-				return res.data
+				return {data: res.data, registrationId: preRegistrationData.Id}
 			}).catch((err) => {throw err;})
 	}
 
-	static registerCard(registrationData, registrationId){
-		let url = `${apiRoot}/v2.01/${clientId}/${registrationId}`;
-		let formData = {
-			RegistrationData: registrationData
-		}
-		return axios({
-			method: 'put',
-			url: url,
-			data: formData,
-			auth:{
-				username: clientId,
-				password: passwd
-			},
-			headers: {
-				'content-type': 'application/json'
-			}
+	registerCard(registrationData, registrationId){
+		return this.api.CardRegistrations.update({
+			RegistrationData: registrationData,
+			Id: registrationId
 		}).then((res) => {
-				if(res.data.errors){
-					throw new Error('mango card registration transaction failed')
-				}else if(registrationData && registrationId){
-					return res.data;
-				}else{
-					throw new Error('paramter problem, please check parameters again')
-				}
-			}).catch((err) => {
-				throw err;
-			})
+			return res.CardId;
+		})
 	}
 
 	static createPeriodicBacking(accountId, registrationData, userId, changemakerId, amount, startDate){

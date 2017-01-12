@@ -14,7 +14,7 @@ describe('mangopay API specific logic', () => {
 	})
 
 	describe('createNaturalUser', () => {
-		it.only('thiis service call should return a mango user Id',(done) => {
+		it('this service call should return a mango user Id',(done) => {
 			let userObject = {
 				firstName: 'Tom',
 				lastName: 'Walker',
@@ -34,7 +34,7 @@ describe('mangopay API specific logic', () => {
 			})
 		}).timeout(10000);
 
-		it.only('this service should create a wallet and return its Id', (done) =>{
+		it('this service should create a wallet and return its Id', (done) =>{
 			mango.createWallet('18559606', 1).then((res) => {
 				expect(res).to.exist;
 				done();
@@ -43,7 +43,7 @@ describe('mangopay API specific logic', () => {
 			})
 		}).timeout(10000);
 
-		it.only('this service should retrieve the walletId of a user given the user Id', (done) => {
+		it('this service should retrieve the walletId of a user given the user Id', (done) => {
 			mango.getUserWallet('18559606').then((res) => {
 				assert(res, 'the returned value was not valid');
 				done()
@@ -52,7 +52,7 @@ describe('mangopay API specific logic', () => {
 			})
 		}).timeout(10000);
 
-		it.only('this service should create a backing and payment for a changemaker ' +
+		it('this service should create a backing and payment for a changemaker ' +
 			'using mangopay, a redirect url should be given', (done) => {
 			mango.createCardPayment('18559606', 1000, 1, 2).then((res) => {
 				assert(res.startsWith('https://'),
@@ -66,7 +66,7 @@ describe('mangopay API specific logic', () => {
 	})
 
 	describe('getPreCardRegistrationData', () => {
-		it.only('this service call shoud get card pre registration data from mangopay API server for a specific user', (done) => {
+		it('this service call shoud get card pre registration data from mangopay API server for a specific user', (done) => {
 		let patronAccount = models.paymentServiceData.create({
 			accountId: '19767179',
 			fkChangemakerId: 2,
@@ -99,10 +99,14 @@ describe('mangopay API specific logic', () => {
 		}).then((res) => {return res})
 
 		Promise.all([patron, changemaker]).then(values => {
-			mangoUtils.preRegisterCard(values[0].accountId).then((preRegistrationData) => {
-				
-			}).then(() => {
-				console.log(res)
+			mango.preRegisterCard(values[0].accountId).then((preRegistrationData) => {
+				let registrationData = mango.sendTestCardData(preRegistrationData).then((res) => {return res})
+				return registrationData
+			}).then((registrationData) => {
+				return mango.registerCard(registrationData.data, registrationData.registrationId)
+			}).then((cardId) => {
+				expect(cardId).to.exist;
+				done();
 			})
 		})
 

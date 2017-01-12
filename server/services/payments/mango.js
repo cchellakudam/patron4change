@@ -8,12 +8,15 @@ export default class{
 
 	constructor(dao){
 		this.dao = dao;
+		this.mango = new mangoUtils();
 	}
 
 	registerUser(userObject){
-		let naturalUserIdP = mangoUtils.createNaturalUser(userObject);
+		let userId = userObject.userId;
+		delete userObject['userId'];
+		let naturalUserIdP = this.mango.createNaturalUser(userObject, userId);
 		return Promise.all([naturalUserIdP]).then((naturalUserId) => {
-			mangoUtils.createWallet(naturalUserId, userObject.changemakerId);
+				this.mango.createWallet(naturalUserId, userObject.userId);
 			return naturalUserId;
 		}).catch((err) => {
 			throw err;
@@ -21,7 +24,7 @@ export default class{
 	}
 
 	payUserWithCard(patronId, amount, changemakerId, accountId){
-		return mangoUtils.createCardPayment(accountId, amount, patronId, changemakerId).catch((err) => {
+		return this.mango.createCardPayment(accountId, amount, patronId, changemakerId).catch((err) => {
 				throw err;
 			})
 	}

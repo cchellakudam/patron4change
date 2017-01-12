@@ -52,6 +52,7 @@
     "pg": "^6.1.0",
     "pg-hstore": "^2.3.2",
     "pg-promise": "^5.3.5",
+    "querystring": "^0.2.0",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
     "react-flexbox-grid": "^0.10.2",
