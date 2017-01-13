@@ -1,7 +1,6 @@
 const assert = require('chai').assert;
 import mangoUtils from '../../../../server/services/payments/mangoUtils'
 import DBTestUtil from '../../../integration/dao/DBTestUtil'
-import models from '../../../../server/model/index'
 import chai from 'chai';
 const{expect} = chai;
 const mango = new mangoUtils();
@@ -73,7 +72,9 @@ describe('mangopay API specific logic', () => {
 				expect(res.AccessKey).to.exist;
 				expect(res.CardRegistrationURL).to.exist;
 				done();
-			}).catch((err) => {done(err)})
+			}).catch((err) => {
+				done(err)
+			})
 
 		}).timeout(10000)
 	});
@@ -81,7 +82,7 @@ describe('mangopay API specific logic', () => {
 	describe('entire card registration process with mangopay', () => {
 		it('should complete the card registration service for a test card provided by mangoPay', () => {
 			return mango.preRegisterCard('18559606').then((preRegistrationData) => {
-				let registrationData = mango.sendTestCardData(preRegistrationData).then((res) => {return res})
+				let registrationData = mango.sendTestCardData(preRegistrationData)
 				return registrationData
 			}).then((registrationData) => {
 				return mango.registerCard(registrationData.data, registrationData.registrationId)
@@ -108,9 +109,9 @@ describe('mangopay API specific logic', () => {
 		}).timeout(10000);
 
 		it('should throw an exception because no such card exists', (done) => {
-			mango.getCardId('12345').then((res) => {
+			mango.getCardId('12345').then(() => {
 				assert(false, 'this call should not be successful')
-			}).catch((err) => {
+			}).catch(() => {
 				done();
 			})
 		})
@@ -124,14 +125,12 @@ describe('mangopay API specific logic', () => {
 		}).timeout(10000);
 
 		it('should throw an exception, both users do not have payment accounts', (done) => {
-			mango.makeMonthlyPayment(5, 6, 100, 7).then((res) => {
+			mango.makeMonthlyPayment(5, 6, 100, 7).then(() => {
 				assert(false, 'this call should not be successful');
-			}).catch((err) => {
+			}).catch(() => {
 				done();
 			})
 		}).timeout(10000)
 	})
-
-
 
 });

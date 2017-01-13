@@ -13,7 +13,7 @@ export default class{
 
 	registerUser(userObject){
 		let userId = userObject.userId;
-		delete userObject['userId'];
+		delete userObject.userId;
 		let naturalUserIdP = this.mango.createNaturalUser(userObject, userId);
 		return Promise.all([naturalUserIdP]).then((naturalUserId) => {
 				this.mango.createWallet(naturalUserId, userObject.userId);
@@ -32,7 +32,7 @@ export default class{
 /* This method only takes any kind of security token or registration
 * data as a parameter. All card details should be processed browser side
 * and NOT pass through the application server! */
-	registerCreditCardForRecurringPayment(RegistrationData){
+	registerCreditCardForRecurringPayment(registrationData){
 		return this.mango.registerCard(registrationData.registraionData, registrationData.registrationId)
 			.catch((err) => {
 				throw err;
@@ -58,7 +58,7 @@ export default class{
 	}
 
 	monthlyPayment(){
-		return makeMonthlyPayments();
+		return this.mango.makeMonthlyPayments();
 	}
 
 }

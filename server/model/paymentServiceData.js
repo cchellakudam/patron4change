@@ -5,7 +5,7 @@ export default (sequelize, DataTypes) =>{
 			type: DataTypes.STRING
 		},
 		cardRegistrationId:{
-			type: DataTypes.STRING,
+			type: DataTypes.STRING
 		}
 	}, {
 		freezeTableName: false // Model tableName will be the same as the model name

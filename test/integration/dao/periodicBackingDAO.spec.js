@@ -89,6 +89,4 @@ describe('periodicBackingDAO', () => {
 		}).timeout(10000)
 	})
 
-
-
 });

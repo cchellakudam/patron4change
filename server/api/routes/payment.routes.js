@@ -7,7 +7,7 @@ export default (paymentSvcs) => {
   router.post('/mango/register', (req, res) => {
 		paymentSvcs.mango.registerUser(req.body).then((accountId) => {
 			res.send(accountId)
-		}).catch((err) => {
+		}).catch(() => {
 			res.status(400).send('general operation error');
 		})
 	});
@@ -24,7 +24,7 @@ export default (paymentSvcs) => {
 	router.post('/mango/preregisterCard', (req, res) => {
 		paymentSvcs.mango.prepareToReadCardDetails(req.body).then((preRegistrationData) => {
 			res.send(preRegistrationData)
-		}).catch((err) => {
+		}).catch(() => {
 			res.status(400).send('general operation error')
 		})
 	});

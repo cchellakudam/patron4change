@@ -1,6 +1,4 @@
 const assert = require('chai').assert;
-import chai from 'chai';
-const{expect} = chai;
 import singleBackingDAO from '../../../server/data/singleBackingDAO'
 import DBTestUtil from './DBTestUtil'
 

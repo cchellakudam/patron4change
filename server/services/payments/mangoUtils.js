@@ -28,7 +28,9 @@ export default class {
 			Currency: 'EUR',
 			Description: `wallet for user ${userId}`,
 			Owners: [accountId]
-		}).then((res) => {return res.Id})
+		}).then((res) => {
+			return res.Id
+		})
 	}
 
 	getUserWallet(accountId){
@@ -80,12 +82,10 @@ export default class {
 
 	}
 
-
-
 	preRegisterCard(accountId){
 		return this.api.CardRegistrations.create({
 			UserId: accountId,
-			Currency: 'EUR',
+			Currency: 'EUR'
 		}).then((preRegistrationData) => {
 			let updateStatus = paymentDAO.setCardRegistrationForAccount(accountId, 1, preRegistrationData.Id);
 			return Promise.resolve([updateStatus, preRegistrationData])
@@ -106,7 +106,7 @@ export default class {
 			cardExpirationDate: '0820',
 			cardCvx: '000',
 			data: preRegistrationData.PreregistrationData,
-			accessKeyRef: preRegistrationData.AccessKey,
+			accessKeyRef: preRegistrationData.AccessKey
 		};
 
 		return axios({
@@ -122,21 +122,22 @@ export default class {
 			}
 		}).then((res) => {
 				return {data: res.data, registrationId: preRegistrationData.Id}
-			}).catch((err) => {throw err;})
+			}).catch((err) => {
+			throw err;
+			})
 	}
 
 	registerCard(registrationData, registrationId){
 		return this.api.CardRegistrations.update({
 			RegistrationData: registrationData,
 			Id: registrationId
-		}).then((res) => {
+		}).then(() => {
 			return registrationId;
 		})
 	}
 
 	 createPeriodicBacking(userId, changemakerId, amount, startDate){
 		return periodicBackingDAO.createPeriodicBacking(userId, changemakerId, amount, startDate).catch((err) => {
-			console.log(err)
 			throw err;
 		});
 	}
@@ -144,20 +145,22 @@ export default class {
 	getCardId(cardRegistrationId){
 		return this.api.CardRegistrations.get(cardRegistrationId).then((res) => {
 			return res.CardId;
-		}).catch((err) => {throw err;})
+		}).catch((err) => {
+			throw err;
+		})
 	}
 
 	getBulkCardIds(cardRegistrationIds){
-		allCardIdPrmises = [];
-		for(i=0;i<cardRegistrationIds.length;i++){
-			allCardIdPrmises.push(getCardId(cardRegistrationIds[i]));
+		let allCardIdPromises = [];
+		for(let i=0; i<cardRegistrationIds.length; i++){
+			allCardIdPromises.push(this.getCardId(cardRegistrationIds[i]));
 		}
-		return allCardIdPrmises;
+		return allCardIdPromises;
 	}
 
 	makeMonthlyPayments(){
 		let allUnpaidBackings = periodicBackingDAO.getAllUnpaidPeriodicBackings();
-		for(i=0;i<allUnpaidBackings.length;i++){
+		for(let i=0; i<allUnpaidBackings.length; i++){
 			this.makeMonthlyPayment(allUnpaidBackings[i].fkSenderId, allUnpaidBackings[i].fkRecipientId,
 				allUnpaidBackings[i].amount, allUnpaidBackings[i].id	);
 		}
@@ -209,9 +212,8 @@ export default class {
 			SecureModeReturnURL: 'http://localhost:3000'
 		}).then((res) => {
 			return {transactionId: res.Id, transactionDate: res.CreationDate}
-		}).catch((err) => {throw err;})
+		}).catch((err) => {
+			throw err;
+		})
 	}
 }
-
-
-

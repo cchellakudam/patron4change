@@ -65,7 +65,7 @@ describe('paymentDAO', () => {
 			paymentDAO.getAccountIdForUser(1, 9999).then((res) => {
 				assert('undefined' === res, 'the accountId is incorrect expected value is undefined, actual value is:' +res)
 				done();
-			}).catch((err) => {
+			}).catch(() => {
 				done();
 			})
 		})
@@ -85,10 +85,9 @@ describe('paymentDAO', () => {
 
 		it('account does not exist - throw error', (done) => {
 			paymentDAO.setCardRegistrationForAccount('dsff', 1,'abcd123')
-			.then((res) => {
+			.then(() => {
 					assert.isOk(false, 'An error should be thrown');
 			}).catch((err) => {
-				console.log(err.message)
 					expect(err.message).to.equal('no account has been found for dsff');
 					done()
 			})
@@ -112,7 +111,9 @@ describe('paymentDAO', () => {
 				expect(res.transactionId).to.equal('abc');
 				expect(res.fkBackingId).to.equal(1);
 				done();
-			}).catch((err) => {done(err);})
+			}).catch((err) => {
+				done(err);
+			})
 		})
 	})
 
@@ -121,7 +122,9 @@ describe('paymentDAO', () => {
 			paymentDAO.getCardRegistrationForUser('1', 1).then((res) => {
 				expect(res).to.equal('abcd123');
 				done();
-			}).catch((err) => {done(err)})
+			}).catch((err) => {
+				done(err)
+			})
 		})
 	})
 });

@@ -15,13 +15,13 @@ export default class{
 					}
 				]
 			}
-			],
+			]
 		}).then((periodicBackings) => {
 			let unpaidBackings = [];
 			let today = new Date();
-			for(let i=0;i<periodicBackings.length;i++){
+			for(let i=0; i<periodicBackings.length; i++){
 				let paid = false;
-				for(let j=0;j<periodicBackings[i].backing.payments.length;j++){
+				for(let j=0; j<periodicBackings[i].backing.payments.length; j++){
 					let paymentDate = new Date(periodicBackings[i].backing.payments[j].transactionDate);
 					if(today.getMonth() === paymentDate.getMonth() && today.getYear() === paymentDate.getYear()){
 						paid = true;
@@ -64,11 +64,11 @@ export default class{
 			backing: {
 				amount: amount,
 				fkSenderId: userId,
-				fkRecipientId: changemakerId,
+				fkRecipientId: changemakerId
 			}
 		},{
 				include: [{
-					model: models.backing, as: 'backing',
+					model: models.backing, as: 'backing'
 				}]
 			});
 

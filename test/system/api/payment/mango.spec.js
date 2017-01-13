@@ -109,7 +109,7 @@ describe('/payment', () => {
 					assert.isOK(false, 'the request should not have succeeded');
 					done();
 				})
-				.catch((err) => {
+				.catch(() => {
 					done();
 				})
 		}).timeout(10000);

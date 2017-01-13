@@ -10,10 +10,7 @@ export default class {
 		let patronPromise = models.user.findById(userId)
 
 		return Promise.all([changemakerPromise, patronPromise]).then(values => {
-				if(
-		!values[0]
-	)
-		{
+		if(!values[0]){
 			throw new Error(`changemaker ${changemakerId} does not exist`);
 		}
 		if (!values[1]) {

@@ -29,7 +29,9 @@ export default class {
         	return models.paymentServiceData.bulkCreate(require('../../../mock/paymentServiceData.json'), {logging:false})
 				}).then(() => {
         	return models.payment.bulkCreate(require('../../../mock/payments.json'), {logging:false})
-				}).catch((err) => {console.log(err)})
+				}).catch((err) => {
+        	console.log(err)
+        })
 		))
 	}
 }

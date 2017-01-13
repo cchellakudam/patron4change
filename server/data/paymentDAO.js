@@ -23,7 +23,9 @@ export default class{
 					fkPaymentProviderId: providerId
 				}).then((paymentServiceData) => {
 					return paymentServiceData;
-				}).catch((err) => {throw err;});
+				}).catch((err) => {
+					throw err;
+				});
 
 				return pp;
 
@@ -86,14 +88,14 @@ export default class{
 	}
 
 	static getAccountIdForUser(userId, paymentProviderId){
-		return models.paymentServiceData.findOne({where: {fkUserId: userId, fkPaymentProviderId: 1}})
+		return models.paymentServiceData.findOne({where: {fkUserId: userId, fkPaymentProviderId: paymentProviderId}})
 			.then((res) =>{
 				return res.accountId;
 			})
 	}
 
 	static getCardRegistrationForUser(userId, paymentProviderId){
-		return models.paymentServiceData.findOne({where: {fkUserId: userId, fkPaymentProviderId: 1}})
+		return models.paymentServiceData.findOne({where: {fkUserId: userId, fkPaymentProviderId: paymentProviderId}})
 			.then((res) =>{
 				return res.cardRegistrationId;
 			})
@@ -106,7 +108,9 @@ export default class{
 						throw new Error('no account has been found for ' + accountId)
 					}
 					res.cardRegistrationId = cardRegistrationData;
-					return res.save().then(() => {return true;})
+					return res.save().then(() => {
+						return true;
+					})
 				})
 	}
 
