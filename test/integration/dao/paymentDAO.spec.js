@@ -118,7 +118,7 @@ describe('paymentDAO', () => {
 
 	describe('get card registration for a user', () => {
 		it('get a card registration for a user previously set', (done) => {
-			paymentDAO.getCardIdForUser('1', 1).then((res) => {
+			paymentDAO.getCardRegistrationForUser('1', 1).then((res) => {
 				expect(res).to.equal('abcd123');
 				done();
 			}).catch((err) => {done(err)})

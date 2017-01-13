@@ -79,11 +79,12 @@ describe('periodicBackingDAO', () => {
 	})
 
 	describe('retrieve all unpaid periodic backings', () => {
-		it.only('should retrieve all unpaid periodic backings this month', () => {
+		it('should retrieve all unpaid periodic backings this month', () => {
 			return periodicBackingDAO.getAllUnpaidPeriodicBackings().then((res) => {
-				expect(res.length).to.equal(2);
+				expect(res.length).to.equal(3);
 				expect(res[0].fkBackingId).to.equal(8);
 				expect(res[1].fkBackingId).to.equal(9);
+				expect(res[2].fkBackingId).to.equal(10);
 			})
 		}).timeout(10000)
 	})

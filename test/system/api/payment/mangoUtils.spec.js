@@ -67,7 +67,7 @@ describe('mangopay API specific logic', () => {
 
 	describe('getPreCardRegistrationData', () => {
 		it('this service call shoud get card pre registration data from mangopay API server for a specific user', (done) => {
-			mango.preRegisterCard('19767341').then((res) => {
+			mango.preRegisterCard('18559606').then((res) => {
 				expect(res.Id).to.exist;
 				expect(res.PreregistrationData).to.exist;
 				expect(res.AccessKey).to.exist;
@@ -79,17 +79,16 @@ describe('mangopay API specific logic', () => {
 	});
 
 	describe('entire card registration process with mangopay', () => {
-		it('should complete the card registration service for a test card provided by mangoPay', (done) => {
-			return mango.preRegisterCard('19767341').then((preRegistrationData) => {
+		it('should complete the card registration service for a test card provided by mangoPay', () => {
+			return mango.preRegisterCard('18559606').then((preRegistrationData) => {
 				let registrationData = mango.sendTestCardData(preRegistrationData).then((res) => {return res})
 				return registrationData
 			}).then((registrationData) => {
 				return mango.registerCard(registrationData.data, registrationData.registrationId)
 			}).then((cardId) => {
 				expect(cardId).to.exist;
-				done();
 			})
-		}).timeout(100000)
+		}).timeout(10000)
 	});
 
 	describe('make a single unique payment with a registered card', () => {
@@ -124,7 +123,7 @@ describe('mangopay API specific logic', () => {
 			})
 		}).timeout(10000);
 
-		it.only('should throw an exception, both users do not have payment accounts', (done) => {
+		it('should throw an exception, both users do not have payment accounts', (done) => {
 			mango.makeMonthlyPayment(5, 6, 100, 7).then((res) => {
 				assert(false, 'this call should not be successful');
 			}).catch((err) => {

@@ -88,9 +88,11 @@ export default class {
 			Currency: 'EUR',
 		}).then((preRegistrationData) => {
 			let updateStatus = paymentDAO.setCardRegistrationForAccount(accountId, 1, preRegistrationData.Id);
-			return [updateStatus, preRegistrationData]
+			return Promise.resolve([updateStatus, preRegistrationData])
 		}).then((values) => {
 			return values[1]
+		}).catch((err) => {
+			throw err;
 		})
 
 
@@ -128,12 +130,15 @@ export default class {
 			RegistrationData: registrationData,
 			Id: registrationId
 		}).then((res) => {
-			return res.CardId;
+			return registrationId;
 		})
 	}
 
-	 createPeriodicBacking(accountId, userId, changemakerId, amount, startDate){
-		return periodicBackingDAO.createPeriodicBacking(userId, changemakerId, amount, startDate);
+	 createPeriodicBacking(userId, changemakerId, amount, startDate){
+		return periodicBackingDAO.createPeriodicBacking(userId, changemakerId, amount, startDate).catch((err) => {
+			console.log(err)
+			throw err;
+		});
 	}
 
 	getCardId(cardRegistrationId){

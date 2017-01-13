@@ -53,8 +53,8 @@ export default class{
 
 
 	createRecurringPayment(paymentData){
-		return this.mango.createPeriodicBacking(paymentData.accountId,
-			paymentData.userId, paymentData.amount, paymentData.startDate)
+		return this.mango.createPeriodicBacking(paymentData.patronId, paymentData.changemakerId,
+			paymentData.amount, paymentData.startDate)
 	}
 
 	monthlyPayment(){
