@@ -1,8 +1,18 @@
 const assert = require('chai').assert;
+import axios from 'axios'
 const http = require('request-promise');
-
+import DBTestUtil from '../../../integration/dao/DBTestUtil'
 const urlbase = 'http://localhost:3000/api/payment'
+import chai from 'chai';
+const{expect} = chai;
+
 describe('/payment', () => {
+	before( (done) => {
+		DBTestUtil.refreshDB().then(() => {
+			done();
+		});
+	})
+
 	describe('/mango/register', () => {
 		it('API call to register user should correctly return a mango naturalUserId',(done) => {
 				let options = {
@@ -14,7 +24,9 @@ describe('/payment', () => {
 						birthday: 1320969600,
 						nationality: 'GB',
 						countryOfResidence: 'GB',
-						email: 'tom@mail.test.com'
+						email: 'tom@mail.test.com',
+						PersonType: 'NATURAL',
+						userId: 1
 					},
 					json:true
 				};
@@ -32,11 +44,13 @@ describe('/payment', () => {
 					method: 'POST',
 					uri: urlbase + '/mango/register',
 					body:{
+						firstName: 'Tom',
 						lastName: 'Walker',
 						birthday: 1320969600,
 						nationality: 'GB',
 						countryOfResidence: 'GB',
-						email: 'tom@mail.test.com'
+						email: 'tom@mail.test.com',
+						PersonType: 'NATURAL'
 					},
 					json:true
 				};
@@ -81,7 +95,7 @@ describe('/payment', () => {
 			let body = {
 				changemakerId: 2,
 				amount: 1000,
-				accountId: 18559606
+				accountId: '18559606'
         };
 
 			let options = {
@@ -95,10 +109,47 @@ describe('/payment', () => {
 					assert.isOK(false, 'the request should not have succeeded');
 					done();
 				})
-				.catch((err) => {
-					assert(400 === err.statusCode, 'the error has status code 400');
+				.catch(() => {
 					done();
 				})
 		}).timeout(10000);
+	})
+
+	describe('/mango/preregisterCard', () => {
+		it('should return the preregistration data', () => {
+			let formData = {
+				accountId: '18559606'
+			}
+			return axios({
+				url: `${urlbase}/mango/preregisterCard`,
+				method: 'post',
+				data: formData
+			}).then((res) => {
+				expect(res.data.Id).to.exist;
+				expect(res.data.AccessKey).to.exist;
+				expect(res.data.PreregistrationData).to.exist;
+				expect(res.data.CardRegistrationURL).to.exist;
+			})
+		}).timeout(10000)
+	})
+
+	describe('/mango/recurring', () => {
+		it('should return an instance of peridic backing', () => {
+			let today = new Date().getTime();
+			let formData = {
+				patronId: 9,
+				changemakerId: 8,
+				amount: 100,
+				startDate: today
+			}
+			return axios({
+				url: `${urlbase}/mango/recurring`,
+				method: 'post',
+				data: formData
+			}).then((res) => {
+				expect(new Date(res.data.startDate).getTime()).to.equal(today);
+				expect(res.data.fkBackingId).to.exist;
+			})
+		})
 	})
 })

@@ -24,4 +24,10 @@ function recordToShape(record) {
 }
 
 export const changemaker = PropTypes.shape(recordToShape(Types._ChangemakerRecord));
+
+export const children = PropTypes.oneOfType([
+  PropTypes.arrayOf(PropTypes.node),
+  PropTypes.node
+]);
+
 export const update = PropTypes.shape(recordToShape(Types._UpdateRecord));

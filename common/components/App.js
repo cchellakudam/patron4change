@@ -1,9 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import 'react-toolbox/lib/commons.scss';
-import styles from '../../client/css/modules/app.scss';
-const {Grid, Row, Col} = require('react-flexbox-grid');
 
 import '../../client/css/theme/app.scss';
+import styles from '../../client/css/modules/app.scss';
 
 export default class App extends Component {
 
@@ -14,24 +13,16 @@ export default class App extends Component {
 	static propTypes = {
 		nav: PropTypes.element.isRequired,
 		main: PropTypes.element.isRequired,
-		sub: PropTypes.element
+		sub: PropTypes.element,
+		location: PropTypes.any.isRequired
 	}
 
 	render() {
-		return <div>
+		let isStartPage = '/' === this.props.location.pathname;
+		return <div className={isStartPage ? styles.startPage : ''}>
 			{this.props.nav}
-			<Grid fluid className={styles.appGrid}>
-				<Row>
-					<Col xs={0} lg={2}></Col>
-					<Col xs={12} lg={8}>{this.props.main}</Col>
-					<Col xs={0} lg={2}></Col>
-				</Row>
-				<Row>
-					<Col xs={0} lg={2}></Col>
-					<Col xs={12} lg={8}>{this.props.sub}</Col>
-					<Col xs={0} lg={2}></Col>
-				</Row>
-			</Grid>
+			<main>{this.props.main}</main>
+			{this.props.sub}
 		</div>;
 	}
 }

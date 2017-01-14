@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
 
 import { AppBar } from 'react-toolbox/lib/app_bar';
 import { Navigation } from 'react-toolbox/lib/navigation';
@@ -14,7 +13,8 @@ const Empty = () => <span></span>;
 class MainNav extends React.Component {
 
   static propTypes = {
-    userId: PropTypes.number
+    userId: PropTypes.number,
+		location: PropTypes.any.isRequired
   }
 
   onNavigateToHome(e) {
@@ -28,14 +28,17 @@ class MainNav extends React.Component {
   }
 
   render() {
-    const img = <a href="/" onClick={this.onNavigateToHome} title="patron for change">
-      <img className={styles.logo} src="/public/images/logo.png" alt="patron4change logo" />
-    </a>;
+    const img = <img className={styles.logo} src="/public/images/logo.png" alt="patron4change logo" />;
+
     const { userId } = this.props;
     const currentUser = userId ? <span>Logged in as {userId}</span> : Empty;
-    return <AppBar title="&nbsp;" leftIcon={img}>
+
+    let isStartPage = '/' === this.props.location.pathname;
+
+    return <AppBar className={`${styles.appBar} ${isStartPage ? styles.startAppBar : ''}`}
+      title="&nbsp;" leftIcon={img} onLeftIconClick={this.onNavigateToHome}>
 			<Navigation type='horizontal'>
-        <Link href="/changemaker" onClick={this.onNavigateToSearch} icon="person">
+        <Link href="/changemaker" className={styles.changemakerLink} onClick={this.onNavigateToSearch} icon="person">
           Meine Changemaker
         </Link>
 				<Link href="/search" onClick={this.onNavigateToSearch} icon="search">

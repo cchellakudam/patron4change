@@ -12,7 +12,7 @@ export default (searchSvc) => {
       return { status: 400, message: `parameter q too long - maximum ${maxQueryLen} characters allowed` };
     }
     return searchSvc.search(q);
-  }, { validation: 400 }));
+  }));
 
   return router;
 }

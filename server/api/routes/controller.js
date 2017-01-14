@@ -1,11 +1,15 @@
-export default (controller, exceptionMapping) => {
+export default (controller, exceptionMapping_) => {
+
+  const exceptionMapping = Object.assign({
+    validation: 400
+  }, exceptionMapping_ || {});
 
   return (req, res, next) => {
     let params = {};
     if ('GET' !== req.method) {
       params.model = req.body;
     }
-    Object.assign(params, req.query);
+    Object.assign(params, req.query, req.params);
 
     let { logger } = req;
 

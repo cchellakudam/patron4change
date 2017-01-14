@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import * as SearchActions from '../actions/SearchActions';
 import { fetchNeeds } from '../utils/fetchComponentData';
 
-import Search from '../components/Search';
+import Search, { ResponsiveHint } from '../components/Search';
 
 export class SearchContainer extends Component {
 
@@ -28,7 +28,11 @@ export class SearchContainer extends Component {
 
 	render() {
 	  const {term} = this.props;
-	  return <Search title="patron4change" term={term} onSearch={this.actions.search} />;
+	  return <Search title="patron4change"
+			hint={ResponsiveHint()}
+			term={term}
+			onSearch={this.actions.search}
+			onHardConfirm={this.actions.search} />;
 	}
 }
 

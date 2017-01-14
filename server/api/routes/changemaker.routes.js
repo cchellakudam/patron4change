@@ -1,4 +1,15 @@
 import express from 'express';
+import controller from './controller';
+
+function toResult(cm) {
+	let clone = Object.assign({}, cm);
+	delete clone.user.pwhash;
+	delete clone.user.isBlocked;
+	delete clone.isApproved;
+	delete clone.fkUserId;
+	delete clone.fkContentId;
+	return clone;
+}
 
 export default (changemakerService) => {
 
@@ -10,22 +21,22 @@ export default (changemakerService) => {
 		});
 	});
 
+	router.get('/featured', controller(() => {
+		return changemakerService.getFeaturedChangemakers().then(cms => cms.map(toResult));
+	}));
+
+	router.get('/:id', controller(({ id }) => {
+		let nId = parseInt(id);
+		if (isNaN(nId)) {
+			return { status: 400, message: 'id needs to be a number' };
+		}
+		return changemakerService.getChangemakerById(nId);
+	}));
+
 	router.post('/', (req, res) => {
 		changemakerService.createChangemaker(req.body).then( id => {
 			res.location(`${req.baseUrl}/${id}`);
 			res.status(201).end();
-		});
-	});
-
-	router.get('/featured', (req,res) => {
-		changemakerService.getFeaturedChangemakers().then(changemakers => {
-			res.send(changemakers);
-		});
-	});
-
-	router.get('/:id', (req,res) => {
-		changemakerService.getChangemakerById(req.params.id).then(changemaker => {
-			res.send(changemaker);
 		});
 	});
 

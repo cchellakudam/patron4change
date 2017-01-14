@@ -16,8 +16,6 @@ module.exports = (sequelize, DataTypes) => {
 				Changemaker.mission = Changemaker.belongsTo(models.content, {foreignKey: 'fkContentId', as: 'mission'});
 				Changemaker.hasMany(models.statusUpdate, {as: 'statusUpdates', foreignKey: 'fkChangemakerId'});
 				Changemaker.hasMany(models.backing, {as: 'backings'})
-				Changemaker.belongsToMany(models.paymentProvider, {as: 'providers', through: models.paymentServiceData,
-						foreignKey: 'fkPaymentProviderId'})
 			}
 		},
 

@@ -4,6 +4,8 @@ import {AppBar} from 'react-toolbox/lib/app_bar';
 import {Link} from 'react-toolbox/lib/link';
 import {FontIcon} from 'react-toolbox/lib/font_icon';
 
+import styles from '../../client/css/modules/main-nav.scss';
+
 export default class SearchNav extends React.Component {
 
 	static propTypes = {
@@ -16,7 +18,7 @@ export default class SearchNav extends React.Component {
 	}
 
 	render() {
-		return <AppBar>
+		return <AppBar className={styles.appBar}>
 			<Link href="/" onClick={this.onNavigateToHome}>
 				<FontIcon value="arrow_back" />
 			</Link>

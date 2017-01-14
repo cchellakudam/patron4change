@@ -17,6 +17,7 @@ import config from '../webpack.config';
 import appConfig from 'config';
 
 import winstonRequestLogger from 'winston-request-logger';
+import pretty from 'express-prettify';
 
 import swaggerUi from 'swaggerize-ui';
 
@@ -41,7 +42,11 @@ app.use((req, res, next) => {
 });
 
 let bodyParser = require('body-parser');
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+
+if ('development' === process.env.NODE_ENV) {
+	app.use(pretty({ query: 'pretty' }));
+}
 
 app.use(winstonRequestLogger.create(logger, {
 	responseTime: ':responseTime ms', // outputs '5 ms'
@@ -64,7 +69,7 @@ runWorkers(appConfig.get('queues'), logger);
 
 // init database
 let databaseInit;
-if('unit' !== process.env.NODE_ENV){
+if('unit' !== process.env.NODE_ENV) {
 	databaseInit = model.sequelize.sync({
 		logging: str => logger.log('silly', str)
 	});

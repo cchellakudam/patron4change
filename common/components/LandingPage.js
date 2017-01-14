@@ -1,33 +1,67 @@
 import React, { PropTypes } from 'react';
-import { browserHistory } from 'react-router';
+import { Grid, Row, Col } from 'react-flexbox-grid';
 import { Button } from 'react-toolbox/lib/button';
-const { Row } = require('react-flexbox-grid');
+import { browserHistory } from 'react-router';
+
+import * as shapes from '../constants/Shapes';
+import Search from './Search';
 
 import styles from '../../client/css/modules/landing-page.scss';
 
-export default class LandingPage extends React.Component {
+class SideScroller extends React.Component {
 
   static propTypes = {
-    children: PropTypes.object
+    children: shapes.children.isRequired
   }
 
   render() {
-    return <div className={styles.container}>
-      <Row className={styles.callToAction}>
-        <Button label="Changemaker finden, Patron werden"
-          raised accent
-          className={styles.becomeChangemakerButton} />
-      </Row>
-      <Row className={styles.callToAction}>
-        {/* TODO move this to some other place and change styling */}
-        <Button label="Changemaker werden"
-          raised accent
-          className={styles.becomeChangemakerButton}
-          onClick={browserHistory.push.bind(this, '/changemaker/new')} />
-      </Row>
-			<Row>
-				{this.props.children}
-			</Row>
-		</div>;
+    let wrappedChildren = React.Children.map(this.props.children, child => {
+      return <div className={styles.sideScrollerItem}>{child}</div>;
+    });
+    return <div className={styles.sideScroller}>
+      {wrappedChildren}
+    </div>;
   }
 }
+
+class LandingPage extends React.Component {
+
+  static propTypes = {
+    children: PropTypes.object,
+    term: PropTypes.string.isRequired,
+    onSearch: PropTypes.func.isRequired
+  }
+
+  render() {
+    let { term } = this.props;
+
+    return <Grid className={styles.container}>
+      <Row>
+        <img className={styles.startLogo} src="/public/images/logo.png" alt="patron4change logo" />
+      </Row>
+      <Row className={styles.callToActionContainer}>
+        <Col xs={0} md={3} lg={3} />
+        <Col xs={12} md={6} lg={6} className={styles.callToAction}>
+          <h2 className={styles.callToActionText}>Was wolltest du schon immer an der Welt verändert sehen?</h2>
+          <Search hint="Inspirierende Changemaker finden"
+            term={term}
+            onSearch={t => this.props.onSearch(t, false)}
+            onHardConfirm={t => this.props.onSearch(t, true)} />
+        </Col>
+        <Col xs={0} md={3} lg={3} />
+      </Row>
+			<Row>
+        <Col xs={0} md={1} lg={1} />
+        <Col xs={12} md={10} lg={10}>
+          <h2 className={styles.featuredTitle}>Aktive Changemaker</h2>
+          <SideScroller>
+  				    {this.props.children}
+          </SideScroller>
+        </Col>
+        <Col xs={0} md={1} lg={1} />
+			</Row>
+		</Grid>;
+  }
+}
+
+export default LandingPage;
