@@ -40,11 +40,11 @@ export default class {
 		return models.changemaker.findAll();
 	}
 
-	static getById(id) {
+	static getChangemakerById(id) {
 		if ('number' !== typeof id) {
 			throw new Error('changemaker id must be a number');
 		}
-		const cm = models.changemaker.find({
+		return models.changemaker.find({
 			where: { id: id },
 			include: [
 				{model: models.user, as:'user'},
@@ -55,17 +55,7 @@ export default class {
 			],
 			order: [
 				[{model: models.statusUpdate, as: 'statusUpdates'}, 'createdAt', 'DESC']
-			],
-			raw: true
-		});
-		const lastUpdate = sequelize.query(`
-			SELECT max("statusUpdates"."createdAt") FROM "statusUpdates" WHERE "statusUpdates"."fkChangemakerId" = ?;`,
-			{ replacements: [id], type: sequelize.QueryTypes.SELECT });
-		return Promise.all([cm, lastUpdate]).then(([c, l]) => {
-			const basis = Object.assign({
-				lastStatusUpdate: l[0].max
-			}, prepareDTO(c));
-			return mapToResultModel(basis);
+			]
 		});
 	}
 
@@ -93,4 +83,16 @@ export default class {
 			.then(cms => cms.map(prepareDTO).map(mapToResultModel));
 	}
 
+	static createChangemaker(data) {
+		// TODO use current user
+		data.fkUserId = 1;
+		return models.changemaker.create(
+			data,
+			{
+				include: [ models.changemaker.mission ]
+			}
+		).then( changemaker => {
+			return changemaker.id;
+		});
+	}
 }

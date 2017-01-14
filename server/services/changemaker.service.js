@@ -9,7 +9,7 @@ export default class {
 	}
 
 	getChangemakerById(id) {
-		return this.dao.getById(id);
+		return this.dao.getChangemakerById(id);
 	}
 
 	getChangemakerByUsername(username) {
@@ -22,5 +22,9 @@ export default class {
 
 	getUpdatesByUserId(){
 		return Promise.resolve([]);
+	}
+
+	createChangemaker(changemaker) {
+		return this.dao.createChangemaker(changemaker);
 	}
 }

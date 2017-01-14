@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
+import { Button } from 'react-toolbox/lib/button';
+import { browserHistory } from 'react-router';
 
 import * as shapes from '../constants/Shapes';
 import Search from './Search';

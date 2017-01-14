@@ -6,6 +6,7 @@ import LandingPageContainer from '../containers/LandingPageContainer';
 import SearchContainer from '../containers/SearchContainer';
 import SearchResultContainer from '../containers/SearchResultContainer';
 import ChangemakerProfileContainer from '../containers/ChangemakerProfileContainer';
+import ChangemakerProfileEditorContainer from '../containers/ChangemakerProfileEditorContainer';
 import MainNav from '../containers/MainNav';
 
 import SearchNav from '../components/SearchNav';
@@ -28,6 +29,9 @@ export default (
   // for admins - a list of all changemakers, whereas the unvetted changemakers are shown first
 	<Route path="/changemaker"
 		   components={{main: Empty, nav: MainNav, sub: Empty}} />
+
+	<Route path="/changemaker/new"
+		   components={{main: ChangemakerProfileEditorContainer, nav: MainNav, sub: Empty}} />
 
   // changemaker detail page
 	<Route path="/changemaker/:changemakerId"
