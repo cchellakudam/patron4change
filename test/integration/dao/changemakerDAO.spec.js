@@ -30,7 +30,7 @@ describe('changemakerDAO', () => {
 		it('should return the specified result model', () => {
 
 			return changemakerDAO.getChangemakerById(exampleChangemakerId).then(changemaker => {
-				//TODO compare exactly with the values that have been inserted
+				// TODO compare exactly with the values that have been inserted
         expect(changemaker).to.have.property('id', 1);
 				expect(changemaker).to.have.deep.property('user.firstName', 'Matthias');
 				expect(changemaker).to.have.deep.property('user.lastName', 'Holzer');
