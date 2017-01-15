@@ -123,5 +123,7 @@
     "max-params": [2, 6], // limits the number of parameters that can be used in the function declaration
     "max-statements": [2, 30], // specify the maximum number of statement allowed in a function
     "no-bitwise": 2,      // disallow use of bitwise operators
+
+    "react/prop-types": 0
   }
 }

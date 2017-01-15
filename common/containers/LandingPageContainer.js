@@ -43,7 +43,7 @@ class LandingPageContainer extends Component {
 	}
 
 	render() {
-	  const {featuredChangemakers, userId, term } = this.props;
+	  const { featuredChangemakers, userId, term } = this.props;
 
 	  const nodes = featuredChangemakers.map( cm => {
 			return <ChangemakerCard
@@ -63,7 +63,7 @@ class LandingPageContainer extends Component {
 }
 
 export default connect( (state/* , ownProps */) => ({
-	featuredChangemakers: state.cm.changemakers.filter(c => state.cm.featuredChangemakers.valueSeq().includes(c.id)),
+	featuredChangemakers: state.cm.changemakers.filter(c => state.cm.featuredChangemakers.includes(c.id)),
 	userId: state.app.userId,
 	term: state.search.term
 }) )(LandingPageContainer);

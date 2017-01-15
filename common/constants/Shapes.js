@@ -23,11 +23,26 @@ function recordToShape(record) {
   }, {});
 }
 
-export const changemaker = PropTypes.shape(recordToShape(Types._ChangemakerRecord));
+export const user = PropTypes.shape({
+  firstName: PropTypes.string.isRequired,
+  lastName: PropTypes.string.isRequired
+})
+
+export const changemaker = PropTypes.shape({
+  id: PropTypes.number.isRequired,
+  user
+});
+
+export const supporter = PropTypes.shape(recordToShape(Types._UserRecord));
 
 export const children = PropTypes.oneOfType([
   PropTypes.arrayOf(PropTypes.node),
   PropTypes.node
 ]);
+
+export const immutableRecord = PropTypes.oneOfType([
+  PropTypes.object.isRequired,
+  PropTypes.array.isRequired
+]).isRequired;
 
 export const update = PropTypes.shape(recordToShape(Types._UpdateRecord));

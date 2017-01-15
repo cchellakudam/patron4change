@@ -7,6 +7,7 @@ import SearchContainer from '../containers/SearchContainer';
 import SearchResultContainer from '../containers/SearchResultContainer';
 import ChangemakerProfileContainer from '../containers/ChangemakerProfileContainer';
 import MainNav from '../containers/MainNav';
+import TestPage from '../containers/TestPage';
 
 import SearchNav from '../components/SearchNav';
 import App from '../components/App';
@@ -42,6 +43,9 @@ export default (
 
   <Route path="/login"
 			 components={{main: LoginContainer, nav: MainNav, sub: Empty}} />
+
+  <Route path="/test/:componentId"
+			 components={{main: TestPage, nav: Empty, sub: Empty}} />
 
 	<Route path="*"
 		   components={{main: NotFound, nav: MainNav, sub: Empty}} />

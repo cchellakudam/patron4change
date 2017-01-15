@@ -281,9 +281,11 @@ definitions:
       changemaker_id:
         type: integer
         description: ID of the Changemaker who is backed
+      # TODO changemakerName
       patron_id:
         type: integer
         description: ID of the Patron who is backing
+      # TODO patronName
       type:
         type: string
         description: (enum) regular or single
