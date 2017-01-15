@@ -55,4 +55,14 @@ export default class {
 			return convertToRecordList(res.data, SearchResultRecord);
 		});
 	}
+
+	static uploadVideo(file) {
+		const fileData = new FormData();
+		fileData.append('file', file, file.name);
+		return axios.post('/api/media/', fileData, {
+			params: {
+				type: 'video'
+			}
+		});
+	}
 }

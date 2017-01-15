@@ -27,6 +27,10 @@ class ChangemakerProfileEditorContainer extends Component {
     this.actions.saveChangemaker(changemaker);
   }
 
+  onChangeVideoFile(file) {
+    this.actions.uploadVideo(file);
+  }
+
   componentDidUpdate() {
     if (this.state.saved && this.props.changemaker.id) {
       browserHistory.push(`/changemaker/${this.props.changemaker.id}`);
@@ -38,7 +42,8 @@ class ChangemakerProfileEditorContainer extends Component {
     if (!changemaker) {
       changemaker = new Changemaker();
     }
-		return <ChangemakerProfileEditor changemaker={changemaker} onSave={this.onSave.bind(this)} />;
+		return <ChangemakerProfileEditor changemaker={changemaker}
+      onSave={this.onSave.bind(this)} onChangeVideoFile={this.onChangeVideoFile.bind(this)} />;
 	}
 }
 

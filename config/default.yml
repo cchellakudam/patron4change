@@ -24,6 +24,13 @@ search:
 elasticsearch:
   host: localhost:9200
 
+storage:
+  host: p4c-storage.p-h.im
+  port: 443
+  bucketName: uploads
+  accessKey: minio
+  secretKey: jUvN0mNiZbgiphR6iEnG
+
 queues:
   -
     name: updateSearchIndex
