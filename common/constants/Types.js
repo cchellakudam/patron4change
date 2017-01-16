@@ -67,3 +67,9 @@ export function convertMapToImmutable( map, Def ){
 			return acc.set( item.id, new Def(item) );
 		}, Immutable.Map() );
 }
+
+export const LoginState = Immutable.Record({
+	profile: null,
+	isAuthenticated: false,
+	error: ''
+})

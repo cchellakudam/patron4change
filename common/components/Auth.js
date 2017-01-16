@@ -1,47 +1,29 @@
 import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as LoginActions from '../actions/LoginActions'
+import { Link } from 'react-toolbox/lib/link';
+import styles from '../../client/css/modules/main-nav.scss';
 
-class Login extends Component{
 
-	 static propTypes = {
-		onLoginClick: PropTypes.func.isRequired,
-		errorMessage: PropTypes.string
-	}
-
-	constructor(props, context){
-	 	super(props, context);
-	 	this.actions = bindActionCreators(LoginActions, props.dispatch)
+export default class Auth extends Component {
+	constructor(props) {
+		super(props)
 	}
 
 	render() {
-		const { errorMessage } = this.props
-
+		const { onLoginClick, onLogoutClick, isAuthenticated, profile } = this.props
 		return (
-			<div>
-			<input type='text' ref='username' className="form-control" style= placeholder='Username'/>
-			<input type='password' ref='password' className="form-control" style= placeholder='Password'/>
-			<button onClick={(event) => this.handleClick(event)} className="btn btn-primary">
+			<div style={{ marginTop: '10px' }}>
+		{ !isAuthenticated ? (
+		<Link className={styles.changemakerLink} onClick={onLoginClick} icon="person">
 			Login
-			</button>
-
-			{errorMessage &&
-			<p style=>{errorMessage}</p>
-			}
-			</div>
-		)
+		</Link>
+		) : (
+		<ul className="list-inline">
+			<li><img src={profile.picture} height="40px" /></li>
+			<li><span>Welcome, {profile.nickname}</span></li>
+		<li><button className="btn btn-primary" onClick={onLogoutClick}>Logout</button></li>
+			</ul>
+		)}
+	</div>
+	)
 	}
-
-	handleClick(event) {
-		const username = this.refs.username
-		const password = this.refs.password
-		const creds = { username: username.value.trim(), password: password.value.trim() }
-		this.props.onLoginClick(creds)
-	}
-
 }
-
-export default connect((state) => {
-
-})

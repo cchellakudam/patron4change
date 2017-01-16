@@ -1,5 +1,5 @@
-@import url("../../styles/base.css");
-@import url("../../styles/queries.css");
+@import url("./base.css");
+@import url("./queries.css");
 
 .wrapper {
   overflow-y: scroll;
