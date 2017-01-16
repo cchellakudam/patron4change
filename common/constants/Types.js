@@ -69,7 +69,6 @@ export function convertMapToImmutable( map, Def ){
 }
 
 export const LoginState = Immutable.Record({
-	profile: null,
 	isAuthenticated: false,
-	error: ''
+	profile: null
 })

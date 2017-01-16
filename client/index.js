@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { Router, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import configureStore from '../common/utils/configureStore';
-import { ChangemakerState, SearchState, AppState, ChangemakerRecord, convertToRecordList } from '../common/constants/Types';
+import { ChangemakerState, SearchState, AppState, ChangemakerRecord, convertToRecordList, LoginState } from '../common/constants/Types';
 import routes from '../common/routes/routing';
 
 let state = null;
@@ -24,6 +24,12 @@ if (window.$REDUX_STATE) {
 	state.app = new AppState({
 		$$fetched: '/' === document.location.pathname,
 		userId: state.app.userId || localStorage.userId
+	})
+
+	state.login = new LoginState({
+		$fetched: '/' === document.location.pathname,
+		isAuthenticated: localStorage.id_token ? true:false,
+		profile: JSON.parse(localStorage.profile) || null
 	})
 }
 

@@ -7,8 +7,9 @@ import { Link } from 'react-toolbox/lib/link';
 import { browserHistory } from 'react-router';
 import Auth from '../components/Auth.js'
 import styles from '../../client/css/modules/main-nav.scss';
-import * as LoginActions from '../actions/LoginActions'
+import * as LoginActions from '../actions/AuthActions'
 import { bindActionCreators } from 'redux';
+import {doAuthentication} from '../actions/AuthActions'
 
 const Empty = () => <span></span>;
 
@@ -23,7 +24,7 @@ class MainNav extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.actions = bindActionCreators(LoginActions, props.dispatch);
-		this.handleLoginClick = this.handleLoginClick.bind(this)
+		this.handleLoginClick = this.handleLoginClick.bind(this);
 	}
 
   onNavigateToHome(e) {
@@ -76,5 +77,6 @@ class MainNav extends React.Component {
 export default connect( (state) => ({
 	userId: state.app.userId,
 	isAuthenticated: state.login.isAuthenticated,
-	profile: state.login.profile
+	profile: state.login.profile,
+	loginData: state.login.loginData
 }) )(MainNav);

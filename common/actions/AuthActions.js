@@ -1,21 +1,25 @@
 import Auth0Lock from 'auth0-lock'
 import types from '../constants/ActionTypes'
 
+const [SUCCESS, ERROR] = [
+	types.LOGIN_SUCCESS,
+	types.LOGIN_ERROR
+];
 
-function loginSuccess(profile) {
+function loginSuccess(profile){
+	debugger
 	return {
-		type: types.LOGIN_SUCCESS,
-		profile
+		type: SUCCESS,
+		profile,
 	}
 }
 
 function loginError(err) {
 	return {
-		type: types.LOGIN_ERROR,
+		type: ERROR,
 		errs
 	}
 }
-
 
 
 export function login() {
@@ -35,15 +39,22 @@ export function login() {
 	}
 
 	const lock = new Auth0Lock('96GtA8F9eFYDP6mH3E2PxXt4NZiuOi8D', 'patron4change.eu.auth0.com', options)
+
 	return dispatch => {
-		lock.show((err, profile, token) => {
-			if(err) {
-				return dispatch(loginError(err))
-			}
-			localStorage.setItem('profile', JSON.stringify(profile))
-			localStorage.setItem('id_token', token)
-			return dispatch(loginSuccess(profile))
-		})
+		lock.show()
+		lock.on("authenticated", function(authResult) {
+			lock.getProfile(authResult.idToken, function(error, profile) {
+
+				if (error) {
+					// handle error
+					return dispatch(lockError(error))
+				}
+
+				localStorage.setItem('profile', JSON.stringify(profile))
+				localStorage.setItem('id_token', authResult.idToken)
+				return dispatch(loginSuccess(profile))
+			});
+		});
 	}
 }
 

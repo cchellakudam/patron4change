@@ -4,6 +4,7 @@ import createReducer from '../utils/createReducer';
 import types from '../constants/ActionTypes';
 
 function GLOBAL_SEARCH_REQUEST( state, action ) {
+	debugger
 	return state.set('term', action.term);
 }
 

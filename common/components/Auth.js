@@ -17,11 +17,9 @@ export default class Auth extends Component {
 			Login
 		</Link>
 		) : (
-		<ul className="list-inline">
-			<li><img src={profile.picture} height="40px" /></li>
-			<li><span>Welcome, {profile.nickname}</span></li>
-		<li><button className="btn btn-primary" onClick={onLogoutClick}>Logout</button></li>
-			</ul>
+		<Link className={styles.changemakerLink} onClick={onLogoutClick} icon="person">
+			Logout ({profile.name})
+			</Link>
 		)}
 	</div>
 	)
