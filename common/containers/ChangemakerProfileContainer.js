@@ -11,7 +11,8 @@ import { fetchNeeds } from '../utils/fetchComponentData';
 export class ChangemakerProfileContainer extends Component {
 
 	static needs = [
-		ChangemakerActions.getChangemakerById
+		ChangemakerActions.getChangemakerById,
+		ChangemakerActions.getBackings
 	];
 
 	constructor() {

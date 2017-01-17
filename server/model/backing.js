@@ -7,7 +7,17 @@ module.exports = (sequelize, DataTypes) => {
 			primaryKey: true
 		},
 		amount: {
-			type: DataTypes.INTEGER
+			type: DataTypes.INTEGER,
+			allowNull: false,
+			validate: {
+					isInt: true
+			}
+		},
+		comment: {
+			type: DataTypes.STRING,
+			validate: {
+				len: [1, 100]
+			}
 		}
 	}, {
 		classMethods:{

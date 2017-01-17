@@ -1,5 +1,5 @@
 import models from '../../../server/model/index';
-import { createData } from './testInsert';
+import { testInsert } from './testInsert';
 
 export default class {
 
@@ -7,6 +7,6 @@ export default class {
 		return models.sequelize.sync({
 			force: true,
 			logging: false
-		}).then(() => createData(models));
+		}).then(() => testInsert(models));
 	}
 }

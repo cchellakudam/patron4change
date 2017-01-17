@@ -15,29 +15,7 @@ if (window.$REDUX_STATE) {
 		changemaker: {},
 		changemakers: [],
 		featuredChangemakers: [],
-		backings: [
-			{
-				id: 1,
-				supporter: {
-					firstName: 'Marcel',
-					lastName: 'Zeilinger',
-					avatarUrl: 'https://randomuser.me/api/portraits/med/men/10.jpg'
-				},
-				amount: 50,
-				type: 'recurring',
-				comment: 'Großer Fan deiner Arbeit!'
-			},  {
-			 id: 2,
-			 supporter: {
-				 firstName: 'Klara',
-				 lastName: 'goldfaden',
-				 avatarUrl: 'https://randomuser.me/api/portraits/med/women/21.jpg'
-			 },
-			 amount: 500,
-			 type: 'one-time',
-			 comment: 'Mach weiter so!'
-		 }
-		]
+		backings: []
 	};
 
 	state.search = {

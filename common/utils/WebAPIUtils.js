@@ -27,6 +27,12 @@ export default class {
 		});
 	}
 
+	static getBackingsByChangemakerId(id) {
+		return axios('/api/changemakers/' + id + '/backings').then(res => {
+			return res.data;
+		});
+	}
+
 	static search(term) {
 		if (!term) {
 			return Promise.resolve([]);

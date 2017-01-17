@@ -4,21 +4,24 @@
 		"fkSenderId": 1,
 		"fkRecipientId": 2,
 		"amount": 25,
-		"createdAt": "2016-01-08T12:58:00.000Z"
+		"createdAt": "2016-01-08T12:58:00.000Z",
+		"comment": "Mach weiter so!"
 	},
 	{
 		"id":10,
 		"fkSenderId": 2,
 		"fkRecipientId": 1,
 		"amount": 1000,
-		"createdAt": "2016-02-08T12:58:00.000Z"
+		"createdAt": "2016-02-08T12:58:00.000Z",
+		"comment": "Gute Arbeit!"
 	},
 	{
 		"id":2,
 		"fkSenderId": 2,
 		"fkRecipientId": 3,
 		"amount": 25,
-		"createdAt": "2016-03-11T12:58:00.000Z"
+		"createdAt": "2016-03-11T12:58:00.000Z",
+		"comment": "Deine Ideen sind genial"
 	},
 
 	{
@@ -26,7 +29,8 @@
 		"fkSenderId": 3,
 		"fkRecipientId": 4,
 		"amount": 1250,
-		"createdAt": "2016-03-22T12:58:00.000Z"
+		"createdAt": "2016-03-22T12:58:00.000Z",
+		"comment": ""
 	},
 
 	{
@@ -34,7 +38,8 @@
 		"fkSenderId": 4,
 		"fkRecipientId": 5,
 		"amount": 25,
-		"createdAt": "2016-03-23T12:58:00.000Z"
+		"createdAt": "2016-03-23T12:58:00.000Z",
+		"comment": ""
 	},
 
 	{
@@ -42,7 +47,8 @@
 		"fkSenderId": 5,
 		"fkRecipientId": 6,
 		"amount": 25,
-		"createdAt": "2016-04-03T12:58:00.000Z"
+		"createdAt": "2016-04-03T12:58:00.000Z",
+		"comment": "Danke für deinen Beitrag zur Gesellschaft"
 	},
 
 	{
@@ -50,7 +56,8 @@
 		"fkSenderId": 6,
 		"fkRecipientId": 7,
 		"amount": 25,
-		"createdAt": "2016-04-10T12:58:00.000Z"
+		"createdAt": "2016-04-10T12:58:00.000Z",
+		"comment": "Wahnsinn was du da auf die Beine stellst"
 	},
 
 	{
@@ -58,7 +65,8 @@
 		"fkSenderId": 7,
 		"fkRecipientId": 8,
 		"amount": 25,
-		"createdAt": "2016-04-12T12:58:00.000Z"
+		"createdAt": "2016-04-12T12:58:00.000Z",
+		"comment": "Meine Unterstützung hast du :=)"
 	},
 
 	{

@@ -1,6 +1,6 @@
 /* eslint no-console: 0 */
 
-function createData(models) {
+function testInsert(models) {
 	return models.content.bulkCreate(require('../../../mock/content.json'))
 		.then(() => {
 			return models.user.bulkCreate(require('../../../mock/users.json'));
@@ -22,4 +22,4 @@ function createData(models) {
 		});
 }
 
-module.exports = { createData };
+module.exports = { testInsert };

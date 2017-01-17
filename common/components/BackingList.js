@@ -5,13 +5,15 @@ class BackingList extends React.Component {
 
   static propTypes = {
     onSupport: PropTypes.func.isRequired,
+    recipientName: PropTypes.string.isRequired,
     RecurringBackings: PropTypes.arrayOf(PropTypes.element.isRequired).isRequired,
     OneTimeBackings: PropTypes.arrayOf(PropTypes.element.isRequired).isRequired
   }
 
   render() {
+    let { recipientName } = this.props;
     return <List ripple>
-      <ListSubHeader caption="patrons" />
+      <ListSubHeader caption={`${recipientName}'s patrons`} />
       {this.props.RecurringBackings}
       <ListDivider />
       <ListItem caption="Diesen Changemaker unterstützen" leftIcon="send" onClick={this.props.onSupport} />
