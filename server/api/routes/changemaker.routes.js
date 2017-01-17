@@ -41,7 +41,15 @@ export default (changemakerService) => {
 		});
 	})
 
-	router.get('/:username', (req,res) => {
+	router.get('/:id/backings', controller(({ id }) => {
+		let nId = parseInt(id);
+		if (isNaN(nId)) {
+			return { status: 400, message: 'id needs to be a number' };
+		}
+		return changemakerService.getBackingsByChangemakerId(nId);
+	}));
+
+	router.get('/:username', (req, res) => {
 		res.send({});
 	});
 

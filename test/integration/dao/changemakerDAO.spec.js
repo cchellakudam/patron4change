@@ -46,7 +46,7 @@ describe('changemakerDAO', () => {
 			return changemakerDAO.getFeatured().then((changemakers) => {
 				let higher = +new Date(changemakers[0].lastStatusUpdate);
 				let lower = +new Date(changemakers[1].lastStatusUpdate);
-        expect(higher).to.be.at.least(lower);
+        expect(higher).to.be.above(lower);
 			});
 		});
 

@@ -44,9 +44,7 @@ app.use((req, res, next) => {
 let bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
-if ('development' === process.env.NODE_ENV) {
-	app.use(pretty({ query: 'pretty' }));
-}
+app.use(pretty({ query: 'pretty' }));
 
 app.use(winstonRequestLogger.create(logger, {
 	responseTime: ':responseTime ms', // outputs '5 ms'

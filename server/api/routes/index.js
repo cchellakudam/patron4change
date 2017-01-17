@@ -9,6 +9,7 @@ import paymentRoutes from './payment.routes'
 
 import changemakerDao from '../../data/changemakerDAO';
 import userDAO from '../../data/userDAO';
+import backingDAO from '../../data/backingDAO';
 
 import ChangemakerService from '../../services/changemaker.service.js';
 import PatronService from '../../services/patron.service.js';
@@ -27,7 +28,7 @@ router.get('/', (req, res) => {
 
 const paymentsvcs = {mango: new mangoService()};
 
-router.use('/changemakers', changemakerRoutes(new ChangemakerService(changemakerDao)));
+router.use('/changemakers', changemakerRoutes(new ChangemakerService(changemakerDao, backingDAO)));
 router.use('/users', userRoutes(new UsersService(userDAO)));
 router.use('/patrons', patronRoutes(new PatronService(userDAO)));
 router.use('/admins', adminRoutes(new UsersService(userDAO)));

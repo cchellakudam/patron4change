@@ -81,18 +81,6 @@ const initialState = {
 	changemaker: {},
 	changemakers: [],
 	featuredChangemakers: [],
-	backings: [
-		{
-			id: 1,
-			supporter: {
-				firstName: 'Marcel',
-				lastName: 'Zeilinger',
-				avatarUrl: 'https://randomuser.me/api/portraits/med/men/10.jpg'
-			},
-			amount: 50,
-			type: 'recurring',
-			comment: 'LALALALALA'
-		}
-	]
+	backings: []
 };
 export default createReducer( initialState, handlers );

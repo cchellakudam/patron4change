@@ -1,4 +1,5 @@
 import models, { sequelize } from '../model';
+import { extractProps } from '../utils/modelUtils';
 
 const CHANGEMAKER_LIMIT_LANDING_PAGE = 5;
 
@@ -9,18 +10,6 @@ function mapToResultModel(changemaker) {
 	return Object.assign(changemaker, {
 		name: `${changemaker.user.firstName} ${changemaker.user.lastName}`
 	});
-}
-
-function extractProps(raw, prefix) {
-	return Object.keys(raw).reduce((ctx, next) => {
-		if (next.startsWith(prefix)) {
-			let prop = next.split('.')[1];
-			let keyInRaw = prefix + '.' + prop;
-			ctx[prop] = raw[keyInRaw];
-			delete raw[keyInRaw];
-		}
-		return ctx;
-	}, {});
 }
 
 function prepareDTO(rawCm) {
