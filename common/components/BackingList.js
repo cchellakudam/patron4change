@@ -1,5 +1,8 @@
 import React, { PropTypes } from 'react';
+import { Button } from 'react-toolbox/lib/button';
 import { List, ListItem, ListSubHeader, ListDivider } from 'react-toolbox/lib/list';
+
+import styles from '../../client/css/modules/backing-list.scss';
 
 class BackingList extends React.Component {
 
@@ -12,11 +15,12 @@ class BackingList extends React.Component {
 
   render() {
     let { recipientName } = this.props;
-    return <List ripple>
+    return <List className={styles.list} ripple>
+      <Button primary raised className={styles.supportBtn}
+        label="Diesen Changemaker unterstützen"
+        icon="send" onClick={this.props.onSupport} />
       <ListSubHeader caption={`${recipientName}'s patrons`} />
       {this.props.RecurringBackings}
-      <ListDivider />
-      <ListItem caption="Diesen Changemaker unterstützen" leftIcon="send" onClick={this.props.onSupport} />
       <ListDivider />
       <ListSubHeader id="one-time-payments" caption="einmalige Unterstützungen" />
       {this.props.OneTimeBackings}
