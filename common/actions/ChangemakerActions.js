@@ -56,6 +56,18 @@ export function supportChangemaker(changemakerId) {
 	};
 }
 
+export function saveChangemaker(changemaker) {
+	return {
+		types: [
+			types.SAVE_CHANGEMAKER_PROFILE_REQUEST,
+			types.SAVE_CHANGEMAKER_PROFILE_SUCCESS,
+			types.SAVE_CHANGEMAKER_PROFILE_ERROR
+		],
+		changemaker,
+		promise: WebAPIUtils.saveChangemaker(changemaker)
+	};
+}
+
 export function readAllUpdatesByUserId(id) {
 	let promise = WebAPIUtils.getAllUpdatesByUserId(id);
 	return {

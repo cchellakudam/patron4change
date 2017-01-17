@@ -1,6 +1,5 @@
 [
 	{
-		"id":1,
 		"fkSenderId": 1,
 		"fkRecipientId": 2,
 		"amount": 25,
@@ -8,15 +7,6 @@
 		"comment": "Mach weiter so!"
 	},
 	{
-		"id":10,
-		"fkSenderId": 2,
-		"fkRecipientId": 1,
-		"amount": 1000,
-		"createdAt": "2016-02-08T12:58:00.000Z",
-		"comment": "Gute Arbeit!"
-	},
-	{
-		"id":2,
 		"fkSenderId": 2,
 		"fkRecipientId": 3,
 		"amount": 25,
@@ -25,7 +15,6 @@
 	},
 
 	{
-		"id":3,
 		"fkSenderId": 3,
 		"fkRecipientId": 4,
 		"amount": 1250,
@@ -34,7 +23,6 @@
 	},
 
 	{
-		"id":4,
 		"fkSenderId": 4,
 		"fkRecipientId": 5,
 		"amount": 25,
@@ -43,7 +31,6 @@
 	},
 
 	{
-		"id":5,
 		"fkSenderId": 5,
 		"fkRecipientId": 6,
 		"amount": 25,
@@ -52,7 +39,6 @@
 	},
 
 	{
-		"id":6,
 		"fkSenderId": 6,
 		"fkRecipientId": 7,
 		"amount": 25,
@@ -61,7 +47,6 @@
 	},
 
 	{
-		"id":7,
 		"fkSenderId": 7,
 		"fkRecipientId": 8,
 		"amount": 25,
@@ -70,7 +55,6 @@
 	},
 
 	{
-		"id":8,
 		"fkSenderId": 8,
 		"fkRecipientId": 9,
 		"amount": 25,
@@ -78,12 +62,18 @@
 	},
 
 	{
-		"id":9,
+		"fkSenderId": 2,
+		"fkRecipientId": 1,
+		"amount": 1000,
+		"createdAt": "2016-02-08T12:58:00.000Z",
+		"comment": "Gute Arbeit!"
+	},
+
+	{
 		"fkSenderId": 9,
 		"fkRecipientId": 1,
 		"amount": 25,
 		"createdAt": "2016-05-01T12:58:00.000Z"
 	}
-
 
 ]

@@ -12,8 +12,8 @@ export default (sequelize, DataTypes) => {
 	}, {
 		classMethods:{
 			associate: function(models){
-				paymentProvider.belongsToMany(models.changemaker,
-						{as: 'paymentAccountId', through: models.paymentServiceData, foreignKey: 'fkChangemakerId'});
+				paymentProvider.belongsToMany(models.user,
+						{as: 'user', through: models.paymentServiceData, foreignKey: 'fkPaymentProviderId'});
 			}
 		},
 

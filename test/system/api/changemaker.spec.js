@@ -118,6 +118,7 @@ describe('/changemakers', () => {
 				})
 				.catch(err => {
 					expect(err.response.status).to.equal(400);
+					done();
 				});
 		});
 

@@ -4,9 +4,10 @@ import { testInsert } from './testInsert';
 export default class {
 
 	static refreshDB() {
+		const logging = false;
 		return models.sequelize.sync({
 			force: true,
-			logging: false
-		}).then(() => testInsert(models));
+			logging
+		}).then(() => testInsert(models, logging));
 	}
 }

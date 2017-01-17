@@ -54,6 +54,12 @@ function GET_CHANGEMAKER_BY_ID_SUCCESS(state, action) {
 	return { ...state, changemaker: action.result };
 }
 
+function SAVE_CHANGEMAKER_PROFILE_REQUEST(state) {return state; }
+function SAVE_CHANGEMAKER_PROFILE_ERROR(state) {return state; }
+function SAVE_CHANGEMAKER_PROFILE_SUCCESS(state, action) {
+	return { ...state, changemaker: action.result };
+}
+
 const handlers =
 {
 	[types.READ_ALL_CHANGEMAKERS_REQUEST]: READ_ALL_CHANGEMAKERS_REQUEST,
@@ -74,7 +80,11 @@ const handlers =
 
 	[types.GET_BACKINGS_REQUEST]: GET_BACKINGS_REQUEST,
 	[types.GET_BACKINGS_SUCCESS]: GET_BACKINGS_SUCCESS,
-	[types.GET_BACKINGS_ERROR]: GET_BACKINGS_ERROR
+	[types.GET_BACKINGS_ERROR]: GET_BACKINGS_ERROR,
+
+	[types.SAVE_CHANGEMAKER_PROFILE_REQUEST]: SAVE_CHANGEMAKER_PROFILE_REQUEST,
+	[types.SAVE_CHANGEMAKER_PROFILE_SUCCESS]: SAVE_CHANGEMAKER_PROFILE_SUCCESS,
+	[types.SAVE_CHANGEMAKER_PROFILE_ERROR]: SAVE_CHANGEMAKER_PROFILE_ERROR
 }
 
 const initialState = {

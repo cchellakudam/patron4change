@@ -1,8 +1,6 @@
 import express from 'express';
 import controller from './controller';
 
-// changemaker specific stuff
-
 function toResult(cm) {
 	let clone = Object.assign({}, cm);
 	delete clone.user.pwhash;
@@ -32,8 +30,15 @@ export default (changemakerService) => {
 		if (isNaN(nId)) {
 			return { status: 400, message: 'id needs to be a number' };
 		}
-		return changemakerService.getChangemakerById(nId).then(toResult);
+		return changemakerService.getChangemakerById(nId);
 	}));
+
+	router.post('/', (req, res) => {
+		changemakerService.createChangemaker(req.body).then( id => {
+			res.location(`${req.baseUrl}/${id}`);
+			res.status(201).end();
+		});
+	});
 
 	router.get('/:id/updates', (req, res) => {
 		changemakerService.getUpdatesByUserId(req.params.id).then(updates => {

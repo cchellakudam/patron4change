@@ -33,6 +33,16 @@ export default class {
 		});
 	}
 
+	static saveChangemaker(data) {
+		// TODO handle edit case
+		return axios.post('/api/changemakers/', data).then(res => {
+			return axios.get(res.headers.location);
+		})
+		.then(res => {
+			return res.data;
+		});
+	}
+
 	static search(term) {
 		if (!term) {
 			return Promise.resolve([]);

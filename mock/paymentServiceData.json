@@ -1,0 +1,14 @@
+[
+	{
+		"fkUserId": 8,
+		"fkPaymentProviderId": 1,
+		"accountId": "19765947",
+		"cardRegistrationId":"19807396"
+	},
+
+	{
+		"fkUserId": 9,
+		"fkPaymentProviderId": 1,
+		"accountId": "18559606"
+	}
+]

@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
 			associate: function(models){
 				Backing.belongsTo(models.user, {foreignKey: 'fkSenderId', as: 'user'});
 				Backing.belongsTo(models.changemaker, {foreignKey: 'fkRecipientId', as: 'changemaker'});
-				Backing.hasMany(models.payment, {as: 'payments'})
+				Backing.hasMany(models.payment, {as: 'payments', foreignKey: 'fkBackingId'})
 			}
 		},
 
