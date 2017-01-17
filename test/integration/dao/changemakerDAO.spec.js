@@ -35,7 +35,7 @@ describe('changemakerDAO', () => {
 				expect(changemaker).to.have.deep.property('user.firstName', 'Matthias');
 				expect(changemaker).to.have.deep.property('user.lastName', 'Holzer');
 				expect(changemaker).to.have.deep.property('user.avatarUrl', 'https://randomuser.me/api/portraits/med/men/42.jpg');
-				expect(changemaker).to.have.property('videoUrl', 'www.youtube.com');
+				expect(changemaker).to.have.property('videoUrl');
 			});
 		});
 	});

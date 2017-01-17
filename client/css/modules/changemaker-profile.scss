@@ -30,12 +30,13 @@
 }
 
 @include breakpoint($breakpoint-large) {
-  [class~=video--playing] + .profileContent,
-  [class~=video--loading] + .profileContent {
+  [class~=video--playing] + .profileContent {
     left: -50%;
     opacity: 0;
   }
 }
+
+// TODO [class~=video--loading] styles
 
 .video {
   text-align: right;

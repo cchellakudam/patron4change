@@ -70,6 +70,7 @@
     "request": "^2.79.0",
     "request-promise": "^4.1.1",
     "sequelize": "^3.25.0",
+    "shaka-player": "^2.0.3",
     "swagger-parser": "^3.4.1",
     "swaggerize-ui": "^1.0.1",
     "url-loader": "^0.5.7",
