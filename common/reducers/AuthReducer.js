@@ -10,37 +10,18 @@ import createReducer  from '../utils/createReducer'
 function LOGIN_SUCCESS(state, action){
 	debugger
 	state.set('profile', action.profile)
+	state.set('loggedUserId', action.userId)
 	return state.set('isAuthenticated', true);
-	/*return state.set('isAuthenticated', action.result.map(r => {
-		return Object.assign({}, state, {
-			isAuthenticated: true,
-			profile: action.profile,
-			error: '',
-			currentUserId: action.currentUserId
-		})
-	}));*/
 }
 
 function LOGIN_ERROR(state, action){
-	return state.set('loginData', action.result.map(r => {
-		return Object.assign({}, {
-			isAuthenticated: false,
-			profile: null,
-			error: action.err
-		})
-	}));
+	return state.set('isAuthenticated', false)
 
 }
 
 function LOGOUT_SUCCESS(state, action){
-	return state.set('loginData', action.result.map(r => {
-		return Object.assign({}, {
-			isAuthenticated: false,
-			profile: null,
-			error: ''
-		})
-	}));
-
+	state.set('profile', null)
+	return state.set('isAuthenticated', false)
 }
 
 const handlers = {

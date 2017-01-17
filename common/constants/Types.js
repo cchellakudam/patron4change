@@ -1,10 +1,6 @@
 /* eslint no-undefined: 0 */
 import Immutable from 'immutable';
 
-export const AppState = Immutable.Record({
-	// id of the user that is authenticated, or null if not authenticated
-	userId: null
-})
 
 export const _ChangemakerRecord = {
 	id: undefined,
@@ -70,5 +66,6 @@ export function convertMapToImmutable( map, Def ){
 
 export const LoginState = Immutable.Record({
 	isAuthenticated: false,
-	profile: null
+	profile: null,
+	loggedUserId: null,
 })

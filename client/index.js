@@ -21,15 +21,11 @@ if (window.$REDUX_STATE) {
 		results: convertToRecordList(state.search.results, ChangemakerRecord)
 	});
 
-	state.app = new AppState({
-		$$fetched: '/' === document.location.pathname,
-		userId: state.app.userId || localStorage.userId
-	})
-
 	state.login = new LoginState({
 		$fetched: '/' === document.location.pathname,
 		isAuthenticated: localStorage.id_token ? true:false,
-		profile: JSON.parse(localStorage.profile) || null
+		profile: localStorage.profile ? JSON.parse(localStorage.profile) : null,
+		loggedUserId: localStorage.loggedUserId ? parseInt(localStorage.loggedUserId) : null
 	})
 }
 

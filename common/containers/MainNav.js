@@ -9,7 +9,6 @@ import Auth from '../components/Auth.js'
 import styles from '../../client/css/modules/main-nav.scss';
 import * as LoginActions from '../actions/AuthActions'
 import { bindActionCreators } from 'redux';
-import {doAuthentication} from '../actions/AuthActions'
 
 const Empty = () => <span></span>;
 
@@ -24,8 +23,8 @@ class MainNav extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.actions = bindActionCreators(LoginActions, props.dispatch);
-		this.handleLoginClick = this.handleLoginClick.bind(this);
 	}
+
 
   onNavigateToHome(e) {
     e.preventDefault();
@@ -36,14 +35,6 @@ class MainNav extends React.Component {
     e.preventDefault();
     browserHistory.push('/search');
   }
-
-  handleLoginClick(){
-  	this.actions.login();
-	}
-
-	handleLogoutClick(){
-  	this.actions.logout();
-	}
 
   render() {
     const img = <img className={styles.logo} src="/public/images/logo.png" alt="patron4change logo" />;
@@ -56,15 +47,16 @@ class MainNav extends React.Component {
     return <AppBar className={`${styles.appBar} ${isStartPage ? styles.startAppBar : ''}`}
       title="&nbsp;" leftIcon={img} onLeftIconClick={this.onNavigateToHome}>
 			<Navigation type='horizontal'>
+				<Auth
+					isAuthenticated = {this.props.isAuthenticated}
+					profile = {this.props.profile}
+					onLoginClick={this.actions.login}
+					onLogoutClick = {this.actions.logout}
+					doAuthenticate = {this.actions.doAuthentication}
+				/>
         <Link href="/changemaker" className={styles.changemakerLink} onClick={this.onNavigateToSearch} icon="person">
           Meine Changemaker
         </Link>
-				<Auth
-				isAuthenticated = {this.props.isAuthenticated}
-				profile = {this.props.profile}
-				onLoginClick={this.handleLoginClick}
-				onLogoutClick = {this.handleLogoutClick}
-			/>
 				<Link href="/search" onClick={this.onNavigateToSearch} icon="search">
           Search
         </Link>
@@ -75,8 +67,8 @@ class MainNav extends React.Component {
 }
 
 export default connect( (state) => ({
-	userId: state.app.userId,
 	isAuthenticated: state.login.isAuthenticated,
 	profile: state.login.profile,
-	loginData: state.login.loginData
+	loginData: state.login.loginData,
+	userId: state.login.loggedUserId
 }) )(MainNav);

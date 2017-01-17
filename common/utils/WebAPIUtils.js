@@ -13,6 +13,16 @@ function emptyRecordList() {
 
 export default class {
 
+	static getLoggedUser(email){
+		return axios({
+			url: '/api/users/login',
+			method: 'post',
+			data: {email: email}
+		}).then((res) => {
+			return res.data.id
+		})
+	}
+
 	static getAllChangemakers() {
 		return axios('/api/changemakers').then(res => {
 			return convertToRecordList(res.data, ChangemakerRecord);

@@ -10,18 +10,16 @@ export default class Auth extends Component {
 
 	render() {
 		const { onLoginClick, onLogoutClick, isAuthenticated, profile } = this.props
-		return (
-			<div style={{ marginTop: '10px' }}>
-		{ !isAuthenticated ? (
-		<Link className={styles.changemakerLink} onClick={onLoginClick} icon="person">
-			Login
-		</Link>
-		) : (
-		<Link className={styles.changemakerLink} onClick={onLogoutClick} icon="person">
-			Logout ({profile.name})
-			</Link>
-		)}
-	</div>
-	)
+		let loginButton = null;
+		if(!isAuthenticated){
+			loginButton = <Link className={styles.changemakerLink} onClick={onLoginClick} icon="exit_to_app">Login</Link>
+		}else{
+			loginButton = <Link className={styles.changemakerLink} onClick={onLogoutClick} icon="power_settings_new">Logout ({profile.name})</Link>
+		}
+
+		return loginButton
+
+
+
 	}
 }

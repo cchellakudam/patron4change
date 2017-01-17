@@ -64,6 +64,6 @@ class LandingPageContainer extends Component {
 
 export default connect( (state/* , ownProps */) => ({
 	featuredChangemakers: state.cm.changemakers.filter(c => state.cm.featuredChangemakers.valueSeq().includes(c.id)),
-	userId: state.app.userId,
+	userId: state.login.loggedUserId,
 	term: state.search.term
 }) )(LandingPageContainer);
