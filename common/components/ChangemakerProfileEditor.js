@@ -34,9 +34,6 @@ class ChangemakerProfileEditor extends Component {
     let changemaker = this.props.changemaker;
     const state = this.state;
     changemaker = changemaker.set('mission', { text: state.mission });
-    if (state.video) {
-      changemaker = changemaker.set('video', state.video);
-    }
     this.props.onSave(changemaker);
   }
 

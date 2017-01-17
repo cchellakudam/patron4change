@@ -21,6 +21,7 @@ import MediaService from '../../services/media.service.js';
 import config from 'config';
 const searchConfig = config.get('search');
 const storageConfig = config.get('storage');
+const coconutConfig = config.get('coconut');
 
 const router = express.Router();
 
@@ -36,6 +37,6 @@ router.use('/patrons', patronRoutes(new PatronService(userDAO)));
 router.use('/admins', adminRoutes(new UsersService(userDAO)));
 router.use('/search', searchRoutes(new SearchService(searchConfig, userDAO)));
 router.use('/payment', paymentRoutes(paymentsvcs));
-router.use('/media', mediaRoutes(new MediaService(storageConfig)));
+router.use('/media', mediaRoutes(new MediaService(storageConfig, coconutConfig)));
 
 export default router;

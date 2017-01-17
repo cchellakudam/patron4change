@@ -10,6 +10,7 @@ export const _ChangemakerRecord = {
 	id: undefined,
 	name: '',
 	avatarUrl: '',
+	videoUrl: '',
 	statusUpdates: Immutable.List(),
 	mission: Immutable.Record({
 		id: '',
@@ -29,7 +30,8 @@ export const ChangemakerState = Immutable.Record({
 	changemakers: Immutable.List(),
 	// list of ids of the changemakers featured on the start page
 	featuredChangemakers: Immutable.List(),
-	changemaker: ChangemakerRecord()
+	changemaker: ChangemakerRecord(),
+	videoUrl: '' // TODO remove this and use an asynchronous server-side workflow
 })
 
 export const _UpdateRecord = {

@@ -63,6 +63,8 @@ export default class {
 			params: {
 				type: 'video'
 			}
+		}).then(res => {
+			return res.data;
 		});
 	}
 }
