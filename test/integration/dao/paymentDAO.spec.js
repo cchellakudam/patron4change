@@ -49,7 +49,7 @@ describe('paymentDAO', () => {
 	describe('create a single backing for a changemaker', () => {
 
 		it('should return a singleBacking model on successful creation', (done) =>{
-			paymentDAO.createSingleBacking(1, 2, 'abc', 1000, 1463496101).then((res) =>{
+			paymentDAO.createSingleBacking(1, 2, 'abc', 1000, 'adoring y', 1463496101).then((res) =>{
 				assert(1000 === res.backing.amount, 'the backing amount does not match the input');
 				assert(1000 === res.backing.payments[0].amount, 'the payment amount does not match input');
 				// assert(res.backing.payments[0].transactionDate === 1463496101, 'the payment date does not match input');
@@ -61,7 +61,7 @@ describe('paymentDAO', () => {
 		})
 
 		it('userId = changemakerId, exception thrown', (done) =>{
-			paymentDAO.createSingleBacking(1, 1, 'abc', 1000, 1463496101).then(() => {
+			paymentDAO.createSingleBacking(1, 1, 'abc', 1000, 'adoring y', 1463496101).then(() => {
 				assert.isOk(false, 'no exception was thrown for wrong input');
 				done();
 			}).catch((err) => {
@@ -71,7 +71,7 @@ describe('paymentDAO', () => {
 		})
 
 		it('user does not exist, exception thrown', (done) =>{
-			paymentDAO.createSingleBacking(9999, 1, 'abc', 1000, 1463496101).then(() => {
+			paymentDAO.createSingleBacking(9999, 1, 'abc', 1000, 'adoring y', 1463496101).then(() => {
 				assert.isOk(false, 'no exception was thrown for wrong input');
 				done();
 			}).catch((err) => {
@@ -81,7 +81,7 @@ describe('paymentDAO', () => {
 		})
 
 		it('changemaker does not exist, exception thrown', (done) =>{
-			paymentDAO.createSingleBacking(1, 9999, 'abc', 1000, 1463496101).then(() => {
+			paymentDAO.createSingleBacking(1, 9999, 'abc', 1000, 'adoring y', 1463496101).then(() => {
 				assert.isOk(false, 'no exception was thrown for wrong input');
 				done();
 			}).catch((err) => {
@@ -91,7 +91,7 @@ describe('paymentDAO', () => {
 		})
 
 		it('amount is not a number, exception thrown', (done) =>{
-			paymentDAO.createSingleBacking(1, 2, 'abc', 'asbd', 1463496101).then(() => {
+			paymentDAO.createSingleBacking(1, 2, 'abc', 'asbd', 'adoring y', 1463496101).then(() => {
 				assert.isOk(false, 'no exception was thrown for wrong input');
 				done();
 			}).catch((err) => {
@@ -101,7 +101,7 @@ describe('paymentDAO', () => {
 		})
 
 		it('timestamp not valid, exception thrown', (done) =>{
-			paymentDAO.createSingleBacking(1, 2, 'abc', 1000, '17/04/1994').then(() => {
+			paymentDAO.createSingleBacking(1, 2, 'abc', 1000, 'adoring y', '17/04/1994').then(() => {
 				assert.isOk(false, 'no exception was thrown for wrong input');
 				done();
 			}).catch((err) => {

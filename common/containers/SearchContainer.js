@@ -36,6 +36,6 @@ export class SearchContainer extends Component {
 	}
 }
 
-export default connect( (state/* , ownProps */) => ({
+export default connect( state => ({
 	term: state.search.term
 }) )(SearchContainer);

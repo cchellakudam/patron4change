@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Button } from 'react-toolbox/lib/button';
-import { List, ListItem, ListSubHeader, ListDivider } from 'react-toolbox/lib/list';
+import { List, ListSubHeader, ListDivider } from 'react-toolbox/lib/list';
 
 import styles from '../../client/css/modules/backing-list.scss';
 

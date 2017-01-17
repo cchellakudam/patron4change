@@ -29,7 +29,7 @@ export default class{
 			})
 	}
 
-	static createSingleBacking(userId, changemakerId, transactionId, amount, transactionDate){
+	static createSingleBacking(userId, changemakerId, transactionId, amount, comment, transactionDate){
 		let changemakerPromise = models.changemaker.findById(changemakerId);
 		let patronPromise = models.user.findById(userId)
 
@@ -55,6 +55,7 @@ export default class{
 			let backing = models.singleBacking.create({
 			backing: {
 				amount: amount,
+				comment: comment,
 				fkSenderId: userId,
 				fkRecipientId: changemakerId,
 				payments: [{

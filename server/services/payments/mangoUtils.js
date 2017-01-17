@@ -91,7 +91,7 @@ export default class {
 				})
 	}
 
-	static createCardPayment(naturalUserId, amount, userId, changemakerId){
+	static createCardPayment(naturalUserId, amount, comment, userId, changemakerId){
 		let url = `${apiRoot}/v2.01/${clientId}/payins/card/web`;
 		let formDataPromise = this.getUserWallet(naturalUserId).then((res)=>{
 			return {
@@ -128,7 +128,7 @@ export default class {
 				if(res.data.errors){
 					throw Error('mango transaction failed');
 				}else if(userId && changemakerId && amount){
-					paymentDAO.createSingleBacking(userId, changemakerId, res.data.Id, amount, res.data.CreationDate);
+					paymentDAO.createSingleBacking(userId, changemakerId, res.data.Id, amount, comment, res.data.CreationDate);
 					return res.data.RedirectURL;
 				}else{
 					throw new Error('parameter problem, please check parameters given');

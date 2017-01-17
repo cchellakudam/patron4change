@@ -20,8 +20,8 @@ export default class{
 		});
 	}
 
-	payUserWithCard(patronId, amount, changemakerId, accountId){
-		return mangoUtils.createCardPayment(accountId, amount, patronId, changemakerId).catch((err) => {
+	payUserWithCard(patronId, amount, comment, changemakerId, accountId){
+		return mangoUtils.createCardPayment(accountId, amount, comment, patronId, changemakerId).catch((err) => {
 				throw err;
 			})
 	}

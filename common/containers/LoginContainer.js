@@ -34,6 +34,6 @@ class LoginContainer extends React.Component {
 	}
 }
 
-export default connect( (state/* , ownProps */) => ({
+export default connect( state => ({
 	userId: state.app.userId
 }) )(LoginContainer);
