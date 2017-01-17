@@ -12,7 +12,8 @@ class ChangemakerProfileEditorContainer extends Component {
 
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
-		changemaker: PropTypes.object
+		changemaker: PropTypes.object,
+    videoUrl: PropTypes.string // TODO remove (see Types.js)
 	}
 
   state = { saved: false };
@@ -24,7 +25,16 @@ class ChangemakerProfileEditorContainer extends Component {
 
   onSave(changemaker) {
     this.setState({ saved: true });
-    this.actions.saveChangemaker(changemaker);
+    // TODO refactor
+    let cm = changemaker;
+    if (this.props.videoUrl) {
+      cm = cm.set('videoUrl', this.props.videoUrl);
+    }
+    this.actions.saveChangemaker(cm);
+  }
+
+  onChangeVideoFile(file) {
+    this.actions.uploadVideo(file);
   }
 
   componentDidUpdate() {
@@ -38,10 +48,14 @@ class ChangemakerProfileEditorContainer extends Component {
     if (!changemaker) {
       changemaker = new Changemaker();
     }
-		return <ChangemakerProfileEditor changemaker={changemaker} onSave={this.onSave.bind(this)} />;
+		return <ChangemakerProfileEditor changemaker={changemaker}
+      onSave={this.onSave.bind(this)} onChangeVideoFile={this.onChangeVideoFile.bind(this)} />;
 	}
 }
 
 export default connect(
-  state => ({ changemaker: state.cm.changemaker })
+  state => ({
+    changemaker: state.cm.changemaker,
+    videoUrl: state.cm.videoUrl
+  })
 )(ChangemakerProfileEditorContainer);

@@ -51,4 +51,16 @@ export default class {
 			return res.data;
 		});
 	}
+
+	static uploadVideo(file) {
+		const fileData = new FormData();
+		fileData.append('file', file, file.name);
+		return axios.post('/api/media/', fileData, {
+			params: {
+				type: 'video'
+			}
+		}).then(res => {
+			return res.data;
+		});
+	}
 }

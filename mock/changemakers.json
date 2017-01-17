@@ -3,70 +3,70 @@
 		"fkUserId": 1,
 		"isApproved": true,
 		"fkContentId": 1,
-		"videoUrl": "www.youtube.com"
+		"videoUrl": ""
 	},
 
 	{
 		"fkUserId": 2,
 		"isApproved": true,
 		"fkContentId": 2,
-		"videoUrl": "www.youtube.com"
+		"videoUrl": ""
 	},
 
 	{
 		"fkUserId": 3,
 		"isApproved": true,
 		"fkContentId": 3,
-		"videoUrl": "www.youtube.com"
+		"videoUrl": ""
 	},
 
 	{
 		"fkUserId": 4,
 		"isApproved": true,
 		"fkContentId": 4,
-		"videoUrl": "www.youtube.com"
+		"videoUrl": ""
 	},
 
 	{
 		"fkUserId": 5,
 		"isApproved": true,
 		"fkContentId": 5,
-		"videoUrl": "www.youtube.com"
+		"videoUrl": ""
 	},
 
 	{
 		"fkUserId": 6,
 		"isApproved": true,
 		"fkContentId": 6,
-		"videoUrl": "www.youtube.com"
+		"videoUrl": ""
 	},
 
 	{
 		"fkUserId": 7,
 		"isApproved": true,
 		"fkContentId": 7,
-		"videoUrl": "www.youtube.com"
+		"videoUrl": ""
 	},
 
 	{
 		"fkUserId": 8,
 		"isApproved": true,
 		"fkContentId": 8,
-		"videoUrl": "www.youtube.com"
+		"videoUrl": ""
 	},
 
 	{
 		"fkUserId": 9,
 		"isApproved": true,
 		"fkContentId": 9,
-		"videoUrl": "www.youtube.com"
+		"videoUrl": ""
 	},
 
 	{
 		"fkUserId": 10,
 		"isApproved": true,
 		"fkContentId": 10,
-		"videoUrl": "www.youtube.com"
+		"videoUrl": ""
 	}
 
 ]

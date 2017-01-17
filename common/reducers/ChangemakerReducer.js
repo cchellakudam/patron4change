@@ -60,6 +60,10 @@ function SAVE_CHANGEMAKER_PROFILE_SUCCESS(state, action) {
 	return { ...state, changemaker: action.result };
 }
 
+function UPLOAD_VIDEO_SUCCESS(state, action) {
+	return state.update('videoUrl', () => action.result);
+}
+
 const handlers =
 {
 	[types.READ_ALL_CHANGEMAKERS_REQUEST]: READ_ALL_CHANGEMAKERS_REQUEST,
@@ -84,7 +88,11 @@ const handlers =
 
 	[types.SAVE_CHANGEMAKER_PROFILE_REQUEST]: SAVE_CHANGEMAKER_PROFILE_REQUEST,
 	[types.SAVE_CHANGEMAKER_PROFILE_SUCCESS]: SAVE_CHANGEMAKER_PROFILE_SUCCESS,
-	[types.SAVE_CHANGEMAKER_PROFILE_ERROR]: SAVE_CHANGEMAKER_PROFILE_ERROR
+	[types.SAVE_CHANGEMAKER_PROFILE_ERROR]: SAVE_CHANGEMAKER_PROFILE_ERROR,
+
+	[types.UPLOAD_VIDEO_REQUEST]: _.identity,
+	[types.UPLOAD_VIDEO_SUCCESS]: UPLOAD_VIDEO_SUCCESS,
+	[types.UPLOAD_VIDEO_ERROR]: _.identity
 }
 
 const initialState = {

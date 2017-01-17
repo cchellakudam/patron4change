@@ -7,6 +7,7 @@ export const user = PropTypes.shape({
 
 export const changemaker = PropTypes.shape({
   id: PropTypes.number.isRequired,
+  videoUrl: PropTypes.string.isRequired,
   user
 });
 

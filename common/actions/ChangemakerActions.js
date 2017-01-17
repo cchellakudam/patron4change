@@ -68,6 +68,18 @@ export function saveChangemaker(changemaker) {
 	};
 }
 
+export function uploadVideo(file) {
+	return {
+		types: [
+			types.UPLOAD_VIDEO_REQUEST,
+			types.UPLOAD_VIDEO_SUCCESS,
+			types.UPLOAD_VIDEO_ERROR
+		],
+		file,
+		promise: WebAPIUtils.uploadVideo(file)
+	}
+}
+
 export function readAllUpdatesByUserId(id) {
 	let promise = WebAPIUtils.getAllUpdatesByUserId(id);
 	return {

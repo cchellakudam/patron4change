@@ -24,6 +24,18 @@ search:
 elasticsearch:
   host: localhost:9200
 
+storage:
+  host: p4c-storage.p-h.im
+  port: 443
+  bucketName: uploads
+  accessKey: minio
+  secretKey: jUvN0mNiZbgiphR6iEnG
+
+coconut:
+  apiKey: k-3840cb93e676256c22cccd01e6e8fa55
+  outputUrlTemplate: s3://AKIAIZHH73KK7R747MQQ:dR+03HT7P99Mp8A27cyYGq5rrXzZ1eCo4q7p+oTp@p4c-dev-storage/{objectName}
+  webhookTemplate: http://webhook.needs.to.be.specified.example.com/api/media/encodingDone?objectName={objectName}
+
 queues:
   -
     name: updateSearchIndex
