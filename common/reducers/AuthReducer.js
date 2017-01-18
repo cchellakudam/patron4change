@@ -9,12 +9,14 @@ import createReducer  from '../utils/createReducer'
 
 function LOGIN_SUCCESS(state, action){
 	debugger
-	state.set('profile', action.profile)
-	state.set('loggedUserId', action.userId)
-	return state.set('isAuthenticated', true);
+
+	return state.set('isAuthenticated', true).set('profile', action.profile)
+	.set('loggedUserId', action.userId);
+
 }
 
 function LOGIN_ERROR(state, action){
+	debugger
 	return state.set('isAuthenticated', false)
 
 }

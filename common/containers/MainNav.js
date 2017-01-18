@@ -23,6 +23,14 @@ class MainNav extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.actions = bindActionCreators(LoginActions, props.dispatch);
+  }
+
+  componentWillMount(){
+		if (true === process.env.BROWSER) {
+			debugger
+			this.actions.doAuthentication();
+		}
+
 	}
 
 
@@ -43,7 +51,7 @@ class MainNav extends React.Component {
     const currentUser = userId ? <span>Logged in as {userId}</span> : Empty;
 
     let isStartPage = '/' === this.props.location.pathname;
-
+    debugger
     return <AppBar className={`${styles.appBar} ${isStartPage ? styles.startAppBar : ''}`}
       title="&nbsp;" leftIcon={img} onLeftIconClick={this.onNavigateToHome}>
 			<Navigation type='horizontal'>

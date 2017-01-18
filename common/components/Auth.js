@@ -9,6 +9,7 @@ export default class Auth extends Component {
 	}
 
 	render() {
+		debugger
 		const { onLoginClick, onLogoutClick, isAuthenticated, profile } = this.props
 		let loginButton = null;
 		if(!isAuthenticated){

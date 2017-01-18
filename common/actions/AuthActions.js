@@ -23,6 +23,29 @@ function loginError(err) {
 }
 
 
+export function doAuthentication(){
+	return dispatch => {
+		const lock = new Auth0Lock('96GtA8F9eFYDP6mH3E2PxXt4NZiuOi8D', 'patron4change.eu.auth0.com')
+
+		lock.on("authenticated", function(authResult) {
+			lock.getProfile(authResult.idToken, function(error, profile) {
+
+				if (error) {
+					// handle error
+					return dispatch(lockError(error))
+				}
+				debugger
+				if(!localStorage.id_token){
+					localStorage.setItem('profile', JSON.stringify(profile))
+					localStorage.setItem('id_token', authResult.idToken)
+				}
+				loginSuccess(JSON.parse(localStorage.profile)).then((res) => {
+					dispatch(res);
+				})
+			});
+		});
+	}
+}
 
 export function login() {
 	let options = {
@@ -50,10 +73,9 @@ export function login() {
 					// handle error
 					return dispatch(lockError(error))
 				}
-				debugger
 				localStorage.setItem('profile', JSON.stringify(profile))
 				localStorage.setItem('id_token', authResult.idToken)
-				return dispatch(loginSuccess(profile))
+				dispatch(loginSuccess(profile))
 			});
 		});
 		lock.show()
