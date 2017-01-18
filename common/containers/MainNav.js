@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import { AppBar } from 'react-toolbox/lib/app_bar';
@@ -11,11 +11,6 @@ import styles from '../../client/css/modules/main-nav.scss';
 const Empty = () => <span></span>;
 
 class MainNav extends React.Component {
-
-  static propTypes = {
-    userId: PropTypes.number,
-		location: PropTypes.any.isRequired
-  }
 
   onNavigateToHome(e) {
     e.preventDefault();

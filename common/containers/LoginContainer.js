@@ -1,4 +1,4 @@
-import React, {PropTypes}   from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -8,11 +8,6 @@ import Login from '../components/Login';
 
 class LoginContainer extends React.Component {
 
-
-	static propTypes = {
-		dispatch: PropTypes.func.isRequired,
-		userId: PropTypes.number.isRequired
-	}
   constructor(props) {
     super();
 		this.actions = bindActionCreators(UserActions, props.dispatch);

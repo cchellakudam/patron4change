@@ -19,8 +19,9 @@ export const supporter = PropTypes.shape({
 });
 
 export const children = PropTypes.oneOfType([
-  PropTypes.arrayOf(PropTypes.node),
-  PropTypes.node
+  PropTypes.array,
+  PropTypes.node,
+  PropTypes.object
 ]);
 
 export const update = PropTypes.shape({

@@ -1,9 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
-
-import * as shapes from '../constants/shapes';
 
 import LandingPage from '../components/LandingPage';
 import Startpage from '../components/Startpage';
@@ -18,13 +16,6 @@ class LandingPageContainer extends Component {
 	static needs = [
 		ChangemakerActions.getFeaturedChangemakers
 	];
-
-	static propTypes = {
-		dispatch: PropTypes.func.isRequired,
-		term: PropTypes.string.isRequired,
-		featuredChangemakers: PropTypes.arrayOf(shapes.changemaker).isRequired,
-		userId: PropTypes.number
-	}
 
 	constructor(props, context) {
 		super(props, context);
@@ -67,5 +58,5 @@ class LandingPageContainer extends Component {
 export default connect( state => ({
 	featuredChangemakers: state.cm.changemakers.filter(c => state.cm.featuredChangemakers.includes(c.id)),
 	userId: state.app.userId,
-	term: state.search.term
+	term: state.search.term || ''
 }) )(LandingPageContainer);

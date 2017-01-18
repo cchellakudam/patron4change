@@ -1,15 +1,10 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import SearchResult from '../components/SearchResult';
 import SearchResultItem from '../components/SearchResultItem';
 
 export class SearchResultContainer extends React.Component {
-
-  static propTypes = {
-		dispatch: PropTypes.func.isRequired,
-    results: PropTypes.array.isRequired
-  }
 
   render() {
     let { results } = this.props;
