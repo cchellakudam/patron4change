@@ -71,7 +71,7 @@ class ChangemakerProfile extends React.Component {
 				<Row>
 					<Col xs={12} md={6} lg={6}>
 						<BackingList
-							recipientName={cm.user.firstName}
+							changemaker={cm}
 							RecurringBackings={this.props.RecurringBackings}
 							OneTimeBackings={this.props.OneTimeBackings}
 							onSupport={this.props.onSupport}>

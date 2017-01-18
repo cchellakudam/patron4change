@@ -260,6 +260,9 @@ definitions:
           isApproved:
             type: boolean
             description: Whether the Changemaker profile has been approved by an admin
+          approvalDate:
+            type: date
+            description: When the changemaker has been approved
           mission:
             type: string
             description: Mission description

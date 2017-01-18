@@ -8,6 +8,8 @@ export const user = PropTypes.shape({
 export const changemaker = PropTypes.shape({
   id: PropTypes.number.isRequired,
   videoUrl: PropTypes.string.isRequired,
+  isApproved: PropTypes.bool.isRequired,
+  approvalDate: PropTypes.string.isRequired, // serialized date
   user
 });
 

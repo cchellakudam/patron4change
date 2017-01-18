@@ -4,7 +4,12 @@ module.exports = (sequelize, DataTypes) => {
 
 	const Changemaker = sequelize.define('changemaker', {
 		isApproved: {
-			type: DataTypes.BOOLEAN
+			type: DataTypes.BOOLEAN,
+			allowNull: false
+		},
+		// exact date when the changemaker was approved by the platform moderators
+		approvalDate: {
+			type: DataTypes.DATE
 		},
 		videoUrl: {
 			type: DataTypes.STRING

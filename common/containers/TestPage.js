@@ -38,9 +38,13 @@ class TestPage extends React.Component {
             comment: 'Keep it up, you randy bastard!'
           }
         ];
+        const cm = {
+          name: 'Silvester von Winchester',
+          approvalDate: new Date()
+        };
         const backingItems = backings.map(b => <BackingItem key={b.id} backing={b} />);
         return <BackingList onSupport={() => alert('supported')}
-          recipientName="Silvester"
+          changemaker={cm}
           RecurringBackings={backingItems}
           OneTimeBackings={[]}>
         </BackingList>;
