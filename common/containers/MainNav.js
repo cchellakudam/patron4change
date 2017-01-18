@@ -10,8 +10,6 @@ import styles from '../../client/css/modules/main-nav.scss';
 import * as LoginActions from '../actions/AuthActions'
 import { bindActionCreators } from 'redux';
 
-const Empty = () => <span></span>;
-
 class MainNav extends React.Component {
 
 
@@ -39,9 +37,6 @@ class MainNav extends React.Component {
 
   render() {
     const img = <img className={styles.logo} src="/public/images/logo.png" alt="patron4change logo" />;
-
-    const { userId } = this.props;
-    const currentUser = userId ? <span>Logged in as {userId}</span> : Empty;
 
     let isStartPage = '/' === this.props.location.pathname;
 

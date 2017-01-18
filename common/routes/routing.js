@@ -19,7 +19,6 @@ const Empty = () => <div></div>;
 
 const SearchNavContainer = () => <SearchNav><SearchContainer /></SearchNav>;
 
-
 export default (
 
   <Route component={App}>
@@ -45,8 +44,6 @@ export default (
 
 	<Route path="/search"
 		   components={{main: SearchResultContainer, nav: SearchNavContainer, sub: Empty}} />
-
-
 
   <Route path="/test/:componentId"
 			 components={{main: TestPage, nav: Empty, sub: Empty}} />

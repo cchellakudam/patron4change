@@ -18,13 +18,12 @@ export default class {
 
 	loginUser(email){
 		return this.dao.getUserForEmail(email).then((user) => {
-			if(null == user){
+			if(null === user){
 				return this.dao.createUser(email)
 			}else{
 				return Promise.resolve(user)
 			}
 		}).then((user) => {
-			console.log(user.email)
 			return user;
 		})
 	}

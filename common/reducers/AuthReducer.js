@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux'
 import types from '../constants/ActionTypes'
 import createReducer  from '../utils/createReducer'
 
@@ -16,7 +15,7 @@ function LOGIN_SUCCESS(state, action){
 
 }
 
-function LOGIN_ERROR(state, action){
+function LOGIN_ERROR(state){
 
 	return {
 		...state,
@@ -27,7 +26,7 @@ function LOGIN_ERROR(state, action){
 
 }
 
-function LOGOUT_SUCCESS(state, action){
+function LOGOUT_SUCCESS(state){
 	return {
 		...state,
 		isAuthenticated: false,
@@ -39,7 +38,7 @@ function LOGOUT_SUCCESS(state, action){
 const handlers = {
 	[types.LOGIN_SUCCESS]: LOGIN_SUCCESS,
 	[types.LOGIN_ERROR]: LOGIN_ERROR,
-	[types.LOGOUT_SUCCESS]: LOGOUT_SUCCESS,
+	[types.LOGOUT_SUCCESS]: LOGOUT_SUCCESS
 
 }
 

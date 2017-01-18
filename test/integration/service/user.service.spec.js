@@ -1,4 +1,3 @@
-const assert = require('chai').assert;
 import userService from '../../../server/services/users.service'
 import DBTestUtil from '../dao/DBTestUtil'
 import { expect } from 'chai';

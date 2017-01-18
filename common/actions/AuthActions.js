@@ -3,7 +3,6 @@ import types from '../constants/ActionTypes'
 import WebAPIUtils from '../utils/WebAPIUtils'
 
 function loginSuccess(profile){
-	debugger
 	let email = profile.email;
 	return WebAPIUtils.getLoggedUser(email).then((userId) => {
 		localStorage.loggedUserId = userId;
@@ -27,12 +26,11 @@ export function doAuthentication(){
 	return dispatch => {
 		const lock = new Auth0Lock('96GtA8F9eFYDP6mH3E2PxXt4NZiuOi8D', 'patron4change.eu.auth0.com')
 
-		lock.on("authenticated", function(authResult) {
+		lock.on('authenticated', function(authResult) {
 			lock.getProfile(authResult.idToken, function(error, profile) {
-
 				if (error) {
 					// handle error
-					return dispatch(lockError(error))
+					return dispatch(loginError(error))
 				}
 
 				if(!localStorage.id_token){
@@ -40,8 +38,9 @@ export function doAuthentication(){
 					localStorage.setItem('id_token', authResult.idToken)
 				}
 				loginSuccess(JSON.parse(localStorage.profile)).then((res) => {
-					dispatch(res);
+					return dispatch(res);
 				})
+				return true;
 			});
 		});
 	}
@@ -58,7 +57,7 @@ export function login() {
 		avatar: null,
 		allowedConnections: ['Username-Password-Authentication'],
 		languageDictionary:{
-			title: ""
+			title: ''
 		}
 
 	}
@@ -66,16 +65,16 @@ export function login() {
 	const lock = new Auth0Lock('96GtA8F9eFYDP6mH3E2PxXt4NZiuOi8D', 'patron4change.eu.auth0.com', options)
 
 	return dispatch => {
-		lock.on("authenticated", function(authResult) {
+		lock.on('authenticated', function(authResult) {
 			lock.getProfile(authResult.idToken, function(error, profile) {
 
 				if (error) {
 					// handle error
-					return dispatch(lockError(error))
+					return dispatch(loginError(error))
 				}
 				localStorage.setItem('profile', JSON.stringify(profile))
 				localStorage.setItem('id_token', authResult.idToken)
-				dispatch(loginSuccess(profile))
+				return dispatch(loginSuccess(profile))
 			});
 		});
 		lock.show()
@@ -84,7 +83,7 @@ export function login() {
 }
 
 
-function logoutSuccess(profile) {
+function logoutSuccess() {
 	return {
 		type: types.LOGOUT_SUCCESS
 	}

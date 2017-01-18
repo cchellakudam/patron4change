@@ -7,5 +7,5 @@ import login from './AuthReducer'
 export default combineReducers({
   cm,
   search,
-	login,
+	login
 });
