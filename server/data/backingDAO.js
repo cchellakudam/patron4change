@@ -1,7 +1,7 @@
 import models from '../model/index';
 import { extractProps } from '../utils/modelUtils';
 
-function toUserModel(user) {
+function toUserModel(user = {}) {
 	return Object.assign(user, {
 		name: `${user.firstName} ${user.lastName}`
 	});

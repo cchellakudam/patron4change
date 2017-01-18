@@ -50,9 +50,13 @@ describe('changemakerDAO', () => {
 
 		it('should prefer changemakers with more recent updates', () => {
 			return changemakerDAO.getFeatured().then((changemakers) => {
-				let higher = +new Date(changemakers[0].lastStatusUpdate);
-				let lower = +new Date(changemakers[1].lastStatusUpdate);
-        expect(higher).to.be.above(lower);
+				let h1 = +new Date(changemakers[0].lastStatusUpdate);
+				let l1 = +new Date(changemakers[1].lastStatusUpdate);
+        expect(h1).to.be.above(l1);
+
+				let h2 = +new Date(changemakers[1].lastStatusUpdate);
+				let l2 = +new Date(changemakers[2].lastStatusUpdate);
+        expect(h2).to.be.above(l2);
 			});
 		});
 

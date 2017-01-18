@@ -1,20 +1,18 @@
 import models, { sequelize } from '../model';
 import { extractProps } from '../utils/modelUtils';
+import _ from 'lodash';
 
 const CHANGEMAKER_LIMIT_LANDING_PAGE = 5;
 
-function mapToResultModel(changemaker) {
-	if (!changemaker) {
-		return null;
-	}
-	return Object.assign(changemaker, {
-		name: `${changemaker.user.firstName} ${changemaker.user.lastName}`
+function toUserModel(user = {}) {
+	return Object.assign(user, {
+		name: `${user.firstName} ${user.lastName}`
 	});
 }
 
 function prepareDTO(rawCm) {
 	return Object.assign({}, rawCm, {
-		user: extractProps(rawCm, 'user'),
+		user: toUserModel(extractProps(rawCm, 'user')),
 		mission: extractProps(rawCm, 'mission')
 	});
 }
@@ -50,26 +48,29 @@ export default class {
 
 	static getFeatured() {
 
-		// TODO use sequelize to sort by computed property
-
-		return sequelize.query(`
-			SELECT "changemaker"."id", "changemaker"."isApproved", "changemaker"."videoUrl", "changemaker"."createdAt",
-				"changemaker"."updatedAt", "changemaker"."fkUserId", "changemaker"."fkContentId", "user"."id" AS "user.id",
-				"user"."firstName" AS "user.firstName", "user"."lastName" AS "user.lastName", "user"."email" AS "user.email",
-				"user"."isEmailConfirmed" AS "user.isEmailConfirmed", "user"."isAnonymous" AS "user.isAnonymous",
-				"user"."isBlocked" AS "user.isBlocked", "user"."pwhash" AS "user.pwhash", "user"."avatarUrl" AS "user.avatarUrl",
-				"user"."birthday" AS "user.birthday", "user"."nationality" AS "user.nationality", "user"."countryOfResidence"
-				AS "user.countryOfResidence", "user"."createdAt" AS "user.createdAt", "user"."updatedAt" AS "user.updatedAt",
-				"mission"."id" AS "mission.id", "mission"."text" AS "mission.text", "mission"."createdAt" AS "mission.createdAt",
-				"mission"."updatedAt" AS "mission.updatedAt", max(s."createdAt") as "lastStatusUpdate"
-			FROM "changemakers" AS "changemaker"
-			JOIN "users" AS "user" ON "changemaker"."fkUserId" = "user"."id"
-			LEFT OUTER JOIN "contents" AS "mission" ON "changemaker"."fkContentId" = "mission"."id"
-			LEFT OUTER JOIN "statusUpdates" AS s on "changemaker"."id" = s."fkChangemakerId"
-			GROUP BY "changemaker"."id", "user"."id", "mission"."id"
-			ORDER BY MAX(s."createdAt") DESC
-			LIMIT ${CHANGEMAKER_LIMIT_LANDING_PAGE};`, { type: sequelize.QueryTypes.SELECT })
-			.then(cms => cms.map(prepareDTO).map(mapToResultModel));
+	 	return models.changemaker.findAll({
+			include: [
+				{model: models.user, as: 'user'},
+				{model: models.content, as: 'mission'},
+				{model: models.statusUpdate, as: 'statusUpdates', attributes: []}
+			],
+			attributes: {
+				include: [
+					[ sequelize.fn('MAX', sequelize.col('statusUpdates.createdAt')), 'lastStatusUpdate' ]
+				]
+			},
+			group: [
+				['id'],
+				[{model: models.user, as: 'user'}, 'id'],
+				[{model: models.content, as: 'mission'}, 'id']
+			],
+			order: [
+				[ sequelize.fn('MAX', sequelize.fn('COALESCE', sequelize.col('statusUpdates.createdAt'), '-infinity')), 'DESC' ]
+			],
+			raw: true
+		}).then(cms => {
+			return _.take(cms, CHANGEMAKER_LIMIT_LANDING_PAGE).map(prepareDTO);
+		});
 	}
 
 	static createChangemaker(data) {

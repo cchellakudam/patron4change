@@ -1,4 +1,6 @@
-/* eslint no-sync: 0 */
+/* eslint no-sync: 0, no-console: 0 */
+// no-console: until silly-logger is applied
+// no-sync: easier to initialize models
 const fs        = require('fs');
 const path      = require('path');
 const Sequelize = require('sequelize');
@@ -17,7 +19,8 @@ const sequelize = new Sequelize(
 			min: 0,
 			idle: 10000
 		},
-		logging: false
+		// TODO apply silly logger
+		logging: config.get('dblog') ? console.log : false
 });
 
 const db = {};

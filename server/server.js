@@ -68,9 +68,7 @@ runWorkers(appConfig.get('queues'), logger);
 // init database
 let databaseInit;
 if('unit' !== process.env.NODE_ENV) {
-	databaseInit = model.sequelize.sync({
-		logging: str => logger.log('silly', str)
-	});
+	databaseInit = model.sequelize.sync();
 } else {
 	databaseInit = Promise.resolve(true);
 }
