@@ -74,6 +74,7 @@ describe('changemakerDAO', () => {
 
 		it('should create a changemaker', done => {
 			const testData = {
+				isApproved: false,
 				mission: {
 					text: 'Test mission'
 				}
