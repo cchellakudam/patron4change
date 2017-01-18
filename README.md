@@ -28,13 +28,6 @@ $ npm run checkstyle
 ```
 
 
-Its also possible to run the server with a mocked datalayer
-
-```
-$ npm run start-mocked
-$ npm run watch-mocked
-```
-
 To create a production environment build and run it.
 
 ```
@@ -76,7 +69,6 @@ If you want to remove the persistent data of a container use the -p flag when cr
 ### Testing
 The tests are spread among 3 directories.
 The `unit` directory holds all unit tests, they are limited to the internal structure of the node app.
-They do not interact with the api or the database, a mocked dataaccesslayer is used instead.
 
 The integration tests are split into api tests and database tests. All database modification tests are in the folder `db`.
 The tests covering api interaction trough the whole system are located in the `api` subfolder.

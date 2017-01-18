@@ -60,6 +60,13 @@ describe('changemakerDAO', () => {
 			});
 		});
 
+		it('should compute the number of patrons', () => {
+			return changemakerDAO.getFeatured().then((changemakers) => {
+				let cm = changemakers[0];
+        expect(cm.numberOfPatrons).to.equal(18);
+			});
+		});
+
 	});
 
 	describe('createChangemaker', () => {

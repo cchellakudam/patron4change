@@ -13,7 +13,8 @@ function toUserModel(user = {}) {
 function prepareDTO(rawCm) {
 	return Object.assign({}, rawCm, {
 		user: toUserModel(extractProps(rawCm, 'user')),
-		mission: extractProps(rawCm, 'mission')
+		mission: extractProps(rawCm, 'mission'),
+		numberOfPatrons: parseInt(rawCm.numberOfPatrons)
 	});
 }
 
@@ -52,11 +53,13 @@ export default class {
 			include: [
 				{model: models.user, as: 'user'},
 				{model: models.content, as: 'mission'},
-				{model: models.statusUpdate, as: 'statusUpdates', attributes: []}
+				{model: models.statusUpdate, as: 'statusUpdates', attributes: []},
+				{model: models.backing, as: 'backings', attributes: []}
 			],
 			attributes: {
 				include: [
-					[ sequelize.fn('MAX', sequelize.col('statusUpdates.createdAt')), 'lastStatusUpdate' ]
+					[ sequelize.fn('MAX', sequelize.col('statusUpdates.createdAt')), 'lastStatusUpdate' ],
+					[ sequelize.fn('COUNT', sequelize.col('*')), 'numberOfPatrons' ]
 				]
 			},
 			group: [
