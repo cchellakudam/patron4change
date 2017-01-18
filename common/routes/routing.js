@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route } from 'react-router'
 
-import LoginContainer from '../containers/LoginContainer';
+
 import LandingPageContainer from '../containers/LandingPageContainer';
 import SearchContainer from '../containers/SearchContainer';
 import SearchResultContainer from '../containers/SearchResultContainer';
@@ -18,6 +18,7 @@ import NotFound from '../components/NotFound';
 const Empty = () => <div></div>;
 
 const SearchNavContainer = () => <SearchNav><SearchContainer /></SearchNav>;
+
 
 export default (
 
@@ -45,8 +46,7 @@ export default (
 	<Route path="/search"
 		   components={{main: SearchResultContainer, nav: SearchNavContainer, sub: Empty}} />
 
-  <Route path="/login"
-			 components={{main: LoginContainer, nav: MainNav, sub: Empty}} />
+
 
   <Route path="/test/:componentId"
 			 components={{main: TestPage, nav: Empty, sub: Empty}} />

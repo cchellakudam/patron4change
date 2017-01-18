@@ -32,5 +32,7 @@ export default constants([
   'UPLOAD_VIDEO_SUCCESS',
   'UPLOAD_VIDEO_ERROR',
 
-  'LOGIN_SUCCESS'
+  'LOGIN_SUCCESS',
+	'LOGIN_ERROR',
+	'LOGOUT_SUCCESS'
 ]);

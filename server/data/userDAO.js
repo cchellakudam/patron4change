@@ -9,7 +9,7 @@ export default class{
 	}
 
 	static getUserForEmail(email){
-		return Promise.resolve(models.user.findAll({where: { email: email }}));
+		return Promise.resolve(models.user.findOne({where: { email: email }}));
 	}
 
 	static getUserForId(id){
@@ -18,6 +18,12 @@ export default class{
 
 	static getUpdatesByUserId() {
 		return models.statusUpdate.findAll();
+	}
+
+	static createUser(email){
+		return models.user.create({
+			email: email
+		})
 	}
 
 }

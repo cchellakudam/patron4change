@@ -23,10 +23,12 @@ if (window.$REDUX_STATE) {
 		results: []
 	};
 
-	state.app = {
-		$$fetched: '/' === document.location.pathname,
-		userId: state.app.userId || localStorage.userId
-	};
+	state.login = {
+		$fetched: '/' === document.location.pathname,
+		isAuthenticated: localStorage.id_token ? true:false,
+		profile: localStorage.profile ? JSON.parse(localStorage.profile) : null,
+		loggedUserId: localStorage.loggedUserId ? parseInt(localStorage.loggedUserId) : null
+	}
 }
 
 const store = configureStore( state )

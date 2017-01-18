@@ -4,6 +4,7 @@ import types from '../constants/ActionTypes';
 
 function GLOBAL_SEARCH_REQUEST( state, action ) {
 	return { ...state, term: action.term };
+
 }
 
 function GLOBAL_SEARCH_SUCCESS( state, action ) {
