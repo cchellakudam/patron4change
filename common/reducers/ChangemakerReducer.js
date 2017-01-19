@@ -61,7 +61,7 @@ function SAVE_CHANGEMAKER_PROFILE_SUCCESS(state, action) {
 }
 
 function UPLOAD_VIDEO_SUCCESS(state, action) {
-	return state.update('videoUrl', () => action.result);
+	return { ...state, videoUrl: action.result };
 }
 
 const handlers =

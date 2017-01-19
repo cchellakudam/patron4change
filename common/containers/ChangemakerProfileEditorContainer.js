@@ -39,12 +39,15 @@ class ChangemakerProfileEditorContainer extends Component {
   }
 
   render() {
-    let { changemaker } = this.props;
+    let { changemaker, videoUrl } = this.props;
     if (!changemaker) {
       changemaker = new Changemaker();
     }
-		return <ChangemakerProfileEditor changemaker={changemaker}
-      onSave={this.onSave.bind(this)} onChangeVideoFile={this.onChangeVideoFile.bind(this)} />;
+		return <ChangemakerProfileEditor
+      changemaker={changemaker}
+      videoUrl={videoUrl}
+      onSave={this.onSave.bind(this)}
+      onChangeVideoFile={this.onChangeVideoFile.bind(this)} />;
 	}
 }
 
