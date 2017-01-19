@@ -33,7 +33,7 @@ class ChangemakerProfileEditor extends Component {
   onSave() {
     let changemaker = this.props.changemaker;
     const state = this.state;
-    changemaker = changemaker.set('mission', { text: state.mission });
+    changemaker.mission = { text: state.mission };
     this.props.onSave(changemaker);
   }
 
@@ -58,7 +58,7 @@ class ChangemakerProfileEditor extends Component {
             </Row>
             <Row>
               <Col xs={12} md={12} lg={12}>
-                <Button label='Speichern' onClick={this.onSave.bind(this)} raised accent />
+                <Button label='Speichern' onClick={this.onSave.bind(this)} raised primary />
               </Col>
             </Row>
           </Grid>

@@ -22,7 +22,7 @@ class ChangemakerProfileEditorContainer extends Component {
     // TODO refactor
     let cm = changemaker;
     if (this.props.videoUrl) {
-      cm = cm.set('videoUrl', this.props.videoUrl);
+      cm.videoUrl = this.props.videoUrl;
     }
     this.actions.saveChangemaker(cm);
   }
