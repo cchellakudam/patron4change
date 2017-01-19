@@ -24,20 +24,22 @@ export class ChangemakerProfileContainer extends Component {
 		fetchNeeds( ChangemakerProfileContainer.needs, this.props )
 	}
 
+	componentDidUpdate() {
+		const { changemaker, userId } = this.props;
+		if (!changemaker.id && 0 < +userId) {
+			browserHistory.push('/changemaker/new');
+		}
+	}
+
 	onSupport() {
 		const { id } = this.props.changemaker;
     browserHistory.push(`/changemaker/${id}/support`);
 	}
 
 	render() {
-		const { changemaker, backings, error, userId } = this.props;
-		const changemakerIsEmpty = _.isEmpty(changemaker || {});
+		const { changemaker, backings, error } = this.props;
 
-		if (changemakerIsEmpty && 0 < +userId) {
-			browserHistory.push('/changemaker/new');
-		}
-
-		if (changemakerIsEmpty) {
+		if (_.isEmpty(changemaker || {})) {
 			return <div>LOADING</div>;
 		}
 
