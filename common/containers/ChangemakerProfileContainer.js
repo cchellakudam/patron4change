@@ -30,9 +30,14 @@ export class ChangemakerProfileContainer extends Component {
 	}
 
 	render() {
-		const { changemaker, backings, error } = this.props;
+		const { changemaker, backings, error, userId } = this.props;
+		const changemakerIsEmpty = _.isEmpty(changemaker || {});
 
-		if (_.isEmpty(changemaker || {})) {
+		if (changemakerIsEmpty && 0 < +userId) {
+			browserHistory.push('/changemaker/new');
+		}
+
+		if (changemakerIsEmpty) {
 			return <div>LOADING</div>;
 		}
 
@@ -57,5 +62,6 @@ export class ChangemakerProfileContainer extends Component {
 export default connect( state => ({
 	changemaker: state.cm.changemaker,
 	backings: state.cm.backings,
-	error: state.cm.error
+	error: state.cm.error,
+	userId: state.login.loggedUserId
 }) )(ChangemakerProfileContainer);

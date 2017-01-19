@@ -24,6 +24,7 @@ class ChangemakerProfileEditorContainer extends Component {
     if (this.props.videoUrl) {
       cm.videoUrl = this.props.videoUrl;
     }
+    cm.fkUserId = this.props.userId;
     this.actions.saveChangemaker(cm);
   }
 
@@ -50,6 +51,7 @@ class ChangemakerProfileEditorContainer extends Component {
 export default connect(
   state => ({
     changemaker: state.cm.changemaker,
-    videoUrl: state.cm.videoUrl
+    videoUrl: state.cm.videoUrl,
+    userId: state.login.loggedUserId
   })
 )(ChangemakerProfileEditorContainer);

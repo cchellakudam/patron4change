@@ -35,6 +35,11 @@ class MainNav extends React.Component {
     browserHistory.push('/search');
   }
 
+	onNavigateToProfile(profile, e) {
+		e.preventDefault();
+		browserHistory.push(profile);
+	}
+
   render() {
     const img = <img className={styles.logo} src="/public/images/logo.png" alt="patron4change logo" />;
 
@@ -50,9 +55,16 @@ class MainNav extends React.Component {
 					onLogoutClick = {this.actions.logout}
 					doAuthenticate = {this.actions.doAuthentication}
 				/>
-        <Link href="/changemaker" className={styles.changemakerLink} onClick={this.onNavigateToSearch} icon="person">
-          Meine Changemaker
-        </Link>
+				{this.props.isAuthenticated?
+					<Link href={`/changemaker/${this.props.userId}`}
+						className={styles.changemakerLink}
+						onClick={this.onNavigateToProfile.bind(this, `/changemaker/${this.props.userId}`)}
+						icon="person">
+          	Mein Profil
+        	</Link>
+					:
+					null
+				}
 				<Link href="/search" onClick={this.onNavigateToSearch} icon="search">
           Search
         </Link>
