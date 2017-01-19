@@ -84,7 +84,7 @@ describe('periodicBackingDAO', () => {
 				expect(res.length).to.equal(3);
 				expect(res[0].fkBackingId).to.equal(8);
 				expect(res[1].fkBackingId).to.equal(9);
-				expect(res[2].fkBackingId).to.equal(10);
+				expect(res[2].fkBackingId).to.equal(11);
 			})
 		}).timeout(10000)
 	})

@@ -12,9 +12,11 @@ export default (userSvc) => {
 		});
 	});
 
-	router.post('/:id/resetpassword', (req, res) => {
-		res.sendStatus(500)
-	});
+	router.post('/login', (req,res) => {
+		userSvc.loginUser(req.body.email).then((user) => {
+			res.send(user)
+		})
+	})
 
 	return router;
 }

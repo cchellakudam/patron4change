@@ -65,8 +65,7 @@ module.exports = {
         ]
       }, {
 				test: /\.css$/,
-				loader: 'style!css?modules',
-				include: /flexboxgrid/
+				loader: 'style!css?modules'
 			}, {
         test: /\.png$/,
         loader: 'url'

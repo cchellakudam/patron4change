@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -11,11 +11,6 @@ export class SearchContainer extends Component {
 
 	static needs = [
 	];
-
-	static propTypes = {
-		dispatch: PropTypes.func.isRequired,
-		term: PropTypes.string.isRequired
-	}
 
 	constructor(props, context) {
 		super(props, context);
@@ -36,6 +31,6 @@ export class SearchContainer extends Component {
 	}
 }
 
-export default connect( (state/* , ownProps */) => ({
+export default connect( state => ({
 	term: state.search.term
 }) )(SearchContainer);

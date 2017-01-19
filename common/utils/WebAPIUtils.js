@@ -1,39 +1,45 @@
 import 'isomorphic-fetch';
-import {
-	ChangemakerRecord,
-	UpdateRecord,
-	SearchResultRecord,
-	convertToRecordList
-} from '../constants/Types';
 import axios from 'axios';
-
-function emptyRecordList() {
-  return convertToRecordList([], ChangemakerRecord);
-}
 
 export default class {
 
+	static getLoggedUser(email){
+		return axios({
+			url: '/api/users/login',
+			method: 'post',
+			data: {email: email}
+		}).then((res) => {
+			return res.data.id
+		})
+	}
+
 	static getAllChangemakers() {
 		return axios('/api/changemakers').then(res => {
-			return convertToRecordList(res.data, ChangemakerRecord);
+			return res.data;
 		});
 	}
 
 	static getChangemakerById(id) {
 		return axios(`/api/changemakers/${id}`).then(res => {
-			return new ChangemakerRecord(res.data);
+			return res.data;
 		});
 	}
 
 	static getAllUpdatesByUserId(id) {
 		return axios('/api/changemakers/' + id + '/updates').then(res => {
-			return convertToRecordList(res.data, UpdateRecord);
+			return res.data;
 		});
 	}
 
 	static getFeaturedChangemakers(){
 		return axios('/api/changemakers/featured').then(res => {
-			return convertToRecordList(res.data,ChangemakerRecord);
+			return res.data;
+		});
+	}
+
+	static getBackingsByChangemakerId(id) {
+		return axios('/api/changemakers/' + id + '/backings').then(res => {
+			return res.data;
 		});
 	}
 
@@ -43,16 +49,16 @@ export default class {
 			return axios.get(res.headers.location);
 		})
 		.then(res => {
-			return new ChangemakerRecord(res.data);
+			return res.data;
 		});
 	}
 
 	static search(term) {
 		if (!term) {
-			return Promise.resolve(emptyRecordList());
+			return Promise.resolve([]);
 		}
     return axios(`/api/search?q=${term}`).then(res => {
-			return convertToRecordList(res.data, SearchResultRecord);
+			return res.data;
 		});
 	}
 

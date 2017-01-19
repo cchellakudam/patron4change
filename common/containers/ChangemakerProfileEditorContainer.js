@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -9,12 +9,6 @@ import { changemaker as Changemaker } from '../constants/Shapes';
 import ChangemakerProfileEditor from '../components/ChangemakerProfileEditor';
 
 class ChangemakerProfileEditorContainer extends Component {
-
-  static propTypes = {
-    dispatch: PropTypes.func.isRequired,
-		changemaker: PropTypes.object,
-    videoUrl: PropTypes.string // TODO remove (see Types.js)
-	}
 
   state = { saved: false };
 

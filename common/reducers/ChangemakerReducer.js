@@ -1,44 +1,44 @@
 /* eslint brace-style: 0 */
 
-import Immutable from 'immutable';
 import _ from 'lodash';
-import {ChangemakerState } from '../constants/Types';
 import createReducer from '../utils/createReducer';
 import types from '../constants/ActionTypes';
 
-function mergeLists(l1, l2, keySelector) {
-	let newList = l1.valueSeq();
-	let newKeys = l2.map(keySelector);
-	newList = newList.filter(item => !newKeys.includes(keySelector(item)));
-	newList = newList.concat(l2);
-	return Immutable.List(newList);
+function mergeLists(old, more, keySelector) {
+	let resultList = old.concat([]);
+	let newKeys = more.map(keySelector);
+	resultList = resultList.filter(item => !newKeys.includes(keySelector(item)));
+	return resultList.concat(more);
 }
 
 function mergeInChangemaker(state, newChangemakers) {
-	return state.update( 'changemakers', changemakers => {
-		return mergeLists(changemakers, newChangemakers, _.property('id'));
-	});
+	let changemakers = mergeLists(state.changemakers, newChangemakers, _.property('id'));
+	return { ...state, changemakers };
 }
 
 function READ_ALL_CHANGEMAKERS_REQUEST( state ) { return state; }
 function READ_ALL_CHANGEMAKERS_ERROR( state ) { return state; }
 function READ_ALL_CHANGEMAKERS_SUCCESS( state, action ) {
-	return state.update( 'changemakers', () => Immutable.fromJS(action.result) )
+	return { ...state, changemaker: action.result };
 }
 
 function SUPPORT_CHANGEMAKER( state ) {
-	return state.update( 'changemakers', list => {
-		// TODO implement with REST transaction
-		return list;
-	})
+	return state;
 }
 
 function GET_FEATURED_CHANGEMAKERS_REQUEST (state){return state;}
 function GET_FEATURED_CHANGEMAKERS_ERROR (state){return state;}
 function GET_FEATURED_CHANGEMAKERS_SUCCESS(state, action){
-	let featuredIds = Immutable.fromJS(action.result.map(cm => cm.id));
-	return mergeInChangemaker(state, action.result)
-		.set('featuredChangemakers', featuredIds);
+	let featuredIds = action.result.map(cm => cm.id);
+	let newState = mergeInChangemaker(state, action.result)
+	newState.featuredChangemakers = featuredIds;
+	return newState;
+}
+
+function GET_BACKINGS_REQUEST (state){return state;}
+function GET_BACKINGS_ERROR (state){return state;}
+function GET_BACKINGS_SUCCESS(state, action){
+	return { ...state, backings: action.result };
 }
 
 function GLOBAL_SEARCH_SUCCESS( state, action ) {
@@ -47,16 +47,17 @@ function GLOBAL_SEARCH_SUCCESS( state, action ) {
 }
 
 function GET_CHANGEMAKER_BY_ID_REQUEST(state) { return state; }
-function GET_CHANGEMAKER_BY_ID_ERROR(state) { return state; }
+function GET_CHANGEMAKER_BY_ID_ERROR(state, action) { return { ...state, error: action.error }; }
 function GET_CHANGEMAKER_BY_ID_SUCCESS(state, action) {
 	// TODO merge to entire list
-	return state.update('changemaker', () => Immutable.fromJS(action.result));
+	action.result.statusUpdates = [];
+	return { ...state, changemaker: action.result };
 }
 
 function SAVE_CHANGEMAKER_PROFILE_REQUEST(state) {return state; }
 function SAVE_CHANGEMAKER_PROFILE_ERROR(state) {return state; }
 function SAVE_CHANGEMAKER_PROFILE_SUCCESS(state, action) {
-	return state.update('changemaker', () => Immutable.fromJS(action.result));
+	return { ...state, changemaker: action.result };
 }
 
 function UPLOAD_VIDEO_SUCCESS(state, action) {
@@ -81,6 +82,10 @@ const handlers =
 	[types.GET_CHANGEMAKER_BY_ID_SUCCESS]: GET_CHANGEMAKER_BY_ID_SUCCESS,
 	[types.GET_CHANGEMAKER_BY_ID_ERROR]: GET_CHANGEMAKER_BY_ID_ERROR,
 
+	[types.GET_BACKINGS_REQUEST]: GET_BACKINGS_REQUEST,
+	[types.GET_BACKINGS_SUCCESS]: GET_BACKINGS_SUCCESS,
+	[types.GET_BACKINGS_ERROR]: GET_BACKINGS_ERROR,
+
 	[types.SAVE_CHANGEMAKER_PROFILE_REQUEST]: SAVE_CHANGEMAKER_PROFILE_REQUEST,
 	[types.SAVE_CHANGEMAKER_PROFILE_SUCCESS]: SAVE_CHANGEMAKER_PROFILE_SUCCESS,
 	[types.SAVE_CHANGEMAKER_PROFILE_ERROR]: SAVE_CHANGEMAKER_PROFILE_ERROR,
@@ -90,4 +95,10 @@ const handlers =
 	[types.UPLOAD_VIDEO_ERROR]: _.identity
 }
 
-export default createReducer( new ChangemakerState(), handlers );
+const initialState = {
+	changemaker: {},
+	changemakers: [],
+	featuredChangemakers: [],
+	backings: []
+};
+export default createReducer( initialState, handlers );

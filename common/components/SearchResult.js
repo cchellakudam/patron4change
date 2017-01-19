@@ -1,12 +1,13 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { List } from 'react-toolbox/lib/list';
 
+import * as shapes from '../constants/Shapes';
 import styles from '../../client/css/modules/search-result.scss';
 
 class SearchResult extends React.Component {
 
   static propTypes = {
-    children: PropTypes.object
+    children: shapes.children
   }
 
   render() {

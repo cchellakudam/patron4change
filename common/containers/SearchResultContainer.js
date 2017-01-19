@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import SearchResult from '../components/SearchResult';
@@ -6,15 +6,10 @@ import SearchResultItem from '../components/SearchResultItem';
 
 export class SearchResultContainer extends React.Component {
 
-  static propTypes = {
-		dispatch: PropTypes.func.isRequired,
-    results: PropTypes.object.isRequired
-  }
-
   render() {
     let { results } = this.props;
 
-	  const nodes = results.valueSeq().map( item => {
+	  const nodes = results.map( item => {
 			return <SearchResultItem
 			  key={`search-result-${item.changemakerId}`}
         className="search-result-item"
@@ -28,9 +23,9 @@ export class SearchResultContainer extends React.Component {
   }
 }
 
-export default connect( (state/* , ownProps */) => {
+export default connect( state => {
   // TODO store as index in flux store
-  let cmIdx = state.cm.changemakers.valueSeq().reduce((ctx, next) => {
+  let cmIdx = state.cm.changemakers.reduce((ctx, next) => {
     ctx[next.id] = next;
     return ctx;
   }, {});

@@ -1,7 +1,8 @@
 export default class {
 
-	constructor(dao) {
+	constructor(dao, backingDAO) {
 		this.dao = dao;
+		this.backingDAO = backingDAO;
 	}
 
 	getAllChangemakers() {
@@ -18,6 +19,10 @@ export default class {
 
 	getFeaturedChangemakers() {
 		return this.dao.getFeatured();
+	}
+
+	getBackingsByChangemakerId(id) {
+		return this.backingDAO.getByChangemakerId(id);
 	}
 
 	getUpdatesByUserId(){

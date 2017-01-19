@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
@@ -16,13 +16,6 @@ class LandingPageContainer extends Component {
 	static needs = [
 		ChangemakerActions.getFeaturedChangemakers
 	];
-
-	static propTypes = {
-		dispatch: PropTypes.func.isRequired,
-		term: PropTypes.string.isRequired,
-		featuredChangemakers: PropTypes.any.isRequired,
-		userId: PropTypes.number
-	}
 
 	constructor(props, context) {
 		super(props, context);
@@ -43,7 +36,7 @@ class LandingPageContainer extends Component {
 	}
 
 	render() {
-	  const {featuredChangemakers, userId, term } = this.props;
+	  const { featuredChangemakers, userId, term } = this.props;
 
 	  const nodes = featuredChangemakers.map( cm => {
 			return <ChangemakerCard
@@ -62,8 +55,9 @@ class LandingPageContainer extends Component {
 	}
 }
 
-export default connect( (state/* , ownProps */) => ({
-	featuredChangemakers: state.cm.changemakers.filter(c => state.cm.featuredChangemakers.valueSeq().includes(c.id)),
-	userId: state.app.userId,
-	term: state.search.term
+export default connect( state => ({
+	featuredChangemakers: state.cm.changemakers.filter(c => state.cm.featuredChangemakers.includes(c.id)),
+	userId: state.login.loggedUserId,
+	term: state.search.term || ''
+
 }) )(LandingPageContainer);

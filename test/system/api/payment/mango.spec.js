@@ -7,10 +7,8 @@ import chai from 'chai';
 const{expect} = chai;
 
 describe('/payment', () => {
-	before( (done) => {
-		DBTestUtil.refreshDB().then(() => {
-			done();
-		});
+	before( () => {
+		return DBTestUtil.refreshDB();
 	})
 
 	describe('/mango/register', () => {

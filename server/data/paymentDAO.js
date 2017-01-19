@@ -42,9 +42,9 @@ export default class{
 		});
 	}
 
-	static createSingleBacking(patronId, changemakerId, transactionId, amount, transactionDate){
+	static createSingleBacking(patronId, changemakerId, transactionId, amount, comment, transactionDate){
 		let changemakerPromise = models.user.findById(changemakerId);
-		let patronPromise = models.user.findById(patronId)
+		let patronPromise = models.user.findById(patronId);
 
 		return Promise.all([changemakerPromise, patronPromise]).then(values => {
 			if(!values[0]){
@@ -68,6 +68,7 @@ export default class{
 			let backing = models.singleBacking.create({
 			backing: {
 				amount: amount,
+				comment: comment,
 				fkSenderId: patronId,
 				fkRecipientId: changemakerId,
 				payments: [{
@@ -89,7 +90,10 @@ export default class{
 
 	static getAccountIdForUser(userId, paymentProviderId){
 		return models.paymentServiceData.findOne({where: {fkUserId: userId, fkPaymentProviderId: paymentProviderId}})
-			.then((res) =>{
+			.then((res) => {
+				if (!res) {
+					return null;
+				}
 				return res.accountId;
 			})
 	}

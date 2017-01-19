@@ -36,6 +36,7 @@ describe('changemakerDAO', () => {
 				expect(changemaker).to.have.deep.property('user.lastName', 'Holzer');
 				expect(changemaker).to.have.deep.property('user.avatarUrl', 'https://randomuser.me/api/portraits/med/men/42.jpg');
 				expect(changemaker).to.have.property('videoUrl');
+				expect(changemaker).to.have.property('approvalDate');
 			});
 		});
 	});
@@ -50,9 +51,20 @@ describe('changemakerDAO', () => {
 
 		it('should prefer changemakers with more recent updates', () => {
 			return changemakerDAO.getFeatured().then((changemakers) => {
-				let higher = +new Date(changemakers[0].lastStatusUpdate);
-				let lower = +new Date(changemakers[1].lastStatusUpdate);
-        expect(higher).to.be.at.least(lower);
+				let h1 = +new Date(changemakers[0].lastStatusUpdate);
+				let l1 = +new Date(changemakers[1].lastStatusUpdate);
+        expect(h1).to.be.above(l1);
+
+				let h2 = +new Date(changemakers[1].lastStatusUpdate);
+				let l2 = +new Date(changemakers[2].lastStatusUpdate);
+        expect(h2).to.be.above(l2);
+			});
+		});
+
+		it('should compute the number of patrons', () => {
+			return changemakerDAO.getFeatured().then((changemakers) => {
+				let cm = changemakers[0];
+        expect(cm.numberOfPatrons).to.equal(18);
 			});
 		});
 
@@ -62,6 +74,7 @@ describe('changemakerDAO', () => {
 
 		it('should create a changemaker', done => {
 			const testData = {
+				isApproved: false,
 				mission: {
 					text: 'Test mission'
 				}

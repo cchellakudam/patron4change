@@ -16,7 +16,7 @@ export default (controller, exceptionMapping_) => {
     function handleException(ex) {
       let err = ex;
       if ('object' !== typeof err) {
-        return false
+        return false;
       }
       let { name } = err;
       if ('string' !== typeof name || !name) {

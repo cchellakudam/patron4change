@@ -1,6 +1,5 @@
 [
 	{
-		"id": 1,
 		"lastName": "Holzer",
 		"firstName": "Matthias",
 		"email": "matthias.holzer@example.com",
@@ -11,7 +10,6 @@
 		"isBlocked": false
 	},
 	{
-		"id": 2,
 		"lastName": "Mayer",
 		"firstName": "Roland",
 		"email": "roland.mayer@example.com",
@@ -22,7 +20,6 @@
 		"isBlocked": false
 	},
 	{
-		"id": 3,
 		"lastName": "Molner",
 		"firstName": "Maria",
 		"email": "maria.molner@example.com",
@@ -33,7 +30,6 @@
 		"isBlocked": false
 	},
 	{
-		"id": 4,
 		"lastName": "Polnitz",
 		"firstName": "Julia",
 		"email": "Julia.polnitz@example.com",
@@ -44,7 +40,6 @@
 		"isBlocked": false
 	},
 	{
-		"id": 5,
 		"lastName": "Voggen",
 		"firstName": "Alex",
 		"email": "alex.voggen@example.com",
@@ -55,7 +50,6 @@
 		"isBlocked": false
 	},
 	{
-		"id": 6,
 		"lastName": "Franzens",
 		"firstName": "Hermann",
 		"email": "franzens.hermann@example.com",
@@ -66,7 +60,6 @@
 		"isBlocked": false
 	},
 	{
-		"id": 7,
 		"lastName": "goldfaden",
 		"firstName": "Klara",
 		"email": "klara.goldfaden@example.com",
@@ -77,7 +70,6 @@
 		"isBlocked": false
 	},
 	{
-		"id": 8,
 		"lastName": "Ondar",
 		"firstName": "Enzo",
 		"email": "enzo.ondar@example.com",
@@ -88,7 +80,6 @@
 		"isBlocked": false
 	},
 	{
-		"id": 9,
 		"lastName": "Singfeld",
 		"firstName": "Paul",
 		"email": "paul.singfeld@example.com",
@@ -99,7 +90,6 @@
 		"isBlocked": false
 	},
 	{
-		"id": 10,
 		"lastName": "Noname",
 		"firstName": "Freigeist",
 		"email": "freigeist@example.com",
@@ -110,7 +100,6 @@
 		"isBlocked": false
 	},
 	{
-		"id": 11,
 		"lastName": "Muster",
 		"firstName": "Maximiliana",
 		"email": "maximiliana@muster.com",

@@ -23,10 +23,10 @@ export default class{
 		});
 	}
 
-	payUserWithCard(patronId, amount, changemakerId, accountId){
-		return this.mango.createCardPayment(accountId, amount, patronId, changemakerId).catch((err) => {
-				throw err;
-			})
+	payUserWithCard(patronId, amount, comment, changemakerId, accountId){
+		return this.mango.createCardPayment(accountId, amount, comment, patronId, changemakerId).catch((err) => {
+			throw err;
+		});
 	}
 
 /* This method only takes any kind of security token or registration

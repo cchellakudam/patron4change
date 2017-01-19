@@ -44,9 +44,7 @@ app.use((req, res, next) => {
 let bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
-if ('development' === process.env.NODE_ENV) {
-	app.use(pretty({ query: 'pretty' }));
-}
+app.use(pretty({ query: 'pretty' }));
 
 app.use(winstonRequestLogger.create(logger, {
 	responseTime: ':responseTime ms', // outputs '5 ms'
@@ -70,9 +68,7 @@ runWorkers(appConfig.get('queues'), logger);
 // init database
 let databaseInit;
 if('unit' !== process.env.NODE_ENV) {
-	databaseInit = model.sequelize.sync({
-		logging: str => logger.log('silly', str)
-	});
+	databaseInit = model.sequelize.sync();
 } else {
 	databaseInit = Promise.resolve(true);
 }

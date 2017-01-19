@@ -25,6 +25,18 @@ export function getFeaturedChangemakers() {
 	};
 }
 
+export function getBackings({changemakerId}) {
+	let promise = WebAPIUtils.getBackingsByChangemakerId(changemakerId);
+	return {
+		types: [
+			types.GET_BACKINGS_REQUEST,
+			types.GET_BACKINGS_SUCCESS,
+			types.GET_BACKINGS_ERROR
+		],
+		promise
+	};
+}
+
 export function getChangemakerById({changemakerId}) {
 	return {
 		types: [

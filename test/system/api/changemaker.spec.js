@@ -89,4 +89,39 @@ describe('/changemakers', () => {
 		});
 
 	});
+
+	describe('/1/backings', () => {
+
+		const apiUrl = url + '/1/backings';
+
+		function req() {
+			return axios.get(apiUrl)
+				.catch((err) => {
+					console.log('test failure caught:', msg(err));
+					expect.fail();
+				});
+		}
+
+		it('should return the backings for a changemaker', () => {
+			return req()
+				.then(res => {
+					const results = res.data;
+					expect(results).to.have.length.of.at.least(1);
+				});
+		});
+
+		it('should fail if using non-numeric id', done => {
+			axios.get(url + '/asdasd/backings')
+				.then(() => {
+					expect.fail('should fail with 400');
+					done();
+				})
+				.catch(err => {
+					expect(err.response.status).to.equal(400);
+					done();
+				});
+		});
+
+	});
+
 });

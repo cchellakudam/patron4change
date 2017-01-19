@@ -1,7 +1,6 @@
 const {assert} = require('chai');
 
 import React from 'react';
-import Immutable from 'immutable';
 import _ from 'lodash';
 import { render } from 'enzyme';
 import { SearchResultContainer } from '../../../../common/containers/SearchResultContainer'
@@ -10,7 +9,7 @@ import { SearchResultContainer } from '../../../../common/containers/SearchResul
 describe('<SearchResultContainer />', () => {
 
 	const lukas = {
-		id: 'lstanek',
+		id: 1,
 		firstName: 'Lukas',
 		lastName: 'Stanek',
 		mission: 'Lukas Stanek travels',
@@ -20,11 +19,11 @@ describe('<SearchResultContainer />', () => {
 	it('should list all search results', () => {
 		const changemaker = Object.assign({}, lukas);
 		const props = {
-			results: Immutable.List([{
+			results: [{
 				changemaker,
 				relevance: 1,
 				section: null
-			}]),
+			}],
 			dispatch: _.noop
 		};
 		const wrapper = render(<SearchResultContainer {...props} />)
@@ -35,11 +34,11 @@ describe('<SearchResultContainer />', () => {
 	it('should show a highlighted mission statement that matches the term', () => {
 		const changemaker = Object.assign({}, lukas);
 		const props = {
-			results: Immutable.List([{
+			results: [{
 				changemaker,
 				relevance: 1,
 				section: { value: 'Lukas Stanek <em>travels</em>' }
-			}]),
+			}],
 			dispatch: _.noop
 		};
 		const wrapper = render(<SearchResultContainer {...props} />);
@@ -51,11 +50,11 @@ describe('<SearchResultContainer />', () => {
 	it('should show the mission statement itself if it wasn\'t mached with the term', () => {
 		const changemaker = Object.assign({}, lukas);
 		const props = {
-			results: Immutable.List([{
+			results: [{
 				changemaker,
 				relevance: 1,
 				section: null
-			}]),
+			}],
 			dispatch: _.noop
 		};
 		const wrapper = render(<SearchResultContainer {...props} />);

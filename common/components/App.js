@@ -18,6 +18,7 @@ export default class App extends Component {
 	}
 
 	render() {
+
 		let isStartPage = '/' === this.props.location.pathname;
 		return <div className={isStartPage ? styles.startPage : ''}>
 			{this.props.nav}

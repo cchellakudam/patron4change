@@ -53,7 +53,7 @@ describe('mangopay API specific logic', () => {
 
 		it('this service should create a backing and payment for a changemaker ' +
 			'using mangopay, a redirect url should be given', (done) => {
-			mango.createCardPayment('18559606', 1000, 1, 2).then((res) => {
+			mango.createCardPayment('18559606', 1000, 'adore y', 1, 2).then((res) => {
 				assert(res.startsWith('https://'),
 							'the returned value was not a valid address');
 				done();
