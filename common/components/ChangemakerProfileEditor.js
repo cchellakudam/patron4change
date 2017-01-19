@@ -3,6 +3,7 @@ import { Grid, Row, Col } from 'react-flexbox-grid';
 import { Card, CardText } from 'react-toolbox/lib/card';
 import { Button } from 'react-toolbox/lib/button';
 import Input from 'react-toolbox/lib/input';
+import ProgressBar from 'react-toolbox/lib/progress_bar';
 import Dropzone from 'react-dropzone';
 
 import * as shapes from '../constants/Shapes';
@@ -13,6 +14,7 @@ class ChangemakerProfileEditor extends Component {
 
   static propTypes = {
   	changemaker: shapes.changemaker.isRequired,
+    videoUrl: PropTypes.string,
     onSave: PropTypes.func.isRequired,
     onChangeVideoFile: PropTypes.func.isRequired
 	};
@@ -33,12 +35,12 @@ class ChangemakerProfileEditor extends Component {
   onSave() {
     let changemaker = this.props.changemaker;
     const state = this.state;
-    changemaker = changemaker.set('mission', { text: state.mission });
+    changemaker.mission = { text: state.mission };
     this.props.onSave(changemaker);
   }
 
   render() {
-    this.changemaker = this.props.changemaker;
+    const { videoUrl } = this.props;
     return (
       <Card>
         <CardText>
@@ -54,11 +56,12 @@ class ChangemakerProfileEditor extends Component {
                   onDrop={this.onDropFile.bind(this)}>
                   {this.state.video ? <div>Video vorhanden</div> : <div>Video hier ablegen</div>}
                 </Dropzone>
+                {!this.state.video || this.state.video && videoUrl ? '' : <ProgressBar mode='indeterminate' />}
               </Col>
             </Row>
             <Row>
               <Col xs={12} md={12} lg={12}>
-                <Button label='Speichern' onClick={this.onSave.bind(this)} raised accent />
+                <Button label='Speichern' onClick={this.onSave.bind(this)} raised primary />
               </Col>
             </Row>
           </Grid>

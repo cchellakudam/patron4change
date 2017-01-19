@@ -30,6 +30,7 @@ export default class {
 	}
 
 	createChangemaker(changemaker) {
+		changemaker.isApproved = false;
 		return this.dao.createChangemaker(changemaker);
 	}
 }

@@ -77,8 +77,6 @@ export default class {
 	}
 
 	static createChangemaker(data) {
-		// TODO use current user
-		data.fkUserId = 1;
 		return models.changemaker.create(
 			data,
 			{

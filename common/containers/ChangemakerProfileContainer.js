@@ -24,6 +24,13 @@ export class ChangemakerProfileContainer extends Component {
 		fetchNeeds( ChangemakerProfileContainer.needs, this.props )
 	}
 
+	componentDidUpdate() {
+		const { changemaker, userId } = this.props;
+		if (!changemaker.id && 0 < +userId) {
+			browserHistory.push('/changemaker/new');
+		}
+	}
+
 	onSupport() {
 		const { id } = this.props.changemaker;
     browserHistory.push(`/changemaker/${id}/support`);
@@ -57,5 +64,6 @@ export class ChangemakerProfileContainer extends Component {
 export default connect( state => ({
 	changemaker: state.cm.changemaker,
 	backings: state.cm.backings,
-	error: state.cm.error
+	error: state.cm.error,
+	userId: state.login.loggedUserId
 }) )(ChangemakerProfileContainer);

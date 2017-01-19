@@ -22,8 +22,9 @@ class ChangemakerProfileEditorContainer extends Component {
     // TODO refactor
     let cm = changemaker;
     if (this.props.videoUrl) {
-      cm = cm.set('videoUrl', this.props.videoUrl);
+      cm.videoUrl = this.props.videoUrl;
     }
+    cm.fkUserId = this.props.userId;
     this.actions.saveChangemaker(cm);
   }
 
@@ -38,18 +39,22 @@ class ChangemakerProfileEditorContainer extends Component {
   }
 
   render() {
-    let { changemaker } = this.props;
+    let { changemaker, videoUrl } = this.props;
     if (!changemaker) {
       changemaker = new Changemaker();
     }
-		return <ChangemakerProfileEditor changemaker={changemaker}
-      onSave={this.onSave.bind(this)} onChangeVideoFile={this.onChangeVideoFile.bind(this)} />;
+		return <ChangemakerProfileEditor
+      changemaker={changemaker}
+      videoUrl={videoUrl}
+      onSave={this.onSave.bind(this)}
+      onChangeVideoFile={this.onChangeVideoFile.bind(this)} />;
 	}
 }
 
 export default connect(
   state => ({
     changemaker: state.cm.changemaker,
-    videoUrl: state.cm.videoUrl
+    videoUrl: state.cm.videoUrl,
+    userId: state.login.loggedUserId
   })
 )(ChangemakerProfileEditorContainer);

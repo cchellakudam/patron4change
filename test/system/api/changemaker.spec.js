@@ -5,7 +5,8 @@ import config from 'config';
 const { expect } = chai;
 
 const port = config.get('port');
-const url = `http://localhost:${port}/api/changemakers`;
+const baseUrl = `http://localhost:${port}`;
+const url = `${baseUrl}/api/changemakers`;
 
 function msg(err) {
 	if (err.Error) {
@@ -57,6 +58,22 @@ describe('/changemakers', () => {
 		});
 
 	});
+
+	describe('/', () => {
+
+		it('should create a changemaker which is not approved', () => {
+			return axios.post(url, {
+				mission: {
+					text: 'foo'
+				}
+			}).then(res => {
+				return axios.get(baseUrl + res.headers.location);
+			}).then(res => {
+				expect(res.data).to.have.deep.property('isApproved', false);
+			});
+		})
+
+	})
 
 	describe('/featured', () => {
 
