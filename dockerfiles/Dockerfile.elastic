@@ -1,0 +1,4 @@
+FROM elasticsearch
+MAINTAINER Marcel Zeilinger <marcel.zeilinger@live.at>
+
+RUN ./bin/elasticsearch-plugin install analysis-phonetic

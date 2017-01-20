@@ -1,7 +1,10 @@
 version: '2'
+
 services:
   elastic:
-    image: elasticsearch:2.4
+    build:
+      context: .
+      dockerfile: Dockerfile.elastic
     volumes:
       - "elastic-data:/usr/share/elasticsearch/data"
     ports:

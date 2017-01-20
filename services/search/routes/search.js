@@ -10,6 +10,7 @@ export default router;
 router.get('/:type', (req, res) => {
   elastic.search({
     index: '_all',
+    timeout: '1s',
     type: req.params.type,
     body: {
       query: {

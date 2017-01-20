@@ -29,7 +29,7 @@ router.put('/:type/:id', (req, res) => {
     index: index,
     type: req.params.type,
     id: req.params.id,
-    body: req.body
+    body: prepareDocument(req.body)
   })
   .then((result) => {
     res.status(200).send(result);

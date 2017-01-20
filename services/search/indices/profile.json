@@ -1,28 +1,66 @@
 {
   "profile_v1": {
+    "settings": {
+        "analysis": {
+            "analyzer": {
+                "p4c_german": {
+                    "tokenizer": "standard",
+                    "filter": [
+                      "lowercase",
+                      "german_stop",
+                      "p4c_phonetic_cologne",
+                      "p4c_phonetic_beidermorse",
+                      "german_normalization",
+                      "german_stemmer"
+                    ]
+                }
+            },
+            "filter" : {
+                "german_stop": {
+                  "type":       "stop",
+                  "stopwords":  "_german_"
+                },
+                "german_stemmer": {
+                  "type":       "stemmer",
+                  "language":   "light_german"
+                },
+                "p4c_phonetic_cologne": {
+                  "type":    "phonetic",
+                  "encoder": "koelnerphonetik",
+                  "replace": false
+                },
+                "p4c_phonetic_beidermorse": {
+                  "type":    "phonetic",
+                  "encoder": "beidermorse",
+                  "languageset": "german",
+                  "replace": false
+                }
+            }
+        }
+    },
     "mappings": {
       "changemaker": {
         "properties": {
           "firstName": {
-            "type": "string"
+            "type": "text"
           },
           "lastName": {
-            "type": "string"
+            "type": "text"
           },
           "mission": {
-            "type": "string",
-            "analyzer": "german"
+            "type": "text",
+            "analyzer": "p4c_german"
           },
           "statusUpdates": {
             "type": "nested",
             "properties": {
               "title": {
-                "type": "string",
-                "analyzer": "german"
+                "type": "text",
+                "analyzer": "p4c_german"
               },
               "content": {
-                "type": "string",
-                "analyzer": "german"
+                "type": "text",
+                "analyzer": "p4c_german"
               }
             }
           },
