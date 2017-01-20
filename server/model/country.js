@@ -6,7 +6,7 @@ export default (sequelize, DataTypes) => {
 			primaryKey: true
 		},
 		name: {
-			type: DataTypes.STRING(70),
+			type: DataTypes.STRING(70)
 		}
 	}, {
 		classMethods: {

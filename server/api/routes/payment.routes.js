@@ -13,8 +13,7 @@ export default (paymentSvcs) => {
 	});
 
   router.post('/mango/pay', (req, res) => {
-    const { patronId, amount, comment, changemakerId, accountId } = res.body;
-  	paymentSvcs.mango.payUserWithCard(patronId, amount, comment, changemakerId, accountId).then((url) => {
+  	paymentSvcs.mango.oneTimeSupport(req.body).then((url) => {
   		res.send(url)
 		}).catch(() => {
   		res.status(400).send('general operation error');

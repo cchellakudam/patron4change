@@ -1,6 +1,5 @@
 const assert = require('chai').assert;
 import userDAO from '../../../server/data/userDAO'
-import models from '../../../server/model/index'
 import chai from 'chai';
 import DBTestUtil from './DBTestUtil'
 const{expect} = chai;
@@ -67,11 +66,11 @@ describe('userDAO', () => {
 				firstName: 'john',
 				lastName: 'doe',
 				fkCountryIdResidence: 'united kingdom',
-				birthday: 'monday 25 2017',
+				birthday: 'monday 25 2017'
 			}
 
-			userDAO.updateUser(userInformation).then((res) => {
-			}).catch((err) => {
+			userDAO.updateUser(userInformation).then(() => {
+			}).catch(() => {
 				done()
 			})
 		})

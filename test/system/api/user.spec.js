@@ -48,14 +48,14 @@ describe('/user', () => {
 			})
 		}
 
-		it.only('should return a user with updated information', () => {
+		it('should return a user with updated information', () => {
 			let userInformation = {
 				id: 1,
 				firstName: 'john',
 				lastName: 'doe',
 				countryOfResidence: 'united kingdom',
 				nationality: 'sweden',
-				birthday: 758926219000,
+				birthday: 758926219000
 			}
 
 			return req(userInformation, userInformation.id).then((res) => {
@@ -70,19 +70,20 @@ describe('/user', () => {
 
 		})
 
-		it.only('should throw error, incorrect date format', (done) => {
+		it('should throw error, incorrect date format', (done) => {
 			let userInformation = {
 				id: 1,
 				firstName: 'john',
 				lastName: 'doe',
 				countryOfResidence: 'united kingdom',
 				nationality: 'sweden',
-				birthday: 'monday 25 2017',
+				birthday: 'monday 25 2017'
 			}
 
-			req(userInformation, userInformation.id).then((res) => {
-
-			}).catch((err) => {
+			req(userInformation, userInformation.id).then(() => {
+				expect(1).to.equal(0) // supposed to fail
+				done()
+			}).catch(() => {
 				done()
 			})
 		})

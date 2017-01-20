@@ -1,6 +1,8 @@
 const assert = require('chai').assert;
 import singleBackingDAO from '../../../server/data/singleBackingDAO'
 import DBTestUtil from './DBTestUtil'
+import chai from 'chai';
+const{expect} = chai;
 
 describe('singleBackingDAO', () => {
 	before( (done) => {
@@ -11,20 +13,31 @@ describe('singleBackingDAO', () => {
 
 describe('create a single backing for a changemaker', () => {
 
-	it('should return a singleBacking model on successful creation', (done) =>{
-	singleBackingDAO.createSingleBacking(1, 2, 'abc', 1000, 1463496101).then((res) =>{
-		assert(1000 === res.backing.amount, 'the backing amount does not match the input');
-	assert(1000 === res.backing.payments[0].amount, 'the payment amount does not match input');
-	// assert(res.backing.payments[0].transactionDate === 1463496101, 'the payment date does not match input');
-	assert('abc' === res.backing.payments[0].transactionId, 'the payment transactionId does not match input');
-	done();
-}).catch((err) =>{
-		done(err);
+	it('should return a singleBacking model on successful creation', () =>{
+		let backingData= {
+			userId: 1,
+			changemakerId: 2,
+			amount: 1000,
+			transactionDate: 1463496101,
+			transactionId: 'abc'
+		}
+	return singleBackingDAO.createSingleBacking(backingData).then((res) =>{
+		expect(res.backing.amount).to.equal(1000);
+		expect(res.backing.payments[0].amount).to.equal(1000);
+		expect(new Date(res.backing.payments[0].transactionDate).getTime()).to.equal(1463496101);
+		expect(res.backing.payments[0].transactionId).to.equal('abc');
 })
 })
 
 it('userId = changemakerId, exception thrown', (done) =>{
-	singleBackingDAO.createSingleBacking(1, 1, 'abc', 1000, 1463496101).then(() => {
+	let backingData= {
+		userId: 1,
+		changemakerId: 1,
+		amount: 1000,
+		transactionDate: 1463496101,
+		transactionId: 'abc'
+	}
+	singleBackingDAO.createSingleBacking(backingData).then(() => {
 	assert.isOk(false, 'no exception was thrown for wrong input');
 done();
 }).catch((err) => {
@@ -34,7 +47,14 @@ done();
 })
 
 it('user does not exist, exception thrown', (done) =>{
-	singleBackingDAO.createSingleBacking(9999, 1, 'abc', 1000, 1463496101).then(() => {
+	let backingData= {
+		userId: 9999,
+		changemakerId: 1,
+		amount: 1000,
+		transactionDate: 1463496101,
+		transactionId: 'abc'
+	}
+	singleBackingDAO.createSingleBacking(backingData).then(() => {
 	assert.isOk(false, 'no exception was thrown for wrong input');
 done();
 }).catch((err) => {
@@ -44,7 +64,14 @@ done();
 })
 
 it('changemaker does not exist, exception thrown', (done) =>{
-	singleBackingDAO.createSingleBacking(1, 9999, 'abc', 1000, 1463496101).then(() => {
+	let backingData= {
+		userId: 1,
+		changemakerId: 9999,
+		amount: 1000,
+		transactionDate: 1463496101,
+		transactionId: 'abc'
+	}
+	singleBackingDAO.createSingleBacking(backingData).then(() => {
 	assert.isOk(false, 'no exception was thrown for wrong input');
 done();
 }).catch((err) => {
@@ -54,7 +81,14 @@ done();
 })
 
 it('amount is not a number, exception thrown', (done) =>{
-	singleBackingDAO.createSingleBacking(1, 2, 'abc', 'asbd', 1463496101).then(() => {
+	let backingData= {
+		userId: 1,
+		changemakerId: 2,
+		amount: 'asbd',
+		transactionDate: 1463496101,
+		transactionId: 'abc'
+	}
+	singleBackingDAO.createSingleBacking(backingData).then(() => {
 	assert.isOk(false, 'no exception was thrown for wrong input');
 done();
 }).catch((err) => {
@@ -64,7 +98,14 @@ done();
 })
 
 it('timestamp not valid, exception thrown', (done) =>{
-	singleBackingDAO.createSingleBacking(1, 2, 'abc', 1000, '17/04/1994').then(() => {
+	let backingData= {
+		userId: 1,
+		changemakerId: 2,
+		amount: 1000,
+		transactionDate: '17/04/1994',
+		transactionId: 'abc'
+	}
+	singleBackingDAO.createSingleBacking(backingData).then(() => {
 	assert.isOk(false, 'no exception was thrown for wrong input');
 done();
 }).catch((err) => {

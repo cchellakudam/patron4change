@@ -7,7 +7,4 @@ export default class {
 	getCountries() {
 		return this.dao.getCountries();
 	}
-
-
-
 }

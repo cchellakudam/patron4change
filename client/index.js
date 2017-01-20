@@ -4,6 +4,7 @@ import { Router, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import configureStore from '../common/utils/configureStore';
 import routes from '../common/routes/routing';
+import {paymentFees} from '../common/utils/paymentFees'
 
 let state = null;
 if (window.$REDUX_STATE) {
@@ -21,7 +22,14 @@ if (window.$REDUX_STATE) {
 	state.support = {
 		$fetched: '/' === document.location.pathname,
 		amount: 0,
-		isPeriodic: false
+		grossAmount: 0,
+		patron4ChangeFees:0,
+		patron4ChangeRate: paymentFees.patron4Change,
+		providerFees:0,
+		isPeriodic: false,
+		providerAdjustableRate: paymentFees.providerAdjustable,
+		providerFixedRate: paymentFees.providerFixed,
+		paymentUrl: null
 
 	}
 

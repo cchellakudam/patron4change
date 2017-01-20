@@ -21,7 +21,7 @@ export default (userSvc) => {
 	router.put('/update/:id', (req,res) => {
 		userSvc.updateUser(req.body.userInformation).then((user) => {
 			res.send(user);
-		}).catch((err)=>{
+		}).catch(()=>{
 			res.status(400).send('parameter error, please check your parameters');
 		})
 	})

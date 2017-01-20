@@ -99,4 +99,18 @@ export default class {
 		})
 	}
 
+	static oneTimeSupportForChangemaker(supportData, token){
+
+		return axios({
+			url: '/api/payment/mango/pay',
+			method: 'post',
+			data: supportData,
+			headers: {
+				authorization: `Bearer ${token}`
+			}
+		}).then((url) => {
+			return url
+		})
+	}
+
 }
