@@ -43,7 +43,7 @@ describe('mangopay API specific logic', () => {
 		}).timeout(10000);
 
 		it('this service should retrieve the walletId of a user given the user Id', (done) => {
-			mango.getUserWallet('18559606').then((res) => {
+			mango.getUserWallet(9).then((res) => {
 				assert(res, 'the returned value was not valid');
 				done()
 			}).catch((err) => {
@@ -53,7 +53,14 @@ describe('mangopay API specific logic', () => {
 
 		it('this service should create a backing and payment for a changemaker ' +
 			'using mangopay, a redirect url should be given', (done) => {
-			mango.createCardPayment('18559606', 1000, 'adore y', 1, 2).then((res) => {
+			let paymentData = {
+				changemakerAccountId: '18559606',
+				patronAccountId: '19783813',
+				amount: 1000,
+				patronId: 8,
+				changemakerId: 9
+			}
+			mango.createCardPayment(paymentData).then((res) => {
 				assert(res.startsWith('https://'),
 							'the returned value was not a valid address');
 				done();

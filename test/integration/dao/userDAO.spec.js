@@ -1,11 +1,13 @@
 const assert = require('chai').assert;
 import userDAO from '../../../server/data/userDAO'
+import chai from 'chai';
 import DBTestUtil from './DBTestUtil'
+const{expect} = chai;
 
 describe('userDAO', () => {
 	before( (done) => {
 			DBTestUtil.refreshDB().then(() => {
-				done();
+				done()
 			});
 	})
 	describe('get all users from the database', () =>{
@@ -36,4 +38,43 @@ describe('userDAO', () => {
 			});
 		});
 	});
+
+	describe('update a user', () => {
+		it('should update every field of a user', () => {
+			let userInformation = {
+				id: 1,
+				firstName: 'john',
+				lastName: 'doe',
+				birthday: 758926219000,
+				fkCountryIdResidence: 'GB',
+				fkCountryIdNationality: 'GB'
+			}
+
+			return userDAO.updateUser(userInformation).then((res) => {
+				expect(res.id).to.equal(1);
+				expect(res.firstName).to.equal('john');
+				expect(res.lastName).to.equal('doe');
+				expect(res.fkCountryIdNationality).to.equal('GB');
+				expect(res.fkCountryIdResidence).to.equal('GB');
+				expect(new Date(res.birthday).getTime()).to.equal(758926219000)
+			})
+		})
+
+		it('should return error because date format incorrect', (done) => {
+			let userInformation = {
+				id: 1,
+				firstName: 'john',
+				lastName: 'doe',
+				fkCountryIdResidence: 'united kingdom',
+				birthday: 'monday 25 2017'
+			}
+
+			userDAO.updateUser(userInformation).then(() => {
+			}).catch(() => {
+				done()
+			})
+		})
+	})
+
+
 });

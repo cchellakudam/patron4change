@@ -4,6 +4,7 @@ import { Router, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import configureStore from '../common/utils/configureStore';
 import routes from '../common/routes/routing';
+import {paymentFees} from '../common/utils/paymentFees'
 
 let state = null;
 if (window.$REDUX_STATE) {
@@ -18,6 +19,20 @@ if (window.$REDUX_STATE) {
 		backings: []
 	};
 
+	state.support = {
+		$fetched: '/' === document.location.pathname,
+		amount: 0,
+		grossAmount: 0,
+		patron4ChangeFees:0,
+		patron4ChangeRate: paymentFees.patron4Change,
+		providerFees:0,
+		isPeriodic: false,
+		providerAdjustableRate: paymentFees.providerAdjustable,
+		providerFixedRate: paymentFees.providerFixed,
+		paymentUrl: null
+
+	}
+
 	state.search = {
 		$fetched: '/' === document.location.pathname,
 		results: []
@@ -28,6 +43,11 @@ if (window.$REDUX_STATE) {
 		isAuthenticated: localStorage.id_token ? true:false,
 		profile: localStorage.profile ? JSON.parse(localStorage.profile) : null,
 		loggedUserId: localStorage.loggedUserId ? parseInt(localStorage.loggedUserId) : null
+	}
+
+	state.user = {
+		$fetched: '/' === document.location.pathname,
+		user: {}
 	}
 }
 

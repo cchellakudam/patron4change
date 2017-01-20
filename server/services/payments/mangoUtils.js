@@ -3,15 +3,16 @@ import axios from 'axios'
 import paymentDAO from '../../data/paymentDAO'
 import periodicBackingDAO from '../../data/periodicBackingDAO'
 import singleBackingDAO from '../../data/singleBackingDAO'
+import  config from 'config';
 
 const mangopay = require('mangopay2-nodejs-sdk');
-const clientId = 'p4case2016'
-const passwd = '9yvjwv183gUuvHmzmCOgoDOWOSNSGL0MKkGNovYuXFMB625aSJ'
+const clientId = config.get('mangoClientId');
+const passwd = config.get('passwd');
 export default class {
 	constructor(){
 		this.api = new mangopay({
-			clientId: 'p4case2016',
-			clientPassword: '9yvjwv183gUuvHmzmCOgoDOWOSNSGL0MKkGNovYuXFMB625aSJ',
+			clientId: clientId,
+			clientPassword: passwd,
 			baseUrl: 'https://api.sandbox.mangopay.com'
 		});
 	}
@@ -20,6 +21,15 @@ export default class {
 			return paymentDAO.registerChangemakerToProvider(userId, 1, myUser.Id)
 		}).then((paymentAccount) => {
 			return paymentAccount.accountId
+		})
+	}
+
+	getAccountIdForUser(userId){
+		return paymentDAO.getAccountIdForUser(userId, 1).then((accountId) => {
+			if(!accountId) {
+				return null;
+			}
+			return accountId
 		})
 	}
 
@@ -33,38 +43,43 @@ export default class {
 		})
 	}
 
-	getUserWallet(accountId){
+	getUserWallet(userId){
+		return this.getAccountIdForUser(userId).then((accountId) => {
+			if(!accountId){
+				return null;
+			}
 			let url = `https://api.sandbox.mangopay.com/v2.01/${clientId}/users/${accountId}/wallets`;
-
 			return axios({
-					url: url,
-					method: 'get',
-					auth:{
-						username: clientId,
-						password: passwd
-					}
-				}).then((res) => {
-					if(!res.data.errors){
-						return res.data[0].Id;
-					}else{
-								throw new Error('parameter probem')
-					}
-				}).catch((err) => {
-					throw err;
-				})
+				url: url,
+				method: 'get',
+				auth:{
+					username: clientId,
+					password: passwd
+				}
+			}).then((res) => {
+				if(!res.data.errors){
+					return res.data[0].Id;
+				}else{
+					throw new Error('parameter probem')
+				}
+			}).catch((err) => {
+				throw err;
+			})
+		})
+
 	}
 
-	createCardPayment(accountId, amount, userId, changemakerId) {
-		return this.getUserWallet(accountId).then((walletId) =>{
+	createCardPayment(paymentData) {
+		return this.getUserWallet(paymentData.changemakerId).then((walletId) =>{
 			return this.api.PayIns.create({
-				AuthorId: accountId,
+				AuthorId: paymentData.patronAccountId,
 				DebitedFunds:{
 					'Currency': 'EUR',
-					'Amount': amount
+					'Amount': paymentData.amount
 				},
 				Fees:{
 					'Currency': 'EUR',
-					'Amount': 0
+					'Amount': paymentData.patron4ChangeFees
 				},
 				ReturnUrl: 'http://localhost:3000',
 				CreditedWalletId: walletId,
@@ -74,10 +89,20 @@ export default class {
 				ExecutionType: 'WEB'
 			})
 		}).then((res) => {
-			let newBacking = singleBackingDAO.createSingleBacking(userId, changemakerId, res.Id, amount, res.CreationDate);
+			let backingData= {
+				userId: paymentData.patronId,
+				changemakerId: paymentData.changemakerId,
+				amount: paymentData.amount,
+				transactionDate: res.CreationDate,
+				transactionId: res.Id,
+				comment: paymentData.comment
+			}
+			let newBacking = singleBackingDAO.createSingleBacking(backingData);
 			return [res.RedirectURL, newBacking];
 		}).then((values) => {
 			return values[0];
+		}).catch((err) =>  {
+			throw err;
 		})
 
 	}
@@ -169,10 +194,7 @@ export default class {
 
 	makeMonthlyPayment(senderId, recipientId, amount, backingId){
 		let senderAccountId = paymentDAO.getAccountIdForUser(senderId, 1);
-		let recipientWalletId = paymentDAO.getAccountIdForUser(recipientId, 1)
-			.then((res) => {
-				return this.getUserWallet(res);
-			});
+		let recipientWalletId =  this.getUserWallet(recipientId);
 		let senderCardId = paymentDAO.getCardRegistrationForUser(senderId, 1)
 			.then((cardRegistrationId) => {
 				return this.getCardId(cardRegistrationId)

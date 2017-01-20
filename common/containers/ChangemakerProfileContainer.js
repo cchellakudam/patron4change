@@ -21,6 +21,7 @@ export class ChangemakerProfileContainer extends Component {
 	}
 
 	componentDidMount() {
+
 		fetchNeeds( ChangemakerProfileContainer.needs, this.props )
 	}
 

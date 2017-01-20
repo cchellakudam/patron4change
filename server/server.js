@@ -21,6 +21,8 @@ import pretty from 'express-prettify';
 
 import swaggerUi from 'swaggerize-ui';
 
+import jwt from 'express-jwt';
+
 let logger = createLogger();
 logger.log('debug', 'env: %s', process.env.NODE_ENV);
 
@@ -74,6 +76,17 @@ if('unit' !== process.env.NODE_ENV) {
 }
 databaseInit.then(rebuildSearchIndex);
 
+// register protected/unprotected paths
+// MUST be done before paths are registered to the router
+
+let jwtCheck = jwt({
+	secret: appConfig.get('secret'),
+	audience: appConfig.get('clientId')
+})
+
+app.use('/api/users/update' , jwtCheck)
+
+// register api paths to router
 app.use('/api', apiRoutes, (req, res) => {
 	res.status(404).send('Invalid api route');
 });
