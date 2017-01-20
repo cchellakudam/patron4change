@@ -19,7 +19,7 @@ class Update extends Component {
           title={update.title}
           subtitle={update.createdAt} />
         <CardText>
-          {update.content.text}
+          {update.content? update.content.text : ''}
         </CardText>
       </Card>
 		);

@@ -50,7 +50,6 @@ function GET_CHANGEMAKER_BY_ID_REQUEST(state) { return state; }
 function GET_CHANGEMAKER_BY_ID_ERROR(state, action) { return { ...state, error: action.error }; }
 function GET_CHANGEMAKER_BY_ID_SUCCESS(state, action) {
 	// TODO merge to entire list
-	action.result.statusUpdates = [];
 	return { ...state, changemaker: action.result };
 }
 

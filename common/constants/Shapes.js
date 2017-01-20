@@ -10,6 +10,7 @@ export const changemaker = PropTypes.shape({
   videoUrl: PropTypes.string.isRequired,
   isApproved: PropTypes.bool.isRequired,
   approvalDate: PropTypes.string.isRequired, // serialized date
+  statusUpdates: PropTypes.array,
   user
 });
 
@@ -28,7 +29,7 @@ export const children = PropTypes.oneOfType([
 
 export const update = PropTypes.shape({
   title: PropTypes.string.isRequired,
-  createdAt: PropTypes.object.isRequired,
+  createdAt: PropTypes.string.isRequired,
   content: PropTypes.shape({
     text: PropTypes.string.isRequired
   })
