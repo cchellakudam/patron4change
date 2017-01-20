@@ -73,4 +73,30 @@ export default class {
 			return res.data;
 		});
 	}
+
+	static getUserById(userId, token){
+		return axios({
+			url: `/api/users/${userId}`,
+			method: 'get',
+			headers: {
+				authorization: `Bearer ${token}`
+			}
+		}).then((res) => {
+			return res.data;
+		})
+	}
+
+	static updateUserProfile(userInformation, token){
+		return axios({
+			url: `/api/users/update/${userInformation.userId}`,
+			method: 'put',
+			data: userInformation,
+			headers: {
+				authorization: `Bearer ${token}`
+			}
+		}).then((res) => {
+			return res.data;
+		})
+	}
+
 }

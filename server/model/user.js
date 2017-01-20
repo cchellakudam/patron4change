@@ -32,19 +32,13 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		birthday:{
 			type: DataTypes.DATE
-		},
-		nationality:{
-			type: DataTypes.STRING(150)
-		},
-		countryOfResidence:{
-			type: DataTypes.STRING(250)
 		}
 	}, {
 		classMethods: {
 			associate: function(models){
 				User.hasMany(models.backing, {as: 'backings'});
 				User.belongsToMany(models.paymentProvider, {as: 'providers', through: models.paymentServiceData,
-					foreignKey: 'fkUserId'})
+					foreignKey: 'fkUserId'});
 			}
 		},
 		freezeTableName: false // Model tableName will be the same as the model name

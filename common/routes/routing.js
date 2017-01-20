@@ -7,8 +7,10 @@ import SearchContainer from '../containers/SearchContainer';
 import SearchResultContainer from '../containers/SearchResultContainer';
 import ChangemakerProfileContainer from '../containers/ChangemakerProfileContainer';
 import ChangemakerProfileEditorContainer from '../containers/ChangemakerProfileEditorContainer';
+import UserProfileContainer from '../containers/UserProfileContainer'
 import MainNav from '../containers/MainNav';
 import TestPage from '../containers/TestPage';
+import SupportChangemakerContainer from '../containers/SupportChangemakerContainer'
 
 import SearchNav from '../components/SearchNav';
 import App from '../components/App';
@@ -40,10 +42,12 @@ export default (
 
   // changemaker support payment page
 	<Route path="/changemaker/:id/support"
-		   components={{main: Empty, nav: MainNav, sub: Empty}} />
+		   components={{main: SupportChangemakerContainer, nav: MainNav, sub: Empty}} />
 
 	<Route path="/search"
 		   components={{main: SearchResultContainer, nav: SearchNavContainer, sub: Empty}} />
+
+	<Route path="/user/:userId" components={{main: UserProfileContainer, nav: MainNav, sub: Empty}} />
 
   <Route path="/test/:componentId"
 			 components={{main: TestPage, nav: Empty, sub: Empty}} />

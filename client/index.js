@@ -18,6 +18,13 @@ if (window.$REDUX_STATE) {
 		backings: []
 	};
 
+	state.support = {
+		$fetched: '/' === document.location.pathname,
+		amount: 0,
+		isPeriodic: false
+
+	}
+
 	state.search = {
 		$fetched: '/' === document.location.pathname,
 		results: []
@@ -28,6 +35,11 @@ if (window.$REDUX_STATE) {
 		isAuthenticated: localStorage.id_token ? true:false,
 		profile: localStorage.profile ? JSON.parse(localStorage.profile) : null,
 		loggedUserId: localStorage.loggedUserId ? parseInt(localStorage.loggedUserId) : null
+	}
+
+	state.user = {
+		$fetched: '/' === document.location.pathname,
+		user: {}
 	}
 }
 

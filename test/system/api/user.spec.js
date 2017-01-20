@@ -38,4 +38,53 @@ describe('/user', () => {
 		});
 
 	});
+
+	describe('/update', () => {
+		function req(userInformation, userId){
+			return axios({
+				url: `${url}/update/${userId}`,
+				method: 'put',
+				data: {userInformation: userInformation}
+			})
+		}
+
+		it.only('should return a user with updated information', () => {
+			let userInformation = {
+				id: 1,
+				firstName: 'john',
+				lastName: 'doe',
+				countryOfResidence: 'united kingdom',
+				nationality: 'sweden',
+				birthday: 758926219000,
+			}
+
+			return req(userInformation, userInformation.id).then((res) => {
+				let user = res.data;
+				expect(user.id).to.equal(1);
+				expect(user.firstName).to.equal('john');
+				expect(user.lastName).to.equal('doe');
+				expect(user.countryOfResidence).to.equal('united kingdom');
+				expect(user.nationality).to.equal('sweden');
+				expect(new Date(user.birthday).getTime()).to.equal(758926219000)
+			})
+
+		})
+
+		it.only('should throw error, incorrect date format', (done) => {
+			let userInformation = {
+				id: 1,
+				firstName: 'john',
+				lastName: 'doe',
+				countryOfResidence: 'united kingdom',
+				nationality: 'sweden',
+				birthday: 'monday 25 2017',
+			}
+
+			req(userInformation, userInformation.id).then((res) => {
+
+			}).catch((err) => {
+				done()
+			})
+		})
+	})
 });
