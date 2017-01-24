@@ -6,19 +6,34 @@
                 "p4c_german": {
                     "tokenizer": "standard",
                     "filter": [
-                      "lowercase",
+                      "asciifolding",
+                      "apostrophe",
                       "german_stop",
+                      "german_decompound",
+                      "unique",
+                      "german_stemmer",
+                      "german_normalization",
+                      "lowercase",
                       "p4c_phonetic_cologne",
                       "p4c_phonetic_beidermorse",
-                      "german_normalization",
-                      "german_stemmer"
+                      "unique"
                     ]
                 }
             },
             "filter" : {
+                "ascii_folding" : {
+                  "type": "asciifolding",
+                  "preserve_original": true
+                },
+                "apostrophe": {
+                  "type": "apostrophe"
+                },
                 "german_stop": {
                   "type":       "stop",
                   "stopwords":  "_german_"
+                },
+                "german_decompound": {
+                  "type": "decompound"
                 },
                 "german_stemmer": {
                   "type":       "stemmer",
@@ -34,6 +49,9 @@
                   "encoder": "beidermorse",
                   "languageset": "german",
                   "replace": false
+                },
+                "unique": {
+                  "type": "unique"
                 }
             }
         }

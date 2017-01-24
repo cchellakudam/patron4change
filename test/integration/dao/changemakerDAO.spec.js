@@ -46,6 +46,18 @@ describe('changemakerDAO', () => {
 		it('should return exactly 5 changemakers', () => {
 			return changemakerDAO.getFeatured().then((changemakers) => {
         expect(changemakers).to.have.length(5);
+
+				/// TODO check differences in records
+			});
+		});
+
+		it('should only return approved changemakers', () => {
+			return changemakerDAO.getFeatured().then((changemakers) => {
+        expect(changemakers[0]).to.have.property('approvalDate');
+				expect(changemakers[1]).to.have.property('approvalDate');
+				expect(changemakers[2]).to.have.property('approvalDate');
+				expect(changemakers[3]).to.have.property('approvalDate');
+				expect(changemakers[4]).to.have.property('approvalDate');
 			});
 		});
 
