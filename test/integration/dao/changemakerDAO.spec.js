@@ -47,7 +47,9 @@ describe('changemakerDAO', () => {
 			return changemakerDAO.getFeatured().then((changemakers) => {
         expect(changemakers).to.have.length(5);
 
-				/// TODO check differences in records
+				for (var i = 1; i < changemakers.length; i++) {
+					expect(changemakers[i].id).to.equal(changemakers[i - 1].id);
+				}
 			});
 		});
 
@@ -70,6 +72,10 @@ describe('changemakerDAO', () => {
 				let h2 = +new Date(changemakers[1].lastStatusUpdate);
 				let l2 = +new Date(changemakers[2].lastStatusUpdate);
         expect(h2).to.be.above(l2);
+
+				let h3 = +new Date(changemakers[2].lastStatusUpdate);
+				let l3 = +new Date(changemakers[3].lastStatusUpdate);
+        expect(h3).to.be.above(l3);
 			});
 		});
 

@@ -17,8 +17,11 @@ router.get('/:type', (req, res) => {
         bool: {
           should: [
             {
-              match_phrase: {
-                mission: req.query.q
+              match: {
+                mission: {
+                  query: req.query.q,
+                  minimum_should_match: '25%'
+                }
               }
             },
             {
