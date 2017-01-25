@@ -13,30 +13,33 @@ describe('changemakerDAO', () => {
 
 	describe('.getChangemakerById', () => {
 
-		it('should find and return an existing changemaker', done => {
-			changemakerDAO.getChangemakerById(1).then( changemaker => {
+		it('should find and return an existing changemaker', () => {
+			return changemakerDAO.getChangemakerById(1).then( changemaker => {
 				expect(changemaker).to.have.property('id', 1);
-				done();
-			});
-		});
-
-		it('should return status updates for an existing changemaker', done => {
-			changemakerDAO.getChangemakerById(1).then( changemaker => {
-				expect(changemaker).to.have.deep.property('statusUpdates[0].content.text');
-				done();
 			});
 		});
 
 		it('should return the specified result model', () => {
 
 			return changemakerDAO.getChangemakerById(exampleChangemakerId).then(changemaker => {
-				// TODO compare exactly with the values that have been inserted
-        expect(changemaker).to.have.property('id', 1);
+
 				expect(changemaker).to.have.deep.property('user.firstName', 'Matthias');
 				expect(changemaker).to.have.deep.property('user.lastName', 'Holzer');
 				expect(changemaker).to.have.deep.property('user.avatarUrl', 'https://randomuser.me/api/portraits/med/men/42.jpg');
 				expect(changemaker).to.have.property('videoUrl');
 				expect(changemaker).to.have.property('approvalDate');
+			});
+		});
+
+		it('should compute the last status update date', () => {
+			return changemakerDAO.getChangemakerById(exampleChangemakerId).then(changemaker => {
+				expect(changemaker).to.have.property('lastStatusUpdate');
+			});
+		});
+
+		it('should compute the patron count', () => {
+			return changemakerDAO.getChangemakerById(exampleChangemakerId).then(changemaker => {
+				expect(changemaker).to.have.property('numberOfPatrons', 2);
 			});
 		});
 	});
@@ -48,8 +51,20 @@ describe('changemakerDAO', () => {
         expect(changemakers).to.have.length(5);
 
 				for (var i = 1; i < changemakers.length; i++) {
-					expect(changemakers[i].id).to.equal(changemakers[i - 1].id);
+					expect(changemakers[i].id).not.to.equal(changemakers[i - 1].id);
 				}
+			});
+		});
+
+		it('should compute the last status update date', () => {
+			return changemakerDAO.getFeatured().then(changemakers => {
+				expect(changemakers[0]).to.have.deep.property('lastStatusUpdate');
+			});
+		});
+
+		it('should compute the patron count', () => {
+			return changemakerDAO.getFeatured().then(changemakers => {
+				expect(changemakers[0]).to.have.property('numberOfPatrons', 18);
 			});
 		});
 
@@ -67,15 +82,15 @@ describe('changemakerDAO', () => {
 			return changemakerDAO.getFeatured().then((changemakers) => {
 				let h1 = +new Date(changemakers[0].lastStatusUpdate);
 				let l1 = +new Date(changemakers[1].lastStatusUpdate);
-        expect(h1).to.be.above(l1);
+        expect(h1).to.be.at.least(l1);
 
 				let h2 = +new Date(changemakers[1].lastStatusUpdate);
 				let l2 = +new Date(changemakers[2].lastStatusUpdate);
-        expect(h2).to.be.above(l2);
+        expect(h2).to.be.at.least(l2);
 
 				let h3 = +new Date(changemakers[2].lastStatusUpdate);
 				let l3 = +new Date(changemakers[3].lastStatusUpdate);
-        expect(h3).to.be.above(l3);
+        expect(h3).to.be.at.least(l3);
 			});
 		});
 

@@ -46,7 +46,7 @@ class ChangemakerCard extends React.Component {
 	      image={`/public/images/thumb/${cm.id}.jpg`} />
 	    <CardTitle
         title={cm.name}
-        subtitle={`${Math.floor(Math.random() * 200 + 50).toFixed(0)} patrons`}
+        subtitle={`${cm.numberOfPatrons} patrons`}
         avatar={showAvatar ? cm.user.avatarUrl : undefined} />
 	    <CardText className={styles.text}>
         <p className={styles.textContent}>{cm.mission.text}</p>

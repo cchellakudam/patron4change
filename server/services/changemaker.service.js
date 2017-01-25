@@ -1,8 +1,9 @@
 export default class {
 
-	constructor(dao, backingDAO) {
+	constructor(dao, backingDAO, statusDAO) {
 		this.dao = dao;
 		this.backingDAO = backingDAO;
+		this.statusDAO = statusDAO;
 	}
 
 	getAllChangemakers() {
@@ -10,7 +11,9 @@ export default class {
 	}
 
 	getChangemakerById(id) {
-		return this.dao.getChangemakerById(id);
+		let changemaker = this.dao.getChangemakerById(id);
+		changemaker.statusUpdates = this.statusDAO.getUpdatesByChangemakerId(id);
+		return changemaker;
 	}
 
 	getChangemakerByUsername(username) {
@@ -23,10 +26,6 @@ export default class {
 
 	getBackingsByChangemakerId(id) {
 		return this.backingDAO.getByChangemakerId(id);
-	}
-
-	getUpdatesByUserId(){
-		return Promise.resolve([]);
 	}
 
 	createChangemaker(changemaker) {

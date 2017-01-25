@@ -47,7 +47,9 @@ class LandingPageContainer extends Component {
 			  onSupport={() => this.actions.supportChangemaker(cm.id)} />
 	  });
 
-		const Wrapper = 'number' === typeof userId ? Startpage : LandingPage;
+		// const Wrapper = 'number' === typeof userId ? Startpage : LandingPage;
+
+		const Wrapper = LandingPage;
 
 	  return <Wrapper onSearch={this.onSearch} term={term}>
 		  {nodes}

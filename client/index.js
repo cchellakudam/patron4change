@@ -30,7 +30,6 @@ if (window.$REDUX_STATE) {
 		providerAdjustableRate: paymentFees.providerAdjustable,
 		providerFixedRate: paymentFees.providerFixed,
 		paymentUrl: null
-
 	}
 
 	state.search = {
@@ -43,11 +42,6 @@ if (window.$REDUX_STATE) {
 		isAuthenticated: localStorage.id_token ? true:false,
 		profile: localStorage.profile ? JSON.parse(localStorage.profile) : null,
 		loggedUserId: localStorage.loggedUserId ? parseInt(localStorage.loggedUserId) : null
-	}
-
-	state.user = {
-		$fetched: '/' === document.location.pathname,
-		user: {}
 	}
 }
 

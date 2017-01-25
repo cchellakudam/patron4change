@@ -11,6 +11,7 @@ import countryRoutes from './country.routes'
 
 import changemakerDao from '../../data/changemakerDAO';
 import userDAO from '../../data/userDAO';
+import statusUpdateDAO from '../../data/statusUpdateDAO';
 import backingDAO from '../../data/backingDAO';
 import countryDAO from '../../data/countryDAO'
 
@@ -35,7 +36,7 @@ router.get('/', (req, res) => {
 
 const paymentsvcs = {mango: new mangoService()};
 
-router.use('/changemakers', changemakerRoutes(new ChangemakerService(changemakerDao, backingDAO)));
+router.use('/changemakers', changemakerRoutes(new ChangemakerService(changemakerDao, backingDAO, statusUpdateDAO)));
 router.use('/users', userRoutes(new UsersService(userDAO)));
 router.use('/patrons', patronRoutes(new PatronService(userDAO)));
 router.use('/admins', adminRoutes(new UsersService(userDAO)));

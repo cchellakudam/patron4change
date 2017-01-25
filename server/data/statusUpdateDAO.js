@@ -2,8 +2,10 @@ import models from '../model/index';
 
 export default class {
 
-	static getUpdatesByUserId() {
-		return models.statusUpdate.findAll();
+	static getUpdatesByChangemakerId(fkChangemakerId) {
+		return models.statusUpdate.findAll({
+			where: { fkChangemakerId }
+		});
 	}
 
 }

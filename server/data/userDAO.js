@@ -16,10 +16,6 @@ export default class{
 		return models.user.findOne({where : {id: id}})
 	}
 
-	static getUpdatesByUserId() {
-		return models.statusUpdate.findAll();
-	}
-
 	static createUser(email){
 		return models.user.create({
 			email: email

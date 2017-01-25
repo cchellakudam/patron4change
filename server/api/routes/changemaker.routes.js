@@ -40,11 +40,9 @@ export default (changemakerService) => {
 		});
 	});
 
-	router.get('/:id/updates', (req, res) => {
-		changemakerService.getUpdatesByUserId(req.params.id).then(updates => {
-			res.send(updates);
-		});
-	})
+	router.get('/:id/updates', controller(({ id }) => {
+		return changemakerService.getUpdatesByUserId(id);
+	}));
 
 	router.get('/:id/backings', controller(({ id }) => {
 		let nId = parseInt(id);

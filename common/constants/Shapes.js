@@ -5,13 +5,19 @@ export const user = PropTypes.shape({
   lastName: PropTypes.string.isRequired
 })
 
+export const mission = PropTypes.shape({
+  text: PropTypes.string.isRequired
+})
+
 export const changemaker = PropTypes.shape({
   id: PropTypes.number.isRequired,
   videoUrl: PropTypes.string.isRequired,
   isApproved: PropTypes.bool.isRequired,
   approvalDate: PropTypes.string.isRequired, // serialized date
   statusUpdates: PropTypes.array,
-  user
+  numberOfPatrons: PropTypes.number.isRequired,
+  user: user.isRequired,
+  mission: mission.isRequired
 });
 
 export const supporter = PropTypes.shape({

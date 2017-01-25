@@ -14,9 +14,32 @@ function prepareDTO(rawCm) {
 	return Object.assign({}, rawCm, {
 		user: toUserModel(extractProps(rawCm, 'user')),
 		mission: extractProps(rawCm, 'mission'),
-		numberOfPatrons: parseInt(rawCm.numberOfPatrons)
+		numberOfPatrons: parseInt(rawCm.numberOfPatrons),
+		lastStatusUpdate: rawCm.lastStatusUpdate
 	});
 }
+
+const include = [
+	{model: models.user, as: 'user'},
+	{model: models.content, as: 'mission'},
+	{model: models.statusUpdate, as: 'statusUpdates', attributes: []},
+	{model: models.backing, as: 'backings', attributes: []}
+];
+
+const numberOfPatronsQ = [ sequelize.fn('COUNT', sequelize.col('*')), 'numberOfPatrons' ];
+
+const attributes = {
+	include: [
+		[ sequelize.fn('MAX', sequelize.col('statusUpdates.createdAt')), 'lastStatusUpdate' ],
+		numberOfPatronsQ
+	]
+};
+
+const group = [
+	['id'],
+	[{model: models.user, as: 'user'}, 'id'],
+	[{model: models.content, as: 'mission'}, 'id']
+];
 
 /**
 * data access for changemakers
@@ -34,39 +57,24 @@ export default class {
 		}
 		return models.changemaker.find({
 			where: { id: id },
-			include: [
-				{model: models.user, as:'user'},
-				{model: models.content, as: 'mission'},
-				{model: models.statusUpdate, as: 'statusUpdates', include: [
-					{model: models.content, as: 'content'}
-				]}
-			],
+			include,
+			attributes: {
+				include: [numberOfPatronsQ]
+			},
+			group: group.concat([ [{model: models.statusUpdate, as: 'statusUpdates'}, 'createdAt'] ]),
 			order: [
 				[{model: models.statusUpdate, as: 'statusUpdates'}, 'createdAt', 'DESC']
-			]
-		});
+			],
+			raw: true
+		}).then(prepareDTO);
 	}
 
 	static getFeatured() {
 
 	 	return models.changemaker.findAll({
-			include: [
-				{model: models.user, as: 'user'},
-				{model: models.content, as: 'mission'},
-				{model: models.statusUpdate, as: 'statusUpdates', attributes: []},
-				{model: models.backing, as: 'backings', attributes: []}
-			],
-			attributes: {
-				include: [
-					[ sequelize.fn('MAX', sequelize.col('statusUpdates.createdAt')), 'lastStatusUpdate' ],
-					[ sequelize.fn('COUNT', sequelize.col('*')), 'numberOfPatrons' ]
-				]
-			},
-			group: [
-				['id'],
-				[{model: models.user, as: 'user'}, 'id'],
-				[{model: models.content, as: 'mission'}, 'id']
-			],
+			include,
+			attributes,
+			group,
 			order: [
 				[ sequelize.fn('MAX', sequelize.fn('COALESCE', sequelize.col('statusUpdates.createdAt'), '-infinity')), 'DESC' ]
 			],
