@@ -41,6 +41,12 @@ function GET_BACKINGS_SUCCESS(state, action){
 	return { ...state, backings: action.result };
 }
 
+function GET_UPDATES_REQUEST (state){return state;}
+function GET_UPDATES_ERROR (state){return state;}
+function GET_UPDATES_SUCCESS(state, action){
+	return { ...state, updates: action.result };
+}
+
 function GLOBAL_SEARCH_SUCCESS( state, action ) {
 	let resultChangemaker = action.result.map(r => r.changemaker);
 	return mergeInChangemaker(state, resultChangemaker);
@@ -85,6 +91,10 @@ const handlers =
 	[types.GET_BACKINGS_SUCCESS]: GET_BACKINGS_SUCCESS,
 	[types.GET_BACKINGS_ERROR]: GET_BACKINGS_ERROR,
 
+	[types.GET_UPDATES_REQUEST]: GET_UPDATES_REQUEST,
+	[types.GET_UPDATES_SUCCESS]: GET_UPDATES_SUCCESS,
+	[types.GET_UPDATES_ERROR]: GET_UPDATES_ERROR,
+
 	[types.SAVE_CHANGEMAKER_PROFILE_REQUEST]: SAVE_CHANGEMAKER_PROFILE_REQUEST,
 	[types.SAVE_CHANGEMAKER_PROFILE_SUCCESS]: SAVE_CHANGEMAKER_PROFILE_SUCCESS,
 	[types.SAVE_CHANGEMAKER_PROFILE_ERROR]: SAVE_CHANGEMAKER_PROFILE_ERROR,
@@ -98,6 +108,7 @@ const initialState = {
 	changemaker: {},
 	changemakers: [],
 	featuredChangemakers: [],
-	backings: []
+	backings: [],
+	updates: []
 };
 export default createReducer( initialState, handlers );

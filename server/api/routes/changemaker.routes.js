@@ -41,7 +41,7 @@ export default (changemakerService) => {
 	});
 
 	router.get('/:id/updates', controller(({ id }) => {
-		return changemakerService.getUpdatesByUserId(id);
+		return changemakerService.getUpdates(id);
 	}));
 
 	router.get('/:id/backings', controller(({ id }) => {

@@ -6,13 +6,15 @@ import _ from 'lodash';
 import * as ChangemakerActions from '../actions/ChangemakerActions';
 import ChangemakerProfile from '../components/ChangemakerProfile';
 import BackingItem from '../components/BackingItem';
+import StatusUpdate from '../components/StatusUpdate';
 import { fetchNeeds } from '../utils/fetchComponentData';
 
 export class ChangemakerProfileContainer extends Component {
 
 	static needs = [
 		ChangemakerActions.getChangemakerById,
-		ChangemakerActions.getBackings
+		ChangemakerActions.getBackings,
+		ChangemakerActions.getUpdates
 	];
 
 	constructor() {
@@ -38,7 +40,7 @@ export class ChangemakerProfileContainer extends Component {
 	}
 
 	render() {
-		const { changemaker, backings, error } = this.props;
+		const { changemaker, backings, updates, error } = this.props;
 
 		if (_.isEmpty(changemaker || {})) {
 			return <div>LOADING</div>;
@@ -54,10 +56,13 @@ export class ChangemakerProfileContainer extends Component {
 
 		const recurring = backings.filter(b => 'recurring' === b.type).map(renderBacking);
 		const oneTime   = backings.filter(b => 'one-time' === b.type).map(renderBacking);
+		const updateElems = updates.map(u => <StatusUpdate key={u.id} update={u} />);
+
 		return <ChangemakerProfile
 			changemaker={changemaker}
 			RecurringBackings={recurring}
 			OneTimeBackings={oneTime}
+			StatusUpdates={updateElems}
 		  onSupport={this.onSupport} />;
 	}
 }
@@ -65,6 +70,7 @@ export class ChangemakerProfileContainer extends Component {
 export default connect( state => ({
 	changemaker: state.cm.changemaker,
 	backings: state.cm.backings,
+	updates: state.cm.updates,
 	error: state.cm.error,
 	userId: state.login.loggedUserId
 }) )(ChangemakerProfileContainer);

@@ -5,10 +5,10 @@ import * as shapes from '../constants/Shapes';
 
 import styles from '../../client/css/modules/update.scss';
 
-class Update extends Component {
+class StatusUpdate extends Component {
 
   static propTypes = {
-    update: shapes.update.isRequired
+    update: shapes.statusUpdate.isRequired
   };
 
 	render() {
@@ -26,4 +26,4 @@ class Update extends Component {
 	}
 }
 
-export default Update;
+export default StatusUpdate;

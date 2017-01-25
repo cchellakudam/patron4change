@@ -16,6 +16,10 @@ export default class {
 		return changemaker;
 	}
 
+	getUpdates(id) {
+		return this.statusDAO.getUpdatesByChangemakerId(id);
+	}
+
 	getChangemakerByUsername(username) {
 		return this.dao.getByUsername(username);
 	}

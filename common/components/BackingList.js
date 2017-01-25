@@ -32,7 +32,7 @@ class BackingList extends React.Component {
     let patronBlock;
 
     let supportBtn =
-      <Button primary raised className={styles.supportBtn}
+      <Button key="support-btn" primary raised className={styles.supportBtn}
         label="Diesen Changemaker unterstützen"
         icon="send" onClick={this.props.onSupport} />;
 
@@ -41,32 +41,32 @@ class BackingList extends React.Component {
       let days = daydiff(approvalDate, new Date());
       if (MAX_RECENT_DAY_DIFF >= days) {
         let day = 0 === days ? <span>heute</span> : <span>vor {days} Tagen</span>;
-        patronBlock = [
-          <p className={`${styles.noPatronMsg} ${styles.recentJoin}`}>
+        patronBlock = <div>
+          <p key="happy-start" className={`${styles.noPatronMsg} ${styles.recentJoin}`}>
             {recipientName} startete {day}, werde der erste Patron!
-          </p>,
-          supportBtn
-        ];
+          </p>
+          {supportBtn}
+        </div>;
       } else {
-        patronBlock = [
-          <p className={styles.noPatronMsg}>{recipientName} hat noch keine Patrons</p>,
-          supportBtn
-        ];
+        patronBlock = <div>
+          <p key="unhappy-start" className={styles.noPatronMsg}>{recipientName} hat noch keine Patrons</p>
+          {supportBtn}
+        </div>;
       }
     } else {
-      patronBlock = [
-        supportBtn,
-        <ListSubHeader caption={`${recipientName}'s Patrons`} />,
-        this.props.RecurringBackings
-      ];
+      patronBlock = <div>
+        {supportBtn}
+        <ListSubHeader key="patron-header" caption={`${recipientName}'s Patrons`} />
+        {this.props.RecurringBackings}
+      </div>;
     }
 
     let noSupporters = 0 === this.props.OneTimeBackings.length;
 
-    let supporterBlock = [
-      <ListSubHeader id="one-time-payments" caption="einmalige Unterstützungen" />,
-      this.props.OneTimeBackings
-    ];
+    let supporterBlock = <div>
+      <ListSubHeader key="one-time-header" id="one-time-payments" caption="einmalige Unterstützungen" />
+      {this.props.OneTimeBackings}
+    </div>;
 
     return <List className={styles.list} ripple>
       {patronBlock}

@@ -45,7 +45,7 @@ class ChangemakerCard extends React.Component {
 	      aspectRatio="wide"
 	      image={`/public/images/thumb/${cm.id}.jpg`} />
 	    <CardTitle
-        title={cm.name}
+        title={cm.user.name}
         subtitle={`${cm.numberOfPatrons} patrons`}
         avatar={showAvatar ? cm.user.avatarUrl : undefined} />
 	    <CardText className={styles.text}>

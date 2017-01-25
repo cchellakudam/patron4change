@@ -4,7 +4,7 @@ import { Card, CardTitle, CardText } from 'react-toolbox/lib/card';
 import Video from 'react-html5video';
 import shaka from 'shaka-player';
 
-import Updates from '../components/Updates';
+import UpdateList from '../components/UpdateList';
 import BackingList from '../components/BackingList';
 import * as shapes from '../constants/Shapes';
 
@@ -17,6 +17,7 @@ class ChangemakerProfile extends React.Component {
   	changemaker: shapes.changemaker.isRequired,
     RecurringBackings: PropTypes.arrayOf(PropTypes.element.isRequired).isRequired,
     OneTimeBackings: PropTypes.arrayOf(PropTypes.element.isRequired).isRequired,
+		StatusUpdates: PropTypes.arrayOf(PropTypes.element.isRequired).isRequired,
 		onSupport: PropTypes.func.isRequired
 	};
 
@@ -41,7 +42,6 @@ class ChangemakerProfile extends React.Component {
 
 	render() {
 		const cm = this.props.changemaker;
-		// TODO actually compute the patron count
 		return (
 			<div>
 				<Row>
@@ -58,8 +58,7 @@ class ChangemakerProfile extends React.Component {
 							<div className={styles.profileContent}>
 								<CardTitle
 									title={`${cm.user.firstName} ${cm.user.lastName}`}
-									subtitle={`${Math.floor(Math.random() * 100 + 3).toFixed(0)} regular patrons |
-									${Math.floor(Math.random() * 100 + 3).toFixed(0)} one-time patrons`}
+									subtitle={`${cm.numberOfPatrons} patrons`}
 									avatar={cm.user.avatarUrl} />
 								<CardText className={styles.mission}>
 				        	<p>{cm.mission.text}</p>
@@ -78,7 +77,9 @@ class ChangemakerProfile extends React.Component {
 						</BackingList>
 					</Col>
 					<Col xs={12} md={6} lg={6}>
-						<Updates changemaker={cm}/>
+						<UpdateList>
+							{this.props.StatusUpdates}
+						</UpdateList>
 					</Col>
 				</Row>
 			</div>

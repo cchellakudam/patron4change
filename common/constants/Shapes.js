@@ -12,7 +12,6 @@ export const mission = PropTypes.shape({
 export const changemaker = PropTypes.shape({
   id: PropTypes.number.isRequired,
   videoUrl: PropTypes.string.isRequired,
-  isApproved: PropTypes.bool.isRequired,
   approvalDate: PropTypes.string.isRequired, // serialized date
   statusUpdates: PropTypes.array,
   numberOfPatrons: PropTypes.number.isRequired,
@@ -33,7 +32,7 @@ export const children = PropTypes.oneOfType([
   PropTypes.object
 ]);
 
-export const update = PropTypes.shape({
+export const statusUpdate = PropTypes.shape({
   title: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,
   content: PropTypes.shape({
