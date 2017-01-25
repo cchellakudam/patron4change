@@ -7,7 +7,8 @@
 		"isAnonymus": false,
 		"passwordHash": "fsa79gsags9g5sg95s896gsyfol23orh2o",
 		"avatarUrl": "https://randomuser.me/api/portraits/med/men/42.jpg",
-		"isBlocked": false
+		"isBlocked": false,
+		"fkCountryIdNationality": "GB"
 	},
 	{
 		"lastName": "Mayer",

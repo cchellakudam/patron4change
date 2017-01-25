@@ -23,10 +23,23 @@ export default class{
 		});
 	}
 
-	payUserWithCard(patronId, amount, comment, changemakerId, accountId){
-		return this.mango.createCardPayment(accountId, amount, comment, patronId, changemakerId).catch((err) => {
-			throw err;
-		});
+
+	oneTimeSupport(supportData){
+		let patronAccountp = this.mango.getAccountIdForUser(supportData.patronId);
+		let changemakerAccountp = this.mango.getAccountIdForUser(supportData.changemakerId);
+
+		return Promise.all([patronAccountp, changemakerAccountp]).then((values) => {
+			let paymentData = {
+				patronAccountId: values[0],
+				changemakerAccountId: values[1],
+				patronId: supportData.patronId,
+				changemakerId: supportData.changemakerId,
+				comment: supportData.comment,
+				amount: supportData.amount,
+				patron4ChangeFees: supportData.patron4ChangeFees
+			}
+			return this.mango.createCardPayment(paymentData )
+		})
 	}
 
 /* This method only takes any kind of security token or registration

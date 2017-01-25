@@ -13,7 +13,7 @@ export default class{
 	}
 
 	static getUserForId(id){
-		return models.user.findById(id);
+		return models.user.findOne({where : {id: id}})
 	}
 
 	static getUpdatesByUserId() {
@@ -24,6 +24,24 @@ export default class{
 		return models.user.create({
 			email: email
 		})
+	}
+
+	static updateUser(userInformation){
+		return models.user.findOne({where : {id: userInformation.id}}).then((user) =>{
+			user.firstName = userInformation.firstName;
+			user.lastName = userInformation.lastName;
+			user.countryOfResidence = userInformation.countryOfResidence;
+			user.birthday = userInformation.birthday
+			user.fkCountryIdResidence = userInformation.fkCountryIdResidence;
+			user.fkCountryIdNationality = userInformation.fkCountryIdNationality;
+			return user.save().then((updatedUser) => {
+				return updatedUser
+			})
+		})
+	}
+
+	static getCountries(){
+		return models.country.findAll();
 	}
 
 }

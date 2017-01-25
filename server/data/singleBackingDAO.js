@@ -5,38 +5,38 @@ import models from '../model/index';
 
 export default class {
 
-	static createSingleBacking(userId, changemakerId, transactionId, amount, transactionDate) {
-		let changemakerPromise = models.changemaker.findById(changemakerId);
-		let patronPromise = models.user.findById(userId)
+	static createSingleBacking(backingData) {
+		let changemakerPromise = models.changemaker.findById(backingData.changemakerId);
+		let patronPromise = models.user.findById(backingData.userId)
 
 		return Promise.all([changemakerPromise, patronPromise]).then(values => {
 		if(!values[0]){
-			throw new Error(`changemaker ${changemakerId} does not exist`);
+			throw new Error(`changemaker ${backingData.changemakerId} does not exist`);
 		}
 		if (!values[1]) {
-			throw new Error(`user ${userId} does not exist`)
+			throw new Error(`user ${backingData.userId} does not exist`)
 		}
 
-		if (userId === changemakerId) {
+		if (backingData.userId === backingData.changemakerId) {
 			throw new Error('a changemaker cannot back himself!')
 		}
 
-		if (isNaN(amount)) {
+		if (isNaN(backingData.amount)) {
 			throw new Error('not a valid amount');
 		}
 
-		if (isNaN(transactionDate)) {
+		if (isNaN(backingData.transactionDate)) {
 			throw new Error('not a valid timestamp, UNIX timestamp only please')
 		}
 		let backing = models.singleBacking.create({
 			backing: {
-				amount: amount,
-				fkSenderId: userId,
-				fkRecipientId: changemakerId,
+				amount: backingData.amount,
+				fkSenderId: backingData.userId,
+				fkRecipientId: backingData.changemakerId,
 				payments: [{
-					amount: amount,
-					transactionDate: transactionDate,
-					transactionId: transactionId
+					amount: backingData.amount,
+					transactionDate: backingData.transactionDate,
+					transactionId: backingData.transactionId
 				}]
 			}
 		}, {
@@ -45,7 +45,6 @@ export default class {
 				include: [{model: models.payment, as: 'payments'}]
 			}]
 		});
-
 		return backing
 	})
 
