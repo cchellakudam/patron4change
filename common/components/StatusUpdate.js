@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Card, CardTitle, CardText } from 'react-toolbox/lib/card';
+import moment from 'moment';
 
 import * as shapes from '../constants/Shapes';
 
@@ -17,7 +18,7 @@ class StatusUpdate extends Component {
 			<Card className={styles.card}>
         <CardTitle
           title={update.title}
-          subtitle={update.createdAt} />
+          subtitle={moment(update.createdAt).fromNow()} />
         <CardText>
           {update.content? update.content.text : ''}
         </CardText>

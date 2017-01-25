@@ -18,3 +18,7 @@
   background-color: scale-color($color, $lightness: 60%, $saturation: -75%);
   border-color: $color;
 }
+
+.profileTitle {
+  margin: 1em;
+}

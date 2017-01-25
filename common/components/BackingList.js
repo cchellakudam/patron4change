@@ -41,20 +41,20 @@ class BackingList extends React.Component {
       let days = daydiff(approvalDate, new Date());
       if (MAX_RECENT_DAY_DIFF >= days) {
         let day = 0 === days ? <span>heute</span> : <span>vor {days} Tagen</span>;
-        patronBlock = <div>
+        patronBlock = <div className={styles.flexer}>
           <p key="happy-start" className={`${styles.noPatronMsg} ${styles.recentJoin}`}>
             {recipientName} startete {day}, werde der erste Patron!
           </p>
           {supportBtn}
         </div>;
       } else {
-        patronBlock = <div>
+        patronBlock = <div className={styles.flexer}>
           <p key="unhappy-start" className={styles.noPatronMsg}>{recipientName} hat noch keine Patrons</p>
           {supportBtn}
         </div>;
       }
     } else {
-      patronBlock = <div>
+      patronBlock = <div className={styles.flexer}>
         {supportBtn}
         <ListSubHeader key="patron-header" caption={`${recipientName}'s Patrons`} />
         {this.props.RecurringBackings}
@@ -63,7 +63,7 @@ class BackingList extends React.Component {
 
     let noSupporters = 0 === this.props.OneTimeBackings.length;
 
-    let supporterBlock = <div>
+    let supporterBlock = <div className={styles.flexer}>
       <ListSubHeader key="one-time-header" id="one-time-payments" caption="einmalige Unterstützungen" />
       {this.props.OneTimeBackings}
     </div>;

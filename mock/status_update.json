@@ -1,37 +1,37 @@
 [
 	{
 		"fkChangemakerId": 1,
-		"title": "2.2.2016 Projektidee eingereicht",
+		"title": "Projektidee eingereicht",
 		"fkContentId": 11,
 		"createdAt": "2016-02-02T12:58:00.000Z"
 	},
 	{
 		"fkChangemakerId": 1,
-		"title": "8.2.2016 Ort und Zeit stehen fest",
+		"title": "Ort und Zeit stehen fest",
 		"fkContentId": 12,
 		"createdAt": "2016-02-08T12:58:00.000Z"
 	},
 	{
 		"fkChangemakerId": 1,
-		"title": "20.3.2016 Gewürze fertig eingekauft",
+		"title": "Gewürze fertig eingekauft",
 		"fkContentId": 13,
 		"createdAt": "2016-03-20T12:58:00.000Z"
 	},
 	{
 		"fkChangemakerId": 1,
-		"title": "7.4.2016 Morgen Spicy Vienna",
+		"title": "Morgen Spicy Vienna",
 		"fkContentId": 14,
 		"createdAt": "2016-04-07T12:58:00.000Z"
 	},
 	{
 		"fkChangemakerId": 1,
-		"title": "9.4.2016 Super Aktion",
+		"title": "Super Aktion",
 		"fkContentId": 15,
 		"createdAt": "2016-04-09T12:58:00.000Z"
 	},
 	{
 		"fkChangemakerId": 1,
-		"title": "15.4.2016 Neue Idee",
+		"title": "Neue Idee",
 		"fkContentId": 16,
 		"createdAt": "2016-04-15T12:58:00.000Z"
 	},

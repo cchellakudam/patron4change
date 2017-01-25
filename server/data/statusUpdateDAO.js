@@ -4,7 +4,8 @@ export default class {
 
 	static getUpdatesByChangemakerId(fkChangemakerId) {
 		return models.statusUpdate.findAll({
-			where: { fkChangemakerId }
+			where: { fkChangemakerId },
+			order: [['createdAt', 'DESC']]
 		});
 	}
 

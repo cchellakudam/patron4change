@@ -8,6 +8,8 @@ import { changemaker as Changemaker } from '../constants/Shapes';
 
 import ChangemakerProfileEditor from '../components/ChangemakerProfileEditor';
 
+import styles from '../../client/css/modules/changemaker-profile-editor.scss';
+
 class ChangemakerProfileEditorContainer extends Component {
 
   state = { saved: false };
@@ -43,11 +45,14 @@ class ChangemakerProfileEditorContainer extends Component {
     if (!changemaker) {
       changemaker = new Changemaker();
     }
-		return <ChangemakerProfileEditor
-      changemaker={changemaker}
-      videoUrl={videoUrl}
-      onSave={this.onSave.bind(this)}
-      onChangeVideoFile={this.onChangeVideoFile.bind(this)} />;
+		return <div>
+      <h1 className={styles.profileTitle}>Dein Profil</h1>
+      <ChangemakerProfileEditor
+        changemaker={changemaker}
+        videoUrl={videoUrl}
+        onSave={this.onSave.bind(this)}
+        onChangeVideoFile={this.onChangeVideoFile.bind(this)} />
+    </div>;
 	}
 }
 

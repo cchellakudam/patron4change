@@ -1,3 +1,13 @@
 .card {
-  margin-bottom: 1em;
+  margin: 1em 1em 0 1em;
+
+  h5 {
+    font-size: 1.9rem !important;
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

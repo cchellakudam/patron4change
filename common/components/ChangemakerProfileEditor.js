@@ -19,7 +19,10 @@ class ChangemakerProfileEditor extends Component {
     onChangeVideoFile: PropTypes.func.isRequired
 	};
 
-  state = { mission: '', video: null };
+  constructor() {
+    super();
+    this.state = { mission: '', video: null };
+  }
 
   handleChange = (name, value) => {
     this.setState({...this.state, [name]: value});
@@ -34,9 +37,17 @@ class ChangemakerProfileEditor extends Component {
 
   onSave() {
     let changemaker = this.props.changemaker;
-    const state = this.state;
-    changemaker.mission = { text: state.mission };
-    this.props.onSave(changemaker);
+    const { mission, firstName, lastName } = this.state;
+    let newChangemaker = Object.assign({}, changemaker, {
+      user: {
+        firstName,
+        lastName
+      },
+      mission: {
+        text: mission
+      }
+    });
+    this.props.onSave(newChangemaker);
   }
 
   render() {
@@ -47,6 +58,11 @@ class ChangemakerProfileEditor extends Component {
           <Grid>
             <Row>
               <Col xs={12} md={8} lg={8}>
+                <Input type='text' label='Vorname'
+                  value={this.state.firstName} onChange={this.handleChange.bind(this, 'firstName')}/>
+                <Input type='text' label='Nachname'
+                  value={this.state.lastName} onChange={this.handleChange.bind(this, 'lastName')}/>
+
                 <Input type='text' multiline label='Mission' rows={10}
                   value={this.state.mission} onChange={this.handleChange.bind(this, 'mission')}/>
               </Col>
