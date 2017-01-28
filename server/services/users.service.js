@@ -28,4 +28,9 @@ export default class {
 		})
 	}
 
+	updateUser(userData) {
+		return this.dao.updateUser(userData);
+	}
+
+
 }

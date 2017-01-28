@@ -9,7 +9,17 @@ export default class {
 			method: 'post',
 			data: {email: email}
 		}).then((res) => {
-			return res.data.id
+			return res.data
+		})
+	}
+
+	static updateUser(userData){ debugger
+		return axios({
+			url: '/api/users/update',
+			method: 'put',
+			data: userData
+		}).then((res) => {
+			return res.data
 		})
 	}
 

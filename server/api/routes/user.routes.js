@@ -18,5 +18,11 @@ export default (userSvc) => {
 		})
 	})
 
+	router.put('/update', (req, res) => {
+		userSvc.updateUser(req.body).then((user) => {
+			res.send(user)
+		})
+	})
+
 	return router;
 }

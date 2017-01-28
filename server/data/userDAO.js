@@ -26,4 +26,15 @@ export default class{
 		})
 	}
 
+	static updateUser(userData){
+		return models.user.findById(userData.id).then((user) => {
+			user.firstName = userData.firstName;
+			user.lastName =userData.lastName;
+			user.nationality = userData.nationality;
+			user.countryOfResidence = userData.countryOfResidence;
+			user.birthday = userData.birthday;
+			return user.save()
+		})
+	}
+
 }
