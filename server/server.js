@@ -84,7 +84,7 @@ let jwtCheck = jwt({
 	audience: appConfig.get('clientId')
 })
 
-app.use('/api/users/update' , jwtCheck)
+app.use('/api/users/testProtection' , jwtCheck)
 
 // register api paths to router
 app.use('/api', apiRoutes, (req, res) => {

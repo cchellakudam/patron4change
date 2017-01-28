@@ -4,11 +4,13 @@ import axios from 'axios';
 export default class {
 
 	static getLoggedUser(email){
+		debugger
 		return axios({
 			url: '/api/users/login',
 			method: 'post',
 			data: {email: email}
 		}).then((res) => {
+			debugger
 			return res.data
 		})
 	}

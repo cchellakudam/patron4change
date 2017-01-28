@@ -13,6 +13,7 @@ export class UserProfileContainer extends Component{
 
 	componentDidMount() {
 		if (true === process.env.BROWSER) {
+			debugger
 			this.actions.getUserById(this.props.profile.email)
 		}
 	}

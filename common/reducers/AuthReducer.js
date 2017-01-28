@@ -10,7 +10,8 @@ function LOGIN_SUCCESS(state, action){
 		...state,
 		isAuthenticated: true,
 		profile: action.profile,
-		loggedUserId: action.userId
+		loggedUserId: action.userId,
+		incorrectData: action.incorrectData
 	}
 
 }

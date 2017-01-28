@@ -11,7 +11,11 @@ function GET_USER_BY_ID_ERROR(state){
 }
 
 function GET_USER_BY_ID_SUCCESS(state, action){
-	action.result.birthday = action.result.birthday.slice(0,10)
+	debugger
+	if(action.result.birthday){
+		action.result.birthday = action.result.birthday.slice(0,10)
+	}
+
 	return {
 		...state,
 		user: action.result
@@ -23,7 +27,15 @@ function UPDATE_USER_REQUEST(state){
 }
 
 function UPDATE_USER_SUCCESS(state, action){
-	action.result.birthday.slice(0,10)
+	if(action.result.birthday){
+		action.result.birthday = action.result.birthday.slice(0,10)
+	}
+	if(action.result.incorrectData){
+		localStorage.incorrectData = 1
+	}else{
+		localStorage.incorrectData = 0
+	}
+
 	return {
 		...state,
 		user: action.result

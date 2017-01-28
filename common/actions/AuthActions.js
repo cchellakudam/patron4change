@@ -2,14 +2,19 @@ import Auth0Lock from 'auth0-lock'
 import types from '../constants/ActionTypes'
 import WebAPIUtils from '../utils/WebAPIUtils'
 
+
 function loginSuccess(profile){
 	let email = profile.email;
 	return WebAPIUtils.getLoggedUser(email).then((user) => {
 		localStorage.loggedUserId = user.id;
+		if(user.incorrectData){
+			localStorage.incorrectData = 1;
+		}
 		return {
 			type: types.LOGIN_SUCCESS,
 			profile,
-			userId: user.id
+			userId: user.id,
+			incorrectData: user.incorrectData? 1 : 0
 		}
 	})
 }

@@ -75,7 +75,7 @@ export default class UserProfile extends React.Component {
 					{warning}
 					</Row>
 					<br/>
-					<h1>Ihre Profil</h1>
+					<h1>Ihre Konto</h1>
 
 					<Input type='email' label='Email' name='email' value={this.props.user.email} disabled/>
 					<Input type='text' label='Vorname' name='firstName' value={this.props.user.firstName}

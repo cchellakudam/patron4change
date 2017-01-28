@@ -18,11 +18,13 @@ class MainNav extends React.Component {
 		this.actions = bindActionCreators(LoginActions, props.dispatch);
   }
 
-  componentWillMount(){
+	componentWillMount(){
 		if (true === process.env.BROWSER) {
 			this.actions.doAuthentication();
+			if(1 === this.props.incorrectData && this.props.profile){
+				browserHistory.push('/user/profile')
+			}
 		}
-
 	}
 
   onNavigateToHome(e) {
@@ -41,7 +43,7 @@ class MainNav extends React.Component {
 	}
 
   render() {
-    const img = <img className={styles.logo} src="/public/images/logo.png" alt="patron4change logo" />;
+		const img = <img className={styles.logo} src="/public/images/logo.png" alt="patron4change logo" />;
 
     let isStartPage = '/' === this.props.location.pathname;
 
@@ -78,5 +80,6 @@ export default connect( (state) => ({
 	isAuthenticated: state.login.isAuthenticated,
 	profile: state.login.profile,
 	loginData: state.login.loginData,
-	userId: state.login.loggedUserId
+	userId: state.login.loggedUserId,
+	incorrectData: state.login.incorrectData
 }) )(MainNav);

@@ -42,7 +42,8 @@ if (window.$REDUX_STATE) {
 		$fetched: '/' === document.location.pathname,
 		isAuthenticated: localStorage.id_token ? true:false,
 		profile: localStorage.profile ? JSON.parse(localStorage.profile) : null,
-		loggedUserId: localStorage.loggedUserId ? parseInt(localStorage.loggedUserId) : null
+		loggedUserId: localStorage.loggedUserId ? parseInt(localStorage.loggedUserId) : null,
+		incorrectData: localStorage.incorrectData ? parseInt(localStorage.incorrectData): 0
 	}
 }
 

@@ -1,7 +1,7 @@
 import types from '../constants/ActionTypes'
 import WebAPIUtils from '../utils/WebAPIUtils'
 
-export function getUserById(email) {
+export function getUserById(email) {debugger
 	return {
 		types: [
 			types.GET_USER_BY_ID_REQUEST,
