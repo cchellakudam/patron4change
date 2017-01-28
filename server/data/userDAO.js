@@ -22,22 +22,14 @@ export default class{
 		})
 	}
 
-	static updateUser(userInformation){
-		return models.user.findOne({where : {id: userInformation.id}}).then((user) =>{
-			user.firstName = userInformation.firstName;
-			user.lastName = userInformation.lastName;
-			user.countryOfResidence = userInformation.countryOfResidence;
-			user.birthday = userInformation.birthday
-			user.fkCountryIdResidence = userInformation.fkCountryIdResidence;
-			user.fkCountryIdNationality = userInformation.fkCountryIdNationality;
-			return user.save().then((updatedUser) => {
-				return updatedUser
-			})
+	static updateUser(userData){
+		return models.user.findById(userData.id).then((user) => {
+			user.firstName = userData.firstName;
+			user.lastName =userData.lastName;
+			user.nationality = userData.nationality;
+			user.countryOfResidence = userData.countryOfResidence;
+			user.birthday = userData.birthday;
+			return user.save()
 		})
 	}
-
-	static getCountries(){
-		return models.country.findAll();
-	}
-
 }

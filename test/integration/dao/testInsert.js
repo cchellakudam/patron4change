@@ -3,9 +3,6 @@
 function testInsert(models, logging) {
 	return models.content.bulkCreate(require('../../../mock/content.json'), { logging })
 		.then(() => {
-			return models.country.bulkCreate(require('../../../mock/countries.json'), { logging })
-		})
-		.then(() => {
 			return models.user.bulkCreate(require('../../../mock/users.json'), { logging });
 		})
 		.then(() => {

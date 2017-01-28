@@ -46,16 +46,16 @@ describe('userDAO', () => {
 				firstName: 'john',
 				lastName: 'doe',
 				birthday: 758926219000,
-				fkCountryIdResidence: 'GB',
-				fkCountryIdNationality: 'GB'
+				nationality: 'GB',
+				countryOfResidence: 'GB'
 			}
 
 			return userDAO.updateUser(userInformation).then((res) => {
 				expect(res.id).to.equal(1);
 				expect(res.firstName).to.equal('john');
 				expect(res.lastName).to.equal('doe');
-				expect(res.fkCountryIdNationality).to.equal('GB');
-				expect(res.fkCountryIdResidence).to.equal('GB');
+				expect(res.nationality).to.equal('GB');
+				expect(res.countryOfResidence).to.equal('GB');
 				expect(new Date(res.birthday).getTime()).to.equal(758926219000)
 			})
 		})

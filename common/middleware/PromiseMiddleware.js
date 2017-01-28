@@ -7,7 +7,6 @@
 * use this to handle server requests that could fail
 */
 export default function promiseMiddleware( /* objMethods */ ) {
-
   return (next) => (action) => {
 
     const { promise, types, ...rest } = action;
@@ -19,7 +18,6 @@ export default function promiseMiddleware( /* objMethods */ ) {
     const [REQUEST, SUCCESS, ERROR] = types;
 
     next({ ...rest, type: REQUEST });
-
     return promise.then(
       (result) => next({ ...rest, result, type: SUCCESS }),
       (error) => next({ ...rest, error, type: ERROR })

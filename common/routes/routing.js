@@ -10,6 +10,7 @@ import ChangemakerProfileEditorContainer from '../containers/ChangemakerProfileE
 import MainNav from '../containers/MainNav';
 import TestPage from '../containers/TestPage';
 import SupportChangemakerContainer from '../containers/SupportChangemakerContainer'
+import UserProfileContainer from '../containers/UserProfileContainer'
 
 import SearchNav from '../components/SearchNav';
 import App from '../components/App';
@@ -31,6 +32,8 @@ export default (
   // for admins - a list of all changemakers, whereas the unvetted changemakers are shown first
 	<Route path="/changemaker"
 		   components={{main: Empty, nav: MainNav, sub: Empty}} />
+
+	<Route path="/user/profile" components={{main:UserProfileContainer, nav:MainNav, sub:Empty}} />
 
 	<Route path="/changemaker/new"
 		   components={{main: ChangemakerProfileEditorContainer, nav: MainNav, sub: Empty}} />

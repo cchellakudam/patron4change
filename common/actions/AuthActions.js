@@ -4,12 +4,12 @@ import WebAPIUtils from '../utils/WebAPIUtils'
 
 function loginSuccess(profile){
 	let email = profile.email;
-	return WebAPIUtils.getLoggedUser(email).then((userId) => {
-		localStorage.loggedUserId = userId;
+	return WebAPIUtils.getLoggedUser(email).then((user) => {
+		localStorage.loggedUserId = user.id;
 		return {
 			type: types.LOGIN_SUCCESS,
 			profile,
-			userId
+			userId: user.id
 		}
 	})
 }
