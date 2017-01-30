@@ -41,7 +41,6 @@ config/local*
 
 ## bundle build files
 public/*.css
-public/*.js
 
 ## local test scripts
 
