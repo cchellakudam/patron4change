@@ -43,7 +43,7 @@ export default (
 		   components={{main: ChangemakerProfileContainer, nav: MainNav, sub: Empty}} />
 
   // changemaker support payment page
-	<Route path="/changemaker/:id/support"
+	<Route path="/changemaker/:changemakerId/support"
 		   components={{main: SupportChangemakerContainer, nav: MainNav, sub: Empty}} />
 
 	<Route path="/search"

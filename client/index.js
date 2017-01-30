@@ -45,6 +45,11 @@ if (window.$REDUX_STATE) {
 		loggedUserId: localStorage.loggedUserId ? parseInt(localStorage.loggedUserId) : null,
 		incorrectData: localStorage.incorrectData ? parseInt(localStorage.incorrectData): 0
 	}
+
+	state.user = {
+		user: {},
+		profileUpdate:null
+	}
 }
 
 const store = configureStore( state )

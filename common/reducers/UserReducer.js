@@ -18,7 +18,8 @@ function GET_USER_BY_ID_SUCCESS(state, action){
 
 	return {
 		...state,
-		user: action.result
+		user: action.result,
+		profileUpdate: null
 	}
 }
 
@@ -38,12 +39,16 @@ function UPDATE_USER_SUCCESS(state, action){
 
 	return {
 		...state,
-		user: action.result
+		user: action.result,
+		profileUpdate: true
 	}
 }
 
 function UPDATE_USER_ERROR(state){
-	return state;
+	return {
+		...state,
+		profileUpdate: false
+	};
 }
 
 const handlers =

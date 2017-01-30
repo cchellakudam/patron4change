@@ -4,18 +4,16 @@ import axios from 'axios';
 export default class {
 
 	static getLoggedUser(email){
-		debugger
 		return axios({
 			url: '/api/users/login',
 			method: 'post',
 			data: {email: email}
 		}).then((res) => {
-			debugger
 			return res.data
 		})
 	}
 
-	static updateUser(userData){ debugger
+	static updateUser(userData){
 		return axios({
 			url: '/api/users/update',
 			method: 'put',

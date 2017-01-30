@@ -109,4 +109,7 @@ app.use((err, req, res) => {
 const port = appConfig.get('port');
 app.listen(port, function(){
 	logger.info(`Listening on port ${port}`);
-});
+}).on('error', function(err){
+	console.log('on error handler');
+	console.log(err);
+});;

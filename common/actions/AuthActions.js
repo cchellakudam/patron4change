@@ -1,15 +1,18 @@
 import Auth0Lock from 'auth0-lock'
 import types from '../constants/ActionTypes'
 import WebAPIUtils from '../utils/WebAPIUtils'
+import { browserHistory } from 'react-router';
 
 
 function loginSuccess(profile){
+	debugger
 	let email = profile.email;
 	return WebAPIUtils.getLoggedUser(email).then((user) => {
 		localStorage.loggedUserId = user.id;
 		if(user.incorrectData){
 			localStorage.incorrectData = 1;
 		}
+
 		return {
 			type: types.LOGIN_SUCCESS,
 			profile,
@@ -17,6 +20,13 @@ function loginSuccess(profile){
 			incorrectData: user.incorrectData? 1 : 0
 		}
 	})
+}
+
+function checkProfile(){
+	debugger
+	if(1 === parseInt(localStorage.incorrectData)){
+		browserHistory.push('/user/profile')
+	}
 }
 
 function loginError(err) {
@@ -43,7 +53,8 @@ export function doAuthentication(){
 					localStorage.setItem('id_token', authResult.idToken)
 				}
 				loginSuccess(JSON.parse(localStorage.profile)).then((res) => {
-					return dispatch(res);
+					 dispatch(res);
+					 checkProfile();
 				})
 				return true;
 			});
