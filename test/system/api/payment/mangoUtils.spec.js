@@ -13,7 +13,7 @@ describe('mangopay API specific logic', () => {
 	});
 
 	describe('createNaturalUser', () => {
-		it('this service call should return a mango user Id',(done) => {
+		it.only('should return a mango user Id',(done) => {
 			let userObject = {
 				firstName: 'Tom',
 				lastName: 'Walker',
@@ -25,7 +25,7 @@ describe('mangopay API specific logic', () => {
 			};
 
 			mango.createNaturalUser(userObject, 1).then((res) => {
-			expect(res).to.exist;
+				expect(res).to.exist;
 			done();
 			}).
 			catch((err) => {
@@ -33,7 +33,31 @@ describe('mangopay API specific logic', () => {
 			})
 		}).timeout(10000);
 
-		it('this service should create a wallet and return its Id', (done) =>{
+		it.only('should throw and exception because user already has an account',(done) => {
+			let userObject = {
+				firstName: 'Tom',
+				lastName: 'Walker',
+				birthday: 1320969600,
+				nationality: 'GB',
+				countryOfResidence: 'GB',
+				email: 'tom@mail.test.com',
+				PersonType: 'NATURAL'
+			};
+
+			mango.createNaturalUser(userObject, 1).then((res) => {
+				assert.isOk(false, 'this will fail');
+				done();
+			}).
+			catch((err) => {
+				expect(err.message).to.equal('this user already has an accountId')
+				done();
+			})
+		}).timeout(10000);
+
+	});
+
+	describe('createWallet', () => {
+		it.only('should create a wallet and return its Id', (done) =>{
 			mango.createWallet('18559606', 1).then((res) => {
 				expect(res).to.exist;
 				done();
@@ -41,8 +65,10 @@ describe('mangopay API specific logic', () => {
 				done(err);
 			})
 		}).timeout(10000);
+	})
 
-		it('this service should retrieve the walletId of a user given the user Id', (done) => {
+	describe('getUserWallet', () => {
+		it.only('should retrieve the walletId of a user given the user Id', (done) => {
 			mango.getUserWallet(9).then((res) => {
 				assert(res, 'the returned value was not valid');
 				done()
@@ -50,8 +76,10 @@ describe('mangopay API specific logic', () => {
 				done(err);
 			})
 		}).timeout(10000);
+	})
 
-		it('this service should create a backing and payment for a changemaker ' +
+	describe('createCardPayment', () => {
+		it.only('should create a backing and payment for a changemaker ' +
 			'using mangopay, a redirect url should be given', (done) => {
 			let paymentData = {
 				changemakerAccountId: '18559606',
@@ -62,17 +90,16 @@ describe('mangopay API specific logic', () => {
 			}
 			mango.createCardPayment(paymentData).then((res) => {
 				assert(res.startsWith('https://'),
-							'the returned value was not a valid address');
+					'the returned value was not a valid address');
 				done();
 			}).catch((err) => {
 				done(err);
 			})
 		}).timeout(10000)
-
-	});
+	})
 
 	describe('getPreCardRegistrationData', () => {
-		it('this service call shoud get card pre registration data from mangopay API server for a specific user', (done) => {
+		it('should call shoud get card pre registration data from mangopay API server for a specific user', (done) => {
 			mango.preRegisterCard('18559606').then((res) => {
 				expect(res.Id).to.exist;
 				expect(res.PreregistrationData).to.exist;

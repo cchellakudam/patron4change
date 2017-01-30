@@ -1,7 +1,10 @@
+import mango from './payments/mango'
+
 export default class {
 
 	constructor(dao) {
 		this.dao = dao;
+		this.mango = new mango()
 	}
 
 	checkUserData(user){
@@ -61,7 +64,15 @@ export default class {
 	}
 
 	updateUser(userData) {
-		return this.dao.updateUser(userData).then((user) => {
+		userData.PersonType = 'NATURAL';
+		userData.userId = userData.id;
+		return this.mango.registerUser(userData).catch((err) => {
+			if('this user already has an accountId' !== err.message){
+				throw new Error('error creating mango account for user')
+			}
+		}).then(() => {
+			return this.dao.updateUser(userData)
+		}).then((user) => {
 			let myUser = {
 				id: user.id,
 				firstName: user.firstName,
@@ -75,7 +86,7 @@ export default class {
 				myUser.incorrectData = true;
 			}
 			return myUser;
-		});
+		})
 	}
 
 }
