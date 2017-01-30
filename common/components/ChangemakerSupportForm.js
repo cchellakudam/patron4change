@@ -8,11 +8,14 @@ import { Input } from 'react-toolbox/lib/input';
 import { List, ListSubHeader, ListItem } from 'react-toolbox/lib/list'
 import styles from '../../client/css/modules/support-changemaker-form.scss';
 import ActionStatus from './ActionStatus';
+import Switch from 'react-toolbox/lib/switch';
+import { Card, CardText} from 'react-toolbox/lib/card';
 
 
 class ChangemakerSupportForm extends React.Component {
 	state = {
-		redirect: false
+		redirect: false,
+		recurring: false
 	};
 
 	constructor(props){
@@ -33,14 +36,25 @@ class ChangemakerSupportForm extends React.Component {
 		this.setState({redirect: true});
 	}
 
-	render() {
+	handleRecurringOption(){
+		this.setState({recurring: !this.state.recurring});
+	}
 
+	render() {
+		const TooltipSwitch = Tooltip(Switch);
 		const TooltipButton = Tooltip(Button);
 		let actionStatus = null;
 		if(this.state.redirect){
 			let message = 'Sie werden in kürze nach dem Payment Provider weitergeleitet';
 			let status = 'info';
 			actionStatus = <ActionStatus status={status} message={message}/>
+		}
+
+		let recurringMessage = null
+		if(this.state.recurring){
+			recurringMessage = <Card raised style={{margin: '10px'}}>
+													<CardText>Sie werden jeder Monat diesen Changemaker unterstützen</CardText>
+												</Card>
 		}
 
 		return (
@@ -51,6 +65,17 @@ class ChangemakerSupportForm extends React.Component {
 		<h1>Unterstützen {this.props.changemakerName}</h1>
 		<br/>
 		<br/>
+
+		<Row>
+			<Switch
+				checked={this.state.recurring}
+				label="Monatliche Zahlung"
+				onChange={this.handleRecurringOption.bind(this)}
+			/>
+		</Row>
+		<Row>
+			{recurringMessage}
+		</Row>
 
 		<Row>
 				<Col lg={6}>
