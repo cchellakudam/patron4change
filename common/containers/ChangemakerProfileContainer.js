@@ -26,6 +26,12 @@ export class ChangemakerProfileContainer extends Component {
 		fetchNeeds( ChangemakerProfileContainer.needs, this.props )
 	}
 
+	componentWillReceiveProps(nextProps) {
+		if (this.props.params.changemakerId !== nextProps.params.changemakerId) {
+			fetchNeeds( ChangemakerProfileContainer.needs, nextProps );
+		}
+	}
+
 	onSupport() {
 		const { id } = this.props.changemaker;
     browserHistory.push(`/changemaker/${id}/support`);
