@@ -50,13 +50,6 @@ class MainNav extends React.Component {
     return <AppBar className={`${styles.appBar} ${isStartPage ? styles.startAppBar : ''}`}
       title="&nbsp;" leftIcon={img} onLeftIconClick={this.onNavigateToHome}>
 			<Navigation type='horizontal'>
-				<Auth
-					isAuthenticated = {this.props.isAuthenticated}
-					profile = {this.props.profile}
-					onLoginClick={this.actions.login}
-					onLogoutClick = {this.actions.logout}
-					doAuthenticate = {this.actions.doAuthentication}
-				/>
 				{this.props.isAuthenticated?
 					<Link href={`/changemaker/${this.props.userId}`}
 						className={styles.changemakerLink}
@@ -70,7 +63,12 @@ class MainNav extends React.Component {
 				<Link href="/search" onClick={this.onNavigateToSearch} icon="search">
           Search
         </Link>
-
+				<Auth
+					isAuthenticated = {this.props.isAuthenticated}
+					profile = {this.props.profile}
+					onLoginClick={this.actions.login}
+					onLogoutClick = {this.actions.logout}
+					doAuthenticate = {this.actions.doAuthentication} />
 			</Navigation>
 		</AppBar>;
   }

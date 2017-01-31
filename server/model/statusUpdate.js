@@ -14,9 +14,15 @@ module.exports = (sequelize, DataTypes) => {
 
 	}, {
 		classMethods: {
-			associate: function(models){
-				StatusUpdate.belongsTo(models.content, {foreignKey: 'fkContentId', as: 'content'});
-				StatusUpdate.belongsTo(models.changemaker, {foreignKey: 'fkChangemakerId', as: 'changemaker'});
+			associate: function(models) {
+				StatusUpdate.content = StatusUpdate.belongsTo(models.content, {
+					foreignKey: 'fkContentId',
+					as: 'content'
+				});
+				StatusUpdate.changemaker = StatusUpdate.belongsTo(models.changemaker, {
+					foreignKey: 'fkChangemakerId',
+					as: 'changemaker'
+				});
 			}
 		},
 		freezeTableName: false // Model tableName will be the same as the model name

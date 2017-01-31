@@ -16,7 +16,7 @@ $color-accent-contrast: $palette-teal-a400;
 $breakpoint-small: (0 $layout-breakpoint-xs);
 $breakpoint-large: $layout-breakpoint-xs + 1;
 
-$std-space: 0.5rem;
+$std-space: 0.72rem;
 
 @mixin breakpoint($value) {
   $type: type-of($value);

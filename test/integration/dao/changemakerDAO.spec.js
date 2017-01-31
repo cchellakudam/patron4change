@@ -50,7 +50,7 @@ describe('changemakerDAO', () => {
 			return changemakerDAO.getFeatured().then((changemakers) => {
         expect(changemakers).to.have.length(5);
 
-				for (var i = 1; i < changemakers.length; i++) {
+				for (let i = 1; i < changemakers.length; i++) {
 					expect(changemakers[i].id).not.to.equal(changemakers[i - 1].id);
 				}
 			});

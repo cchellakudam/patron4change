@@ -36,4 +36,8 @@ export default class {
 		changemaker.isApproved = false;
 		return this.dao.createChangemaker(changemaker);
 	}
+
+	createUpdate(id, update) {
+		return this.statusDAO.create(id, update.text);
+	}
 }

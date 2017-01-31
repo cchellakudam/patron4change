@@ -44,6 +44,12 @@ export default (changemakerService) => {
 		return changemakerService.getUpdates(id);
 	}));
 
+	router.post('/:id/updates', controller(({ id, model }) => {
+		return changemakerService.createUpdate(id, model).then(createdId => {
+			return { id: createdId };
+		});
+	}));
+
 	router.get('/:id/backings', controller(({ id }) => {
 		let nId = parseInt(id);
 		if (isNaN(nId)) {

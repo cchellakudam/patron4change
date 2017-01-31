@@ -123,4 +123,19 @@ export default class {
 		})
 	}
 
+	static createStatusUpdate(changemakerId, model) {
+
+		return axios({
+			url: `/api/changemakers/${changemakerId}/updates`,
+			method: 'post',
+			data: model
+		});
+		// .then(res => {
+		// 	return axios.get(res.headers.location);
+		// })
+		// .then(res => {
+		// 	return res.data;
+		// });
+	}
+
 }

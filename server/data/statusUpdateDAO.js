@@ -9,4 +9,19 @@ export default class {
 		});
 	}
 
+	static create(fkChangemakerId, text) {
+		return models.statusUpdate.create({
+			createdAt: +new Date(),
+			title: 'Some title',
+			fkChangemakerId,
+			content: { text }
+		}, {
+			include: [{
+		    association: models.statusUpdate.content
+		  }]
+		}).then( update => {
+			return update.id;
+		});
+	}
+
 }

@@ -79,15 +79,3 @@ export function uploadVideo(file) {
 		promise: WebAPIUtils.uploadVideo(file)
 	}
 }
-
-export function getUpdates({ changemakerId }) {
-	let promise = WebAPIUtils.getAllUpdatesByUserId(changemakerId);
-	return {
-		types: [
-			types.GET_UPDATES_REQUEST,
-			types.GET_UPDATES_SUCCESS,
-			types.GET_UPDATES_ERROR
-		],
-		promise
-	}
-}

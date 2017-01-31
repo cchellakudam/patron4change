@@ -12,9 +12,10 @@ import { Row, Col } from 'react-flexbox-grid';
 import styles from '../../client/css/modules/changemaker-profile.scss';
 
 const UpdateSection = props => {
-	if (props.StatusUpdates.length > 0) {
+	if (0 < props.StatusUpdates.length) {
 		return <div>
 			<h2 className={styles.newsHeader}>Neuigkeiten</h2>
+			{props.StatusUpdateEditor}
 			<UpdateList>
 				{props.StatusUpdates}
 			</UpdateList>
@@ -30,6 +31,7 @@ class ChangemakerProfile extends React.Component {
     RecurringBackings: PropTypes.arrayOf(PropTypes.element.isRequired).isRequired,
     OneTimeBackings: PropTypes.arrayOf(PropTypes.element.isRequired).isRequired,
 		StatusUpdates: PropTypes.arrayOf(PropTypes.element.isRequired).isRequired,
+		StatusUpdateEditor: PropTypes.element, // optional, no editing if not passed
 		onSupport: PropTypes.func.isRequired
 	};
 

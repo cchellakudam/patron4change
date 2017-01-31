@@ -26,18 +26,19 @@ export default class Auth extends Component {
 
 	render() {
 
-		const { onLoginClick, isAuthenticated, profile } = this.props
+		const { onLoginClick, isAuthenticated } = this.props
 		let loginButton = null;
 		if(!isAuthenticated){
 			loginButton = <Link className={styles.changemakerLink} onClick={onLoginClick} icon="exit_to_app">Anmelden</Link>
 		}else{
-			loginButton = <Link icon="settings" onClick={this.handleToggle.bind(this)}>Mein Konto ({profile.email})
+			loginButton = <Link icon="settings" onClick={this.handleToggle.bind(this)}>Mein Konto
 				<Drawer active={this.state.active} onOverlayClick={this.handleToggle.bind(this)}>
-				<Link className={styles.changemakerLink} onClick={this.handleLogout.bind(this)}
-							icon="power_settings_new">Ausloggen </Link>
-				<Link className={styles.changemakerLink} onClick={this.handleAccountSettings.bind(this)}
-							icon="settings">Kontoeinstellung</Link>
-			</Drawer></Link>
+					<Link className={styles.changemakerLink} onClick={this.handleLogout.bind(this)}
+								icon="power_settings_new">Ausloggen </Link>
+					<Link className={styles.changemakerLink} onClick={this.handleAccountSettings.bind(this)}
+								icon="settings">Kontoeinstellung</Link>
+				</Drawer>
+			</Link>
 
 			//loginButton = <Link className={styles.changemakerLink} onClick={onLogoutClick}
 				//								icon="power_settings_new">Logout ({profile.name})</Link>
