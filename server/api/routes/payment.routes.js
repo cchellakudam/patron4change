@@ -37,14 +37,9 @@ export default (paymentSvcs) => {
 			})
 	});
 
-	router.post('/mango/recurring', (req, res) => {
-		paymentSvcs.mango.createRecurringPayment(req.body)
-			.then((periodicBacking) => {
-				res.send(periodicBacking);
-			}).catch(() => {
-			res.status(400).send('general operation error')
-		})
-	});
+	router.get('/mango/recurring', controller((paymentData) => {
+		return paymentSvcs.mango.createRecurringPayment(paymentData);
+	}));
 
   return router;
 }

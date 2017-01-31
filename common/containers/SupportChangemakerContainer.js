@@ -34,36 +34,50 @@ class SupportChangemakerContainer extends React.Component {
 	}
 
 	render() {debugger
-			let changemakerCard = null;
-			let changemakerName = null;
-			if(this.props.changemaker.id){
-				changemakerCard = <ChangemakerCard changemaker={this.props.changemaker}
-																					 showSupport={false} showAvatar={false} onSupport={() => {}}/>
-				changemakerName = this.props.changemaker.user.name
-			}
+		let message = null;
+		let status = null
+		let statusMessage = null;
 
-			return (
-			<section>
-				<ChangemakerSupportForm
-						amount = {this.props.amount}
-						handleAddAmount = {this.actions.addToAmount}
-						handleSubtractAmount = {this.actions.subtractFromAmount}
-						handleSupport = {this.actions.support}
-						grossAmount = {this.props.grossAmount}
-						patron4ChangeFees = {this.props.patron4ChangeFees}
-						patron4ChangeRate = {this.props.patron4ChangeRate*100}
-						providerAdjustableRate = {this.props.providerAdjustableRate}
-						providerFixedRate = {this.props.providerFixedRate}
-						providerFees = {this.props.providerFees}
-						userId = {this.props.userId}
-						changemakerId = {this.props.params.changemakerId}
-						changemakerName = {changemakerName}
-				>
-					{changemakerCard}
-				</ChangemakerSupportForm>
+		if(this.props.error){
+			message = 'Zahlung war nicht erfolgreich';
+			status = 'failure'
+			statusMessage = <ActionStatus
+				message={message}
+				status={status}
+			/>
+		}
 
-			</section>
-			)
+		let changemakerCard = null;
+		let changemakerName = null;
+		if(this.props.changemaker.id){
+			changemakerCard = <ChangemakerCard changemaker={this.props.changemaker}
+																				 showSupport={false} showAvatar={false} onSupport={() => {}}/>
+			changemakerName = this.props.changemaker.user.name
+		}
+
+		return (
+		<section>
+			{statusMessage}
+			<ChangemakerSupportForm
+					amount = {this.props.amount}
+					handleAddAmount = {this.actions.addToAmount}
+					handleSubtractAmount = {this.actions.subtractFromAmount}
+					handleSupport = {this.actions.support}
+					grossAmount = {this.props.grossAmount}
+					patron4ChangeFees = {this.props.patron4ChangeFees}
+					patron4ChangeRate = {this.props.patron4ChangeRate*100}
+					providerAdjustableRate = {this.props.providerAdjustableRate}
+					providerFixedRate = {this.props.providerFixedRate}
+					providerFees = {this.props.providerFees}
+					userId = {this.props.userId}
+					changemakerId = {this.props.params.changemakerId}
+					changemakerName = {changemakerName}
+			>
+				{changemakerCard}
+			</ChangemakerSupportForm>
+
+		</section>
+		)
 	}
 
 }
@@ -80,6 +94,7 @@ export default connect( (state) => ({
 	providerAdjustableRate: state.support.providerAdjustableRate,
 	providerFixedRate: state.support.providerFixedRate,
 	paymentUrl: state.support.paymentUrl,
-	changemaker: state.cm.changemaker
+	changemaker: state.cm.changemaker,
+	error: state.support.error
 
 }) )(SupportChangemakerContainer);

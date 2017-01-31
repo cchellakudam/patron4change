@@ -161,10 +161,8 @@ export default class {
 		})
 	}
 
-	 createPeriodicBacking(userId, changemakerId, amount, startDate){
-		return periodicBackingDAO.createPeriodicBacking(userId, changemakerId, amount, startDate).catch((err) => {
-			throw err;
-		});
+	createPeriodicBacking(paymentData){
+		return periodicBackingDAO.createPeriodicBacking(paymentData)
 	}
 
 	getCardId(cardRegistrationId){

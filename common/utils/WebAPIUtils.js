@@ -123,4 +123,15 @@ export default class {
 		})
 	}
 
+	static recurringSupportForChangemaker(supportData, token){
+		return axios({
+			url: '/api/payment/mango/recurring',
+			method: 'post',
+			data: supportDaa,
+			headers: {
+				authorization: `Bearer ${token}`
+			}
+		})
+	}
+
 }

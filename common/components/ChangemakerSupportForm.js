@@ -30,9 +30,11 @@ class ChangemakerSupportForm extends React.Component {
 			comment: this.props.comment,
 			patron4ChangeFees: this.props.patron4ChangeFees,
 			patronId: this.props.userId,
-			changemakerId: parseInt(this.props.changemakerId)
+			changemakerId: parseInt(this.props.changemakerId),
+			recurring: this.state.recurring
 		}
 		this.props.handleSupport(supportData);
+
 		this.setState({redirect: true});
 	}
 

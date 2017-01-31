@@ -14,15 +14,13 @@ export function addToAmount(value){
 }
 
 export function subtractFromAmount(value){
-
 	return {
 		type: types.SUBTRACT_SUPPORT_AMOUNT,
 		value: value
 	}
 }
 
-export function support(supportData){
-
+function oneTimeSupport(supportData){
 	let promise = WebAPIUtils.oneTimeSupportForChangemaker(supportData, localStorage.id_token);
 	return {
 		types: [
@@ -32,4 +30,25 @@ export function support(supportData){
 		],
 		promise
 	};
+}
+
+function recurringSupport(supportData){
+	let promise = WebAPIUtils.recurringSupportForChangemaker(supportData, localStorage.id_token);
+	return {
+		types: [
+			types.SUPPORT_RECURRING_CHANGEMAKER_REQUEST,
+			types.SUPPORT_RECURRING_CHANGEMAKER_SUCCESS,
+			types.SUPPORT_RECURRING_CHANGEMAKER_ERROR
+		],
+		promise
+	};
+}
+
+export function support(supportData){
+	if(supportData.recurring){
+		return recurringSupport(supportData);
+	}else{
+		return oneTimeSupport(supportData)
+	}
+
 }
