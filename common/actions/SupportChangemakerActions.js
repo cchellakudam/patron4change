@@ -58,3 +58,29 @@ export function endSupportProcess(){
 		type: types.END_SUPPORT_PROCESS
 	}
 }
+
+export function preRegisterCard(preTreatmentData){
+	let promise = WebAPIUtils.preRegisterCard(preTreatmentData);
+	return {
+		types: [
+			types.PREREGISTER_CARD_REQUEST,
+			types.PREREGISTER_CARD_SUCCESS,
+			types.PREREGISTER_CARD_ERROR
+		],
+		promise
+	}
+}
+
+export function registerCard(registrationData, url){
+	debugger
+	let promise = WebAPIUtils.registerCard(registrationData, url);
+	return {
+		types:[
+			types.REGISTER_CARD_REQUEST,
+			types.REGISTER_CARD_SUCCESS,
+			types.REGISTER_CARD_ERROR
+		],
+		promise
+	}
+}
+

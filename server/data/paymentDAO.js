@@ -110,12 +110,12 @@ export default class{
 			.then((res) => {
 			if(null === res){
 						throw new Error('no account has been found for ' + accountId)
-					}
-					res.cardRegistrationId = cardRegistrationData;
-					return res.save().then(() => {
-						return true;
-					})
-				})
+			}
+			res.cardRegistrationId = cardRegistrationData;
+			return res.save()
+			}).then((res) => {
+				return true;
+			})
 	}
 
 	static getCardRegistrationForAccount(accountId, paymentProviderId){

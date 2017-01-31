@@ -116,7 +116,7 @@ describe('/payment', () => {
 	describe('/mango/preregisterCard', () => {
 		it('should return the preregistration data', () => {
 			let formData = {
-				accountId: '18559606'
+				userId: 2
 			}
 			return axios({
 				url: `${urlbase}/mango/preregisterCard`,

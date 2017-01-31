@@ -118,20 +118,21 @@ export default class {
 
 	}
 
-	preRegisterCard(accountId){
-		return this.api.CardRegistrations.create({
-			UserId: accountId,
-			Currency: 'EUR'
-		}).then((preRegistrationData) => {
-			let updateStatus = paymentDAO.setCardRegistrationForAccount(accountId, 1, preRegistrationData.Id);
-			return Promise.resolve([updateStatus, preRegistrationData])
+	preRegisterCard(userId){
+		return this.getAccountIdForUser(userId).then((accountId) => {
+			let preRegistrationDatap = this.api.CardRegistrations.create({
+				UserId: accountId,
+				Currency: 'EUR'
+			});
+			let accountIdp = Promise.resolve(accountId);
+			return Promise.all([accountIdp, preRegistrationDatap])
+		}).then((values) => {
+			let updateStatus = paymentDAO.setCardRegistrationForAccount(values[0], 1, values[1].Id);
+			let RegistrationDatap = Promise.resolve(values[1])
+			return Promise.all([updateStatus, RegistrationDatap])
 		}).then((values) => {
 			return values[1]
-		}).catch((err) => {
-			throw err;
 		})
-
-
 	}
 
 	sendTestCardData(preRegistrationData){

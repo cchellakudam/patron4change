@@ -21,13 +21,9 @@ export default (paymentSvcs) => {
 		})
 	});
 
-	router.post('/mango/preregisterCard', (req, res) => {
-		paymentSvcs.mango.prepareToReadCardDetails(req.body).then((preRegistrationData) => {
-			res.send(preRegistrationData)
-		}).catch(() => {
-			res.status(400).send('general operation error')
-		})
-	});
+	router.post('/mango/preregisterCard', controller((data) => {
+		return paymentSvcs.mango.prepareToReadCardDetails(data.model);
+	}));
 
 	router.post('/mango/registerCard', (req, res) => {
 		paymentSvcs.mango.registerCreditCardForRecurringPayment(req.body)

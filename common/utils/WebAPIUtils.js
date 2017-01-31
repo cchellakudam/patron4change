@@ -1,5 +1,6 @@
 import 'isomorphic-fetch';
 import axios from 'axios';
+import queryString from 'querystring';
 
 export default class {
 
@@ -131,7 +132,44 @@ export default class {
 			headers: {
 				authorization: `Bearer ${token}`
 			}
+		}).then((res) => {
+			return res;
 		})
+	}
+
+	static preRegisterCard(preTreatmentData, token){
+		return axios({
+			url: '/api/payment/mango/preRegisterCard',
+			method: 'post',
+			data: preTreatmentData,
+			headers: {
+				authorization: `Bearer, ${token}`
+			}
+		})
+	}
+
+	static registerCard(registrationData, url){
+		return axios({
+			url: url,
+			method: 'post',
+			data: queryString.stringify(registrationData),
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			}
+		}).then((res) => { debugger
+			let serverRegistrationData = {
+				registrationData: res.data,
+				registrationId: registrationData.Id
+			}
+
+			return axios({
+				url: '/api/payment/mango/registerCard',
+				data: serverRegistrationData,
+				method: 'post'
+			})
+		})
+
+
 	}
 
 }

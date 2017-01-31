@@ -96,7 +96,7 @@ function SUPPORT_RECURRING_CHANGEMAKER_ERROR( state, action ){
 	}
 }
 
-function END_SUPPORT_PROCESS(state){ debugger
+function END_SUPPORT_PROCESS(state){
 	return{
 		...state,
 		startDate: null,
@@ -108,16 +108,63 @@ function END_SUPPORT_PROCESS(state){ debugger
 	}
 }
 
+function PREREGISTER_CARD_REQUEST(state) {
+	return state;
+}
+
+function PREREGISTER_CARD_SUCCESS(state, action){debugger
+	return {
+		...state,
+		preRegistrationData: action.result.data
+	}
+}
+
+function PREREGISTER_CARD_ERROR(state, action){
+	return {
+		...state,
+		error: action.error
+	}
+}
+
+function REGISTER_CARD_REQUEST(state) {
+	return state;
+}
+
+function REGISTER_CARD_SUCCESS(state, action){debugger
+	return {
+		...state,
+		cardRegistered: action.result.data ? true : false
+	}
+}
+
+function REGISTER_CARD_ERROR(state, action){debugger
+	return{
+		...state,
+		error: action.error
+	}
+}
+
 const handlers = {
 	[types.ADD_SUPPORT_AMOUNT]: ADD_SUPPORT_AMOUNT,
 	[types.SUBTRACT_SUPPORT_AMOUNT]: SUBTRACT_SUPPORT_AMOUNT,
+
 	[types.SUPPORT_CHANGEMAKER_REQUEST]: SUPPORT_CHANGEMAKER_REQUEST,
 	[types.SUPPORT_CHANGEMAKER_ERROR]: SUPPORT_CHANGEMAKER_ERROR,
 	[types.SUPPORT_CHANGEMAKER_SUCCESS]: SUPPORT_CHANGEMAKER_SUCCESS,
+
 	[types.SUPPORT_RECURRING_CHANGEMAKER_REQUEST]: SUPPORT_RECURRING_CHANGEMAKER_REQUEST,
 	[types.SUPPORT_RECURRING_CHANGEMAKER_SUCCESS]: SUPPORT_RECURRING_CHANGEMAKER_SUCCESS,
 	[types.SUPPORT_RECURRING_CHANGEMAKER_ERROR]: SUPPORT_RECURRING_CHANGEMAKER_ERROR,
-	[types.END_SUPPORT_PROCESS]: END_SUPPORT_PROCESS
+
+	[types.END_SUPPORT_PROCESS]: END_SUPPORT_PROCESS,
+
+	[types.PREREGISTER_CARD_REQUEST]: PREREGISTER_CARD_REQUEST,
+	[types.PREREGISTER_CARD_SUCCESS]: PREREGISTER_CARD_SUCCESS,
+	[types.PREREGISTER_CARD_ERROR]: PREREGISTER_CARD_ERROR,
+
+	[types.REGISTER_CARD_REQUEST]: REGISTER_CARD_REQUEST,
+	[types.REGISTER_CARD_SUCCESS]: REGISTER_CARD_SUCCESS,
+	[types.REGISTER_CARD_ERROR]: REGISTER_CARD_ERROR
 }
 
 export default createReducer( initialSupportState, handlers );

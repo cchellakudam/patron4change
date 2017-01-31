@@ -9,7 +9,8 @@ import Input from 'react-toolbox/lib/input';
 export default class CardRegistration extends React.Component {
 	state = {
 		cardNumber: '',
-		cardExpirationDate: '',
+		expirationMonth: '',
+		expirationYear:'',
 		cardCvx: ''
 	}
 
@@ -18,17 +19,22 @@ export default class CardRegistration extends React.Component {
 		this.setState({...this.state, [name]: value});
 	};
 
-	onClickUpdate(){
-		let cardData = {
-			cardNumber: this.state.cardNumber,
-			cardExpirationDate: this.state.cardExpirationDate,
-			cardCvx: this.state.cardCvx,
-		}
-		console.log(cardData)
+	padNumber(value){
+		return value > 9 ? "" + value: "0" + value;
 	}
 
-	onClickSubmit(){
-		console.log('submit')
+	onClickSubmit(){debugger
+		let cardExpirationDate = this.padNumber(this.state.expirationMonth) + this.padNumber(this.state.expirationYear)
+		let cardData = {
+			cardNumber: this.state.cardNumber,
+			cardExpirationDate: cardExpirationDate,
+			cardCvx: this.state.cardCvx,
+			accessKeyRef: this.props.accessKey,
+			data: this.props.preRegistrationData,
+			Id: this.props.registrationId
+
+		}
+		this.props.handleRegisterCard(cardData, this.props.registrationUrl)
 	}
 
 	render() {
@@ -41,12 +47,18 @@ export default class CardRegistration extends React.Component {
 					<Input type='text' label='Kreditkartennummer' name='cardNumber' value={this.state.cardNumber}
 									onChange={this.handleChange.bind(this, 'cardNumber')} maxLength={16}
 								 error={isNaN(parseInt(this.state.cardNumber)) ? 'Feld muss ein Nummer sein' : ''}/>
-					<Input type='date' label='Kartenablaufdatum' name='cardExpirationDate' value={this.state.cardExpirationDate}
-								 onChange={this.handleChange.bind(this, 'cardExpirationDate')}/>
-					<Input type='text' label='CVV' name='cardCvx' value={this.state.cardCvx}
-									onChange={this.handleChange.bind(this, 'cardCvx')} maxLength={3}
-								 error={isNaN(parseInt(this.state.cardCvx)) ? 'Feld muss ein Nummer sein' : ''}/>
+					<Row>
+						<Input type='number' label='Kartenablaufdatum MM' hint="MM" name='expirationMonth' value={this.state.expirationMonth}
+									 onChange={this.handleChange.bind(this, 'expirationMonth')}
+									 error={this.state.expirationMonth > 13 || this.state.expirationMonth < 1? 'Feld muss ein Nummer zwischen 1 und 12 sein' : ''}/>
+						<Input type='number' label='Kartenablaufdatum YY' hint="YY" name='expirationYear' value={this.state.expirationYear}
+									 onChange={this.handleChange.bind(this, 'expirationYear')}
+									 error={(parseInt(this.state.expirationYear) > 99) ? 'Feld muss ein Nummer mit 2 Charakter sein' : ''}/>
+					</Row>
 
+						<Input type='text' label='CVV' name='cardCvx' value={this.state.cardCvx}
+										onChange={this.handleChange.bind(this, 'cardCvx')} maxLength={3}
+									 error={isNaN(parseInt(this.state.cardCvx)) ? 'Feld muss ein Nummer sein' : ''}/>
 
 					<Button icon='save' label='Registrieren' onClick={this.onClickSubmit.bind(this)} raised/>
 				</Grid>
