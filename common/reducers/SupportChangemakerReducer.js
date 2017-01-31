@@ -62,8 +62,11 @@ const initialSupportState = {
 function SUPPORT_CHANGEMAKER_REQUEST( state ) {
 	return state;
 }
-function SUPPORT_CHANGEMAKER_ERROR( state ) {
-	return state;
+function SUPPORT_CHANGEMAKER_ERROR( state, action ) {
+	return {
+		state,
+		error: action.error
+	};
 }
 function SUPPORT_CHANGEMAKER_SUCCESS( state, action ) {
 	return {
@@ -81,15 +84,27 @@ function SUPPORT_RECURRING_CHANGEMAKER_REQUEST( state ){
 function SUPPORT_RECURRING_CHANGEMAKER_SUCCESS( state, action ){
 	return{
 		...state,
-		startingDate: action.result.data.startDate
+		startDate: action.result.data.startDate
 	}
 
 }
 
-function SUPPORT_RECURRING_CHANGEMAKER_ERROR( state ){
+function SUPPORT_RECURRING_CHANGEMAKER_ERROR( state, action ){
 	return{
 		...state,
 		error: action.error
+	}
+}
+
+function END_SUPPORT_PROCESS(state){ debugger
+	return{
+		...state,
+		startDate: null,
+		paymentUrl: null,
+		amount: 0,
+		grossAmount: 0,
+		patron4ChangeFees: 0,
+		providerFees: 0,
 	}
 }
 
@@ -101,7 +116,8 @@ const handlers = {
 	[types.SUPPORT_CHANGEMAKER_SUCCESS]: SUPPORT_CHANGEMAKER_SUCCESS,
 	[types.SUPPORT_RECURRING_CHANGEMAKER_REQUEST]: SUPPORT_RECURRING_CHANGEMAKER_REQUEST,
 	[types.SUPPORT_RECURRING_CHANGEMAKER_SUCCESS]: SUPPORT_RECURRING_CHANGEMAKER_SUCCESS,
-	[types.SUPPORT_RECURRING_CHANGEMAKER_ERROR]: SUPPORT_RECURRING_CHANGEMAKER_ERROR
+	[types.SUPPORT_RECURRING_CHANGEMAKER_ERROR]: SUPPORT_RECURRING_CHANGEMAKER_ERROR,
+	[types.END_SUPPORT_PROCESS]: END_SUPPORT_PROCESS
 }
 
 export default createReducer( initialSupportState, handlers );

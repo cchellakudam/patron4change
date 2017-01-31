@@ -1,4 +1,5 @@
 import express from 'express';
+import controller from './controller';
 
 export default (paymentSvcs) => {
 
@@ -37,8 +38,8 @@ export default (paymentSvcs) => {
 			})
 	});
 
-	router.get('/mango/recurring', controller((paymentData) => {
-		return paymentSvcs.mango.createRecurringPayment(paymentData);
+	router.post('/mango/recurring', controller((data) => {
+		return paymentSvcs.mango.createRecurringPayment(data.model);
 	}));
 
   return router;

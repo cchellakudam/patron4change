@@ -37,8 +37,9 @@ export default class{
 	}
 
 	static createPeriodicBacking(paymentData){
-		let changemakerPromise = models.changemaker.findById(paymentData.angemakerId);
-		let patronPromise = models.user.findById(paymentData.userId)
+		console.log(paymentData)
+		let changemakerPromise = models.user.findById(paymentData.changemakerId);
+		let patronPromise = models.user.findById(paymentData.patronId)
 
 		return Promise.all([changemakerPromise, patronPromise]).then(values => {
 			if(!values[0]){
@@ -48,22 +49,22 @@ export default class{
 				throw new Error(`user ${paymentData.userId} does not exist`)
 			}
 
-			if(paymentData.userId === paymentData.changemakerId){
+			if(paymentData.patronId === paymentData.changemakerId){
 				throw new Error('a changemaker cannot back himself!')
 			}
 
-			if(isNaN(amount)){
+			if(isNaN(paymentData.amount)){
 				throw new Error('not a valid amount');
 			}
 
-			if(isNaN(startDate)){
+			if(isNaN(paymentData.startDate)){
 				throw new Error('not a valid timestamp, UNIX timestamp only please')
 			}
 			let backing = models.periodicBacking.create({
 			startDate:paymentData.startDate,
 			backing: {
 				amount: paymentData.amount,
-				fkSenderId: paymentData.userId,
+				fkSenderId: paymentData.patronId,
 				fkRecipientId: paymentData.changemakerId
 			}
 		},{

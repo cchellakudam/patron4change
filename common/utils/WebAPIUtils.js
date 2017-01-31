@@ -127,7 +127,7 @@ export default class {
 		return axios({
 			url: '/api/payment/mango/recurring',
 			method: 'post',
-			data: supportDaa,
+			data: supportData,
 			headers: {
 				authorization: `Bearer ${token}`
 			}

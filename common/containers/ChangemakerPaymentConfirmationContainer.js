@@ -26,6 +26,7 @@ class ChangemakerPaymentConfirmationContainer extends React.Component {
 
 		return (
 			<ChangemakerPaymentConfirmation
+				startDate={this.props.startDate}
 				changemakerName={changemakerName}
 			/>
 		)
@@ -34,6 +35,7 @@ class ChangemakerPaymentConfirmationContainer extends React.Component {
 }
 
 export default connect( (state) => ({
-	changemaker: state.cm.changemaker
+	changemaker: state.cm.changemaker,
+	startDate: state.support.startDate
 
 }) )(ChangemakerPaymentConfirmationContainer);

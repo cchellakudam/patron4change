@@ -52,3 +52,9 @@ export function support(supportData){
 	}
 
 }
+
+export function endSupportProcess(){
+	return{
+		type: types.END_SUPPORT_PROCESS
+	}
+}

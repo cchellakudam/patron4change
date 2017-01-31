@@ -7,6 +7,8 @@ import { bindActionCreators } from 'redux';
 import * as ChangemakerActions from '../actions/ChangemakerActions';
 import { fetchNeeds } from '../utils/fetchComponentData';
 import ChangemakerCard from '../components/ChangemakerCard';
+import ActionStatus from '../components/ActionStatus';
+import {browserHistory} from 'react-router'
 
 import { connect } from 'react-redux';
 
@@ -22,7 +24,6 @@ class SupportChangemakerContainer extends React.Component {
 	}
 
 	componentDidMount() {
-		debugger
 		fetchNeeds( SupportChangemakerContainer.needs, this.props )
 	}
 
@@ -30,6 +31,11 @@ class SupportChangemakerContainer extends React.Component {
 
 		if(null !== nextProps.paymentUrl ){
 			window.location.assign(nextProps.paymentUrl);
+		}
+		debugger
+		if(nextProps.startDate){
+			this.actions.endSupportProcess();
+			browserHistory.push(`/changemaker/${this.props.changemaker.id}/support/success`)
 		}
 	}
 
@@ -95,6 +101,7 @@ export default connect( (state) => ({
 	providerFixedRate: state.support.providerFixedRate,
 	paymentUrl: state.support.paymentUrl,
 	changemaker: state.cm.changemaker,
-	error: state.support.error
+	error: state.support.error,
+	startDate: state.support.startDate
 
 }) )(SupportChangemakerContainer);

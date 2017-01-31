@@ -31,11 +31,18 @@ class ChangemakerSupportForm extends React.Component {
 			patron4ChangeFees: this.props.patron4ChangeFees,
 			patronId: this.props.userId,
 			changemakerId: parseInt(this.props.changemakerId),
+			startDate: new Date().getTime(),
 			recurring: this.state.recurring
 		}
+
 		this.props.handleSupport(supportData);
 
-		this.setState({redirect: true});
+		if(!supportData.recurring){
+			this.setState({redirect: true});
+		}else{
+			this.setState({redirect: false});
+		}
+
 	}
 
 	handleRecurringOption(){
