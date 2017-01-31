@@ -9,12 +9,18 @@ export default (userSvc) => {
 	router.get('/:id', (req,res) => {
 		userSvc.getUserForId(req.params.id).then(user => {
 			res.send(user);
+		}).catch((err) => {
+			console.log(err.message)
+			res.status(400).send('general operation error');
 		});
 	});
 
 	router.post('/login', (req,res) => {
 		userSvc.loginUser(req.body.email).then((user) => {
 			res.send(user)
+		}).catch((err) => {
+			console.log(err.message)
+			res.status(400).send('general operation error');
 		})
 	})
 
@@ -22,6 +28,9 @@ export default (userSvc) => {
 	router.put('/update', (req, res) => {
 		userSvc.updateUser(req.body).then((user) => {
 			res.send(user)
+		}).catch((err) => {
+			console.log(err.message)
+			res.status(400).send('general operation error');
 		})
 	})
 

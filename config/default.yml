@@ -1,3 +1,6 @@
+app:
+  host: http://localhost:3000
+
 database:
   host: localhost
   port: 5432
@@ -44,10 +47,11 @@ queues:
       batchDelay: 60000
 
 auth0:
-	domain: patron4change.eu.auth0.com
-	clientId: 96GtA8F9eFYDP6mH3E2PxXt4NZiuOi8D
-	secret: O512Yjg-_CDHwhMrH4A8HtCiumoEI-9GqNgF9Xdp2vYjB7HchMhuaQxtiy_leckM
+  domain: patron4change.eu.auth0.com
+  clientId: 96GtA8F9eFYDP6mH3E2PxXt4NZiuOi8D
+  secret: O512Yjg-_CDHwhMrH4A8HtCiumoEI-9GqNgF9Xdp2vYjB7HchMhuaQxtiy_leckM
 
 mangopay:
-	mangoClientId: p4case2016
-	passwd: 9yvjwv183gUuvHmzmCOgoDOWOSNSGL0MKkGNovYuXFMB625aSJ
+  clientId: p4case2016
+  passwd: 9yvjwv183gUuvHmzmCOgoDOWOSNSGL0MKkGNovYuXFMB625aSJ
+  host: https://api.sandbox.mangopay.com

@@ -6,8 +6,7 @@ import mangoUtils from './mangoUtils'
   * to be used locally in the 'public' methods*/
 export default class{
 
-	constructor(dao){
-		this.dao = dao;
+	constructor(){
 		this.mango = new mangoUtils();
 	}
 

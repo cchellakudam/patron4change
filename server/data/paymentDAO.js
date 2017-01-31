@@ -6,7 +6,7 @@ import models from '../model/index';
 export default class{
 
 	static registerChangemakerToProvider(changemakerId, providerId, accountId) {
-		let changemakerPromise = models.changemaker.findById(changemakerId);
+		let changemakerPromise = models.user.findById(changemakerId);
 		let providerPromise = models.paymentProvider.findById(providerId);
 
 		return Promise.all([changemakerPromise, providerPromise]).then(values => {

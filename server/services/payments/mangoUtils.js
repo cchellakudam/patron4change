@@ -6,22 +6,32 @@ import singleBackingDAO from '../../data/singleBackingDAO'
 import  config from 'config';
 
 const mangopay = require('mangopay2-nodejs-sdk');
-const clientId = config.get('mangoClientId');
-const passwd = config.get('passwd');
+const clientId = config.get('mangopay').clientId;
+const passwd = config.get('mangopay').passwd;
 export default class {
 	constructor(){
 		this.api = new mangopay({
 			clientId: clientId,
 			clientPassword: passwd,
-			baseUrl: 'https://api.sandbox.mangopay.com'
+			baseUrl: config.get('mangopay').host
 		});
 	}
 	createNaturalUser(userObject, userId){
-		return this.api.Users.create(userObject).then((myUser) => {
+		return this.getAccountIdForUser(userId).then((accountId) => {
+			if(null !== accountId){
+				throw new Error('this user already has an accountId')
+			}
+		}).then(() => {
+			console.log(userObject.birthday)
+			userObject.birthday = parseInt(userObject.birthday.slice(0,10))
+			console.log(userObject.birthday)
+			return this.api.Users.create(userObject)
+		}).then((myUser) => {
 			return paymentDAO.registerChangemakerToProvider(userId, 1, myUser.Id)
 		}).then((paymentAccount) => {
 			return paymentAccount.accountId
 		})
+
 	}
 
 	getAccountIdForUser(userId){
@@ -48,7 +58,7 @@ export default class {
 			if(!accountId){
 				return null;
 			}
-			let url = `https://api.sandbox.mangopay.com/v2.01/${clientId}/users/${accountId}/wallets`;
+			let url = `${config.get('mangopay').host}/v2.01/${clientId}/users/${accountId}/wallets`;
 			return axios({
 				url: url,
 				method: 'get',
@@ -60,7 +70,7 @@ export default class {
 				if(!res.data.errors){
 					return res.data[0].Id;
 				}else{
-					throw new Error('parameter probem')
+					throw new Error('parameter problem')
 				}
 			}).catch((err) => {
 				throw err;
@@ -70,18 +80,19 @@ export default class {
 	}
 
 	createCardPayment(paymentData) {
+		console.log(config.get('app').host)
 		return this.getUserWallet(paymentData.changemakerId).then((walletId) =>{
 			return this.api.PayIns.create({
 				AuthorId: paymentData.patronAccountId,
 				DebitedFunds:{
 					'Currency': 'EUR',
-					'Amount': paymentData.amount
+					'Amount': paymentData.amount*100
 				},
 				Fees:{
 					'Currency': 'EUR',
-					'Amount': paymentData.patron4ChangeFees
+					'Amount': paymentData.patron4ChangeFees*100
 				},
-				ReturnUrl: 'http://localhost:3000',
+				ReturnUrl: `${config.get('app').host}/changemaker/${paymentData.changemakerId}/support/success`,
 				CreditedWalletId: walletId,
 				CardType: 'CB_VISA_MASTERCARD',
 				Culture: 'DE',
@@ -222,14 +233,14 @@ export default class {
 				'Currency': 'EUR',
 				'Amount': 0
 			},
-			ReturnUrl: 'http://localhost:3000',
+			ReturnUrl: config.get('app').host,
 			CreditedWalletId: walletId,
 			CardType: 'CB_VISA_MASTERCARD',
 			Culture: 'DE',
 			PaymentType: 'CARD',
 			ExecutionType: 'DIRECT',
 			CardId: cardId,
-			SecureModeReturnURL: 'http://localhost:3000'
+			SecureModeReturnURL: config.get('app').host
 		}).then((res) => {
 			return {transactionId: res.Id, transactionDate: res.CreationDate}
 		}).catch((err) => {

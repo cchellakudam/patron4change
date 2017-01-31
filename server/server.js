@@ -80,8 +80,8 @@ databaseInit.then(rebuildSearchIndex);
 // MUST be done before paths are registered to the router
 
 let jwtCheck = jwt({
-	secret: appConfig.get('secret'),
-	audience: appConfig.get('clientId')
+	secret: appConfig.get('auth0').secret,
+	audience: appConfig.get('auth0').clientId
 })
 
 app.use('/api/users/testProtection' , jwtCheck)

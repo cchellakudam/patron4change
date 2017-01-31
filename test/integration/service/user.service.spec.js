@@ -9,9 +9,9 @@ describe('user service', () => {
 			done();
 		});
 	})
-	describe('check if logged user exists, if not then create a new user', () =>{
+	describe('loginUser', () =>{
 
-		it.only('should return an existing user in the database with all user data', () =>{
+		it('should return an existing user in the database with all user data', () =>{
 			let service = new userService(userDAO);
 			return service.loginUser('matthias.holzer@example.com').then((user) => {
 				expect(user.email).to.equal('matthias.holzer@example.com')
@@ -21,12 +21,34 @@ describe('user service', () => {
 			})
 		});
 
-		it.only('should return a newly created user with only email info', () => {
+		it('should return a newly created user with only email info', () => {
 			let service = new userService(userDAO);
 			return service.loginUser('rebecca.keuler@example.com').then((user) => {
 				expect(user.email).to.equal('rebecca.keuler@example.com')
 				expect(user.firstName).to.equal(null)
 				expect(user.lastName).to.equal(null)
+			})
+		});
+	});
+
+	describe('updateUser', () =>{
+
+		it.only('should update user info, create account if not already existing', () =>{
+			let service = new userService(userDAO);
+			let userData = {
+				id: 1,
+				firstName: 'john',
+				lastName: 'doe',
+				birthday: 1320969600,
+				email: 'matthias.holzer@example.com',
+				nationality: 'GB',
+				countryOfResidence: 'GB',
+			}
+			return service.updateUser(userData).then((user) => {
+				expect(user.email).to.equal('matthias.holzer@example.com')
+				expect(user.firstName).to.equal('john')
+				expect(user.lastName).to.equal('doe')
+				expect(user.id).to.equal(1)
 			})
 		});
 	});
