@@ -2,6 +2,11 @@
 
 .profileContainer {
   position: relative;
+  max-height: 48rem;
+}
+
+.newsHeader {
+  margin: $std-space 0;
 }
 
 .profileContent {

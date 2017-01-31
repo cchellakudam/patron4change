@@ -28,7 +28,7 @@ export default class UserProfile extends React.Component {
 	}
 
 	onChangeNationality(value){
-		debugger
+
 		this.props.user.nationality = value;
 		this.setState();
 	}
@@ -71,9 +71,9 @@ export default class UserProfile extends React.Component {
 	render() {
 		let warning = null;
 		if(!this.checkProfile()){
-			warning = <Card style={{width: '350px'}}raised >
-								<CardText>Ihre Profil ist nicht komplett, bitte ergänzen Sie die Fehlenden Feldern</CardText>
-							</Card>
+			warning = <Card style={{width: '350px'}} raised>
+				<CardText>Ihr Profil ist nicht vollständig, bitte ergänzen Sie die fehlenden Felder</CardText>
+			</Card>;
 		}
 
 		return (

@@ -1,8 +1,11 @@
 .card {
-  margin: 1em 1em 0 1em;
+
+  &:not(:last-of-type) {
+    margin-bottom: $std-space;
+  }
 
   h5 {
-    font-size: 1.9rem !important;
+    font-size: 1.7rem !important;
   }
 }
 

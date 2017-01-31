@@ -8,6 +8,9 @@
 }
 
 @include breakpoint($breakpoint-large) {
+  main {
+    margin: $std-space;
+  }
 
 	/* TODO remove and solve via class selectors */
 	/* hides logo in the app bar on the start page */

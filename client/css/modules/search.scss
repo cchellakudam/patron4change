@@ -1,5 +1,5 @@
 .searchTerm {
-  margin: 0 0.5rem;
+  margin: 0 $std-space;
 }
 
 @include breakpoint($breakpoint-small) {

@@ -10,7 +10,7 @@ export default class ActionStatus extends Component{
 		this.setState({active:true});
 	}
 	handleSnackbarClick(){
-		debugger
+		
 		this.setState({ active: false });
 	}
 

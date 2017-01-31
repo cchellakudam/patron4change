@@ -5,6 +5,7 @@ import { browserHistory } from 'react-router';
 import { Button } from 'react-toolbox/lib/button';
 import { Card, CardMedia, CardTitle, CardText, CardActions } from 'react-toolbox/lib/card';
 
+import * as languageUtils from '../utils/language';
 import * as Shapes from '../constants/Shapes';
 
 import styles from '../../client/css/modules/changemaker-card.scss';
@@ -39,14 +40,18 @@ class ChangemakerCard extends React.Component {
   render() {
     const { changemaker, showSupport, showAvatar } = this.props;
   	const cm = changemaker;
-
+    const patronCaption = {
+      '0': 'keine Patrons',
+      '1': '%d Patron',
+      '*': '%d Patrons'
+    };
   	return <Card className={styles.item}>
 	    <CardMedia
 	      aspectRatio="wide"
 	      image={`/public/images/thumb/${cm.id}.jpg`} />
 	    <CardTitle
         title={cm.user.name}
-        subtitle={`${cm.numberOfPatrons} patrons`}
+        subtitle={languageUtils.pluralize(cm.numberOfPatrons, patronCaption)}
         avatar={showAvatar ? cm.user.avatarUrl : undefined} />
 	    <CardText className={styles.text}>
         <p className={styles.textContent}>{cm.mission.text}</p>

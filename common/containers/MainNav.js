@@ -12,10 +12,10 @@ import { bindActionCreators } from 'redux';
 
 class MainNav extends React.Component {
 
-
 	constructor(props, context) {
 		super(props, context);
 		this.actions = bindActionCreators(LoginActions, props.dispatch);
+		this.onNavigateToProfile = this.onNavigateToProfile.bind(this);
   }
 
 	componentWillMount(){
@@ -37,9 +37,9 @@ class MainNav extends React.Component {
     browserHistory.push('/search');
   }
 
-	onNavigateToProfile(profile, e) {
+	onNavigateToProfile(e) {
 		e.preventDefault();
-		browserHistory.push(profile);
+		browserHistory.push(`/changemaker/${this.props.userId}`);
 	}
 
   render() {
@@ -60,7 +60,7 @@ class MainNav extends React.Component {
 				{this.props.isAuthenticated?
 					<Link href={`/changemaker/${this.props.userId}`}
 						className={styles.changemakerLink}
-						onClick={this.onNavigateToProfile.bind(this, `/changemaker/${this.props.userId}`)}
+						onClick={this.onNavigateToProfile}
 						icon="person">
           	Mein Profil
         	</Link>

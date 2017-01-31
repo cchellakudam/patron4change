@@ -11,6 +11,18 @@ import * as shapes from '../constants/Shapes';
 import { Row, Col } from 'react-flexbox-grid';
 import styles from '../../client/css/modules/changemaker-profile.scss';
 
+const UpdateSection = props => {
+	if (props.StatusUpdates.length > 0) {
+		return <div>
+			<h2 className={styles.newsHeader}>Neuigkeiten</h2>
+			<UpdateList>
+				{props.StatusUpdates}
+			</UpdateList>
+		</div>;
+	}
+	return <p>Noch keine Neuigkeiten</p>;
+}
+
 class ChangemakerProfile extends React.Component {
 
 	static propTypes = {
@@ -77,9 +89,7 @@ class ChangemakerProfile extends React.Component {
 						</BackingList>
 					</Col>
 					<Col xs={12} md={6} lg={6}>
-						<UpdateList>
-							{this.props.StatusUpdates}
-						</UpdateList>
+						<UpdateSection {...this.props} />
 					</Col>
 				</Row>
 			</div>

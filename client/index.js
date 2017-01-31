@@ -35,7 +35,8 @@ if (window.$REDUX_STATE) {
 
 	state.search = {
 		$fetched: '/' === document.location.pathname,
-		results: []
+		results: [],
+		term: ''
 	};
 
 	state.login = {

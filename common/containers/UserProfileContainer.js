@@ -14,12 +14,12 @@ export class UserProfileContainer extends Component{
 
 	componentDidMount() {
 		if (true === process.env.BROWSER) {
-			debugger
+			
 			this.actions.getUserById(this.props.profile.email)
 		}
 	}
 
-	render(){debugger
+	render(){
 		let message = null;
 		let status = null
 		let statusMessage = null;

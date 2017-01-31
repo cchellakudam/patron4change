@@ -17,21 +17,13 @@ export class ChangemakerProfileContainer extends Component {
 		ChangemakerActions.getUpdates
 	];
 
-	constructor() {
+	constructor(props) {
 		super();
 		this.onSupport = this.onSupport.bind(this);
 	}
 
 	componentDidMount() {
-
 		fetchNeeds( ChangemakerProfileContainer.needs, this.props )
-	}
-
-	componentDidUpdate() {
-		const { changemaker, userId } = this.props;
-		if (!changemaker.id && 0 < +userId) {
-			browserHistory.push('/changemaker/new');
-		}
 	}
 
 	onSupport() {
@@ -68,6 +60,10 @@ export class ChangemakerProfileContainer extends Component {
 }
 
 export default connect( state => ({
+	// cache bust
+	changemakerId: state.cm.changemaker ? state.cm.changemaker.id : null,
+
+	// used data
 	changemaker: state.cm.changemaker,
 	backings: state.cm.backings,
 	updates: state.cm.updates,

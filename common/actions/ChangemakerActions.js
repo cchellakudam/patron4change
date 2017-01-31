@@ -37,7 +37,7 @@ export function getBackings({changemakerId}) {
 	};
 }
 
-export function getChangemakerById({changemakerId}) {debugger
+export function getChangemakerById({changemakerId}) {
 	return {
 		types: [
 			types.GET_CHANGEMAKER_BY_ID_REQUEST,

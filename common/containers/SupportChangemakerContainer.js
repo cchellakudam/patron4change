@@ -22,7 +22,7 @@ class SupportChangemakerContainer extends React.Component {
 	}
 
 	componentDidMount() {
-		debugger
+		
 		fetchNeeds( SupportChangemakerContainer.needs, this.props )
 	}
 
@@ -33,7 +33,7 @@ class SupportChangemakerContainer extends React.Component {
 		}
 	}
 
-	render() {debugger
+	render() {
 			let changemakerCard = null;
 			let changemakerName = null;
 			if(this.props.changemaker.id){

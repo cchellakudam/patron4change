@@ -2,14 +2,11 @@ import React, { PropTypes } from 'react';
 import { Button } from 'react-toolbox/lib/button';
 import { List, ListSubHeader, ListDivider } from 'react-toolbox/lib/list';
 
+import * as dateUtils from '../utils/dateUtils';
 import * as shapes from '../constants/Shapes';
 import styles from '../../client/css/modules/backing-list.scss';
 
 const Empty = () => <div></div>;
-
-function daydiff(first, second) {
-  return Math.floor((second-first)/(1000*60*60*24));
-}
 
 // maximum amount of days in the past that a changemaker join date is considered recent
 const MAX_RECENT_DAY_DIFF = 7;
@@ -38,7 +35,7 @@ class BackingList extends React.Component {
 
     if (noPatrons) {
       let approvalDate = new Date(changemaker.approvalDate);
-      let days = daydiff(approvalDate, new Date());
+      let days = dateUtils.daydiff(approvalDate, new Date());
       if (MAX_RECENT_DAY_DIFF >= days) {
         let day = 0 === days ? <span>heute</span> : <span>vor {days} Tagen</span>;
         patronBlock = <div className={styles.flexer}>
@@ -69,9 +66,11 @@ class BackingList extends React.Component {
     </div>;
 
     return <List className={styles.list} ripple>
-      {patronBlock}
-      <ListDivider />
-      {noSupporters ? Empty : supporterBlock}
+      <div>
+        {patronBlock}
+        <ListDivider />
+        {noSupporters ? Empty : supporterBlock}
+      </div>
     </List>;
   }
 }
