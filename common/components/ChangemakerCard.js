@@ -48,7 +48,7 @@ class ChangemakerCard extends React.Component {
   	return <Card className={styles.item}>
 	    <CardMedia
 	      aspectRatio="wide"
-	      image={`/public/images/thumb/${cm.id}.jpg`} />
+	      image={`/public/images/thumb/${cm.id > 11 ? 9 : cm.id}.jpg`} />
 	    <CardTitle
         title={cm.user.name}
         subtitle={languageUtils.pluralize(cm.numberOfPatrons, patronCaption)}

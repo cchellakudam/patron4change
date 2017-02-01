@@ -89,7 +89,7 @@ export class ChangemakerProfileContainer extends Component {
 		const oneTime   = backings.filter(b => 'one-time' === b.type).map(renderBacking);
 		const updateElems = updates.map(u => <StatusUpdate key={u.id} update={u} />);
 
-		const editor = userId === changemaker.id
+		const editor = userId === changemaker.user.id
 			? <StatusUpdateEditor
 					title={this.state.updateTitle}
 					text={this.state.updateText}

@@ -21,6 +21,9 @@ const UpdateSection = props => {
 			</UpdateList>
 		</div>;
 	}
+	if (props.StatusUpdateEditor) {
+		return props.StatusUpdateEditor;
+	}
 	return <p>Noch keine Neuigkeiten von {props.changemaker.user.name}</p>;
 }
 
