@@ -20,7 +20,9 @@ class ChangemakerProfileEditorContainer extends Component {
   }
 
   componentDidMount() {
-    browserHistory.push('/login');
+    if (!this.props.userId) {
+      browserHistory.push('/login');
+    }
   }
 
   onSave(changemaker) {
@@ -46,9 +48,6 @@ class ChangemakerProfileEditorContainer extends Component {
 
   render() {
     let { changemaker, videoUrl } = this.props;
-    if (!changemaker) {
-      changemaker = new Changemaker();
-    }
 		return <div>
       <h1 className={styles.profileTitle}>Dein Profil</h1>
       <ChangemakerProfileEditor

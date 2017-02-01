@@ -11,6 +11,9 @@ function toUserModel(user = {}) {
 }
 
 function prepareDTO(rawCm) {
+	if (!rawCm) {
+		return null;
+	}
 	return Object.assign({}, rawCm, {
 		user: toUserModel(extractProps(rawCm, 'user')),
 		mission: extractProps(rawCm, 'mission'),
@@ -85,6 +88,7 @@ export default class {
 	}
 
 	static createChangemaker(data) {
+		data.mission.id = Math.floor((Math.random() * 3000000) - 100);
 		return models.changemaker.create(
 			data,
 			{

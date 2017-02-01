@@ -41,6 +41,14 @@ export class ChangemakerProfileContainer extends Component {
 		}
 	}
 
+	componentDidUpdate() {
+		let { userId, loadFinished, changemaker } = this.props;
+		if (userId && loadFinished && !changemaker) {
+				// profile not created yet for own user -> go to create page
+				browserHistory.push('/changemaker/new');
+		}
+	}
+
 	onSupport() {
 		const { id } = this.props.changemaker;
     browserHistory.push(`/changemaker/${id}/support`);
@@ -109,6 +117,7 @@ export default connect( state => ({
 	backings: state.cm.backings,
 	updates: state.status.updates,
 	error: state.cm.error,
-	userId: state.login.loggedUserId
+	userId: state.login.loggedUserId,
+	loadFinished: state.cm.loadFinished
 
 }) )(ChangemakerProfileContainer);

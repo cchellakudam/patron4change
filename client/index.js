@@ -17,7 +17,8 @@ if (window.$REDUX_STATE) {
 		changemakers: [],
 		featuredChangemakers: [],
 		backings: [],
-		updates: []
+		updates: [],
+		loadFinished: false
 	};
 
 	state.support = {
