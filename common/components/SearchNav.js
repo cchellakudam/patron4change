@@ -19,7 +19,7 @@ export default class SearchNav extends React.Component {
 
 	render() {
 		return <AppBar className={styles.appBar}>
-			<Link href="/" onClick={this.onNavigateToHome}>
+			<Link className={styles.searchBack} href="/" onClick={this.onNavigateToHome}>
 				<FontIcon value="arrow_back" />
 			</Link>
 			{this.props.children}
