@@ -35,7 +35,5 @@ export const children = PropTypes.oneOfType([
 export const statusUpdate = PropTypes.shape({
   title: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,
-  content: PropTypes.shape({
-    text: PropTypes.string.isRequired
-  })
+  text: PropTypes.string.isRequired
 });

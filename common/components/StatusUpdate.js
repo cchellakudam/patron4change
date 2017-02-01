@@ -20,7 +20,7 @@ class StatusUpdate extends Component {
           title={update.title}
           subtitle={moment(update.createdAt).fromNow()} />
         <CardText>
-          {update.content? update.content.text : ''}
+          {update.text}
         </CardText>
       </Card>
 		);

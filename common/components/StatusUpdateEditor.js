@@ -15,7 +15,7 @@ class StatusUpdateEditor extends React.Component {
 	render() {
     // const update = this.props.update;
 		return <div>
-      <Input type='text' multiline hint='Was gibt es neues?' rows={10} maxLength={200}
+      <Input type='text' multiline hint='Was gibt es neues?' rows={5} maxLength={200}
         value={this.props.text} onChange={this.props.onInput}/>
       <Button raised onClick={this.props.onConfirm}>Hinzufügen</Button>
     </div>;
