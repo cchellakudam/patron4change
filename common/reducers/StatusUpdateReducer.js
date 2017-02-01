@@ -11,7 +11,11 @@ function GET_UPDATES_SUCCESS(state, action){
 function CREATE_UPDATE_REQUEST (state){return state;}
 function CREATE_UPDATE_ERROR (state){return state;}
 function CREATE_UPDATE_SUCCESS(state, action){
-	let newUpdate = { text: action.text, id: action.result.id };
+	let newUpdate = {
+		text: action.model.text,
+		title: action.model.title,
+		id: action.result.id
+	};
 	return { ...state, updates: [newUpdate].concat(state.updates) };
 }
 

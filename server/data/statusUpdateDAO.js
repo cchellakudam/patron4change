@@ -25,7 +25,7 @@ export default class {
 			createdAt: new Date(),
 			title: model.title,
 			fkChangemakerId,
-			content: { text: model.text }
+			content: { text: model.text, id: Math.floor((Math.random() * 3000000) - 100) }
 		}, {
 			include: [{
 		    association: models.statusUpdate.content

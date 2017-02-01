@@ -24,10 +24,11 @@ export class ChangemakerProfileContainer extends Component {
 	constructor(props) {
 		super();
 		this.onSupport = this.onSupport.bind(this);
-		this.onStatusUpdateInput = this.onStatusUpdateInput.bind(this);
+		this.onStatusUpdateTitle = this.onStatusUpdateTitle.bind(this);
+		this.onStatusUpdateText = this.onStatusUpdateText.bind(this);
 		this.onStatusUpdateConfirm = this.onStatusUpdateConfirm.bind(this);
 		this.statusActions = bindActionCreators(StatusUpdateActions, props.dispatch);
-		this.state = { updateText: '' };
+		this.state = { updateText: '', updateTitle: '' };
 	}
 
 	componentDidMount() {
@@ -45,13 +46,20 @@ export class ChangemakerProfileContainer extends Component {
     browserHistory.push(`/changemaker/${id}/support`);
 	}
 
-	onStatusUpdateInput(text) {
+	onStatusUpdateTitle(title) {
+		this.setState({ updateTitle: title });
+	}
+
+	onStatusUpdateText(text) {
 		this.setState({ updateText: text });
 	}
 
 	onStatusUpdateConfirm() {
 		const { id } = this.props.changemaker;
-		this.statusActions.createStatusUpdate(id, this.state.updateText);
+		this.statusActions.createStatusUpdate(id, {
+			title: this.state.updateTitle,
+			text: this.state.updateText
+		});
 	}
 
 	render() {
@@ -75,8 +83,10 @@ export class ChangemakerProfileContainer extends Component {
 
 		const editor = userId === changemaker.id
 			? <StatusUpdateEditor
+					title={this.state.updateTitle}
 					text={this.state.updateText}
-					onInput={this.onStatusUpdateInput}
+					onTitleChange={this.onStatusUpdateTitle}
+					onTextChange={this.onStatusUpdateText}
 					onConfirm={this.onStatusUpdateConfirm} />
 			: null;
 

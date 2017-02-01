@@ -19,7 +19,7 @@ const sequelize = new Sequelize(
 			min: 0,
 			idle: 10000
 		},
-		// TODO apply silly logger
+		// TODO apply winston silly logger
 		logging: config.get('dblog') ? console.log : false
 });
 
