@@ -46,11 +46,11 @@ function GLOBAL_SEARCH_SUCCESS( state, action ) {
 	return mergeInChangemaker(state, resultChangemaker);
 }
 
-function GET_CHANGEMAKER_BY_ID_REQUEST(state) { return state; }
+function GET_CHANGEMAKER_BY_ID_REQUEST(state) { return { ...state, loadFinished: false }; }
 function GET_CHANGEMAKER_BY_ID_ERROR(state, action) { return { ...state, error: action.error }; }
 function GET_CHANGEMAKER_BY_ID_SUCCESS(state, action) {
 	// TODO merge to entire list
-	return { ...state, changemaker: action.result };
+	return { ...state, changemaker: action.result, loadFinished: true };
 }
 
 function SAVE_CHANGEMAKER_PROFILE_REQUEST(state) {return state; }
@@ -99,6 +99,7 @@ const initialState = {
 	changemakers: [],
 	featuredChangemakers: [],
 	backings: [],
-	updates: []
+	updates: [],
+	loadFinished: false
 };
 export default createReducer( initialState, handlers );
