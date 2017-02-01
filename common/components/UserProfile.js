@@ -4,6 +4,7 @@ import Dropdown from 'react-toolbox/lib/dropdown';
 import { Grid, Row } from 'react-flexbox-grid';
 import { Card, CardText } from 'react-toolbox/lib/card';
 import {Button} from 'react-toolbox/lib/button';
+import {browserHistory} from 'react-router'
 import Input from 'react-toolbox/lib/input';
 
 export default class UserProfile extends React.Component {
@@ -51,6 +52,11 @@ export default class UserProfile extends React.Component {
 		this.props.user.birthday = value;
 		this.setState();
 	}
+
+	onGoBack(){
+		browserHistory.goBack();
+	}
+
 
 	onClickUpdate(){
 		let myUser = {
@@ -107,7 +113,10 @@ export default class UserProfile extends React.Component {
 						onChange={this.onChangeResidence.bind(this)}
 					/>
 
+					<Row>
 					<Button icon='save' label='Speichern' onClick={this.onClickUpdate.bind(this)} raised/>
+					<Button icon='keyboard_backspace' label='Zurük' onClick={this.onGoBack} raised/>
+					</Row>
 				</Grid>
 			</div>
 		)
