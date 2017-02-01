@@ -67,7 +67,7 @@ class ChangemakerSupportForm extends React.Component {
 		let recurringMessage = null
 		if(this.state.recurring){
 			recurringMessage = <Card raised style={{margin: '10px'}}>
-													<CardText>Sie werden jeder Monat diesen Changemaker unterstützen</CardText>
+													<CardText>Sie werden jeden Monat diesen Changemaker unterstützen</CardText>
 												</Card>
 		}
 

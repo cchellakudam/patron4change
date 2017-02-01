@@ -15,7 +15,6 @@
                       "german_normalization",
                       "lowercase",
                       "p4c_phonetic_cologne",
-                      "p4c_phonetic_beidermorse",
                       "unique"
                     ]
                 }
