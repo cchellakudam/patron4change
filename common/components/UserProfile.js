@@ -52,7 +52,7 @@ export default class UserProfile extends React.Component {
 		this.setState();
 	}
 
-	onClickUpdate(){debugger
+	onClickUpdate(){
 		let myUser = {
 			id: this.props.user.id,
 			firstName: this.props.user.firstName,

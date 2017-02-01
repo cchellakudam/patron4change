@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
+import { Button } from 'react-toolbox/lib/button';
+import { browserHistory } from 'react-router';
 
 import * as shapes from '../constants/Shapes';
 import Search from './Search';
@@ -13,6 +15,10 @@ class LandingPage extends React.Component {
     children: shapes.children.isRequired,
     term: PropTypes.string.isRequired,
     onSearch: PropTypes.func.isRequired
+  }
+
+  toBecomeChangmaker() {
+    browserHistory.push('/changemaker/new');
   }
 
   render() {
@@ -30,6 +36,8 @@ class LandingPage extends React.Component {
             term={term}
             onSearch={t => this.props.onSearch(t, false)}
             onHardConfirm={t => this.props.onSearch(t, true)} />
+          <p> oder </p>
+          <Button primary raised onClick={this.toBecomeChangmaker}>selbst Changemaker werden</Button>
         </Col>
         <Col xs={0} md={3} lg={3} />
       </Row>

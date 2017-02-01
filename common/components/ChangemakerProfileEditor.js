@@ -58,12 +58,7 @@ class ChangemakerProfileEditor extends Component {
           <Grid>
             <Row>
               <Col xs={12} md={8} lg={8}>
-                <Input type='text' label='Vorname'
-                  value={this.state.firstName} onChange={this.handleChange.bind(this, 'firstName')}/>
-                <Input type='text' label='Nachname'
-                  value={this.state.lastName} onChange={this.handleChange.bind(this, 'lastName')}/>
-
-                <Input type='text' multiline label='Mission' rows={10}
+                <Input type='text' multiline label='Beschreibe, was du schon immer an der Welt verändern wolltest' rows={10}
                   value={this.state.mission} onChange={this.handleChange.bind(this, 'mission')}/>
               </Col>
               <Col xs={12} md={4} lg={4}>

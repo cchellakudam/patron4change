@@ -19,6 +19,10 @@ class ChangemakerProfileEditorContainer extends Component {
 		this.actions = bindActionCreators(ChangemakerActions, props.dispatch);
   }
 
+  componentDidMount() {
+    browserHistory.push('/login');
+  }
+
   onSave(changemaker) {
     this.setState({ saved: true });
     // TODO refactor
