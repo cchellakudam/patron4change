@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 class ChangemakerPaymentConfirmationContainer extends React.Component {
 
 	static needs = [
-		ChangemakerActions.getChangemakerById,
+		ChangemakerActions.getChangemakerById
 	];
 
 	componentDidMount() {

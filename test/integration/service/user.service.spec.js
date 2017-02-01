@@ -42,7 +42,7 @@ describe('user service', () => {
 				birthday: 1320969600,
 				email: 'matthias.holzer@example.com',
 				nationality: 'GB',
-				countryOfResidence: 'GB',
+				countryOfResidence: 'GB'
 			}
 			return service.updateUser(userData).then((user) => {
 				expect(user.email).to.equal('matthias.holzer@example.com')

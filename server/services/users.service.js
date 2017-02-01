@@ -54,7 +54,7 @@ export default class {
 				birthday: user.birthday,
 				email: user.email,
 				nationality: user.nationality,
-				countryOfResidence: user.countryOfResidence,
+				countryOfResidence: user.countryOfResidence
 			}
 			if(!this.checkUserData(myUser)){
 				myUser.incorrectData = true;
@@ -80,13 +80,17 @@ export default class {
 				birthday: user.birthday,
 				email: user.email,
 				nationality: user.nationality,
-				countryOfResidence: user.countryOfResidence,
+				countryOfResidence: user.countryOfResidence
 			}
 			if(!this.checkUserData(myUser)){
 				myUser.incorrectData = true;
 			}
 			return myUser;
 		})
+	}
+
+	checkUserHasRegisteredCard(userData){
+		return this.dao.checkUserHasRegisteredCard(userData.userId)
 	}
 
 }

@@ -1,7 +1,7 @@
 import types from '../constants/ActionTypes'
 import WebAPIUtils from '../utils/WebAPIUtils'
 
-export function getUserById(email) {debugger
+export function getUserById(email) {
 	return {
 		types: [
 			types.GET_USER_BY_ID_REQUEST,
@@ -13,7 +13,7 @@ export function getUserById(email) {debugger
 	};
 }
 
-export function updateUser(userData){ debugger
+export function updateUser(userData){
 	return {
 		types:[
 			types.UPDATE_USER_REQUEST,

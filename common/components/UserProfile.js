@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React  from 'react'
 import countries from '../../public/countries'
 import Dropdown from 'react-toolbox/lib/dropdown';
 import { Grid, Row } from 'react-flexbox-grid';
@@ -28,7 +28,6 @@ export default class UserProfile extends React.Component {
 	}
 
 	onChangeNationality(value){
-		debugger
 		this.props.user.nationality = value;
 		this.setState();
 	}
@@ -58,15 +57,13 @@ export default class UserProfile extends React.Component {
 			id: this.props.user.id,
 			firstName: this.props.user.firstName,
 			lastName: this.props.user.lastName,
-			birthday: new Date(this.props.user.birthday).getTime()+'',
+			birthday: new Date(this.props.user.birthday).getTime(),
 			email: this.props.user.email,
 			nationality: this.props.user.nationality,
-			countryOfResidence: this.props.user.countryOfResidence,
+			countryOfResidence: this.props.user.countryOfResidence
 		}
 		this.props.handleUpdate(myUser)
 	}
-
-
 
 	render() {
 		let warning = null;

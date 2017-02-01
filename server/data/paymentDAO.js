@@ -113,7 +113,7 @@ export default class{
 			}
 			res.cardRegistrationId = cardRegistrationData;
 			return res.save()
-			}).then((res) => {
+			}).then(() => {
 				return true;
 			})
 	}

@@ -156,7 +156,7 @@ export default class {
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			}
-		}).then((res) => { debugger
+		}).then((res) => {
 			let serverRegistrationData = {
 				registrationData: res.data,
 				registrationId: registrationData.Id
@@ -168,8 +168,14 @@ export default class {
 				method: 'post'
 			})
 		})
+	}
 
-
+	static checkUserHasRegisteredCard(userId){
+		return axios({
+			url: '/api/users/checkCard',
+			method: 'post',
+			data: {userId: userId}
+		})
 	}
 
 }

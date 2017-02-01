@@ -22,9 +22,7 @@ export default class {
 				throw new Error('this user already has an accountId')
 			}
 		}).then(() => {
-			console.log(userObject.birthday)
-			userObject.birthday = parseInt(userObject.birthday.slice(0,10))
-			console.log(userObject.birthday)
+			userObject.birthday = parseInt(userObject.birthday.toString().slice(0,10))
 			return this.api.Users.create(userObject)
 		}).then((myUser) => {
 			return paymentDAO.registerChangemakerToProvider(userId, 1, myUser.Id)
@@ -80,7 +78,6 @@ export default class {
 	}
 
 	createCardPayment(paymentData) {
-		console.log(config.get('app').host)
 		return this.getUserWallet(paymentData.changemakerId).then((walletId) =>{
 			return this.api.PayIns.create({
 				AuthorId: paymentData.patronAccountId,

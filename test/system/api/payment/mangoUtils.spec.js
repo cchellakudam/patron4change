@@ -44,7 +44,7 @@ describe('mangopay API specific logic', () => {
 				PersonType: 'NATURAL'
 			};
 
-			mango.createNaturalUser(userObject, 1).then((res) => {
+			mango.createNaturalUser(userObject, 1).then(() => {
 				assert.isOk(false, 'this will fail');
 				done();
 			}).

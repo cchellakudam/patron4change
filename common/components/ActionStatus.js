@@ -1,5 +1,5 @@
 import { Snackbar } from 'react-toolbox/lib/snackbar';
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 
 export default class ActionStatus extends Component{
 	state = {
@@ -10,7 +10,7 @@ export default class ActionStatus extends Component{
 		this.setState({active:true});
 	}
 	handleSnackbarClick(){
-		debugger
+
 		this.setState({ active: false });
 	}
 

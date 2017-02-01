@@ -1,8 +1,5 @@
-import React, { Component } from 'react'
-import countries from '../../public/countries'
-import Dropdown from 'react-toolbox/lib/dropdown';
+import React  from 'react'
 import { Grid, Row } from 'react-flexbox-grid';
-import { Card, CardText } from 'react-toolbox/lib/card';
 import {Button} from 'react-toolbox/lib/button';
 import Input from 'react-toolbox/lib/input';
 
@@ -15,15 +12,14 @@ export default class CardRegistration extends React.Component {
 	}
 
 	handleChange = (name, value) => {
-		debugger
 		this.setState({...this.state, [name]: value});
 	};
 
 	padNumber(value){
-		return value > 9 ? "" + value: "0" + value;
+		return 9 < value ? '' + value: '0' + value;
 	}
 
-	onClickSubmit(){debugger
+	onClickSubmit(){
 		let cardExpirationDate = this.padNumber(this.state.expirationMonth) + this.padNumber(this.state.expirationYear)
 		let cardData = {
 			cardNumber: this.state.cardNumber,
@@ -48,12 +44,16 @@ export default class CardRegistration extends React.Component {
 									onChange={this.handleChange.bind(this, 'cardNumber')} maxLength={16}
 								 error={isNaN(parseInt(this.state.cardNumber)) ? 'Feld muss ein Nummer sein' : ''}/>
 					<Row>
-						<Input type='number' label='Kartenablaufdatum MM' hint="MM" name='expirationMonth' value={this.state.expirationMonth}
+						<Input type='number' label='Kartenablaufdatum MM' hint="MM" name='expirationMonth'
+									 value={this.state.expirationMonth}
 									 onChange={this.handleChange.bind(this, 'expirationMonth')}
-									 error={this.state.expirationMonth > 13 || this.state.expirationMonth < 1? 'Feld muss ein Nummer zwischen 1 und 12 sein' : ''}/>
-						<Input type='number' label='Kartenablaufdatum YY' hint="YY" name='expirationYear' value={this.state.expirationYear}
+									 error={13 < this.state.expirationMonth || 1 > this.state.expirationMonth ?
+										 'Feld muss ein Nummer zwischen 1 und 12 sein' : ''}/>
+						<Input type='number' label='Kartenablaufdatum YY' hint="YY" name='expirationYear'
+									 value={this.state.expirationYear}
 									 onChange={this.handleChange.bind(this, 'expirationYear')}
-									 error={(parseInt(this.state.expirationYear) > 99) ? 'Feld muss ein Nummer mit 2 Charakter sein' : ''}/>
+									 error={99 < parseInt(this.state.expirationYear) ? '' +
+									 'Feld muss ein Nummer mit 2 Charakter sein' : ''}/>
 					</Row>
 
 						<Input type='text' label='CVV' name='cardCvx' value={this.state.cardCvx}

@@ -72,13 +72,24 @@ export function preRegisterCard(preTreatmentData){
 }
 
 export function registerCard(registrationData, url){
-	debugger
 	let promise = WebAPIUtils.registerCard(registrationData, url);
 	return {
 		types:[
 			types.REGISTER_CARD_REQUEST,
 			types.REGISTER_CARD_SUCCESS,
 			types.REGISTER_CARD_ERROR
+		],
+		promise
+	}
+}
+
+export function checkUserHasRegisteredCard(userId){
+	let promise = WebAPIUtils.checkUserHasRegisteredCard(userId);
+	return{
+		types:[
+			types.CHECK_CARD_REQUEST,
+			types.CHECK_CARD_SUCCESS,
+			types.CHECK_CARD_ERROR
 		],
 		promise
 	}

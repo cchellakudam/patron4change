@@ -11,7 +11,6 @@ function GET_USER_BY_ID_ERROR(state){
 }
 
 function GET_USER_BY_ID_SUCCESS(state, action){
-	debugger
 	if(action.result.birthday){
 		action.result.birthday = action.result.birthday.slice(0,10)
 	}

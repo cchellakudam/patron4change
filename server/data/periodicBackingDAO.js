@@ -37,7 +37,6 @@ export default class{
 	}
 
 	static createPeriodicBacking(paymentData){
-		console.log(paymentData)
 		let changemakerPromise = models.user.findById(paymentData.changemakerId);
 		let patronPromise = models.user.findById(paymentData.patronId)
 

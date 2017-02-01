@@ -15,7 +15,7 @@ import { connect } from 'react-redux';
 class SupportChangemakerContainer extends React.Component {
 
 	static needs = [
-		ChangemakerActions.getChangemakerById,
+		ChangemakerActions.getChangemakerById
 	];
 
 	constructor(props){
@@ -32,14 +32,18 @@ class SupportChangemakerContainer extends React.Component {
 		if(null !== nextProps.paymentUrl ){
 			window.location.assign(nextProps.paymentUrl);
 		}
-		debugger
+		''
 		if(nextProps.startDate){
 			this.actions.endSupportProcess();
 			browserHistory.push(`/changemaker/${this.props.changemaker.id}/support/success`)
 		}
+
+		if(false === nextProps.cardRegistered){
+			browserHistory.push('/user/card')
+		}
 	}
 
-	render() {debugger
+	render() {
 		let message = null;
 		let status = null
 		let statusMessage = null;
@@ -57,7 +61,8 @@ class SupportChangemakerContainer extends React.Component {
 		let changemakerName = null;
 		if(this.props.changemaker.id){
 			changemakerCard = <ChangemakerCard changemaker={this.props.changemaker}
-																				 showSupport={false} showAvatar={false} onSupport={() => {}}/>
+																				 showSupport={false}
+																				 showAvatar={false} onSupport={() => {}}/>
 			changemakerName = this.props.changemaker.user.name
 		}
 
@@ -78,6 +83,8 @@ class SupportChangemakerContainer extends React.Component {
 					userId = {this.props.userId}
 					changemakerId = {this.props.params.changemakerId}
 					changemakerName = {changemakerName}
+					cardRegistered = {this.props.cardRegistered}
+					handleCheckCard = {this.actions.checkUserHasRegisteredCard}
 			>
 				{changemakerCard}
 			</ChangemakerSupportForm>
@@ -102,6 +109,7 @@ export default connect( (state) => ({
 	paymentUrl: state.support.paymentUrl,
 	changemaker: state.cm.changemaker,
 	error: state.support.error,
-	startDate: state.support.startDate
+	startDate: state.support.startDate,
+	cardRegistered: state.support.cardRegistered
 
 }) )(SupportChangemakerContainer);

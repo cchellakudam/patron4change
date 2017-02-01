@@ -49,8 +49,13 @@ class ChangemakerSupportForm extends React.Component {
 		this.setState({recurring: !this.state.recurring});
 	}
 
+	componentDidUpdate(){
+		if(this.state.recurring){
+			this.props.handleCheckCard(this.props.userId)
+		}
+	}
+
 	render() {
-		const TooltipSwitch = Tooltip(Switch);
 		const TooltipButton = Tooltip(Button);
 		let actionStatus = null;
 		if(this.state.redirect){
@@ -174,7 +179,8 @@ class ChangemakerSupportForm extends React.Component {
 		</Row>
 
 		<Row>
-			<Input type='text' multiline icon='message' label={`Kommentar für ${this.props.changemakerName}`} rows={5} maxLength={500}/>
+			<Input type='text' multiline icon='message' label={`Kommentar für ${this.props.changemakerName}`}
+						 rows={5} maxLength={500}/>
 		</Row>
 
 		<Row>

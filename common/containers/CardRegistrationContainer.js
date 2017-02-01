@@ -19,7 +19,13 @@ class CardRegistrationContainer extends React.Component {
 		this.actions.preRegisterCard({userId:this.props.userId})
 	}
 
-	render() {debugger
+	componentDidUpdate(){
+		if(this.props.cardRegistered){
+			browserHistory.goBack();
+		}
+	}
+
+	render() {
 		let message = null;
 		let status = null
 		let statusMessage = null;

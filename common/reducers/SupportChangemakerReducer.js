@@ -104,7 +104,7 @@ function END_SUPPORT_PROCESS(state){
 		amount: 0,
 		grossAmount: 0,
 		patron4ChangeFees: 0,
-		providerFees: 0,
+		providerFees: 0
 	}
 }
 
@@ -112,7 +112,7 @@ function PREREGISTER_CARD_REQUEST(state) {
 	return state;
 }
 
-function PREREGISTER_CARD_SUCCESS(state, action){debugger
+function PREREGISTER_CARD_SUCCESS(state, action){
 	return {
 		...state,
 		preRegistrationData: action.result.data
@@ -130,17 +130,35 @@ function REGISTER_CARD_REQUEST(state) {
 	return state;
 }
 
-function REGISTER_CARD_SUCCESS(state, action){debugger
+function REGISTER_CARD_SUCCESS(state, action){
 	return {
 		...state,
 		cardRegistered: action.result.data ? true : false
 	}
 }
 
-function REGISTER_CARD_ERROR(state, action){debugger
+function REGISTER_CARD_ERROR(state, action){
 	return{
 		...state,
 		error: action.error
+	}
+}
+
+function CHECK_CARD_REQUEST(state){
+	return state;
+}
+
+function CHECK_CARD_ERROR(state, action){
+	return {
+		...state,
+		error: action.error
+	}
+}
+
+function CHECK_CARD_SUCCESS(state, action){
+	return{
+		...state,
+		cardRegistered: action.result.data
 	}
 }
 
@@ -164,7 +182,11 @@ const handlers = {
 
 	[types.REGISTER_CARD_REQUEST]: REGISTER_CARD_REQUEST,
 	[types.REGISTER_CARD_SUCCESS]: REGISTER_CARD_SUCCESS,
-	[types.REGISTER_CARD_ERROR]: REGISTER_CARD_ERROR
+	[types.REGISTER_CARD_ERROR]: REGISTER_CARD_ERROR,
+
+	[types.CHECK_CARD_REQUEST]: CHECK_CARD_REQUEST,
+	[types.CHECK_CARD_SUCCESS]: CHECK_CARD_SUCCESS,
+	[types.CHECK_CARD_ERROR]: CHECK_CARD_ERROR
 }
 
 export default createReducer( initialSupportState, handlers );
