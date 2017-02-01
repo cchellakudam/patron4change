@@ -23,6 +23,7 @@ export default class{
 	}
 
 	static updateUser(userData){
+		console.log(userData.birthday)
 		return models.user.findById(userData.id).then((user) => {
 			user.firstName = userData.firstName;
 			user.lastName =userData.lastName;

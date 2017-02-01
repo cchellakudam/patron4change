@@ -60,7 +60,7 @@ export function doAuthentication(){
 	}
 }
 
-export function login() {
+export function login(url) {
 	let options = {
 		theme:{
 			logo: '/public/images/logo.png',

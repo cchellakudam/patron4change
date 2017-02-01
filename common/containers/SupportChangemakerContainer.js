@@ -9,6 +9,7 @@ import { fetchNeeds } from '../utils/fetchComponentData';
 import ChangemakerCard from '../components/ChangemakerCard';
 import ActionStatus from '../components/ActionStatus';
 import {browserHistory} from 'react-router'
+import * as AuthActions from '../actions/AuthActions'
 
 import { connect } from 'react-redux';
 
@@ -21,9 +22,13 @@ class SupportChangemakerContainer extends React.Component {
 	constructor(props){
 		super(props)
 		this.actions = bindActionCreators(SupportChangemakerActions, props.dispatch);
+		this.authActions = bindActionCreators(AuthActions, props.dispatch);
 	}
 
 	componentDidMount() {
+		if(!this.props.userId){
+			browserHistory.push('/login')
+		}
 		fetchNeeds( SupportChangemakerContainer.needs, this.props )
 	}
 

@@ -18,6 +18,7 @@ import SearchNav from '../components/SearchNav';
 import App from '../components/App';
 
 import NotFound from '../components/NotFound';
+import LoginContainer from '../containers/LoginContainer'
 
 const Empty = () => <div></div>;
 
@@ -32,6 +33,8 @@ export default (
 
   // for regular users - a list of all supported changemakers
   // for admins - a list of all changemakers, whereas the unvetted changemakers are shown first
+
+	<Route path="/login" components={{main:LoginContainer, nav: MainNav, sub:Empty}} />
 	<Route path="/changemaker"
 		   components={{main: Empty, nav: MainNav, sub: Empty}} />
 
