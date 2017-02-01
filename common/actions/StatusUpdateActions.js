@@ -22,6 +22,6 @@ export function createStatusUpdate(changemakerId, model) {
 			types.CREATE_UPDATE_ERROR
 		],
 		promise,
-		text: model.text
+		model
 	}
 }

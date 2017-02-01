@@ -21,7 +21,7 @@ const UpdateSection = props => {
 			</UpdateList>
 		</div>;
 	}
-	return <p>Noch keine Neuigkeiten</p>;
+	return <p>Noch keine Neuigkeiten von {props.changemaker.user.name}</p>;
 }
 
 class ChangemakerProfile extends React.Component {
@@ -81,7 +81,7 @@ class ChangemakerProfile extends React.Component {
 						</Card>
 					</Col>
 				</Row>
-				<Row>
+				<Row className={styles.secondRow}>
 					<Col xs={12} md={6} lg={6}>
 						<BackingList
 							changemaker={cm}

@@ -124,7 +124,6 @@ export default class {
 		})
 	}
 
-
 	static createStatusUpdate(changemakerId, model) {
 
 		return axios({

@@ -9,6 +9,12 @@
   margin: $std-space 0;
 }
 
+@include breakpoint($breakpoint-large) {
+  .secondRow {
+    margin-top: $std-space;
+  }
+}
+
 .profileContent {
   @include breakpoint($breakpoint-large) {
     position: absolute;

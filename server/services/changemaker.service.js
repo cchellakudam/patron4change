@@ -38,6 +38,6 @@ export default class {
 	}
 
 	createUpdate(id, update) {
-		return this.statusDAO.create(id, update.text);
+		return this.statusDAO.create(id, update);
 	}
 }

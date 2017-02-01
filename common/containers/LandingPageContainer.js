@@ -60,5 +60,4 @@ export default connect( state => ({
 	featuredChangemakers: state.cm.changemakers.filter(c => state.cm.featuredChangemakers.includes(c.id)),
 	userId: state.login.loggedUserId,
 	term: state.search.term || ''
-
 }) )(LandingPageContainer);

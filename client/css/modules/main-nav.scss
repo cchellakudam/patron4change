@@ -8,6 +8,11 @@
   padding-right: 1rem;
 }
 
+.searchBack {
+  /* fix for white back-navigation on white background */
+  color: gray !important;
+}
+
 .startAppBar {
   background: none !important;
   box-shadow: none !important;
