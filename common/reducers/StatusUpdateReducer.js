@@ -1,6 +1,5 @@
 /* eslint brace-style: 0 */
 
-import _ from 'lodash';
 import createReducer from '../utils/createReducer';
 import types from '../constants/ActionTypes';
 

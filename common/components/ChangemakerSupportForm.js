@@ -8,11 +8,14 @@ import { Input } from 'react-toolbox/lib/input';
 import { List, ListSubHeader, ListItem } from 'react-toolbox/lib/list'
 import styles from '../../client/css/modules/support-changemaker-form.scss';
 import ActionStatus from './ActionStatus';
+import Switch from 'react-toolbox/lib/switch';
+import { Card, CardText} from 'react-toolbox/lib/card';
 
 
 class ChangemakerSupportForm extends React.Component {
 	state = {
-		redirect: false
+		redirect: false,
+		recurring: false
 	};
 
 	constructor(props){
@@ -27,20 +30,45 @@ class ChangemakerSupportForm extends React.Component {
 			comment: this.props.comment,
 			patron4ChangeFees: this.props.patron4ChangeFees,
 			patronId: this.props.userId,
-			changemakerId: parseInt(this.props.changemakerId)
+			changemakerId: parseInt(this.props.changemakerId),
+			startDate: new Date().getTime(),
+			recurring: this.state.recurring
 		}
+
 		this.props.handleSupport(supportData);
-		this.setState({redirect: true});
+
+		if(!supportData.recurring){
+			this.setState({redirect: true});
+		}else{
+			this.setState({redirect: false});
+		}
+
+	}
+
+	handleRecurringOption(){
+		this.setState({recurring: !this.state.recurring});
+	}
+
+	componentDidUpdate(){
+		if(this.state.recurring){
+			this.props.handleCheckCard(this.props.userId)
+		}
 	}
 
 	render() {
-
 		const TooltipButton = Tooltip(Button);
 		let actionStatus = null;
 		if(this.state.redirect){
 			let message = 'Sie werden in kürze nach dem Payment Provider weitergeleitet';
 			let status = 'info';
 			actionStatus = <ActionStatus status={status} message={message}/>
+		}
+
+		let recurringMessage = null
+		if(this.state.recurring){
+			recurringMessage = <Card raised style={{margin: '10px'}}>
+													<CardText>Sie werden jeder Monat diesen Changemaker unterstützen</CardText>
+												</Card>
 		}
 
 		return (
@@ -51,6 +79,17 @@ class ChangemakerSupportForm extends React.Component {
 		<h1>Unterstützen {this.props.changemakerName}</h1>
 		<br/>
 		<br/>
+
+		<Row>
+			<Switch
+				checked={this.state.recurring}
+				label="Monatliche Zahlung"
+				onChange={this.handleRecurringOption.bind(this)}
+			/>
+		</Row>
+		<Row>
+			{recurringMessage}
+		</Row>
 
 		<Row>
 				<Col lg={6}>
@@ -140,7 +179,8 @@ class ChangemakerSupportForm extends React.Component {
 		</Row>
 
 		<Row>
-			<Input type='text' multiline icon='message' label={`Kommentar für ${this.props.changemakerName}`} rows={5} maxLength={500}/>
+			<Input type='text' multiline icon='message' label={`Kommentar für ${this.props.changemakerName}`}
+						 rows={5} maxLength={500}/>
 		</Row>
 
 		<Row>

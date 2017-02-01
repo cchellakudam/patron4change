@@ -1,4 +1,5 @@
 import express from 'express';
+import controller from './controller';
 
 export default (paymentSvcs) => {
 
@@ -20,13 +21,9 @@ export default (paymentSvcs) => {
 		})
 	});
 
-	router.post('/mango/preregisterCard', (req, res) => {
-		paymentSvcs.mango.prepareToReadCardDetails(req.body).then((preRegistrationData) => {
-			res.send(preRegistrationData)
-		}).catch(() => {
-			res.status(400).send('general operation error')
-		})
-	});
+	router.post('/mango/preregisterCard', controller((data) => {
+		return paymentSvcs.mango.prepareToReadCardDetails(data.model);
+	}));
 
 	router.post('/mango/registerCard', (req, res) => {
 		paymentSvcs.mango.registerCreditCardForRecurringPayment(req.body)
@@ -37,14 +34,9 @@ export default (paymentSvcs) => {
 			})
 	});
 
-	router.post('/mango/recurring', (req, res) => {
-		paymentSvcs.mango.createRecurringPayment(req.body)
-			.then((periodicBacking) => {
-				res.send(periodicBacking);
-			}).catch(() => {
-			res.status(400).send('general operation error')
-		})
-	});
+	router.post('/mango/recurring', controller((data) => {
+		return paymentSvcs.mango.createRecurringPayment(data.model);
+	}));
 
   return router;
 }

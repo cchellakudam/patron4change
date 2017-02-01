@@ -4,7 +4,6 @@ import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 
 import LandingPage from '../components/LandingPage';
-import Startpage from '../components/Startpage';
 
 import ChangemakerCard from '../components/ChangemakerCard';
 import * as ChangemakerActions from '../actions/ChangemakerActions';
@@ -36,7 +35,7 @@ class LandingPageContainer extends Component {
 	}
 
 	render() {
-	  const { featuredChangemakers, userId, term } = this.props;
+	  const { featuredChangemakers, term } = this.props;
 
 	  const nodes = featuredChangemakers.map( cm => {
 			return <ChangemakerCard

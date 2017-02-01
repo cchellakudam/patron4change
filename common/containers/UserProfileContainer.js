@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import UserProfile from '../components/UserProfile'
 import * as UserActions from '../actions/UserActions';
 import { connect } from 'react-redux';
@@ -14,7 +14,6 @@ export class UserProfileContainer extends Component{
 
 	componentDidMount() {
 		if (true === process.env.BROWSER) {
-			
 			this.actions.getUserById(this.props.profile.email)
 		}
 	}

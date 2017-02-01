@@ -13,7 +13,7 @@ export function getUserById(email) {
 	};
 }
 
-export function updateUser(userData){ 
+export function updateUser(userData){
 	return {
 		types:[
 			types.UPDATE_USER_REQUEST,

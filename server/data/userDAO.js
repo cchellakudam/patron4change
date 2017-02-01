@@ -32,4 +32,15 @@ export default class{
 			return user.save()
 		})
 	}
+
+	static checkUserHasRegisteredCard(userId){
+		return models.paymentServiceData.findOne({where: {fkUserId: userId}})
+			.then((res) => {
+				if(res.cardRegistrationId){
+					return true;
+				}else{
+					return false;
+				}
+			})
+	}
 }

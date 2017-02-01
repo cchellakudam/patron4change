@@ -5,7 +5,6 @@ import { browserHistory } from 'react-router';
 
 
 function loginSuccess(profile){
-	
 	let email = profile.email;
 	return WebAPIUtils.getLoggedUser(email).then((user) => {
 		localStorage.loggedUserId = user.id;
@@ -23,7 +22,6 @@ function loginSuccess(profile){
 }
 
 function checkProfile(){
-	
 	if(1 === parseInt(localStorage.incorrectData)){
 		browserHistory.push('/user/profile')
 	}

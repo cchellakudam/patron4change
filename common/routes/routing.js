@@ -12,6 +12,7 @@ import TestPage from '../containers/TestPage';
 import SupportChangemakerContainer from '../containers/SupportChangemakerContainer'
 import UserProfileContainer from '../containers/UserProfileContainer'
 import ChangemakerPaymentConfirmationContainer from '../containers/ChangemakerPaymentConfirmationContainer'
+import CardRegistrationContainer from '../containers/CardRegistrationContainer'
 
 import SearchNav from '../components/SearchNav';
 import App from '../components/App';
@@ -48,6 +49,9 @@ export default (
 		   components={{main: SupportChangemakerContainer, nav: MainNav, sub: Empty}} />
 		<Route path="/changemaker/:changemakerId/support/success"
 					 components={{main: ChangemakerPaymentConfirmationContainer, nav: MainNav, sub: Empty}} />
+
+	// card registration page
+	<Route path="/user/card" components={{main: CardRegistrationContainer, nav: MainNav, sub:Empty}} />
 
 	<Route path="/search"
 		   components={{main: SearchResultContainer, nav: SearchNavContainer, sub: Empty}} />

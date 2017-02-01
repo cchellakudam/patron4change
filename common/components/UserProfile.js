@@ -28,7 +28,6 @@ export default class UserProfile extends React.Component {
 	}
 
 	onChangeNationality(value){
-
 		this.props.user.nationality = value;
 		this.setState();
 	}
@@ -58,11 +57,12 @@ export default class UserProfile extends React.Component {
 			id: this.props.user.id,
 			firstName: this.props.user.firstName,
 			lastName: this.props.user.lastName,
-			birthday: new Date(this.props.user.birthday).getTime()+'',
+			birthday: new Date(this.props.user.birthday).getTime(),
 			email: this.props.user.email,
 			nationality: this.props.user.nationality,
 			countryOfResidence: this.props.user.countryOfResidence
 		};
+
 		this.props.handleUpdate(myUser)
 	}
 

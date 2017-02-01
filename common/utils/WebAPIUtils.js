@@ -1,5 +1,6 @@
 import 'isomorphic-fetch';
 import axios from 'axios';
+import queryString from 'querystring';
 
 export default class {
 
@@ -123,6 +124,7 @@ export default class {
 		})
 	}
 
+
 	static createStatusUpdate(changemakerId, model) {
 
 		return axios({
@@ -130,12 +132,60 @@ export default class {
 			method: 'post',
 			data: model
 		});
-		// .then(res => {
-		// 	return axios.get(res.headers.location);
-		// })
-		// .then(res => {
-		// 	return res.data;
-		// });
+	}
+
+	static recurringSupportForChangemaker(supportData, token){
+		return axios({
+			url: '/api/payment/mango/recurring',
+			method: 'post',
+			data: supportData,
+			headers: {
+				authorization: `Bearer ${token}`
+			}
+		}).then((res) => {
+			return res;
+		})
+	}
+
+	static preRegisterCard(preTreatmentData, token){
+		return axios({
+			url: '/api/payment/mango/preRegisterCard',
+			method: 'post',
+			data: preTreatmentData,
+			headers: {
+				authorization: `Bearer, ${token}`
+			}
+		})
+	}
+
+	static registerCard(registrationData, url){
+		return axios({
+			url: url,
+			method: 'post',
+			data: queryString.stringify(registrationData),
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			}
+		}).then((res) => {
+			let serverRegistrationData = {
+				registrationData: res.data,
+				registrationId: registrationData.Id
+			}
+
+			return axios({
+				url: '/api/payment/mango/registerCard',
+				data: serverRegistrationData,
+				method: 'post'
+			})
+		})
+	}
+
+	static checkUserHasRegisteredCard(userId){
+		return axios({
+			url: '/api/users/checkCard',
+			method: 'post',
+			data: {userId: userId}
+		})
 	}
 
 }

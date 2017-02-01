@@ -7,13 +7,15 @@ import { bindActionCreators } from 'redux';
 import * as ChangemakerActions from '../actions/ChangemakerActions';
 import { fetchNeeds } from '../utils/fetchComponentData';
 import ChangemakerCard from '../components/ChangemakerCard';
+import ActionStatus from '../components/ActionStatus';
+import {browserHistory} from 'react-router'
 
 import { connect } from 'react-redux';
 
 class SupportChangemakerContainer extends React.Component {
 
 	static needs = [
-		ChangemakerActions.getChangemakerById,
+		ChangemakerActions.getChangemakerById
 	];
 
 	constructor(props){
@@ -22,7 +24,6 @@ class SupportChangemakerContainer extends React.Component {
 	}
 
 	componentDidMount() {
-		
 		fetchNeeds( SupportChangemakerContainer.needs, this.props )
 	}
 
@@ -31,39 +32,74 @@ class SupportChangemakerContainer extends React.Component {
 		if(null !== nextProps.paymentUrl ){
 			window.location.assign(nextProps.paymentUrl);
 		}
+		''
+		if(nextProps.startDate){
+			this.actions.endSupportProcess();
+			browserHistory.push(`/changemaker/${this.props.changemaker.id}/support/success`)
+		}
+
+		if(false === nextProps.cardRegistered){
+			browserHistory.push('/user/card')
+		}
 	}
 
 	render() {
-			let changemakerCard = null;
-			let changemakerName = null;
+		let changemakerCard = null;
+		let changemakerName = null;
+		if(this.props.changemaker.id) {
+			changemakerCard = <ChangemakerCard changemaker={this.props.changemaker}
+																				 showSupport={false}
+																				 showAvatar={false} onSupport={() => {
+			}}/>
+			changemakerName = this.props.changemaker.user.name
+		}
+
 			if(this.props.changemaker.id){
 				changemakerCard = <ChangemakerCard changemaker={this.props.changemaker}
-																					 showSupport={false} showAvatar={false} onSupport={() => {}}/>
+																					 showSupport={false}
+																					 showAvatar={false} onSupport={() => {}}/>
 				changemakerName = this.props.changemaker.user.name
 			}
 
-			return (
-			<section>
-				<ChangemakerSupportForm
-						amount = {this.props.amount}
-						handleAddAmount = {this.actions.addToAmount}
-						handleSubtractAmount = {this.actions.subtractFromAmount}
-						handleSupport = {this.actions.support}
-						grossAmount = {this.props.grossAmount}
-						patron4ChangeFees = {this.props.patron4ChangeFees}
-						patron4ChangeRate = {this.props.patron4ChangeRate*100}
-						providerAdjustableRate = {this.props.providerAdjustableRate}
-						providerFixedRate = {this.props.providerFixedRate}
-						providerFees = {this.props.providerFees}
-						userId = {this.props.userId}
-						changemakerId = {this.props.params.changemakerId}
-						changemakerName = {changemakerName}
-				>
-					{changemakerCard}
-				</ChangemakerSupportForm>
 
-			</section>
-			)
+			let message = null;
+			let status = null
+			let statusMessage = null;
+
+			if(this.props.error){
+				message = 'Zahlung war nicht erfolgreich';
+				status = 'failure'
+				statusMessage = <ActionStatus
+					message={message}
+					status={status}
+				/>
+		}
+
+		return (
+		<section>
+			{statusMessage}
+			<ChangemakerSupportForm
+					amount = {this.props.amount}
+					handleAddAmount = {this.actions.addToAmount}
+					handleSubtractAmount = {this.actions.subtractFromAmount}
+					handleSupport = {this.actions.support}
+					grossAmount = {this.props.grossAmount}
+					patron4ChangeFees = {this.props.patron4ChangeFees}
+					patron4ChangeRate = {this.props.patron4ChangeRate*100}
+					providerAdjustableRate = {this.props.providerAdjustableRate}
+					providerFixedRate = {this.props.providerFixedRate}
+					providerFees = {this.props.providerFees}
+					userId = {this.props.userId}
+					changemakerId = {this.props.params.changemakerId}
+					changemakerName = {changemakerName}
+					cardRegistered = {this.props.cardRegistered}
+					handleCheckCard = {this.actions.checkUserHasRegisteredCard}
+			>
+				{changemakerCard}
+			</ChangemakerSupportForm>
+
+		</section>
+		)
 	}
 
 }
@@ -80,6 +116,9 @@ export default connect( (state) => ({
 	providerAdjustableRate: state.support.providerAdjustableRate,
 	providerFixedRate: state.support.providerFixedRate,
 	paymentUrl: state.support.paymentUrl,
-	changemaker: state.cm.changemaker
+	changemaker: state.cm.changemaker,
+	error: state.support.error,
+	startDate: state.support.startDate,
+	cardRegistered: state.support.cardRegistered
 
 }) )(SupportChangemakerContainer);

@@ -44,7 +44,7 @@ describe('mangopay API specific logic', () => {
 				PersonType: 'NATURAL'
 			};
 
-			mango.createNaturalUser(userObject, 1).then((res) => {
+			mango.createNaturalUser(userObject, 1).then(() => {
 				assert.isOk(false, 'this will fail');
 				done();
 			}).
@@ -100,7 +100,7 @@ describe('mangopay API specific logic', () => {
 
 	describe('getPreCardRegistrationData', () => {
 		it('should call shoud get card pre registration data from mangopay API server for a specific user', (done) => {
-			mango.preRegisterCard('18559606').then((res) => {
+			mango.preRegisterCard(2).then((res) => {
 				expect(res.Id).to.exist;
 				expect(res.PreregistrationData).to.exist;
 				expect(res.AccessKey).to.exist;
@@ -115,7 +115,7 @@ describe('mangopay API specific logic', () => {
 
 	describe('entire card registration process with mangopay', () => {
 		it('should complete the card registration service for a test card provided by mangoPay', () => {
-			return mango.preRegisterCard('18559606').then((preRegistrationData) => {
+			return mango.preRegisterCard(2).then((preRegistrationData) => {
 				let registrationData = mango.sendTestCardData(preRegistrationData)
 				return registrationData
 			}).then((registrationData) => {

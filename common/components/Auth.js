@@ -40,8 +40,6 @@ export default class Auth extends Component {
 				</Drawer>
 			</Link>
 
-			//loginButton = <Link className={styles.changemakerLink} onClick={onLogoutClick}
-				//								icon="power_settings_new">Logout ({profile.name})</Link>
 		}
 
 		return (
