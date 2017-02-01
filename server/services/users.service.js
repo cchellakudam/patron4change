@@ -70,7 +70,7 @@ export default class {
 			if('this user already has an accountId' !== err.message){
 				throw new Error('error creating mango account for user')
 			}
-		}).then(() => {
+		}).then((res) => {
 			return this.dao.updateUser(userData)
 		}).then((user) => {
 			let myUser = {

@@ -29,8 +29,6 @@ class LoginContainer extends React.Component {
 	componentWillReceiveProps(nextProps){
 		if(nextProps.userId){
 			browserHistory.go(-2);
-		}else{
-			this.actions.login();
 		}
 	}
 

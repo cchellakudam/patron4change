@@ -22,7 +22,7 @@ export class UserProfileContainer extends Component{
 		let message = null;
 		let status = null
 		let statusMessage = null;
-		if(this.props.profileUpdate){
+		if(true === this.props.profileUpdate){
 			message = 'Profil war erfolgreich gespeichert';
 			status = 'success'
 			statusMessage = <ActionStatus

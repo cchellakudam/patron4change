@@ -15,7 +15,7 @@ export default class{
 		delete userObject.userId;
 		let naturalUserIdP = this.mango.createNaturalUser(userObject, userId);
 		return Promise.all([naturalUserIdP]).then((naturalUserId) => {
-				this.mango.createWallet(naturalUserId, userObject.userId);
+				this.mango.createWallet(naturalUserId[0], userObject.userId);
 			return naturalUserId;
 		}).catch((err) => {
 			throw err;

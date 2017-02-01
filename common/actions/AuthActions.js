@@ -88,7 +88,10 @@ export function login(url) {
 				}
 				localStorage.setItem('profile', JSON.stringify(profile))
 				localStorage.setItem('id_token', authResult.idToken)
-				return dispatch(loginSuccess(profile))
+				if(!localStorage.profile){
+					return dispatch(loginSuccess(profile))
+				}
+
 			});
 		});
 		lock.show()
