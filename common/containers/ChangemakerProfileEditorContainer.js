@@ -32,6 +32,7 @@ class ChangemakerProfileEditorContainer extends Component {
     if (this.props.videoUrl) {
       cm.videoUrl = this.props.videoUrl;
     }
+    cm.id = this.props.userId;
     cm.fkUserId = this.props.userId;
     this.actions.saveChangemaker(cm);
   }
